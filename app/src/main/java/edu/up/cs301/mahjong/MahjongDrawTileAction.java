@@ -9,9 +9,10 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2012
+ * @author Megan Ou
+ * @version October 2024
  */
-public class MahjongMoveAction extends GameAction {
+public class MahjongDrawTileAction extends GameAction {
 	
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
@@ -27,11 +28,20 @@ public class MahjongMoveAction extends GameAction {
 	 * @param isPlus
 	 *            value to initialize this.isPlus
 	 */
-	public MahjongMoveAction(GamePlayer player, boolean isPlus) {
+	public MahjongDrawTileAction(GamePlayer player, boolean isPlus) {
 		super(player);
 		this.isPlus = isPlus;
 	}
-	
+
+	/**
+	 * constructor for GameAction
+	 *
+	 * @param player the player who created the action
+	 */
+	public MahjongDrawTileAction(GamePlayer player) {
+		super(player);
+	}
+
 	/**
 	 * getter method, to tell whether the move is a "plus"
 	 * 
