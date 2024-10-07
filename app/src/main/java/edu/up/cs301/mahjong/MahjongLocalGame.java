@@ -15,10 +15,11 @@ import android.util.Log;
  * @author Andrew M. Nuxoll
  * @version July 2013
  */
-public class CounterLocalGame extends LocalGame {
+public class MahjongLocalGame extends LocalGame {
 
 	// When a counter game is played, any number of players. The first player
-	// is trying to get the counter value to TARGET_MAGNITUDE; the second player,
+	// is trying to get the cou
+	// nter value to TARGET_MAGNITUDE; the second player,
 	// if present, is trying to get the counter to -TARGET_MAGNITUDE. The
 	// remaining players are neither winners nor losers, but can interfere by
 	// modifying the counter.
@@ -42,7 +43,7 @@ public class CounterLocalGame extends LocalGame {
 	/**
 	 * This ctor should be called when a new counter game is started
 	 */
-	public CounterLocalGame(GameState state) {
+	public MahjongLocalGame(GameState state) {
 		// initialize the game state, with the counter value starting at 0
 		if (! (state instanceof MahjongGameState)) {
 			state = new MahjongGameState(0);

@@ -15,7 +15,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * @author Steven R. Vegdahl
  * @version July 2013
  */
-public class CounterMainActivity extends GameMainActivity {
+public class MahjongMainActivity extends GameMainActivity {
 	
 	// the port number that this game will use when playing over the network
 	private static final int PORT_NUMBER = 2234;
