@@ -23,6 +23,8 @@ public class MahjongGameState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
+	private final int MAX = 13; //Max number of tiles in a hand
+
 	int playerID;
 	boolean isTurn;
 	boolean isPair;
@@ -66,5 +68,61 @@ public class MahjongGameState extends GameState {
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = mgs.deck;
 
+	}
+
+	/**
+	* This method describes the state of the game by printing the values of key
+	* variables in the MahjongGameState class
+	*/
+	@Override
+	public String toString() {
+
+		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nA pair? " + isPair
+				+ "\nA set? " + isSet + "\nNumber of Sets: " + numSets + "\nNumber of Pairs: "
+				+ numPairs + "\nCurrent hand: " + handToString(currentHand, MAX)
+				+ "\nCurrent Drawn Tile: " + currentDrawnTile.toString() + "\nLast Tile Discarded: "
+				+ lastDiscarded.toString() + "\nThe deck: " + deckToString(deck, deck.size());
+	}
+
+	/**
+	 * This recursive method will return a string of the deck with all mahjong tiles that haven't
+	 * been used yet. This method must be passed the size of the array list in order to print
+	 * front to back.
+	 *
+	 * @param deck - the array list to be returned as a string
+	 * @param index - the current element of the deck being examined
+	 * @return the deck element as a string
+	 */
+	public String deckToString(ArrayList<MahjongTiles> deck, int index) {
+		if (index == 0) {
+			return deck.get(index).toString();
+		}
+		else if (index > 0) {
+			return " " + deck.get(index).toString();
+		}
+		else {
+			return deckToString(deck, index - 1);
+		}
+	}
+
+	/**
+	* This is a recursive method that will return a string of all of the tiles
+	* in a specified hand. This method needs to first be called with the max number
+	* of tiles so that it will print the tiles in order.
+	*
+	* @param hand - the hand of tiles to be printed
+	 * @return all of the tiles of the hand as a string
+	*
+	*/
+	public String handToString(MahjongTiles[] hand, int index) {
+		if(index == 0) {
+			return hand[index].toString();
+		}
+		else if(index > 0) {
+			return " " + hand[index].toString();
+		}
+		else {
+			return handToString(hand, index - 1);
+		}
 	}
 }
