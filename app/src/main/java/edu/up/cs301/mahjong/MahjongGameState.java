@@ -46,11 +46,10 @@ public class MahjongGameState extends GameState {
 		this.isSet = false;
 		this.numSets = 0;
 		this.numPairs = 0;
-		this.currentHand = null;
+		this.currentHand = new MahjongTiles[14];
 		this.currentDrawnTile = null;
 		this.lastDiscarded = null;
-		this.deck = null;
-
+		this.deck = new ArrayList<>();
 	}
 
 	/**
