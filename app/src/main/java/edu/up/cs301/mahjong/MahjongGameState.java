@@ -1,6 +1,7 @@
 package edu.up.cs301.mahjong;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
@@ -23,10 +24,10 @@ public class MahjongGameState extends GameState {
 	boolean isSet;
 	int numSets;
 	int numPairs;
-	mahjongTile[] currentHand;
-	mahjongTile currentDrawnTile;
-	mahjongTile lastDiscarded;
-	ArrayList<mahjongTile> deck;
+	MahjongTiles[] currentHand;
+	MahjongTiles currentDrawnTile;
+	MahjongTiles lastDiscarded;
+	ArrayList<MahjongTiles> deck;
 
 	MahjongGameState(){
 		this.playerID = 0;
