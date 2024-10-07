@@ -70,6 +70,19 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Discard tile action
+	 */
+	public boolean makeDiscardAction (MahjongDiscardTileAction action, int index) {
+		if (action instanceof MahjongDiscardTileAction) {
+			currentHand[index].discard();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
 	* This method describes the state of the game by printing the values of key
 	* variables in the MahjongGameState class
 	*/
