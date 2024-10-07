@@ -49,7 +49,7 @@ public class MahjongGameState extends GameState {
 		this.currentHand = null;
 		this.currentDrawnTile = null;
 		this.lastDiscarded = null;
-		this.deck = null;
+		this.deck = MahjongDeck(this.deck);
 
 	}
 
@@ -67,6 +67,40 @@ public class MahjongGameState extends GameState {
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = mgs.deck;
+
+	}
+
+	/**
+	 * method that initializes and adds all elements of the tile deck to the classes deck
+	 * takes an arraylist, adds all tiles with for loops
+	 * to the array list and returns the array list
+	 * LJH( use of chatgpt to debug for loops)
+	 */
+	public ArrayList<MahjongTiles> MahjongDeck(ArrayList<MahjongTiles> theDeck){
+
+		//array of tile suits
+		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
+									"Star", "Water", "Wind"};
+
+		//iterates through all suits
+		for(int t = 0; t < 9; t++) {
+
+
+			if (t > 2){//for non-numbered sets
+				for (int q = 1; q < 4; q++) {
+					theDeck.add(new MahjongTiles(tileSuits[t], 0));
+				}
+			}
+			else{//for numerical sets
+				for(int m = 1; m < 9; m++){
+					for(int l = 0; l < 4; l++){
+						theDeck.add(new MahjongTiles(tileSuits[t], m));
+					}
+				}
+			}
+			}
+
+		return theDeck;
 
 	}
 
