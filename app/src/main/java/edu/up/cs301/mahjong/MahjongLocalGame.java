@@ -25,7 +25,7 @@ public class CounterLocalGame extends LocalGame {
 	public static final int TARGET_MAGNITUDE = 10;
 
 	// the game's state
-	private CounterState gameState;
+	private MahjongGameState gameState;
 	
 	/**
 	 * can this player move
@@ -44,10 +44,10 @@ public class CounterLocalGame extends LocalGame {
 	 */
 	public CounterLocalGame(GameState state) {
 		// initialize the game state, with the counter value starting at 0
-		if (! (state instanceof CounterState)) {
-			state = new CounterState(0);
+		if (! (state instanceof MahjongGameState)) {
+			state = new MahjongGameState(0);
 		}
-		this.gameState = (CounterState)state;
+		this.gameState = (MahjongGameState)state;
 		super.state = state;
 	}
 
@@ -58,10 +58,10 @@ public class CounterLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 		
-		if (action instanceof CounterMoveAction) {
+		if (action instanceof MahjongMoveAction) {
 		
 			// cast so that we Java knows it's a CounterMoveAction
-			CounterMoveAction cma = (CounterMoveAction)action;
+			MahjongMoveAction cma = (MahjongMoveAction)action;
 
 			// Update the counter values based upon the action
 			int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
@@ -83,7 +83,7 @@ public class CounterLocalGame extends LocalGame {
 	protected void sendUpdatedStateTo(GamePlayer p) {
 		// this is a perfect-information game, so we'll make a
 		// complete copy of the state to send to the player
-		p.sendInfo(new CounterState(this.gameState));
+		p.sendInfo(new MahjongGameState(this.gameState));
 		
 	}//sendUpdatedSate
 	

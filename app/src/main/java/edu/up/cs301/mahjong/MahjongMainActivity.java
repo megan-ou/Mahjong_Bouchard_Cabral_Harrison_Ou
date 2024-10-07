@@ -38,19 +38,19 @@ public class CounterMainActivity extends GameMainActivity {
 		// a human player player type (player type 0)
 		playerTypes.add(new GamePlayerType("Local Human Player") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterHumanPlayer(name);
+				return new MahjongHumanPlayer(name);
 			}});
 		
 		// a computer player type (player type 1)
 		playerTypes.add(new GamePlayerType("Computer Player") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterComputerPlayer1(name);
+				return new MahjongComputerPlayer1(name);
 			}});
 		
 		// a computer player type (player type 2)
 		playerTypes.add(new GamePlayerType("Computer Player (GUI)") {
 			public GamePlayer createPlayer(String name) {
-				return new CounterComputerPlayer2(name);
+				return new MahjongComputerPlayer2(name);
 			}});
 
 		// Create a game configuration class for Counter:
@@ -83,7 +83,7 @@ public class CounterMainActivity extends GameMainActivity {
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new CounterState(0);
+		if (state == null) state = new MahjongGameState(0);
 		return new CounterLocalGame(state);
 	}
 

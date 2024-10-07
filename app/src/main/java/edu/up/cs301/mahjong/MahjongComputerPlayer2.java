@@ -22,14 +22,14 @@ import android.widget.TextView;
 * @author Andrew M. Nuxoll
 * @version September 2013
 */
-public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
+public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 {
 	
 	/*
 	 * instance variables
 	 */
 	
 	// the most recent game state, as given to us by the CounterLocalGame
-	private CounterState currentGameState = null;
+	private MahjongGameState currentGameState = null;
 	
 	// If this player is running the GUI, the activity (null if the player is
 	// not running a GUI).
@@ -49,7 +49,7 @@ public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
 	 * @param name
 	 * 		the player's name
 	 */
-	public CounterComputerPlayer2(String name) {
+	public MahjongComputerPlayer2(String name) {
 		super(name);
 	}
 	
@@ -70,9 +70,9 @@ public class CounterComputerPlayer2 extends CounterComputerPlayer1 {
 		if (game == null) {
 			return;
 		}
-		else if (info instanceof CounterState) {
+		else if (info instanceof MahjongGameState) {
 			// if we indeed have a counter-state, update the GUI
-			currentGameState = (CounterState)info;
+			currentGameState = (MahjongGameState)info;
 			updateDisplay();
 		}
 	}

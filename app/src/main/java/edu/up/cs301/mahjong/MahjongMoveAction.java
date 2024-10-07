@@ -11,7 +11,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
  * @author Andrew M. Nuxoll
  * @version September 2012
  */
-public class CounterMoveAction extends GameAction {
+public class MahjongMoveAction extends GameAction {
 	
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
@@ -27,7 +27,7 @@ public class CounterMoveAction extends GameAction {
 	 * @param isPlus
 	 *            value to initialize this.isPlus
 	 */
-	public CounterMoveAction(GamePlayer player, boolean isPlus) {
+	public MahjongMoveAction(GamePlayer player, boolean isPlus) {
 		super(player);
 		this.isPlus = isPlus;
 	}
