@@ -46,7 +46,7 @@ public class MahjongLocalGame extends LocalGame {
 	public MahjongLocalGame(GameState state) {
 		// initialize the game state, with the counter value starting at 0
 		if (! (state instanceof MahjongGameState)) {
-			state = new MahjongGameState(0);
+			state = new MahjongGameState(0); //TODO: update with new var
 		}
 		this.gameState = (MahjongGameState)state;
 		super.state = state;

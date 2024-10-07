@@ -83,7 +83,7 @@ public class MahjongMainActivity extends GameMainActivity {
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
-		if (state == null) state = new MahjongGameState(0);
+		if (state == null) state = new MahjongGameState(0); //TODO: update with new default var
 		return new MahjongLocalGame(state);
 	}
 

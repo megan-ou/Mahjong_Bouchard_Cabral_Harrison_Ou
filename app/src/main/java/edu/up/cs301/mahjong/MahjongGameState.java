@@ -17,7 +17,14 @@ public class MahjongGameState extends GameState {
 	
 	// the value of the counter
 	private int counter;
-	
+
+	/**
+	 * Defaul Constructor
+	 */
+	public MahjongGameState() {
+		//TODO: add in default values
+	}
+
 	/**
 	 * constructor, initializing the counter value from the parameter
 	 * 
@@ -36,7 +43,7 @@ public class MahjongGameState extends GameState {
 	 */
 	public MahjongGameState(MahjongGameState orig) {
 		// set the counter to that of the original
-		this.counter = orig.counter;
+		//TODO: add in copy values in the form of this.[var] = orig.[var]
 	}
 
 	/**
