@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.lang.reflect.Array;
+
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
@@ -14,48 +16,43 @@ public class MahjongGameState extends GameState {
 	
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
-	
-	// the value of the counter
-	private int counter;
-	
-	/**
-	 * constructor, initializing the counter value from the parameter
-	 * 
-	 * @param counterVal
-	 * 		the value to which the counter's value should be initialized
-	 */
-	public MahjongGameState(int counterVal) {
-		counter = counterVal;
-	}
-	
-	/**
-	 * copy constructor; makes a copy of the original object
-	 * 
-	 * @param orig
-	 * 		the object from which the copy should be made
-	 */
-	public MahjongGameState(MahjongGameState orig) {
-		// set the counter to that of the original
-		this.counter = orig.counter;
+
+	int playerID;
+	boolean isTurn;
+	boolean isPair;
+	boolean isSet;
+	int numSets;
+	int numPairs;
+	mahjongTile[] currentHand;
+	mahjongTile currentDrawnTile;
+	mahjongTile lastDiscarded;
+	ArrayList<mahjongTile> deck;
+
+	MahjongGameState(){
+		this.playerID = 0;
+		this.isTurn = false;
+		this.isPair = false;
+		this.isSet = false;
+		this.numSets = 0;
+		this.numPairs = 0;
+		this.currentHand = null;
+		this.currentDrawnTile = null;
+		this.lastDiscarded = null;
+		this.deck = null;
+
 	}
 
-	/**
-	 * getter method for the counter
-	 * 
-	 * @return
-	 * 		the value of the counter
-	 */
-	public int getCounter() {
-		return counter;
-	}
-	
-	/**
-	 * setter method for the counter
-	 * 
-	 * @param counter
-	 * 		the value to which the counter should be set
-	 */
-	public void setCounter(int counter) {
-		this.counter = counter;
+	void cpMahjongGameState(MahjongGameState mgs){
+		this.playerID = mgs.playerID;
+		this.isTurn = mgs.isTurn;
+		this.isPair = mgs.isPair;
+		this.isSet = mgs.isSet;
+		this.numSets = mgs.numSets;
+		this.numPairs = mgs.numPairs;
+		this.currentHand = mgs.currentHand;
+		this.currentDrawnTile = mgs.currentDrawnTile;
+		this.lastDiscarded = mgs.lastDiscarded;
+		this.deck = mgs.deck;
+
 	}
 }
