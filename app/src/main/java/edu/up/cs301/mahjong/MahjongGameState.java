@@ -1,5 +1,8 @@
 package edu.up.cs301.mahjong;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
@@ -14,55 +17,43 @@ public class MahjongGameState extends GameState {
 	
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
-	
-	// the value of the counter
-	private int counter;
 
-	/**
-	 * Defaul Constructor
-	 */
-	public MahjongGameState() {
-		//TODO: add in default values
-	}
+	int playerID;
+	boolean isTurn;
+	boolean isPair;
+	boolean isSet;
+	int numSets;
+	int numPairs;
+	MahjongTiles[] currentHand;
+	MahjongTiles currentDrawnTile;
+	MahjongTiles lastDiscarded;
+	ArrayList<MahjongTiles> deck;
 
-	/**
-	 * constructor, initializing the counter value from the parameter
-	 * 
-	 * @param counterVal
-	 * 		the value to which the counter's value should be initialized
-	 */
-	public MahjongGameState(int counterVal) {
-		counter = counterVal;
-	}
-	
-	/**
-	 * copy constructor; makes a copy of the original object
-	 * 
-	 * @param orig
-	 * 		the object from which the copy should be made
-	 */
-	public MahjongGameState(MahjongGameState orig) {
-		// set the counter to that of the original
-		//TODO: add in copy values in the form of this.[var] = orig.[var]
+	MahjongGameState(){
+		this.playerID = 0;
+		this.isTurn = false;
+		this.isPair = false;
+		this.isSet = false;
+		this.numSets = 0;
+		this.numPairs = 0;
+		this.currentHand = null;
+		this.currentDrawnTile = null;
+		this.lastDiscarded = null;
+		this.deck = null;
+
 	}
 
-	/**
-	 * getter method for the counter
-	 * 
-	 * @return
-	 * 		the value of the counter
-	 */
-	public int getCounter() {
-		return counter;
-	}
-	
-	/**
-	 * setter method for the counter
-	 * 
-	 * @param counter
-	 * 		the value to which the counter should be set
-	 */
-	public void setCounter(int counter) {
-		this.counter = counter;
+	void cpMahjongGameState(MahjongGameState mgs){
+		this.playerID = mgs.playerID;
+		this.isTurn = mgs.isTurn;
+		this.isPair = mgs.isPair;
+		this.isSet = mgs.isSet;
+		this.numSets = mgs.numSets;
+		this.numPairs = mgs.numPairs;
+		this.currentHand = mgs.currentHand;
+		this.currentDrawnTile = mgs.currentDrawnTile;
+		this.lastDiscarded = mgs.lastDiscarded;
+		this.deck = mgs.deck;
+
 	}
 }
