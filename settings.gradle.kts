@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CounterGame"
+rootProject.name = "Mahjong_Bouchard_Cabral_Harrison_Ou"
 include(":app")
