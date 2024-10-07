@@ -2,14 +2,15 @@ package edu.up.cs301.mahjong;
 
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.mahjong.tiles.MahjongTiles;
 
 /**
- * A CounterMoveAction is an action that is a "move" the game: either increasing
- * or decreasing the counter value.
+ * A MahjongDrawTileAction is an action that for Each players turn must draw a tile.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Megan Ou
+ * @author Jazmine Cabral
  * @version October 2024
  */
 public class MahjongDrawTileAction extends GameAction {
@@ -17,20 +18,17 @@ public class MahjongDrawTileAction extends GameAction {
 	// to satisfy the serializable interface
 	private static final long serialVersionUID = 28062013L;
 
-	//whether this move is a plus (true) or minus (false)
-	private boolean isPlus;
-	
+	private MahjongTiles drawnTile;
+
 	/**
-	 * Constructor for the CounterMoveAction class.
+	 * Constructor for the MahjongDrawTileAction class.
 	 * 
-	 * @param player
-	 *            the player making the move
-	 * @param isPlus
-	 *            value to initialize this.isPlus
+	 * @param player the player making the move
+	 * @param tile value to initialize this.isPlus
 	 */
-	public MahjongDrawTileAction(GamePlayer player, boolean isPlus) {
+	public MahjongDrawTileAction(GamePlayer player, MahjongTiles tile) {
 		super(player);
-		this.isPlus = isPlus;
+		this.drawnTile = tile;
 	}
 
 	/**
@@ -42,14 +40,9 @@ public class MahjongDrawTileAction extends GameAction {
 		super(player);
 	}
 
-	/**
-	 * getter method, to tell whether the move is a "plus"
-	 * 
-	 * @return
-	 * 		a boolean that tells whether this move is a "plus"
-	 */
-	public boolean isPlus() {
-		return isPlus;
-		
+	public MahjongTiles getDrawnTile() {
+		return drawnTile;
 	}
-}//class CounterMoveAction
+
+
+}
