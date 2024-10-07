@@ -71,7 +71,7 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * method that initializes and adds all elements of the tile deck to the classes deck
+	 * method that initializes and adds all elements to the classes deck
 	 * takes an arraylist, adds all tiles with for loops
 	 * to the array list and returns the array list
 	 * LJH( use of chatgpt to debug for loops)
