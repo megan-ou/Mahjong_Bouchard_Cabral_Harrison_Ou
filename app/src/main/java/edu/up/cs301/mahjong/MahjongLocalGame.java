@@ -13,7 +13,11 @@ import android.util.Log;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version July 2013
+ * @author Jacqui Bouchard
+ * @author Jazmine Cabral
+ * @author Landon Harrison
+ * @author Megan Ou
+ * @version October 2024
  */
 public class MahjongLocalGame extends LocalGame {
 

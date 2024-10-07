@@ -2,6 +2,7 @@ package edu.up.cs301.mahjong;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import edu.up.cs301.mahjong.tiles.*;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
 
@@ -11,7 +12,11 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  * the value of the counter.
  * 
  * @author Steven R. Vegdahl
- * @version July 2013
+ * @author Jacqui Bouchard
+ * @author Jazmine Cabral
+ * @author Landon Harrison
+ * @author Megan Ou
+ * @version October 2024
  */
 public class MahjongGameState extends GameState {
 	

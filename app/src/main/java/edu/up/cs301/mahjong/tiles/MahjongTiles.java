@@ -1,12 +1,18 @@
-package edu.up.cs301.mahjong;
+package edu.up.cs301.mahjong.tiles;
 
-abstract class MahjongTiles {
+/**
+ * @author Jazmine Cabral, Megan Ou
+ * @version October 2024
+ *
+ * Abstract class for tile object with suit, value, and boolean values to detect if it
+ * is a part of a set and can be drawn
+ */
+public class MahjongTiles {
 
     /** Instance Variables **/
     private String suit;
     private int value;
     private boolean partOfSet;
-    private boolean isDiscarded;
     private boolean canDraw;
 
     /** Constructor **/
@@ -14,7 +20,6 @@ abstract class MahjongTiles {
         this.suit = suit;
         this.value = value;
         this.partOfSet = false;  // Default value
-        this.isDiscarded = false; // Default value
         this.canDraw = true; // Default value
     }
 
@@ -23,7 +28,6 @@ abstract class MahjongTiles {
         suit = orig.suit;
         value = orig.value;
         partOfSet = orig.partOfSet;
-        isDiscarded = orig.isDiscarded;
         canDraw = orig.partOfSet;
     }
 
@@ -38,10 +42,6 @@ abstract class MahjongTiles {
 
     public boolean isPartOfSet() {
         return partOfSet;
-    }
-
-    public boolean isDiscarded(){
-        return isDiscarded; // True if discarded
     }
 
     public boolean isCanDraw(){
@@ -61,10 +61,6 @@ abstract class MahjongTiles {
         this.partOfSet = partOfSet;
     }
 
-    public void setDiscarded(boolean discarded) {
-        isDiscarded = discarded;
-    }
-
     public void setCanDraw(boolean canDraw) {
         this.canDraw = canDraw;
     }
@@ -72,14 +68,15 @@ abstract class MahjongTiles {
     /** Returns true if card can be added to a set **/
     public boolean canAddToSet(){
         // If tile is discarded and not part of a set then we can add the tile to a set
-        return isDiscarded() && !isPartOfSet();
+        return isPartOfSet();
     }
 
     /** Returns true if card was discarded and false if not **/
     public boolean discard(){
         // If tile is not been discarded, discard it
-        if (!isDiscarded()){
-            setDiscarded(true);
+        if (canDraw){
+            setCanDraw(false);
+            return true; //Card was successfully discarded
         }
         return false; // Card was not discarded
     }
@@ -95,5 +92,5 @@ abstract class MahjongTiles {
         return getSuit() + " of " + getValue();
     }
 
-    public abstract void displayTile();
+    //public abstract void displayTile();
 }

@@ -13,7 +13,11 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
- * @version July 2013
+ * @author Jacqui Bouchard
+ * @author Jazmine Cabral
+ * @author Landon Harrison
+ * @author Megan Ou
+ * @version October 2024
  */
 public class MahjongMainActivity extends GameMainActivity {
 	
