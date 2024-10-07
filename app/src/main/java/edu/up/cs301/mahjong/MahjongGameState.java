@@ -31,6 +31,9 @@ public class MahjongGameState extends GameState {
 	MahjongTiles lastDiscarded;
 	ArrayList<MahjongTiles> deck;
 
+	/**
+	 * default ctor
+	 */
 	MahjongGameState(){
 		this.playerID = 0;
 		this.isTurn = false;
@@ -45,7 +48,10 @@ public class MahjongGameState extends GameState {
 
 	}
 
-	void cpMahjongGameState(MahjongGameState mgs){
+	/**
+	 * Copy ctor
+	 */
+	public MahjongGameState(MahjongGameState mgs){
 		this.playerID = mgs.playerID;
 		this.isTurn = mgs.isTurn;
 		this.isPair = mgs.isPair;
