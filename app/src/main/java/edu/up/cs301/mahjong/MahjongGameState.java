@@ -83,6 +83,19 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Draw tile action
+	 */
+	public boolean makeDrawTileAction (MahjongDrawTileAction action) {
+		if (action instanceof MahjongDrawTileAction) {
+			this.currentDrawnTile = action.getDrawnTile();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
 	* This method describes the state of the game by printing the values of key
 	* variables in the MahjongGameState class
 	*/
