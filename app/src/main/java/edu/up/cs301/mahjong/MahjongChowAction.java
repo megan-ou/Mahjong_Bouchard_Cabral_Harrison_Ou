@@ -1,0 +1,32 @@
+package edu.up.cs301.mahjong;
+
+import edu.up.cs301.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.GameFramework.players.GamePlayer;
+import edu.up.cs301.mahjong.tiles.MahjongTiles;
+
+/**
+ * A MahjongChowAction is an action the current player takes when they want to call "chow" (or press
+ * the chow button) on a tile that the last player just discarded. This tile will be added
+ * to the current player's hand.
+ * @author Jacqui Bouchard
+ * @version October 2024
+ */
+
+public class MahjongChowAction extends GameAction {
+    private MahjongTiles chowTile;
+
+    /**
+     * constructor for MahjongChowAction
+     *
+     * @param player the player who called the action
+     */
+    public MahjongChowAction(GamePlayer player, MahjongTiles chowTile) {
+        super(player);
+        this.chowTile = chowTile;
+    }
+
+    /**
+     * Getter Method for the tile that the player calls "chow" on
+     */
+    public MahjongTiles getChowTile() { return chowTile; }
+}
