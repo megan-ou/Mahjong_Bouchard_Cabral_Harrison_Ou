@@ -22,11 +22,12 @@ public class MahjongDrawTileAction extends GameAction {
 	 * Constructor for the MahjongDrawTileAction class.
 	 * 
 	 * @param player the player making the move
-	 * @param tile value to initialize this.isPlus
+	 * @param tiles current mahjong tiles left to be drawn from
 	 */
-	public MahjongDrawTileAction(GamePlayer player, MahjongTiles tile) {
+	public MahjongDrawTileAction(GamePlayer player, MahjongTiles[] tiles) {
 		super(player);
-		this.drawnTile = tile;
+		int randomIndex = (int) (Math.random() * tiles.length);
+		this.drawnTile = tiles[randomIndex];
 	}
 
 	/** Getter Method for draw tile **/
