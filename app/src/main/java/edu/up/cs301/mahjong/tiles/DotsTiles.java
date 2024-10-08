@@ -18,8 +18,4 @@ public class DotsTiles extends MahjongTiles{
         super("Dots", value);
     }
 
-    //@Override
-    //public void displayTile() {
-        // print where?
-    //}
 }
