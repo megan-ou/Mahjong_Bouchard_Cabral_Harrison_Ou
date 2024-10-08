@@ -149,6 +149,25 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Chow action method which adds the chow'd tile to the current hand array.
+	 * @param action - the action occuring
+	 * @param indexChow - the index in the array that the chow'd tile will be
+	 *                  added into
+	 */
+	public boolean makeChowAction (MahjongChowAction action, int indexChow) {
+		if (action instanceof MahjongChowAction) {
+			//Add chow'd tile to the array
+			this.currentHand[indexChow] = action.getChowTile();
+			//The player will need to discard a tile after
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
 	* This method describes the state of the game by printing the values of key
 	* variables in the MahjongGameState class
 	*/
