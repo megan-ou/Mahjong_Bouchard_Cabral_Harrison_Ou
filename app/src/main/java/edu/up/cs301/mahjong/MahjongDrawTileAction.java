@@ -14,35 +14,24 @@ import edu.up.cs301.mahjong.tiles.MahjongTiles;
  * @version October 2024
  */
 public class MahjongDrawTileAction extends GameAction {
-	
-	// to satisfy the serializable interface
-	private static final long serialVersionUID = 28062013L;
 
+	/** Instance Variables **/
 	private MahjongTiles drawnTile;
 
 	/**
 	 * Constructor for the MahjongDrawTileAction class.
 	 * 
 	 * @param player the player making the move
-	 * @param tile value to initialize this.isPlus
+	 * @param tiles current mahjong tiles left to be drawn from
 	 */
-	public MahjongDrawTileAction(GamePlayer player, MahjongTiles tile) {
+	public MahjongDrawTileAction(GamePlayer player, MahjongTiles[] tiles) {
 		super(player);
-		this.drawnTile = tile;
+		int randomIndex = (int) (Math.random() * tiles.length);
+		this.drawnTile = tiles[randomIndex];
 	}
 
-	/**
-	 * constructor for GameAction
-	 *
-	 * @param player the player who created the action
-	 */
-	public MahjongDrawTileAction(GamePlayer player) {
-		super(player);
-	}
-
+	/** Getter Method for draw tile **/
 	public MahjongTiles getDrawnTile() {
 		return drawnTile;
 	}
-
-
 }
