@@ -176,7 +176,7 @@ public class MahjongGameState extends GameState {
 			return deck.get(index).toString();
 		}
 		else if (index > 0) {
-			return " " + deck.get(index).toString();
+			return "" + deck.get(index).toString();
 		}
 		else {
 			return deckToString(deck, index - 1);
@@ -197,7 +197,7 @@ public class MahjongGameState extends GameState {
 			return hand[index].toString();
 		}
 		else if(index > 0) {
-			return " " + hand[index].toString();
+			return "" + hand[index].toString();
 		}
 		else {
 			return handToString(hand, index - 1);
