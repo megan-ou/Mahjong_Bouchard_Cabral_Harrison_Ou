@@ -53,6 +53,6 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 		boolean move = Math.random() >= 0.5;
 		
 		// send the move-action to the game
-		game.sendAction(new MahjongMoveAction(this, move));
+		//game.sendAction(new MahjongMoveAction(this, move));
 	}
 }

@@ -59,7 +59,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
-		counterValueTextView.setText("" + state.getCounter());
+		//counterValueTextView.setText("" + state.getCounter());
 	}
 
 	/**
@@ -77,11 +77,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		GameAction action = null;
 		if (button.getId() == R.id.plusButton) {
 			// plus button: create "increment" action
-			action = new MahjongMoveAction(this, true);
+			//action = new MahjongDrawTileAction(this, true);
 		}
 		else if (button.getId() == R.id.minusButton) {
 			// minus button: create "decrement" action
-			action = new MahjongMoveAction(this, false);
+			//action = new MahjongMoveAction(this, false);
 		}
 		else {
 			// something else was pressed: ignore

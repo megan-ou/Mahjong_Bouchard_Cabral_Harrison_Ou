@@ -49,7 +49,8 @@ public class MahjongGameState extends GameState {
 		this.currentHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
 		this.currentDrawnTile = null;
 		this.lastDiscarded = null;
-        this.deck = MahjongDeck(this.deck);
+        this.deck = new ArrayList<>();
+		this.deck = MahjongDeck(this.deck);
 	}
 
 	/**
