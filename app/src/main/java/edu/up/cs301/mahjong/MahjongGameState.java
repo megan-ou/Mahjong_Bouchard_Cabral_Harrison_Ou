@@ -62,11 +62,30 @@ public class MahjongGameState extends GameState {
 		this.isSet = mgs.isSet;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
-		this.currentHand = mgs.currentHand;
+		this.currentHand = new MahjongTiles[mgs.currentHand.length];
+		copyArray(this.currentHand, mgs.currentHand); //copy the array using helper method
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
-		this.deck = mgs.deck;
+		this.deck = new ArrayList<>();
+		copyArrayList(this.deck, mgs.deck); //copy array list using helper method
 
+	}
+
+	/**
+	 * Helper method for deep copy ctor to copy arrays
+	 */
+	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+		for (int i = 0; i < origArray.length; i++) {
+			newArray[i] = origArray[i];
+		}
+	}
+
+	/**
+	 * Helper method for deep copy ctor to copy array lists
+	 */
+	public void copyArrayList (ArrayList<MahjongTiles> newArrayList,
+							   ArrayList<MahjongTiles> origArrayList) {
+        newArrayList.addAll(origArrayList);
 	}
 
 	/**
