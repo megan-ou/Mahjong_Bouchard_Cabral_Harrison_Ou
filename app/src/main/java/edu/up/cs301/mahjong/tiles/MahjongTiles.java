@@ -14,13 +14,15 @@ public class MahjongTiles {
     private int value;
     private boolean partOfSet;
     private boolean canDraw;
+    private boolean isRevealed;
 
     /** Constructor **/
     public MahjongTiles(String suit, int value) {
         this.suit = suit;
         this.value = value;
         this.partOfSet = false;  // Default value
-        this.canDraw = true; // Default value
+        this.canDraw = true;// Default value
+        this.isRevealed = false;
     }
 
     /** Copy Constructor **/
@@ -29,6 +31,7 @@ public class MahjongTiles {
         value = orig.value;
         partOfSet = orig.partOfSet;
         canDraw = orig.partOfSet;
+        isRevealed = orig.isRevealed;
     }
 
     /** Getter Methods **/

@@ -168,6 +168,20 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * See pile action
+	 * Switches from default view to table view and vice versa
+	 */
+	public boolean makeSwitchViewAction (MahjongSwitchViewAction action) {
+		if (action instanceof MahjongSwitchViewAction) {
+			return true;
+		}
+
+		else {
+			return false;
+		}
+	}
+
+	/**
 	* This method describes the state of the game by printing the values of key
 	* variables in the MahjongGameState class
 	*/
