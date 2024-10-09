@@ -51,6 +51,10 @@ public class MahjongTiles {
         return canDraw;
     }
 
+    public boolean isRevealed() {
+        return isRevealed;
+    }
+
     /** Setter Methods **/
     public void setSuit(String suit) {
         this.suit = suit;
@@ -66,6 +70,10 @@ public class MahjongTiles {
 
     public void setCanDraw(boolean canDraw) {
         this.canDraw = canDraw;
+    }
+
+    public void setRevealed(boolean revealed) {
+        isRevealed = revealed;
     }
 
     /** Returns true if card can be added to a set **/
