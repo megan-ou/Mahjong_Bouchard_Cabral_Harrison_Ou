@@ -20,6 +20,9 @@ import android.view.View.OnClickListener;
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
+ * @author Megan Ou
+ * @author Landon Harrison
+ * @author Jacqui Bouchard
  * @version July 2013
  */
 public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
