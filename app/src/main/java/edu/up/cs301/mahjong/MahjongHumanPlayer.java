@@ -27,7 +27,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	/* instance variables */
 	
 	// The TextView the displays the current counter value
-	private TextView counterValueTextView;
+	private TextView testResultsTextView;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -51,7 +51,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.);
+		return myActivity.findViewById(R.id.multiLineRunTest);
 	}
 	
 	/**
@@ -104,10 +104,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView();
+		activity.setContentView(R.layout.run_test_layout);
+
+		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
+
+		Button btRunTest = activity.findViewById(R.id.btRunTest);
+
+		btRunTest.setOnClickListener(this);
 
 		}
 	}
 
-}// class CounterHumanPlayer
+// class CounterHumanPlayer
 
