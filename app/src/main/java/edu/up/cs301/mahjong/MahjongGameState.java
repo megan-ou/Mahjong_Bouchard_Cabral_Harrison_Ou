@@ -49,8 +49,8 @@ public class MahjongGameState extends GameState {
 		this.currentHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
 		this.currentDrawnTile = null;
 		this.lastDiscarded = null;
+        this.deck = new ArrayList<>();
 		this.deck = MahjongDeck(this.deck);
-
 	}
 
 	/**
@@ -63,11 +63,30 @@ public class MahjongGameState extends GameState {
 		this.isSet = mgs.isSet;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
-		this.currentHand = mgs.currentHand;
+		this.currentHand = new MahjongTiles[mgs.currentHand.length];
+		copyArray(this.currentHand, mgs.currentHand); //copy the array using helper method
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
-		this.deck = mgs.deck;
+		this.deck = new ArrayList<>();
+		copyArrayList(this.deck, mgs.deck); //copy array list using helper method
 
+	}
+
+	/**
+	 * Helper method for deep copy ctor to copy arrays
+	 */
+	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+		for (int i = 0; i < origArray.length; i++) {
+			newArray[i] = origArray[i];
+		}
+	}
+
+	/**
+	 * Helper method for deep copy ctor to copy array lists
+	 */
+	public void copyArrayList (ArrayList<MahjongTiles> newArrayList,
+							   ArrayList<MahjongTiles> origArrayList) {
+        newArrayList.addAll(origArrayList);
 	}
 
 	/**
@@ -131,6 +150,39 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Chow action method which adds the chow'd tile to the current hand array.
+	 * @param action - the action occuring
+	 * @param indexChow - the index in the array that the chow'd tile will be
+	 *                  added into
+	 */
+	public boolean makeChowAction (MahjongChowAction action, int indexChow) {
+		if (action instanceof MahjongChowAction) {
+			//Add chow'd tile to the array
+			this.currentHand[indexChow] = action.getChowTile();
+			//The player will need to discard a tile after
+
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * See pile action
+	 * Switches from default view to table view and vice versa
+	 */
+	public boolean makeSwitchViewAction (MahjongSwitchViewAction action) {
+		if (action instanceof MahjongSwitchViewAction) {
+			return true;
+		}
+
+		else {
+			return false;
+		}
+	}
+
+	/**
 	* This method describes the state of the game by printing the values of key
 	* variables in the MahjongGameState class
 	*/
@@ -158,7 +210,7 @@ public class MahjongGameState extends GameState {
 			return deck.get(index).toString();
 		}
 		else if (index > 0) {
-			return " " + deck.get(index).toString();
+			return "" + deck.get(index).toString();
 		}
 		else {
 			return deckToString(deck, index - 1);
@@ -179,7 +231,7 @@ public class MahjongGameState extends GameState {
 			return hand[index].toString();
 		}
 		else if(index > 0) {
-			return " " + hand[index].toString();
+			return "" + hand[index].toString();
 		}
 		else {
 			return handToString(hand, index - 1);
