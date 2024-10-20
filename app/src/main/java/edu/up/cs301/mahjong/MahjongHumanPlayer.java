@@ -51,7 +51,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the top object in the GUI's view heirarchy
 	 */
 	public View getTopView() {
-		return myActivity.findViewById(R.id.top_gui_layout);
+		return myActivity.findViewById(R.id.);
 	}
 	
 	/**
@@ -73,22 +73,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
-		// Construct the action and send it to the game
-		GameAction action = null;
-		if (button.getId() == R.id.plusButton) {
-			// plus button: create "increment" action
-			//action = new MahjongDrawTileAction(this, true);
-		}
-		else if (button.getId() == R.id.minusButton) {
-			// minus button: create "decrement" action
-			//action = new MahjongMoveAction(this, false);
-		}
-		else {
-			// something else was pressed: ignore
-			return;
-		}
-		
-		game.sendAction(action); // send action to the game
 	}// onClick
 	
 	/**
@@ -120,22 +104,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView(R.layout.counter_human_player);
-		
-		// make this object the listener for both the '+' and '-' 'buttons
-		Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-		plusButton.setOnClickListener(this);
-		Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-		minusButton.setOnClickListener(this);
+		activity.setContentView();
 
-		// remember the field that we update to display the counter's value
-		this.counterValueTextView =
-				(TextView) activity.findViewById(R.id.testResultsTextView);
-		
-		// if we have a game state, "simulate" that we have just received
-		// the state from the game so that the GUI values are updated
-		if (state != null) {
-			receiveInfo(state);
 		}
 	}
 
