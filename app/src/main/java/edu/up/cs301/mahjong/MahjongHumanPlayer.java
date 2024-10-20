@@ -78,6 +78,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
+		//Any text from previous run cleared
+		testResultsTextView.setText("");
+
 	}// onClick
 	
 	/**
