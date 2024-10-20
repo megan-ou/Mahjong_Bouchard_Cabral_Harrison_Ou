@@ -76,6 +76,12 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
+		MahjongGameState firstInstance = new MahjongGameState();
+
+		MahjongGameState firstCopy = new MahjongGameState(firstInstance);
+
+
+
 	}// onClick
 	
 	/**
