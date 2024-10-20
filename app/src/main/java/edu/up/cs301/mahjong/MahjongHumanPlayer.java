@@ -31,6 +31,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
+
+	private Button btRunTest;
 	
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -111,7 +113,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
 
-		Button btRunTest = activity.findViewById(R.id.btRunTest);
+		btRunTest = activity.findViewById(R.id.btRunTest);
 
 		btRunTest.setOnClickListener(this);
 
