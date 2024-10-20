@@ -127,7 +127,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 {
 
 		// remember who our text view is, for updating the counter value
 		this.counterValueTextView =
-				(TextView) activityForGui.findViewById(R.id.counterValueTextView);
+				(TextView) activityForGui.findViewById(R.id.testResultsTextView);
 		
 		// disable the buttons, since they will have no effect anyway
 		Button plusButton = (Button)activityForGui.findViewById(R.id.plusButton);
