@@ -63,7 +63,7 @@ public class MahjongLocalGame extends LocalGame {
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
 		
-		//if (action instanceof MahjongMoveAction) {
+		if (action instanceof MahjongDiscardTileAction) {
 		
 			// cast so that we Java knows it's a CounterMoveAction
 			//MahjongMoveAction cma = (MahjongMoveAction)action;
@@ -74,11 +74,11 @@ public class MahjongLocalGame extends LocalGame {
 			
 			// denote that this was a legal/successful move
 			return true;
-		//}
-		//else {
+		}
+		else {
 			// denote that this was an illegal move
-			//return false;
-		//}
+			return false;
+		}
 	}//makeMove
 	
 	/**
