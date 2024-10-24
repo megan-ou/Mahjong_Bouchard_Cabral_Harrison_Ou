@@ -113,20 +113,19 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
-		//Made changes
+		
 		// remember the activity
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		//activity.setContentView(R.layout.run_test_layout);
-		activity.setContentView(R.layout.activity_main_09_22);
-
-		//testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
-
-		//btRunTest = activity.findViewById(R.id.btRunTest);
-
-		//btRunTest.setOnClickListener(this);
-
+//		activity.setContentView(R.layout.run_test_layout);
+//
+//		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
+//
+//		btRunTest = activity.findViewById(R.id.btRunTest);
+//
+//		btRunTest.setOnClickListener(this);
+		activity.setContentView((R.layout.activity_main_09_22));
 		}
 	}
 
