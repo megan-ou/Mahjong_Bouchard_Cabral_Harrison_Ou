@@ -5,6 +5,7 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import android.util.Log;
+import android.widget.ImageView;
 
 /**
  * A class that represents the state of a game. In our counter game, the only
@@ -44,6 +45,8 @@ public class MahjongLocalGame extends LocalGame {
 		return true;
 	}
 
+	private ImageView test;
+
 	/**
 	 * This ctor should be called when a new counter game is started
 	 */
@@ -54,6 +57,8 @@ public class MahjongLocalGame extends LocalGame {
 		}
 		this.gameState = (MahjongGameState)state;
 		super.state = state;
+
+		test.findViewById(R.id.iVCSlotT1);
 	}
 
 	/**
@@ -64,7 +69,7 @@ public class MahjongLocalGame extends LocalGame {
 		Log.i("action", action.getClass().toString());
 		
 		if (action instanceof MahjongDiscardTileAction) {
-		
+			test.setImageResource(R.drawable.blank_tile);
 			// cast so that we Java knows it's a CounterMoveAction
 			//MahjongMoveAction cma = (MahjongMoveAction)action;
 
@@ -73,6 +78,9 @@ public class MahjongLocalGame extends LocalGame {
 			//gameState.setCounter(result);
 			
 			// denote that this was a legal/successful move
+
+
+
 			return true;
 		}
 		else {

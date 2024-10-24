@@ -39,6 +39,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
+
 	
 	/**
 	 * constructor
@@ -82,7 +83,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		MahjongGameState firstCopy = new MahjongGameState(firstInstance);
 
-
+		if (button instanceof MDButton) {
+			MahjongDiscardTileAction discardTile = new MahjongDiscardTileAction(this);
+			game.sendAction(discardTile);
+		}
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
