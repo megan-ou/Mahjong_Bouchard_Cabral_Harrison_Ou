@@ -109,16 +109,16 @@
                 <ImageView
                     android:id="@+id/iVLastDiscarded"
                     android:layout_width="35dp"
-                    android:layout_height="150dp"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/sticks_8" />
+                    android:src="@drawable/sticks_8" />
 
                 <ImageView
                     android:id="@+id/iVDrawnCard"
                     android:layout_width="35dp"
-                    android:layout_height="150dp"
+                    android:layout_height="140dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_4" />
+                    android:src="@drawable/c_num_4" />
 
             </LinearLayout>
 
@@ -181,53 +181,53 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iVCSlotT1"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:id="@+id/iVCSlotT7"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_7" />
+                    android:src="@drawable/star" />
+
+                <ImageView
+                    android:id="@+id/iVCSlotT1"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/c_num_7" />
 
                 <ImageView
                     android:id="@+id/iVCSlotT2"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_8" />
+                    android:src="@drawable/c_num_8" />
 
                 <ImageView
                     android:id="@+id/iVCSlotT3"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_9" />
+                    android:src="@drawable/c_num_9" />
 
                 <ImageView
                     android:id="@+id/iVCSlotT4"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/sticks_1" />
+                    android:src="@drawable/sticks_1" />
 
                 <ImageView
                     android:id="@+id/iVCSlotT5"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/sticks_2" />
+                    android:src="@drawable/sticks_2" />
 
                 <ImageView
                     android:id="@+id/iVCSlotT6"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/sticks_3" />
-
-                <ImageView
-                    android:id="@+id/iVCSlotT7"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/star" />
+                    android:src="@drawable/sticks_3" />
 
             </LinearLayout>
 
@@ -301,52 +301,52 @@
 
                 <ImageView
                     android:id="@+id/iVCSlotB1"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_6" />
+                    android:src="@drawable/c_num_6" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB2"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/dots_1" />
+                    android:src="@drawable/dots_1" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB3"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/water" />
+                    android:src="@drawable/water" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB4"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/dots_7" />
+                    android:src="@drawable/dots_7" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB5"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/flower" />
+                    android:src="@drawable/flower" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB6"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/c_num_4" />
+                    android:src="@drawable/c_num_4" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB7"
-                    android:layout_width="55dp"
-                    android:layout_height="180dp"
+                    android:layout_width="50dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/sticks_4" />
+                    android:src="@drawable/sticks_4" />
 
             </LinearLayout>
 
@@ -427,7 +427,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                app:srcCompat="@drawable/mahjong_key" />
+                android:src="@drawable/mahjong_key" />
 
         </LinearLayout>
     </LinearLayout>
