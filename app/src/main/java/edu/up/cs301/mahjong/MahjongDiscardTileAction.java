@@ -19,11 +19,11 @@ public class MahjongDiscardTileAction extends GameAction {
      * Constructor for the MahjongDiscardTileAction class.
      *
      * @param player the player making the move
-     * @param discardedTile value to initialize the discarded tile
+     * //@param discardedTile value to initialize the discarded tile
      */
-    public MahjongDiscardTileAction(GamePlayer player, MahjongTiles discardedTile) {
+    public MahjongDiscardTileAction(GamePlayer player) {
         super(player);
-        this.discardTile = discardedTile;
+        //this.discardTile = discardedTile; TEMP COMMENT OUT (add back parameter)
     }
 
     /** Getter Method for discarded tile **/
