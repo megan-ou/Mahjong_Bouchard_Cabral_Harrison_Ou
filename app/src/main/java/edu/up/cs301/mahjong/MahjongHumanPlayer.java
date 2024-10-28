@@ -106,7 +106,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
-		
+
 		firstInstance.startGame();
 		existingText = getExistingText();
 		newText = "Game has begun and card are dealt.";
@@ -126,9 +126,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
-
-		//Call start game method for human player
-		if (firstInstance.make)
 
 		//TODO: write code to specify what tile was discarded
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
@@ -151,8 +148,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
-
-
 
 
 
