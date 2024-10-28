@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
  * @author Megan Ou
  * @author Landon Harrison
  * @author Jacqui Bouchard
+ * @author Jazmine Cabral
  * @version July 2013
  */
 public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
@@ -78,6 +79,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public void onClick(View button) {
 		String existingText;
 		String newText;
+
+		//Any text from previous run cleared
+		testResultsTextView.setText("");
 
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;

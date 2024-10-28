@@ -2,6 +2,8 @@ package edu.up.cs301.mahjong;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import edu.up.cs301.mahjong.tiles.*;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -34,7 +36,7 @@ public class MahjongGameState extends GameState {
 	private MahjongTiles[] currentHand;
 	private MahjongTiles currentDrawnTile;
 	private MahjongTiles lastDiscarded;
-	private ArrayList<MahjongTiles> deck;
+	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
 	/**
@@ -66,7 +68,7 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.currentHand = new MahjongTiles[mgs.currentHand.length];
-		copyArray(this.currentHand, mgs.currentHand); //copy the array using helper method
+		this.currentHand = Arrays.copyOf(mgs.currentHand, mgs.currentHand.length);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
@@ -78,11 +80,11 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Helper method for deep copy ctor to copy arrays
 	 */
-	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+	/*public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
 		for (int i = 0; i < origArray.length; i++) {
 			newArray[i] = origArray[i];
 		}
-	}
+	}*/
 
 	/**
 	 * Helper method for deep copy ctor to copy array lists
