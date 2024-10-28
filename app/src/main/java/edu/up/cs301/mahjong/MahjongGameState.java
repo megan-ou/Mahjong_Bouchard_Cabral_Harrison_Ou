@@ -188,6 +188,7 @@ public class MahjongGameState extends GameState {
 			MahjongTiles currTile;
 
 			while (!cardDrawn) {
+				//TODO: weird out of bounds error, need to check and make sure deck initialization works
 				currTile = deck.get((int) (Math.random() * 100.0));
 				if (currTile.isCanDraw()) {
 					lastDrawnTile = currTile.toString();
