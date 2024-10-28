@@ -167,9 +167,9 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Discard tile action
 	 */
-	public boolean makeDiscardAction (MahjongDiscardTileAction action, int index) {
+	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
-			currentHand[index].discard();
+
 			return true;
 		}
 		else {
@@ -183,7 +183,6 @@ public class MahjongGameState extends GameState {
 	public boolean makeDrawTileAction (MahjongDrawTileAction action) {
 		if (action instanceof MahjongDrawTileAction) {
 //			this.currentDrawnTile = action.getDrawnTile();
-			String newText;
 			boolean cardDrawn = false;
 			MahjongTiles currTile;
 
