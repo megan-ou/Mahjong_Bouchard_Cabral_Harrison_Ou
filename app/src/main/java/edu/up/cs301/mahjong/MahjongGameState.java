@@ -1,6 +1,5 @@
 package edu.up.cs301.mahjong;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -204,14 +203,14 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Chow action method which adds the chow'd tile to the current hand array.
+	 *
 	 * @param action - the action occuring
-	 * @param indexChow - the index in the array that the chow'd tile will be
-	 *                  added into
 	 */
-	public boolean makeChowAction (MahjongChowAction action, int indexChow) {
+	public boolean makeChowAction (MahjongChowAction action) {
 		if (action instanceof MahjongChowAction) {
 			//Add chow'd tile to the array
-			this.currentHand[indexChow] = action.getChowTile();
+			//replace 2 with an indexChow
+			this.currentHand[2] = action.getChowTile();
 			//The player will need to discard a tile after
 
 			return true;
