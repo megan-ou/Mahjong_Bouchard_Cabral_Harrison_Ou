@@ -237,6 +237,13 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		gameIsOver("player 1 won the game!");
 
+		MahjongGameState secondInstance = new MahjongGameState();
+
+		MahjongGameState secondCopy = new MahjongGameState(secondInstance);
+
+		firstCopy.toString();
+		secondCopy.toString();
+
 
 	}// onClick
 
