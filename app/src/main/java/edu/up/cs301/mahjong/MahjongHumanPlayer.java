@@ -107,18 +107,17 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
 
+		//create instances of actions
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+        MahjongChowAction chowAction = new MahjongChowAction(this);
+        MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
+
 		firstInstance.startGame();
 		existingText = getExistingText();
 		newText = "Game has begun and card are dealt.";
 
 		testResultsTextView.setText(existingText + "\n" + newText);
-
-
-		//create instances of actions
-
-		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
-		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
-		MahjongChowAction chowAction = new MahjongChowAction(this);
 
 		//Call draw tile method for human player
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
@@ -139,12 +138,25 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//TODO: write code to specify what tile was ponged
 		if (firstInstance.makeChowAction(chowAction)) {
 			existingText = getExistingText();
-			newText = "Player 3 called pong to take player 2's discarded pile";
+			newText = "Player 3 called pong to take player 2's discarded tile. " +
+					"Player 3's completed set of 3 is revealed.";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+			existingText = getExistingText();
+			newText = "Player 1 switches to Table View to see which tiles were revealed.";
 
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+			existingText = getExistingText();
+			newText = "Player 1 switches back to Game View to continue playing.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
 
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
 			existingText = getExistingText();
@@ -163,11 +175,25 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//TODO: write code to specify what tile was chowed
 		if (firstInstance.makeChowAction(chowAction)) {
 			existingText = getExistingText();
-			newText = "Player 4 called chow to take player 3's discarded pile";
+			newText = "Player 4 called chow to take player 3's discarded tile. " +
+					"Player 4's completed set of 3 is revealed.";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+			existingText = getExistingText();
+			newText = "Player 1 switches to Table View to see which tiles were revealed.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+			existingText = getExistingText();
+			newText = "Player 1 switches back to Game View to continue playing.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
 
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
 			existingText = getExistingText();
@@ -206,8 +232,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 
 		existingText = getExistingText();
-		testResultsTextView.setText(existingText + "\n" + "For brevity, assume draw, discard, and pong " +
+		testResultsTextView.setText(existingText + "\n" + "For brevity, assume draw, discard, pong, and switch view " +
 				"continues between all 4 players until game is over");
+
+		gameIsOver("player 1 won the game!");
 
 
 	}// onClick
