@@ -115,7 +115,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Call draw tile method for human player
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
 			existingText = getExistingText();
-			newText = "Player 1 draws the " + firstInstance.getLastDrawnTile();
+			newText = "Player 1 draws the " + firstInstance.getLastDrawnTile() + ".";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
