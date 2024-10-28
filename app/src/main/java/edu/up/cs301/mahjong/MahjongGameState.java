@@ -36,7 +36,7 @@ public class MahjongGameState extends GameState {
 	MahjongTiles[] currentHand;
 	MahjongTiles currentDrawnTile;
 	MahjongTiles lastDiscarded;
-	ArrayList<MahjongTiles> deck;
+	ArrayList<MahjongTiles> deck;	// 136 tiles in a deck
 
 	/**
 	 * default ctor
@@ -98,13 +98,13 @@ public class MahjongGameState extends GameState {
 	 * LJH( use of chatgpt to debug for loops)
 	 */
 	public ArrayList<MahjongTiles> MahjongDeck(ArrayList<MahjongTiles> theDeck){
-		//136 total tiles
+
 		//array of tile suits
 		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
 									"Star", "Water", "Wind"};
 
 		//iterates through all suits
-		for(int t = 0; t < 8; t++) {
+		for(int t = 0; t < 9; t++) {
 
 
 			if (t > 2){//for non-numbered sets
@@ -114,7 +114,7 @@ public class MahjongGameState extends GameState {
 			}
 			else{//for numerical sets
 				for(int m = 1; m < 9; m++){
-					for(int l = 1; l < 4; l++){
+					for(int l = 0; l < 4; l++){
 						theDeck.add(new MahjongTiles(tileSuits[t], m));
 					}
 				}
