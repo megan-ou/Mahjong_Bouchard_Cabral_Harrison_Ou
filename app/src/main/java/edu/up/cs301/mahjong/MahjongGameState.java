@@ -273,21 +273,28 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	* This is a recursive method that will return a string of all of the tiles
-	* in a specified hand. This method needs to first be called with the max number
-	* of tiles so that it will print the tiles in order.
+	* This is a  method that will return a string of all of the tiles
+	* in a specified hand.
 	*
 	* @param hand - the hand of tiles to be printed
 	 * @return all of the tiles of the hand as a string
 	*
 	*/
 	public String handToString(MahjongTiles[] hand, int index) {
-		if (index > 0) {
+		//There was an issue with the recursion, we will come back to this
+		/*if (index > 0) {
 			return handToString(hand, index - 1);
 		}
 		else {
 			return hand[index].toString();
+		}*/
+		String listTiles = "";
+
+		for (int i = 0; i < hand.length; i++) {
+			listTiles = listTiles + hand[i].toString();
 		}
+
+		return listTiles;
 	}
 
 	/**
