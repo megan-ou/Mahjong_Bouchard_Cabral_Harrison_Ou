@@ -188,7 +188,7 @@ public class MahjongGameState extends GameState {
 			MahjongTiles currTile;
 
 			while (!cardDrawn) {
-				currTile = deck.get((int) (Math.random() * 136.0));
+				currTile = deck.get((int) (Math.random() * 135.0));
 				if (currTile.isCanDraw()) {
 					lastDrawnTile = currTile.toString();
 					currTile.setCanDraw(false);
