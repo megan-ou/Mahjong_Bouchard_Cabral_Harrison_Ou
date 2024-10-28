@@ -16,6 +16,22 @@ public class MahjongTiles {
     private boolean canDraw;
     private boolean isRevealed;
 
+    /**
+     * this integer will indicate the location of mahjong tiles
+     * allowing for parsing of player hands, discard, and draw pile
+     * 0: draw pile
+     * 1: player
+     * 2: AI 1
+     * 3: AI 2
+     * 4: AI 3
+     * 5: last discarded
+     * 6: discard pile
+     *
+     * potentially create a sorting algorithm, reduces the need for multiple arrays
+     *
+     */
+    private int locationNum;
+
     /** Constructor **/
     public MahjongTiles(String suit, int value) {
         this.suit = suit;
@@ -23,6 +39,7 @@ public class MahjongTiles {
         this.partOfSet = false;  // Default value
         this.canDraw = true;// Default value
         this.isRevealed = false;
+        this.locationNum = 0;
     }
 
     /** Copy Constructor **/
@@ -32,6 +49,7 @@ public class MahjongTiles {
         partOfSet = orig.partOfSet;
         canDraw = orig.partOfSet;
         isRevealed = orig.isRevealed;
+        locationNum = orig.locationNum;
     }
 
     /** Getter Methods **/
@@ -55,6 +73,8 @@ public class MahjongTiles {
         return isRevealed;
     }
 
+    public int getLocationNum() { return locationNum; }
+
     /** Setter Methods **/
     public void setSuit(String suit) {
         this.suit = suit;
@@ -75,6 +95,8 @@ public class MahjongTiles {
     public void setRevealed(boolean revealed) {
         isRevealed = revealed;
     }
+
+    public void setLocationNum(int location) { locationNum = location; }
 
     /** Returns true if card can be added to a set **/
     public boolean canAddToSet(){

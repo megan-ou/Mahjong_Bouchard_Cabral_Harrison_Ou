@@ -118,10 +118,46 @@ public class MahjongGameState extends GameState {
 				}
 			}
 			}
-
 		return theDeck;
 
 	}
+
+	/**
+	 * will start the game
+	 * deal the tiles in the deck
+	 */
+	public void startGame(){
+		//this.deck =
+
+	}
+
+	/**
+	 * method that will "deal" the initial tiles
+	 * essentially each tile in the deck arraylist is given a number 0-6 indicating its
+	 * location on the table (locationNum)
+	 * this will randomly draw a tile, if it is not in the draw pile, it will try to draw again
+	 *
+	 * * @param theDeck
+	 * @return
+	 */
+	public ArrayList<MahjongTiles> dealTiles(ArrayList<MahjongTiles> theDeck){
+
+		int randIndex = 0;
+
+		for(int q = 1; q < 4; q++){
+
+			for (int s = 1; s < 13; s++) {
+				randIndex = (int) (136 * Math.random());
+				while (theDeck.get(randIndex).getLocationNum() != 0){
+					randIndex = (int) (136 * Math.random());
+				}
+				theDeck.get(randIndex).setLocationNum(q);
+			}
+		}
+			return theDeck;
+	}
+
+
 
 	/**
 	 * Discard tile action
