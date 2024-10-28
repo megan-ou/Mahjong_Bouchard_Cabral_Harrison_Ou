@@ -36,7 +36,7 @@ public class MahjongGameState extends GameState {
 	MahjongTiles[] currentHand;
 	MahjongTiles currentDrawnTile;
 	MahjongTiles lastDiscarded;
-	ArrayList<MahjongTiles> deck;
+	ArrayList<MahjongTiles> deck;	// 136 tiles in a deck
 
 	/**
 	 * default ctor
@@ -71,7 +71,7 @@ public class MahjongGameState extends GameState {
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
-		this.deck = Arrays.copyOf
+		//this.deck = Arrays.copyOf
 		copyArrayList(this.deck, mgs.deck); //copy array list using helper method
 
 	}
