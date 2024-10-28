@@ -285,7 +285,7 @@ public class MahjongGameState extends GameState {
 			return hand[index].toString();
 		}
 		else if(index > 0) {
-			return "" + hand[index].toString();
+			return hand[index].toString();
 		}
 		else {
 			return handToString(hand, index - 1);
