@@ -76,6 +76,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the button that was clicked
 	 */
 	public void onClick(View button) {
+		String existingText;
+		String newText;
+
 		// if we are not yet connected to a game, ignore
 		if (game == null) return;
 
@@ -90,6 +93,17 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
+
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+
+		//Call draw tile method for human player
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = testResultsTextView.getText().toString();
+			newText = "Player 1 draws the " + firstInstance.getLastDrawnTile();
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
 
 	}// onClick
 	

@@ -58,7 +58,7 @@ public class MahjongLocalGame extends LocalGame {
 		this.gameState = (MahjongGameState)state;
 		super.state = state;
 
-		test.findViewById(R.id.iVCSlotT1);
+		//test.findViewById(R.id.iVCSlotT1); from Lab 6
 	}
 
 	/**

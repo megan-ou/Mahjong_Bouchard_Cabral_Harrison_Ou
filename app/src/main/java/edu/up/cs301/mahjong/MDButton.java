@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import java.lang.reflect.Array;
 
 /**
+ * Written for Lab 6!
+ *
  * A class to give all discard buttons a specific ID. This will help us identify tiles during touch
  * events.
  *
