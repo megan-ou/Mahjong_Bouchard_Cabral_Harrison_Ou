@@ -75,7 +75,15 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 
 	 * @param button
 	 * 		the button that was clicked
+	 *
+	 * 	External Citation
+	 * 	 Date:     27 October 2024
+	 * 	 Problem:  Didn't know how to append text to a multi-line EditText.
+	 * 	 Resource: Google AI from question "appending to multi-line edit text java and xml"
+	 * 	 Solution: We used the example code that Google AI showed us and implemented something
+	 * 	 		   similar in our code
 	 */
+
 	public void onClick(View button) {
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
