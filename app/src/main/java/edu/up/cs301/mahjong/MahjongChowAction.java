@@ -24,9 +24,10 @@ public class MahjongChowAction extends GameAction {
      *
      * @param player the player who called the action
      */
-    public MahjongChowAction(GamePlayer player, MahjongTiles chowTile) {
+    public MahjongChowAction(GamePlayer player){
+            //, MahjongTiles chowTile) {
         super(player);
-        this.chowTile = chowTile;
+        //this.chowTile = chowTile;
         chowTile.setRevealed(true);
     }
 
