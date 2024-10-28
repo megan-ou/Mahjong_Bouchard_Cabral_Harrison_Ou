@@ -281,14 +281,11 @@ public class MahjongGameState extends GameState {
 	*
 	*/
 	public String handToString(MahjongTiles[] hand, int index) {
-		if(index == 0) {
-			return hand[index].toString();
-		}
-		else if(index > 0) {
-			return "" + hand[index].toString();
+		if (index > 0) {
+			return handToString(hand, index - 1);
 		}
 		else {
-			return handToString(hand, index - 1);
+			return "" + hand[index].toString();
 		}
 	}
 
