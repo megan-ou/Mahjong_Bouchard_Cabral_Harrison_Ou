@@ -106,6 +106,13 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
+		
+		firstInstance.startGame();
+		existingText = getExistingText();
+		newText = "Game has begun and card are dealt.";
+
+		testResultsTextView.setText(existingText + "\n" + newText);
+
 
 		//create instances of actions
 
@@ -144,6 +151,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
+
+
 
 
 
