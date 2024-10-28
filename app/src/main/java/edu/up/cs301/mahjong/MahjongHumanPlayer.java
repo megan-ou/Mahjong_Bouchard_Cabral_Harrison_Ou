@@ -237,6 +237,33 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		gameIsOver("Player 1 won the game!");
 
+		MahjongGameState secondInstance = new MahjongGameState();
+
+		MahjongGameState secondCopy = new MahjongGameState(secondInstance);
+
+		String firstCopyString;
+		String secondCopyString;
+
+		firstCopyString = firstCopy.toString();
+		secondCopyString = secondCopy.toString();
+
+		//check if first copy and second copy are equal
+
+		if (firstCopyString.equals(secondCopyString)) {
+			existingText = getExistingText();
+			newText = "First copy and second copy are identical";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		//print out first copy and second copy string
+		existingText = getExistingText();
+		newText = firstCopyString + "\n" + secondCopyString;
+
+		testResultsTextView.setText(existingText + "\n" + newText);
+
+
+
 
 	}// onClick
 
