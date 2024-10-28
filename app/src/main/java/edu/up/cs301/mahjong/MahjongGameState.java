@@ -188,7 +188,7 @@ public class MahjongGameState extends GameState {
 			MahjongTiles currTile;
 
 			while (!cardDrawn) {
-				currTile = deck.get((int) (Math.random() * 135.0));
+				currTile = deck.get((int) (Math.random() * 100.0));
 				if (currTile.isCanDraw()) {
 					lastDrawnTile = currTile.toString();
 					currTile.setCanDraw(false);
@@ -285,7 +285,7 @@ public class MahjongGameState extends GameState {
 			return handToString(hand, index - 1);
 		}
 		else {
-			return "" + hand[index].toString();
+			return hand[index].toString();
 		}
 	}
 
