@@ -117,6 +117,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		//Call start game method for human player
+		if (firstInstance.make)
+
 
 	}// onClick
 	
