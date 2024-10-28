@@ -27,16 +27,17 @@ public class MahjongGameState extends GameState {
 
 	private final int MAX = 13; //Max number of tiles in a hand
 
-	int playerID;
-	boolean isTurn;
-	boolean isPair;
-	boolean isSet;
-	int numSets;
-	int numPairs;
-	MahjongTiles[] currentHand;
-	MahjongTiles currentDrawnTile;
-	MahjongTiles lastDiscarded;
-	ArrayList<MahjongTiles> deck;	// 136 tiles in a deck
+	private int playerID;
+	private boolean isTurn;
+	private boolean isPair;
+	private boolean isSet;
+	private int numSets;
+	private int numPairs;
+	private MahjongTiles[] currentHand;
+	private MahjongTiles currentDrawnTile;
+	private MahjongTiles lastDiscarded;
+	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
+	private String lastDrawnTile;
 
 	/**
 	 * default ctor
@@ -53,6 +54,7 @@ public class MahjongGameState extends GameState {
 		this.lastDiscarded = null;
         this.deck = new ArrayList<>();
 		this.deck = MahjongDeck(this.deck);
+		this.lastDrawnTile = "none";
 	}
 
 	/**
@@ -70,7 +72,8 @@ public class MahjongGameState extends GameState {
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
-		copyArrayList(this.deck, mgs.deck); //deep copy array list using helper method
+		copyArrayList(this.deck, mgs.deck); //copy array list using helper method
+		this.lastDrawnTile = mgs.lastDrawnTile;
 
 	}
 
@@ -143,7 +146,20 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDrawTileAction (MahjongDrawTileAction action) {
 		if (action instanceof MahjongDrawTileAction) {
-			this.currentDrawnTile = action.getDrawnTile();
+//			this.currentDrawnTile = action.getDrawnTile();
+			String newText;
+			boolean cardDrawn = false;
+			MahjongTiles currTile;
+
+			while (!cardDrawn) {
+				currTile = deck.get((int) (Math.random() * 136.0));
+				if (currTile.isCanDraw()) {
+					lastDrawnTile = currTile.toString();
+					currTile.setCanDraw(false);
+					cardDrawn = true;
+				}
+			}
+
 			return true;
 		}
 		else {
@@ -238,5 +254,12 @@ public class MahjongGameState extends GameState {
 		else {
 			return handToString(hand, index - 1);
 		}
+	}
+
+	/**
+	 * Getter method for lastDrawnTile
+	 */
+	public String getLastDrawnTile () {
+		return this.lastDrawnTile;
 	}
 }
