@@ -107,17 +107,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
 
+		//create instances of actions
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
+
 		firstInstance.startGame();
 		existingText = getExistingText();
 		newText = "Game has begun and card are dealt.";
 
 		testResultsTextView.setText(existingText + "\n" + newText);
-
-
-		//create instances of actions
-
-		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
-		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
 
 		//Call draw tile method for human player
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
