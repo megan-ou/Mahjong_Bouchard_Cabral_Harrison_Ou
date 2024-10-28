@@ -122,7 +122,12 @@ public class MahjongTiles {
 
     /** Converts tile data to a string **/
     public String toString() {
-        return getValue() + " of " + getSuit();
+        if (getValue() == 0) {
+            return getSuit();
+        }
+        else {
+            return getValue() + " of " + getSuit();
+        }
     }
 
     //public abstract void displayTile();
