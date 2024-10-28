@@ -235,6 +235,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		testResultsTextView.setText(existingText + "\n" + "For brevity, assume draw, discard, pong, and switch view " +
 				"continues between all 4 players until game is over");
 
+		gameIsOver("player 1 won the game!");
+
 
 	}// onClick
 
