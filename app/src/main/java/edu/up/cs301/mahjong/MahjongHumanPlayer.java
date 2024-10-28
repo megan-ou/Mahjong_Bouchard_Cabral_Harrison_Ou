@@ -106,7 +106,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
-		
+
 		firstInstance.startGame();
 		existingText = getExistingText();
 		newText = "Game has begun and card are dealt.";
@@ -127,7 +127,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
-
 
 		//TODO: write code to specify what tile was discarded
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
@@ -161,6 +160,51 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 2 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 2 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 3 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 3 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 4 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 4 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		existingText = getExistingText();
+		testResultsTextView.setText(existingText + "\n" + "For brevity, assume draw, discard, and pong " +
+				"continues between all 4 players until game is over");
 
 
 	}// onClick
