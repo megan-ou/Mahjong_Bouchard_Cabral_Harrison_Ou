@@ -148,16 +148,18 @@ public class MahjongGameState extends GameState {
 
 		int randIndex = 0;
 
-		for(int q = 1; q < 4; q++){
+		//TODO: review this code and fix potential infinite loop
 
-			for (int s = 1; s < 13; s++) {
-				randIndex = (int) (136 * Math.random());
-				while (theDeck.get(randIndex).getLocationNum() != 0){
-					randIndex = (int) (136 * Math.random());
-				}
-				theDeck.get(randIndex).setLocationNum(q);
-			}
-		}
+//		for(int q = 1; q < 4; q++){
+//
+//			for (int s = 1; s < 13; s++) {
+//				randIndex = (int) (136 * Math.random());
+//				while (theDeck.get(randIndex).getLocationNum() != 0){
+//					randIndex = (int) (136 * Math.random());
+//				}
+//				theDeck.get(randIndex).setLocationNum(q);
+//			}
+//		}
 			return theDeck;
 	}
 
@@ -186,7 +188,7 @@ public class MahjongGameState extends GameState {
 			MahjongTiles currTile;
 
 			while (!cardDrawn) {
-				currTile = deck.get((int) (Math.random() * 136.0));
+				currTile = deck.get((int) (Math.random() * 135.0));
 				if (currTile.isCanDraw()) {
 					lastDrawnTile = currTile.toString();
 					currTile.setCanDraw(false);

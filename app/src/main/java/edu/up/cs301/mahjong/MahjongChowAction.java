@@ -28,7 +28,7 @@ public class MahjongChowAction extends GameAction {
             //, MahjongTiles chowTile) {
         super(player);
         //this.chowTile = chowTile;
-        chowTile.setRevealed(true);
+        //chowTile.setRevealed(true);
     }
 
     /**
