@@ -77,19 +77,19 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void onClick(View button) {
 		// if we are not yet connected to a game, ignore
-//		if (game == null) return;
-//
-//		MahjongGameState firstInstance = new MahjongGameState();
-//
-//		MahjongGameState firstCopy = new MahjongGameState(firstInstance);
-//
-//		if (button instanceof MDButton) {
-//			MahjongDiscardTileAction discardTile = new MahjongDiscardTileAction(this);
-//			game.sendAction(discardTile);
-//		}
-//
-//		//Any text from previous run cleared
-//		testResultsTextView.setText("");
+		if (game == null) return;
+
+		MahjongGameState firstInstance = new MahjongGameState();
+
+		MahjongGameState firstCopy = new MahjongGameState(firstInstance);
+
+		/**if (button instanceof MDButton) {
+			MahjongDiscardTileAction discardTile = new MahjongDiscardTileAction(this);
+			game.sendAction(discardTile);
+		} */ //from Lab 6
+
+		//Any text from previous run cleared
+		testResultsTextView.setText("");
 
 	}// onClick
 	
@@ -129,7 +129,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 //		btRunTest = activity.findViewById(R.id.btRunTest);
 //
 //		btRunTest.setOnClickListener(this);
-		//activity.setContentView((R.layout.activity_main_09_22)); //from lab, for true GUI of game
+		activity.setContentView((R.layout.run_test_layout));
 		}
 	}
 
