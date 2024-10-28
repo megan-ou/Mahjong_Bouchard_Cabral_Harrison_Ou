@@ -129,7 +129,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 //		btRunTest = activity.findViewById(R.id.btRunTest);
 //
 //		btRunTest.setOnClickListener(this);
-		activity.setContentView((R.layout.activity_main_09_22));
+		activity.setContentView((R.layout.run_test_layout));
 		}
 	}
 
