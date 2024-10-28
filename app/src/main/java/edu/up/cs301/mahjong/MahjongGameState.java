@@ -131,8 +131,8 @@ public class MahjongGameState extends GameState {
 	 * will start the game
 	 * deal the tiles in the deck
 	 */
-	public void startGame(){
-		//this.deck =
+	public void startGame() {
+		this.deck = dealTiles(this.deck);
 
 	}
 

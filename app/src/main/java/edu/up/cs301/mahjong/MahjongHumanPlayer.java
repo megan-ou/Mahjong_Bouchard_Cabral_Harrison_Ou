@@ -120,6 +120,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		//Call start game method for human player
+		if (firstInstance.make)
+
 		//TODO: write code to specify what tile was discarded
 		if (firstCopy.makeDiscardAction(discardTileAction)) {
 			existingText = getExistingText();
@@ -138,7 +141,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		return testResultsTextView.getText().toString();
 	}
 
-	
+
 	/**
 	 * callback method when we get a message (e.g., from the game)
 	 * 
