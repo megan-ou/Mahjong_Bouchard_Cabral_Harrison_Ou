@@ -23,6 +23,7 @@ import android.view.View.OnClickListener;
  * @author Megan Ou
  * @author Landon Harrison
  * @author Jacqui Bouchard
+ * @author Jazmine Cabral
  * @version July 2013
  */
 public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
@@ -74,8 +75,19 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 
 	 * @param button
 	 * 		the button that was clicked
+	 *
+	 * 	External Citation
+	 * 	 Date:     27 October 2024
+	 * 	 Problem:  Didn't know how to append text to a multi-line EditText.
+	 * 	 Resource: Google AI from question "appending to multi-line edit text java and xml"
+	 * 	 Solution: We used the example code that Google AI showed us and implemented something
+	 * 	 		   similar in our code
 	 */
+
 	public void onClick(View button) {
+		String existingText;
+		String newText;
+
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
 
@@ -92,6 +104,20 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			MahjongDiscardTileAction discardTile = new MahjongDiscardTileAction(this);
 			game.sendAction(discardTile);
 		} */ //from Lab 6
+
+		//Any text from previous run cleared
+		testResultsTextView.setText("");
+
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+
+		//Call draw tile method for human player
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = testResultsTextView.getText().toString();
+			newText = "Player 1 draws the " + firstInstance.getLastDrawnTile();
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
 
 	}// onClick
 	
