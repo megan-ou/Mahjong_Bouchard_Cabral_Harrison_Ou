@@ -127,7 +127,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
-		//TODO: write code to specify what tile was discarded
+		//TODO: write code to specify what tile was discarded, we spent a few hours
+		// on this code and needed to move on.
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
 			existingText = getExistingText();
 			newText = "Player 1 discards a tile.";
