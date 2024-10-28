@@ -124,12 +124,28 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		if (firstInstance.make)
 
 		//TODO: write code to specify what tile was discarded
-		if (firstCopy.makeDiscardAction(discardTileAction)) {
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
 			existingText = getExistingText();
 			newText = "Player 1 discards a tile.";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
+
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 2 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 2 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+
 
 
 	}// onClick
