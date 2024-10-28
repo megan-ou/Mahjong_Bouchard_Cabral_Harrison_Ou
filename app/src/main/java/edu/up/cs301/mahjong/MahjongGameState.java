@@ -50,9 +50,10 @@ public class MahjongGameState extends GameState {
 		this.numPairs = 0;
 		this.currentHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
 		this.currentDrawnTile = null;
-		this.lastDiscarded = null;
+		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
         this.deck = new ArrayList<>();
 		this.deck = MahjongDeck(this.deck);
+		this.lastDiscarded = deck.get(0);
 		this.lastDrawnTile = "none";
 	}
 
@@ -110,7 +111,7 @@ public class MahjongGameState extends GameState {
 
 
 			if (t > 2){//for non-numbered sets
-				for (int q = 1; q < 4; q++) {
+				for (int q = 0; q < 4; q++) {
 					theDeck.add(new MahjongTiles(tileSuits[t], 0));
 				}
 			}
@@ -247,7 +248,7 @@ public class MahjongGameState extends GameState {
 		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nA pair? " + isPair
 				+ "\nA set? " + isSet + "\nNumber of Sets: " + numSets + "\nNumber of Pairs: "
 				+ numPairs + "\nCurrent hand: " + handToString(currentHand, MAX)
-				+ "\nCurrent Drawn Tile: " + currentDrawnTile.toString() + "\nLast Tile Discarded: "
+				+ "\nCurrent Drawn Tile: " + lastDrawnTile + "\nLast Tile Discarded: "
 				+ lastDiscarded.toString() + "\nThe deck: " + deckToString(deck, deck.size());
 	}
 
@@ -261,15 +262,12 @@ public class MahjongGameState extends GameState {
 	 * @return the deck element as a string
 	 */
 	public String deckToString(ArrayList<MahjongTiles> deck, int index) {
-		if (index == 0) {
-			return deck.get(index).toString();
+		String listTiles = "";
+
+		for (int i = 0; i < deck.size(); i++) {
+			listTiles = listTiles + deck.get(i).toString();
 		}
-		else if (index > 0) {
-			return "" + deck.get(index).toString();
-		}
-		else {
-			return deckToString(deck, index - 1);
-		}
+		return listTiles;
 	}
 
 	/**
@@ -290,9 +288,11 @@ public class MahjongGameState extends GameState {
 		}*/
 		String listTiles = "";
 
-		for (int i = 0; i < hand.length; i++) {
-			listTiles = listTiles + hand[i].toString();
-		}
+//		for (int i = 0; i < hand.length; i++) {
+//			listTiles = listTiles + hand[i].toString();
+//		} TEMPORARY COMMENT OUT BECAUSE HAND IS NULL
+
+		listTiles = "null hand";
 
 		return listTiles;
 	}
