@@ -135,13 +135,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
-		//TODO: write code to specify what tile was ponged
-		if (firstInstance.makeChowAction(chowAction)) {
-			existingText = getExistingText();
-			newText = "Player 3 called pong to take player 2's discarded pile";
-
-			testResultsTextView.setText(existingText + "\n" + newText);
-		}
 
 
 
@@ -159,13 +152,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
-		//TODO: write code to specify what tile was chowed
+		//TODO: write code to specify what tile was ponged
 		if (firstInstance.makeChowAction(chowAction)) {
 			existingText = getExistingText();
-			newText = "Player 4 called chow to take player 3's discarded pile";
+			newText = "Player 3 called pong to take player 2's discarded pile. " +
+					"Player 3 reveals their set.";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
+
+
 
 
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
@@ -178,6 +174,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
 			existingText = getExistingText();
 			newText = "Player 3 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		//TODO: write code to specify what tile was chowed
+		if (firstInstance.makeChowAction(chowAction)) {
+			existingText = getExistingText();
+			newText = "Player 4 called chow to take player 3's discarded pile";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
