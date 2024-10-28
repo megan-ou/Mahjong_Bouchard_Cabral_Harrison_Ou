@@ -149,7 +149,33 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 3 draws the " + firstInstance.getLastDrawnTile() + ".";
 
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 3 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDrawTileAction(drawTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 4 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
+
+		if (firstInstance.makeDiscardAction(discardTileAction)) {
+			existingText = getExistingText();
+			newText = "Player 4 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);
+		}
 
 
 	}// onClick
