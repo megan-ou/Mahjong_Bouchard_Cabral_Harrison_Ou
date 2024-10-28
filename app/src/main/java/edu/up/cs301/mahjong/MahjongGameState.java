@@ -128,15 +128,6 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * will start the game
-	 * deal the tiles in the deck
-	 */
-	public void startGame(){
-		this.deck = dealTiles(this.deck);
-
-	}
-
-	/**
 	 * method that will "deal" the initial tiles
 	 * essentially each tile in the deck arraylist is given a number 0-6 indicating its
 	 * location on the table (locationNum)
