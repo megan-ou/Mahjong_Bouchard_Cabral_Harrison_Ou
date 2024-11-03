@@ -70,8 +70,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * this method gets called when the user clicks the '+' or '-' button. It
-	 * creates a new CounterMoveAction to return to the parent activity.
+	 * This method gets called when the user clicks the run test button. It then repeatedly
+	 * calls methods in the GameState class to test if it will run
 	 * 
 	 * @param button
 	 * 		the button that was clicked

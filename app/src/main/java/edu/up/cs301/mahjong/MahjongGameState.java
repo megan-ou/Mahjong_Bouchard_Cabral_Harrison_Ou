@@ -68,7 +68,7 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.currentHand = new MahjongTiles[mgs.currentHand.length];
-		this.currentHand = Arrays.copyOf(mgs.currentHand, mgs.currentHand.length);
+		this.currentHand = Arrays.copyOf(mgs.currentHand, mgs.currentHand.length); //is this a shallow copy???
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
