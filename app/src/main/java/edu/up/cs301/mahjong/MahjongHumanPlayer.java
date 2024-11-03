@@ -98,12 +98,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		MahjongGameState firstCopy = new MahjongGameState(firstInstance);
 
-
-		/**if (button instanceof MDButton) {
-			MahjongDiscardTileAction discardTile = new MahjongDiscardTileAction(this);
-			game.sendAction(discardTile);
-		} */ //from Lab 6
-
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
 
