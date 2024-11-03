@@ -28,8 +28,6 @@ public class MahjongGameState extends GameState {
 
 	private int playerID;
 	private boolean isTurn;
-	private boolean isPair;
-	private boolean isSet;
 	private int numSets;
 	private int numPairs;
 	private MahjongTiles[] currentHand;
@@ -44,8 +42,6 @@ public class MahjongGameState extends GameState {
 	MahjongGameState(){
 		this.playerID = 0;
 		this.isTurn = false;
-		this.isPair = false;
-		this.isSet = false;
 		this.numSets = 0;
 		this.numPairs = 0;
 		this.currentHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
@@ -63,8 +59,6 @@ public class MahjongGameState extends GameState {
 	public MahjongGameState(MahjongGameState mgs){
 		this.playerID = mgs.playerID;
 		this.isTurn = mgs.isTurn;
-		this.isPair = mgs.isPair;
-		this.isSet = mgs.isSet;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.currentHand = new MahjongTiles[mgs.currentHand.length];
