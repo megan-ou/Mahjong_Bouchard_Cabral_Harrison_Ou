@@ -30,7 +30,7 @@ public class MahjongGameState extends GameState {
 	private boolean isTurn;
 	private int numSets;
 	private int numPairs;
-	private MahjongTiles[] currentHand;
+	private MahjongTiles[] playerOneHand; //TODO: split into 4 hands
 	private MahjongTiles currentDrawnTile;
 	private MahjongTiles lastDiscarded;
 	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
@@ -44,7 +44,7 @@ public class MahjongGameState extends GameState {
 		this.isTurn = false;
 		this.numSets = 0;
 		this.numPairs = 0;
-		this.currentHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
+		this.playerOneHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
 		this.currentDrawnTile = null;
 		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
         this.deck = new ArrayList<>();
@@ -61,8 +61,8 @@ public class MahjongGameState extends GameState {
 		this.isTurn = mgs.isTurn;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
-		this.currentHand = new MahjongTiles[mgs.currentHand.length];
-		this.currentHand = Arrays.copyOf(mgs.currentHand, mgs.currentHand.length); //is this a shallow copy???
+		this.playerOneHand = new MahjongTiles[mgs.playerOneHand.length];
+		this.playerOneHand = Arrays.copyOf(mgs.playerOneHand, mgs.playerOneHand.length); //is this a shallow copy???
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
@@ -180,13 +180,11 @@ public class MahjongGameState extends GameState {
 		if (action instanceof MahjongDrawTileAction) {
 //			this.currentDrawnTile = action.getDrawnTile();
 			boolean cardDrawn = false;
-			MahjongTiles currTile;
-
 			while (!cardDrawn) {
-				currTile = deck.get((int) (Math.random() * 135.0));
-				if (currTile.isCanDraw()) {
-					lastDrawnTile = currTile.toString();
-					currTile.setCanDraw(false);
+				currentDrawnTile = deck.get((int) (Math.random() * 135.0));
+				if (currentDrawnTile.isCanDraw()) {
+					lastDrawnTile = currentDrawnTile.toString();
+					currentDrawnTile.setCanDraw(false);
 					cardDrawn = true;
 				}
 			}
@@ -207,7 +205,7 @@ public class MahjongGameState extends GameState {
 		if (action instanceof MahjongChowAction) {
 			//Add chow'd tile to the array
 			//replace 2 with an indexChow
-			this.currentHand[2] = action.getChowTile();
+			this.playerOneHand[2] = action.getChowTile();
 			//The player will need to discard a tile after
 
 			return true;
@@ -238,11 +236,11 @@ public class MahjongGameState extends GameState {
 	@Override
 	public String toString() {
 
-		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nA pair? " + isPair
-				+ "\nA set? " + isSet + "\nNumber of Sets: " + numSets + "\nNumber of Pairs: "
-				+ numPairs + "\nCurrent hand: " + handToString(currentHand, MAXTILES)
-				+ "\nCurrent Drawn Tile: " + lastDrawnTile + "\nLast Tile Discarded: "
-				+ lastDiscarded.toString() + "\nThe deck: " + deckToString(deck, deck.size());
+		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nNumber of Sets: "
+				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
+				+ handToString(playerOneHand, MAXTILES) + "\nCurrent Drawn Tile: "
+				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
+				+ "\nThe deck: " + deckToString(deck, deck.size());
 	}
 
 	/**
