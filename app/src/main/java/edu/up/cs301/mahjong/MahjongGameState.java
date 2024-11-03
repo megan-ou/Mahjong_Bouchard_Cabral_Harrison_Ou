@@ -24,7 +24,7 @@ public class MahjongGameState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
-	private final int MAX = 13; //Max number of tiles in a hand
+	private final int MAXTILES = 14; //Max number of tiles in a hand
 
 	private int playerID;
 	private boolean isTurn;
@@ -189,8 +189,7 @@ public class MahjongGameState extends GameState {
 			MahjongTiles currTile;
 
 			while (!cardDrawn) {
-				//TODO: weird out of bounds error, need to check and make sure deck initialization works
-				currTile = deck.get((int) (Math.random() * 100.0));
+				currTile = deck.get((int) (Math.random() * 135.0));
 				if (currTile.isCanDraw()) {
 					lastDrawnTile = currTile.toString();
 					currTile.setCanDraw(false);
@@ -247,7 +246,7 @@ public class MahjongGameState extends GameState {
 
 		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nA pair? " + isPair
 				+ "\nA set? " + isSet + "\nNumber of Sets: " + numSets + "\nNumber of Pairs: "
-				+ numPairs + "\nCurrent hand: " + handToString(currentHand, MAX)
+				+ numPairs + "\nCurrent hand: " + handToString(currentHand, MAXTILES)
 				+ "\nCurrent Drawn Tile: " + lastDrawnTile + "\nLast Tile Discarded: "
 				+ lastDiscarded.toString() + "\nThe deck: " + deckToString(deck, deck.size());
 	}

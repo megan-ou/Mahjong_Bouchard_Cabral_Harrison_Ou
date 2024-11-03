@@ -8,9 +8,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 /**
- * A class that represents the state of a game. In our counter game, the only
- * relevant piece of information is the value of the game's counter. The
- * CounterState object is therefore very simple.
+ * A class that represents the state of a game. In our mahjong game, the relevant information is
+ * how many pairs and sets a player has.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
@@ -23,8 +22,7 @@ import android.widget.ImageView;
 public class MahjongLocalGame extends LocalGame {
 
 	// When a counter game is played, any number of players. The first player
-	// is trying to get the cou
-	// nter value to TARGET_MAGNITUDE; the second player,
+	// is trying to get the counter value to TARGET_MAGNITUDE; the second player,
 	// if present, is trying to get the counter to -TARGET_MAGNITUDE. The
 	// remaining players are neither winners nor losers, but can interfere by
 	// modifying the counter.
