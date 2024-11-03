@@ -9,8 +9,8 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 
 
 /**
- * This contains the state for the Counter game. The state consist of simply
- * the value of the counter.
+ * This contains the state for the Mahjong game which includes methods and information about
+ * specific variables relevant to the game.
  * 
  * @author Steven R. Vegdahl
  * @author Jacqui Bouchard
