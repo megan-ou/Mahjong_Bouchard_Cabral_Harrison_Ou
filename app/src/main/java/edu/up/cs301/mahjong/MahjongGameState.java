@@ -39,7 +39,7 @@ public class MahjongGameState extends GameState {
 	/**
 	 * default ctor
 	 */
-	MahjongGameState(){
+	public MahjongGameState(){
 		this.playerID = 0;
 		this.isTurn = false;
 		this.numSets = 0;
