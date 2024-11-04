@@ -83,7 +83,7 @@ public class MahjongMainActivity extends GameMainActivity {
 	 * create a local game
 	 * 
 	 * @return
-	 * 		the local game, a counter game
+	 * 		the local game, a mahjong game
 	 */
 	@Override
 	public LocalGame createLocalGame(GameState state) {
