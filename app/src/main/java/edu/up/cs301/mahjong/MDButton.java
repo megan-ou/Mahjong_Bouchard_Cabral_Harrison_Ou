@@ -33,20 +33,7 @@ public class MDButton extends androidx.appcompat.widget.AppCompatButton {
 
         buttonID = tempButtonID;
 
-        populateArray();
-
         this.tempButtonID++;
-
-
-    }
-
-    private void populateArray(){
-        if (buttonID < 7) {
-            buttonArray[0][buttonID] = this;
-        }
-        else {
-            buttonArray[1][buttonID-7] = this;
-        }
     }
 
     public int getID(){

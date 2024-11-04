@@ -13,7 +13,7 @@ public class MahjongTiles {
     private String suit;
     private int value;
     private boolean partOfSet;
-    private boolean canDraw;
+    private boolean canDraw; //TODO: delete later
     private boolean isRevealed;
 
     /**
@@ -65,6 +65,7 @@ public class MahjongTiles {
         return partOfSet;
     }
 
+//TODO: get rid of
     public boolean isCanDraw(){
         return canDraw;
     }
@@ -88,6 +89,7 @@ public class MahjongTiles {
         this.partOfSet = partOfSet;
     }
 
+    //TODO: get rid of
     public void setCanDraw(boolean canDraw) {
         this.canDraw = canDraw;
     }
@@ -104,6 +106,7 @@ public class MahjongTiles {
         return isPartOfSet();
     }
 
+    //TODO: Method needs to be changed to implement number system
     /** Returns true if card was discarded and false if not **/
     public boolean discard(){
         // If tile is not been discarded, discard it

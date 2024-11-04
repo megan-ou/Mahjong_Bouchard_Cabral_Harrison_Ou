@@ -136,13 +136,6 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/btPong"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Pong" />
-
-                    <Button
                         android:id="@+id/btChow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -156,13 +149,6 @@
                     android:layout_weight="1"
                     android:gravity="bottom|center"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btKeepDrawn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0"
-                        android:text="Keep" />
 
                     <Button
                         android:id="@+id/btDiscardDrawn"
