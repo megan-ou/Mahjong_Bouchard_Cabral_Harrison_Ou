@@ -48,7 +48,7 @@ public class MahjongGameState extends GameState {
 		this.currentDrawnTile = null;
 		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
         this.deck = new ArrayList<>();
-		this.deck = MahjongDeck(this.deck);
+		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = deck.get(0);
 		this.lastDrawnTile = "none";
 	}
@@ -94,7 +94,7 @@ public class MahjongGameState extends GameState {
 	 * to the array list and returns the array list
 	 * LJH( use of chatgpt to debug for loops)
 	 */
-	public ArrayList<MahjongTiles> MahjongDeck(ArrayList<MahjongTiles> theDeck){
+	public ArrayList<MahjongTiles> mahjongDeck(ArrayList<MahjongTiles> theDeck){
 
 		//array of tile suits
 		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
