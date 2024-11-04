@@ -24,7 +24,7 @@ public class MahjongGameState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
-	private final int MAXTILES = 14; //Max number of tiles in a hand
+	private final int MAX_TILES = 14; //Max number of tiles in a hand
 
 	private int playerID;
 	private boolean isTurn;
@@ -238,7 +238,7 @@ public class MahjongGameState extends GameState {
 
 		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nNumber of Sets: "
 				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
-				+ handToString(playerOneHand, MAXTILES) + "\nCurrent Drawn Tile: "
+				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
 				+ "\nThe deck: " + deckToString(deck, deck.size());
 	}
