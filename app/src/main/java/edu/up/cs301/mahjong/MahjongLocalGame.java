@@ -21,13 +21,6 @@ import android.widget.ImageView;
  */
 public class MahjongLocalGame extends LocalGame {
 
-	// When a counter game is played, any number of players. The first player
-	// is trying to get the counter value to TARGET_MAGNITUDE; the second player,
-	// if present, is trying to get the counter to -TARGET_MAGNITUDE. The
-	// remaining players are neither winners nor losers, but can interfere by
-	// modifying the counter.
-	public static final int TARGET_MAGNITUDE = 10;
-
 	// the game's state
 	private MahjongGameState gameState;
 	
@@ -42,8 +35,6 @@ public class MahjongLocalGame extends LocalGame {
 	protected boolean canMove(int playerIdx) {
 		return true;
 	}
-
-	private ImageView test;
 
 	/**
 	 * This ctor should be called when a new counter game is started
@@ -60,7 +51,7 @@ public class MahjongLocalGame extends LocalGame {
 	}
 
 	/**
-	 * The only type of GameAction that should be sent is CounterMoveAction
+	 * There are four different actions a user can take
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
