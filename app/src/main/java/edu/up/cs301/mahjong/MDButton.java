@@ -26,7 +26,6 @@ import java.lang.reflect.Array;
 public class MDButton extends androidx.appcompat.widget.AppCompatButton {
     private static int tempButtonID = 0;
     private int buttonID;
-    private MDButton[][] buttonArray = new MDButton[2][7];
 
     public MDButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
