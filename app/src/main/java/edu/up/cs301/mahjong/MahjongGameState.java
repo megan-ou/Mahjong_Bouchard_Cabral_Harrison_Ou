@@ -30,7 +30,10 @@ public class MahjongGameState extends GameState {
 	private boolean isTurn;
 	private int numSets;
 	private int numPairs;
-	private MahjongTiles[] playerOneHand; //TODO: split into 4 hands
+	private MahjongTiles[] playerOneHand;
+	private MahjongTiles[] playerTwoHand;
+	private MahjongTiles[] playerThreeHand;
+	private MahjongTiles[] playerFourHand;
 	private MahjongTiles currentDrawnTile;
 	private MahjongTiles lastDiscarded;
 	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
@@ -45,6 +48,9 @@ public class MahjongGameState extends GameState {
 		this.numSets = 0;
 		this.numPairs = 0;
 		this.playerOneHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
+		this.playerTwoHand = new MahjongTiles[14];
+		this.playerThreeHand = new MahjongTiles[14];
+		this.playerFourHand = new MahjongTiles[14];
 		this.currentDrawnTile = null;
 		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
         this.deck = new ArrayList<>();
@@ -62,7 +68,13 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.playerOneHand = new MahjongTiles[mgs.playerOneHand.length];
-		this.playerOneHand = Arrays.copyOf(mgs.playerOneHand, mgs.playerOneHand.length); //is this a shallow copy???
+		copyArray(mgs.playerOneHand,this.playerOneHand);
+		this.playerTwoHand = new MahjongTiles[mgs.playerTwoHand.length];
+		copyArray(mgs.playerTwoHand,this.playerTwoHand);
+		this.playerThreeHand = new MahjongTiles[mgs.playerThreeHand.length];
+		copyArray(mgs.playerThreeHand,this.playerThreeHand);
+		this.playerFourHand = new MahjongTiles[mgs.playerFourHand.length];
+		copyArray(mgs.playerFourHand,this.playerFourHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
@@ -74,11 +86,11 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Helper method for deep copy ctor to copy arrays
 	 */
-	/*public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
 		for (int i = 0; i < origArray.length; i++) {
-			newArray[i] = origArray[i];
+			newArray[i] = new MahjongTiles(origArray[i].getSuit(), origArray[i].getValue());
 		}
-	}*/
+	}
 
 	/**
 	 * Helper method for deep copy ctor to copy array lists
