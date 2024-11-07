@@ -24,13 +24,16 @@ public class MahjongGameState extends GameState {
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
-	private final int MAXTILES = 14; //Max number of tiles in a hand
+	private final int MAX_TILES = 14; //Max number of tiles in a hand
 
 	private int playerID;
 	private boolean isTurn;
 	private int numSets;
 	private int numPairs;
-	private MahjongTiles[] playerOneHand; //TODO: split into 4 hands
+	private MahjongTiles[] playerOneHand;
+	private MahjongTiles[] playerTwoHand;
+	private MahjongTiles[] playerThreeHand;
+	private MahjongTiles[] playerFourHand;
 	private MahjongTiles currentDrawnTile;
 	private MahjongTiles lastDiscarded;
 	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
@@ -39,16 +42,19 @@ public class MahjongGameState extends GameState {
 	/**
 	 * default ctor
 	 */
-	MahjongGameState(){
+	public MahjongGameState(){
 		this.playerID = 0;
 		this.isTurn = false;
 		this.numSets = 0;
 		this.numPairs = 0;
 		this.playerOneHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
+		this.playerTwoHand = new MahjongTiles[14];
+		this.playerThreeHand = new MahjongTiles[14];
+		this.playerFourHand = new MahjongTiles[14];
 		this.currentDrawnTile = null;
 		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
         this.deck = new ArrayList<>();
-		this.deck = MahjongDeck(this.deck);
+		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = deck.get(0);
 		this.lastDrawnTile = "none";
 	}
@@ -62,7 +68,13 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.playerOneHand = new MahjongTiles[mgs.playerOneHand.length];
-		this.playerOneHand = Arrays.copyOf(mgs.playerOneHand, mgs.playerOneHand.length); //is this a shallow copy???
+		copyArray(mgs.playerOneHand,this.playerOneHand);
+		this.playerTwoHand = new MahjongTiles[mgs.playerTwoHand.length];
+		copyArray(mgs.playerTwoHand,this.playerTwoHand);
+		this.playerThreeHand = new MahjongTiles[mgs.playerThreeHand.length];
+		copyArray(mgs.playerThreeHand,this.playerThreeHand);
+		this.playerFourHand = new MahjongTiles[mgs.playerFourHand.length];
+		copyArray(mgs.playerFourHand,this.playerFourHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new ArrayList<>();
@@ -74,11 +86,11 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Helper method for deep copy ctor to copy arrays
 	 */
-	/*public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
 		for (int i = 0; i < origArray.length; i++) {
-			newArray[i] = origArray[i];
+			newArray[i] = new MahjongTiles(origArray[i].getSuit(), origArray[i].getValue());
 		}
-	}*/
+	}
 
 	/**
 	 * Helper method for deep copy ctor to copy array lists
@@ -94,7 +106,7 @@ public class MahjongGameState extends GameState {
 	 * to the array list and returns the array list
 	 * LJH( use of chatgpt to debug for loops)
 	 */
-	public ArrayList<MahjongTiles> MahjongDeck(ArrayList<MahjongTiles> theDeck){
+	public ArrayList<MahjongTiles> mahjongDeck(ArrayList<MahjongTiles> theDeck){
 
 		//array of tile suits
 		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
@@ -155,7 +167,8 @@ public class MahjongGameState extends GameState {
 //				theDeck.get(randIndex).setLocationNum(q);
 //			}
 //		}
-			return theDeck;
+
+		return theDeck;
 	}
 
 
@@ -238,7 +251,7 @@ public class MahjongGameState extends GameState {
 
 		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nNumber of Sets: "
 				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
-				+ handToString(playerOneHand, MAXTILES) + "\nCurrent Drawn Tile: "
+				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
 				+ "\nThe deck: " + deckToString(deck, deck.size());
 	}
@@ -289,7 +302,7 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Getter methods
+	 * Getter Methods
 	 */
 	public String getLastDrawnTile () {
 		return this.lastDrawnTile;
@@ -324,5 +337,52 @@ public class MahjongGameState extends GameState {
 	}
 	public boolean getIsTurn(){
 		return isTurn;
+	}
+
+	/**
+	 * Setter Methods
+	 */
+	public void setCurrentDrawnTile(MahjongTiles currentDrawnTile) {
+		this.currentDrawnTile = currentDrawnTile;
+	}
+
+	public void setLastDiscarded(MahjongTiles lastDiscarded) {
+		this.lastDiscarded = lastDiscarded;
+	}
+
+	public void setLastDrawnTile(String lastDrawnTile) {
+		this.lastDrawnTile = lastDrawnTile;
+	}
+
+	public void setNumPairs(int numPairs) {
+		this.numPairs = numPairs;
+	}
+
+	public void setNumSets(int numSets) {
+		this.numSets = numSets;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
+	public void setPlayerOneHand(int index, MahjongTiles tile) {
+		this.playerOneHand[index] = tile;
+	}
+
+	public void setPlayerTwoHand(int index, MahjongTiles tile) {
+		this.playerTwoHand[index] = tile;
+	}
+
+	public void setPlayerThreeHand(int index, MahjongTiles tile) {
+		this.playerThreeHand[index] = tile;
+	}
+
+	public void setPlayerFourHand(int index, MahjongTiles tile) {
+		this.playerFourHand[index] = tile;
+	}
+
+	public void setTurn(boolean turn) {
+		isTurn = turn;
 	}
 }
