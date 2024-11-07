@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
+import edu.up.cs301.mahjong.tiles.HanziTiles;
 import edu.up.cs301.mahjong.tiles.MahjongTiles;
 
 import edu.up.cs301.mahjong.tiles.MahjongTiles;
@@ -151,7 +152,19 @@ public class MahjongGameStateTest extends TestCase {
         assertEquals(gameState.getPlayerID(), 2);
     }
 
-    public void testSetPlayerOneHand() {
+    //Megan
+    public void test1SetPlayerOneHand() {
+        MahjongGameState mgs = new MahjongGameState();
+
+        mgs.setPlayerOneHand(0,new HanziTiles(3));
+
+        HanziTiles hanzi3 = new HanziTiles(3);
+
+        assertEquals("Hanzi", mgs.getPlayerOneHand()[0].getSuit());
+    }
+
+    //Landon
+    public void test2SetPlayerOneHand() {
         MahjongGameState gameState = new MahjongGameState();
         MahjongTiles newTile = new MahjongTiles("Hanzi", 3);
 
