@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
+import edu.up.cs301.mahjong.tiles.HanziTiles;
 import edu.up.cs301.mahjong.tiles.MahjongTiles;
 
 import edu.up.cs301.mahjong.tiles.MahjongTiles;
@@ -18,6 +19,7 @@ public class MahjongGameStateTest extends TestCase {
     public void tearDown() throws Exception {
     }
 
+    // Jazmine Cabral
     public void testCopyArray1() {
         MahjongGameState state = new MahjongGameState();
         MahjongTiles[] originalArray;
@@ -28,6 +30,7 @@ public class MahjongGameStateTest extends TestCase {
         assertNotNull(originalArray);
     }
 
+    // Jazmine Cabral
     public void testCopyArray2(){
         MahjongGameState state = new MahjongGameState();
         MahjongTiles[] originalArray;
@@ -95,7 +98,14 @@ public class MahjongGameStateTest extends TestCase {
     public void testMakeChowAction() {
     }
 
+    // Jazmine Cabral
     public void testMakeSwitchViewAction() {
+        MahjongGameState state = new MahjongGameState();
+        MahjongComputerPlayer1 player1 = new MahjongComputerPlayer1("Jaqcui");
+        MahjongSwitchViewAction viewAction = new MahjongSwitchViewAction(player1);
+        boolean test = state.makeSwitchViewAction(viewAction);
+        assertTrue(test);
+        
     }
 
     public void testTestToString() {
@@ -150,9 +160,33 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testSetPlayerID() {
+        MahjongGameState gameState = new MahjongGameState();
+
+        gameState.setPlayerID(2);
+
+        assertEquals(gameState.getPlayerID(), 2);
     }
 
-    public void testSetPlayerOneHand() {
+    //Megan
+    public void test1SetPlayerOneHand() {
+        MahjongGameState mgs = new MahjongGameState();
+
+        mgs.setPlayerOneHand(0,new HanziTiles(3));
+
+        HanziTiles hanzi3 = new HanziTiles(3);
+
+        assertEquals("Hanzi", mgs.getPlayerOneHand()[0].getSuit());
+    }
+
+    //Landon
+    public void test2SetPlayerOneHand() {
+        MahjongGameState gameState = new MahjongGameState();
+        MahjongTiles newTile = new MahjongTiles("Hanzi", 3);
+
+        gameState.setPlayerOneHand(0, newTile);
+
+        assertNotNull(gameState.getPlayerOneHand()[0]);
+
     }
 
     public void testSetPlayerTwoHand() {
