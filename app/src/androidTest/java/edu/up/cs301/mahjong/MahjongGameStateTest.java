@@ -2,6 +2,8 @@ package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
 
+import edu.up.cs301.mahjong.tiles.MahjongTiles;
+
 public class MahjongGameStateTest extends TestCase {
 
     public void setUp() throws Exception {
@@ -45,6 +47,13 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testHandToString() {
+        MahjongGameState gameState = new MahjongGameState();
+
+        String cardInHand =
+                gameState.handToString(gameState.getPlayerOneHand(), 2);
+        assertNotNull(cardInHand);
+
+
     }
 
     public void testGetLastDrawnTile() {
@@ -90,9 +99,21 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testSetPlayerID() {
+        MahjongGameState gameState = new MahjongGameState();
+
+        gameState.setPlayerID(2);
+
+        assertEquals(gameState.getPlayerID(), 2);
     }
 
     public void testSetPlayerOneHand() {
+        MahjongGameState gameState = new MahjongGameState();
+        MahjongTiles newTile = new MahjongTiles("Hanzi", 3);
+
+        gameState.setPlayerOneHand(0, newTile);
+
+        assertNotNull(gameState.getPlayerOneHand()[0]);
+
     }
 
     public void testSetPlayerTwoHand() {

@@ -156,7 +156,7 @@ public class MahjongGameState extends GameState {
 		int randIndex = 0;
 
 		//TODO: review this code and fix potential infinite loop
-
+		//TODO: set the index thirteen of the decks to null
 //		for(int q = 1; q < 4; q++){
 //
 //			for (int s = 1; s < 13; s++) {
