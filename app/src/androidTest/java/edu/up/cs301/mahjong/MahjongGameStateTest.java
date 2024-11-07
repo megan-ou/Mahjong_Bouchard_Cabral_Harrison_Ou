@@ -19,6 +19,7 @@ public class MahjongGameStateTest extends TestCase {
     public void tearDown() throws Exception {
     }
 
+    // Jazmine Cabral
     public void testCopyArray1() {
         MahjongGameState state = new MahjongGameState();
         MahjongTiles[] originalArray;
@@ -29,6 +30,7 @@ public class MahjongGameStateTest extends TestCase {
         assertNotNull(originalArray);
     }
 
+    // Jazmine Cabral
     public void testCopyArray2(){
         MahjongGameState state = new MahjongGameState();
         MahjongTiles[] originalArray;
@@ -90,7 +92,14 @@ public class MahjongGameStateTest extends TestCase {
     public void testMakeChowAction() {
     }
 
+    // Jazmine Cabral
     public void testMakeSwitchViewAction() {
+        MahjongGameState state = new MahjongGameState();
+        MahjongComputerPlayer1 player1 = new MahjongComputerPlayer1("Jaqcui");
+        MahjongSwitchViewAction viewAction = new MahjongSwitchViewAction(player1);
+        boolean test = state.makeSwitchViewAction(viewAction);
+        assertTrue(test);
+        
     }
 
     public void testTestToString() {
