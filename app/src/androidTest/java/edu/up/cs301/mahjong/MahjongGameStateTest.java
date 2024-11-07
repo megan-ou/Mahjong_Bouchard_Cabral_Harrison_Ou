@@ -99,6 +99,11 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testHandToString() {
+        MahjongGameState gameState = new MahjongGameState();
+        String cardInHand =
+                gameState.handToString(gameState.getPlayerOneHand(), 2);
+
+        assertNotNull(cardInHand);
     }
 
     public void testGetLastDrawnTile() {
