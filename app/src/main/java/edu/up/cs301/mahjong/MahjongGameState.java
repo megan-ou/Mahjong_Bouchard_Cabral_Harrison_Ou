@@ -53,7 +53,7 @@ public class MahjongGameState extends GameState {
 		this.playerFourHand = new MahjongTiles[14];
 		this.currentDrawnTile = null;
 		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
-        this.deck = new ArrayList<>();
+		this.deck = new ArrayList<>();
 		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = deck.get(0);
 		this.lastDrawnTile = "none";
