@@ -3,6 +3,7 @@ package edu.up.cs301.mahjong;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
 
 import edu.up.cs301.GameFramework.infoMessage.GameState;
@@ -107,7 +108,7 @@ public class MahjongGameState extends GameState {
 	 * LJH( use of chatgpt to debug for loops)
 	 */
 	public ArrayList<MahjongTiles> mahjongDeck(ArrayList<MahjongTiles> theDeck){
-
+		theDeck.clear();
 		//array of tile suits
 		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
 									"Star", "Water", "Wind"};
@@ -189,25 +190,32 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Draw tile action
 	 */
-	public boolean makeDrawTileAction (MahjongDrawTileAction action) {
+	public boolean makeDrawTileAction (GameAction action) {
 		if (action instanceof MahjongDrawTileAction) {
 //			this.currentDrawnTile = action.getDrawnTile();
-			boolean cardDrawn = false;
-			while (!cardDrawn) {
-				currentDrawnTile = deck.get((int) (Math.random() * 135.0));
-				if (currentDrawnTile.getLocationNum() == 0) {
-					lastDrawnTile = currentDrawnTile.toString();
-					currentDrawnTile.setLocationNum(playerID);
-					cardDrawn = true;
-				}
-			}
-
+			factorDrawTileAction();
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
+
+	/**
+	 * Factored code for testing
+	 */
+	public void factorDrawTileAction() {
+		boolean cardDrawn = false;
+		while (!cardDrawn) {
+			currentDrawnTile = deck.get((int) (Math.random() * 135.0));
+			if (currentDrawnTile.getLocationNum() == 0) {
+				lastDrawnTile = currentDrawnTile.toString();
+				currentDrawnTile.setLocationNum(playerID);
+				cardDrawn = true;
+			}
+		}
+	}
+
 
 	/**
 	 * Chow action method which adds the chow'd tile to the current hand array.
