@@ -2,6 +2,10 @@ package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
 
+import java.util.ArrayList;
+
+import edu.up.cs301.mahjong.tiles.MahjongTiles;
+
 public class MahjongGameStateTest extends TestCase {
 
     public void setUp() throws Exception {
@@ -18,6 +22,14 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testMahjongDeck() {
+        MahjongGameState mgs = new MahjongGameState();
+
+        ArrayList<MahjongTiles> testDeck = mgs.mahjongDeck(mgs.getDeck());
+
+        int deckSize = testDeck.size();
+
+        assertEquals(135,deckSize);
+
     }
 
     public void testStartGame() {
@@ -29,7 +41,15 @@ public class MahjongGameStateTest extends TestCase {
     public void testMakeDiscardAction() {
     }
 
+    /**
+     * Test to make sure only draw actions can be made in drawTile class
+     */
     public void testMakeDrawTileAction() {
+        MahjongGameState mgs = new MahjongGameState();
+
+        mgs.factorDrawTileAction();
+
+        assertNotNull(mgs.getCurrentDrawnTile());
     }
 
     public void testMakeChowAction() {
