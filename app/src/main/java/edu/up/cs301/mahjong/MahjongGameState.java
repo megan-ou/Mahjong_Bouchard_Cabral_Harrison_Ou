@@ -289,9 +289,40 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Getter method for lastDrawnTile
+	 * Getter methods
 	 */
 	public String getLastDrawnTile () {
 		return this.lastDrawnTile;
+	}
+
+	public int getNumPairs() {
+		return numPairs;
+	}
+
+	public int getPlayerID() {
+		return playerID;
+	}
+
+	public ArrayList<MahjongTiles> getDeck() {
+		return deck;
+	}
+
+	public MahjongTiles[] getPlayerOneHand() {
+		return playerOneHand;
+	}
+
+	public MahjongTiles getCurrentDrawnTile() {
+		return currentDrawnTile;
+	}
+
+	public int getNumSets() {
+		return numSets;
+	}
+
+	public MahjongTiles getLastDiscarded() {
+		return lastDiscarded;
+	}
+	public boolean getIsTurn(){
+		return isTurn;
 	}
 }

@@ -13,7 +13,6 @@ public class MahjongTiles {
     private String suit;
     private int value;
     private boolean partOfSet;
-    private boolean canDraw; //TODO: delete later
     private boolean isRevealed;
 
     /**
@@ -37,7 +36,6 @@ public class MahjongTiles {
         this.suit = suit;
         this.value = value;
         this.partOfSet = false;  // Default value
-        this.canDraw = true;// Default value
         this.isRevealed = false;
         this.locationNum = 0;
     }
@@ -47,7 +45,6 @@ public class MahjongTiles {
         suit = orig.suit;
         value = orig.value;
         partOfSet = orig.partOfSet;
-        canDraw = orig.partOfSet;
         isRevealed = orig.isRevealed;
         locationNum = orig.locationNum;
     }
@@ -66,9 +63,9 @@ public class MahjongTiles {
     }
 
 //TODO: get rid of
-    public boolean isCanDraw(){
-        return canDraw;
-    }
+//    public boolean isCanDraw(){
+//        return canDraw;
+//    }
 
     public boolean isRevealed() {
         return isRevealed;
@@ -89,10 +86,10 @@ public class MahjongTiles {
         this.partOfSet = partOfSet;
     }
 
-    //TODO: get rid of
-    public void setCanDraw(boolean canDraw) {
-        this.canDraw = canDraw;
-    }
+//    //TODO: get rid of
+//    public void setCanDraw(boolean canDraw) {
+//        this.canDraw = canDraw;
+//    }
 
     public void setRevealed(boolean revealed) {
         isRevealed = revealed;
@@ -109,9 +106,9 @@ public class MahjongTiles {
     //TODO: Method needs to be changed to implement number system
     /** Returns true if card was discarded and false if not **/
     public boolean discard(){
-        // If tile is not been discarded, discard it
-        if (canDraw){
-            setCanDraw(false);
+        // If tile has not been discarded, discard it
+        if (locationNum < 5){
+            setLocationNum(5);
             return true; //Card was successfully discarded
         }
         return false; // Card was not discarded
