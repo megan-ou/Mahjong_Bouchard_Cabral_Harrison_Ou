@@ -167,7 +167,8 @@ public class MahjongGameState extends GameState {
 //				theDeck.get(randIndex).setLocationNum(q);
 //			}
 //		}
-			return theDeck;
+
+		return theDeck;
 	}
 
 
@@ -301,9 +302,56 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Getter method for lastDrawnTile
+	 * Getter Methods
 	 */
 	public String getLastDrawnTile () {
 		return this.lastDrawnTile;
+	}
+
+	/**
+	 * Setter Methods
+	 */
+	public void setCurrentDrawnTile(MahjongTiles currentDrawnTile) {
+		this.currentDrawnTile = currentDrawnTile;
+	}
+
+	public void setLastDiscarded(MahjongTiles lastDiscarded) {
+		this.lastDiscarded = lastDiscarded;
+	}
+
+	public void setLastDrawnTile(String lastDrawnTile) {
+		this.lastDrawnTile = lastDrawnTile;
+	}
+
+	public void setNumPairs(int numPairs) {
+		this.numPairs = numPairs;
+	}
+
+	public void setNumSets(int numSets) {
+		this.numSets = numSets;
+	}
+
+	public void setPlayerID(int playerID) {
+		this.playerID = playerID;
+	}
+
+	public void setPlayerOneHand(int index, MahjongTiles tile) {
+		this.playerOneHand[index] = tile;
+	}
+
+	public void setPlayerTwoHand(int index, MahjongTiles tile) {
+		this.playerTwoHand[index] = tile;
+	}
+
+	public void setPlayerThreeHand(int index, MahjongTiles tile) {
+		this.playerThreeHand[index] = tile;
+	}
+
+	public void setPlayerFourHand(int index, MahjongTiles tile) {
+		this.playerFourHand[index] = tile;
+	}
+
+	public void setTurn(boolean turn) {
+		isTurn = turn;
 	}
 }
