@@ -76,6 +76,12 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testMakeDiscardAction() {
+        MahjongGameState mgs = new MahjongGameState();
+        MahjongComputerPlayer1 player = new MahjongComputerPlayer1("Jaz");
+        MahjongDiscardTileAction discardAction = new MahjongDiscardTileAction(player);
+        boolean isDiscardAction = mgs.makeDiscardAction(discardAction);
+        assertTrue(isDiscardAction);
+
     }
 
     /**
