@@ -8,14 +8,14 @@ package edu.up.cs301.mahjong.tiles;
  * Miscellaneous Symbols suit
  */
 
-public class SymbolsTiles extends MahjongTiles {
+public class SymbolsTile extends MahjongTile {
     /**
      * Constructor
      *
      * @param suit
      * Value is 0 because symbol tiles have no value, only for matching
      **/
-    public SymbolsTiles(String suit) {
+    public SymbolsTile(String suit) {
         super(suit, 0);
     }
 

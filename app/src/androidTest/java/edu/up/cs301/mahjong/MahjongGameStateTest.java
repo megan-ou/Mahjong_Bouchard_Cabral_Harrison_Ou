@@ -2,12 +2,8 @@ package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
 
-import java.util.ArrayList;
-
-import edu.up.cs301.mahjong.tiles.HanziTiles;
-import edu.up.cs301.mahjong.tiles.MahjongTiles;
-
-import edu.up.cs301.mahjong.tiles.MahjongTiles;
+import edu.up.cs301.mahjong.tiles.HanziTile;
+import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 public class MahjongGameStateTest extends TestCase {
 
@@ -22,10 +18,10 @@ public class MahjongGameStateTest extends TestCase {
     // Jazmine Cabral
     public void testCopyArray1() {
         MahjongGameState state = new MahjongGameState();
-        MahjongTiles[] originalArray;
-        MahjongTiles[] copyArray;
-        originalArray = new MahjongTiles[]{
-                new MahjongTiles("bamboo", 2)
+        MahjongTile[] originalArray;
+        MahjongTile[] copyArray;
+        originalArray = new MahjongTile[]{
+                new MahjongTile("bamboo", 2)
         };
         assertNotNull(originalArray);
     }
@@ -33,14 +29,14 @@ public class MahjongGameStateTest extends TestCase {
     // Jazmine Cabral
     public void testCopyArray2(){
         MahjongGameState state = new MahjongGameState();
-        MahjongTiles[] originalArray;
-        MahjongTiles[] copyArray;
-        originalArray = new MahjongTiles[]{
-                new MahjongTiles("bamboo", 2),
-                new MahjongTiles("character", 5),
-                new MahjongTiles("circle", 7)
+        MahjongTile[] originalArray;
+        MahjongTile[] copyArray;
+        originalArray = new MahjongTile[]{
+                new MahjongTile("bamboo", 2),
+                new MahjongTile("character", 5),
+                new MahjongTile("circle", 7)
         };
-        copyArray = new MahjongTiles[originalArray.length];
+        copyArray = new MahjongTile[originalArray.length];
 
         state.copyArray(copyArray, originalArray);
 
@@ -61,7 +57,7 @@ public class MahjongGameStateTest extends TestCase {
     public void testMahjongDeck() {
         MahjongGameState mgs = new MahjongGameState();
 
-        //ArrayList<MahjongTiles> testDeck = mgs.mahjongDeck(mgs.getDeck());
+        //ArrayList<MahjongTile> testDeck = mgs.mahjongDeck(mgs.getDeck());
 
         //int deckSize = testDeck.size();
 
@@ -88,7 +84,7 @@ public class MahjongGameStateTest extends TestCase {
 
         assertEquals(2,mgs.getPlayerTwoHand()[0].getLocationNum());
 
-        MahjongTiles testTile = new MahjongTiles(mgs.getPlayerTwoHand()[0]);
+        MahjongTile testTile = new MahjongTile(mgs.getPlayerTwoHand()[0]);
 
         mgs.dealTiles();
 
@@ -217,9 +213,9 @@ public class MahjongGameStateTest extends TestCase {
     public void test1SetPlayerOneHand() {
         MahjongGameState mgs = new MahjongGameState();
 
-        mgs.setPlayerOneHand(0,new HanziTiles(3));
+        mgs.setPlayerOneHand(0,new HanziTile(3));
 
-        HanziTiles hanzi3 = new HanziTiles(3);
+        HanziTile hanzi3 = new HanziTile(3);
 
         assertEquals("Hanzi", mgs.getPlayerOneHand()[0].getSuit());
     }
@@ -227,7 +223,7 @@ public class MahjongGameStateTest extends TestCase {
     //Landon
     public void test2SetPlayerOneHand() {
         MahjongGameState gameState = new MahjongGameState();
-        MahjongTiles newTile = new MahjongTiles("Hanzi", 3);
+        MahjongTile newTile = new MahjongTile("Hanzi", 3);
 
         gameState.setPlayerOneHand(0, newTile);
 

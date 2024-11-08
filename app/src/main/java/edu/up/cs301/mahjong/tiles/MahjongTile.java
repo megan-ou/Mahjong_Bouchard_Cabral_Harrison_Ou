@@ -7,7 +7,7 @@ package edu.up.cs301.mahjong.tiles;
  * Abstract class for tile object with suit, value, and boolean values to detect if it
  * is a part of a set and can be drawn
  */
-public class MahjongTiles {
+public class MahjongTile {
 
     /** Instance Variables **/
     private String suit;
@@ -32,7 +32,7 @@ public class MahjongTiles {
     private int locationNum;
 
     /** Constructor **/
-    public MahjongTiles(String suit, int value) {
+    public MahjongTile(String suit, int value) {
         this.suit = suit;
         this.value = value;
         this.partOfSet = false;  // Default value
@@ -41,7 +41,7 @@ public class MahjongTiles {
     }
 
     /** Copy Constructor **/
-    public MahjongTiles(MahjongTiles orig){
+    public MahjongTile(MahjongTile orig){
         suit = orig.suit;
         value = orig.value;
         partOfSet = orig.partOfSet;
@@ -115,7 +115,7 @@ public class MahjongTiles {
     }
 
     /** Returns true if the tiles are equal **/
-    public boolean isEquals(MahjongTiles other) {
+    public boolean isEquals(MahjongTile other) {
         if (other == null) return false;
         return this.suit == other.suit && this.value == other.value;
     }

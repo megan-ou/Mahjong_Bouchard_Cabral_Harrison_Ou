@@ -2,7 +2,7 @@ package edu.up.cs301.mahjong;
 
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
-import edu.up.cs301.mahjong.tiles.MahjongTiles;
+import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 /**
  * A MahjongDrawTileAction is an action that for Each players turn must draw a tile.
@@ -16,7 +16,7 @@ import edu.up.cs301.mahjong.tiles.MahjongTiles;
 public class MahjongDrawTileAction extends GameAction {
 
 	/** Instance Variables **/
-	private MahjongTiles drawnTile;
+	private MahjongTile drawnTile;
 
 	/**
 	 * Constructor for the MahjongDrawTileAction class.
@@ -28,7 +28,7 @@ public class MahjongDrawTileAction extends GameAction {
 	}
 
 	/** Getter Method for draw tile **/
-	public MahjongTiles getDrawnTile() {
+	public MahjongTile getDrawnTile() {
 		return drawnTile;
 	}
 }

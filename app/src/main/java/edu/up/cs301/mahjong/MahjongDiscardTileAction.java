@@ -2,7 +2,6 @@ package edu.up.cs301.mahjong;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
-import edu.up.cs301.mahjong.tiles.MahjongTiles;
 
 /**
  * A MahjongDiscardTileAction is an action a player takes when they want to discard

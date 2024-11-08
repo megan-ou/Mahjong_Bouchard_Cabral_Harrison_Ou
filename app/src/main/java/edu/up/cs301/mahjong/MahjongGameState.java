@@ -1,7 +1,6 @@
 package edu.up.cs301.mahjong;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
@@ -31,13 +30,13 @@ public class MahjongGameState extends GameState {
 	private boolean isTurn;
 	private int numSets;
 	private int numPairs;
-	private MahjongTiles[] playerOneHand;
-	private MahjongTiles[] playerTwoHand;
-	private MahjongTiles[] playerThreeHand;
-	private MahjongTiles[] playerFourHand;
-	private MahjongTiles currentDrawnTile;
-	private MahjongTiles lastDiscarded;
-	private MahjongTiles[] deck; // 136 tiles in a deck
+	private MahjongTile[] playerOneHand;
+	private MahjongTile[] playerTwoHand;
+	private MahjongTile[] playerThreeHand;
+	private MahjongTile[] playerFourHand;
+	private MahjongTile currentDrawnTile;
+	private MahjongTile lastDiscarded;
+	private MahjongTile[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
 	/**
@@ -48,12 +47,12 @@ public class MahjongGameState extends GameState {
 		this.isTurn = false;
 		this.numSets = 0;
 		this.numPairs = 0;
-		this.playerOneHand = new MahjongTiles[14]; //need to copy each object to a new array when constructing, example on moodle
-		this.playerTwoHand = new MahjongTiles[14];
-		this.playerThreeHand = new MahjongTiles[14];
-		this.playerFourHand = new MahjongTiles[14];
+		this.playerOneHand = new MahjongTile[14]; //need to copy each object to a new array when constructing, example on moodle
+		this.playerTwoHand = new MahjongTile[14];
+		this.playerThreeHand = new MahjongTile[14];
+		this.playerFourHand = new MahjongTile[14];
 		this.currentDrawnTile = null;
-		this.deck = new MahjongTiles[136];
+		this.deck = new MahjongTile[136];
 		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = null;
 		this.lastDrawnTile = "none";
@@ -67,17 +66,17 @@ public class MahjongGameState extends GameState {
 		this.isTurn = mgs.isTurn;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
-		this.playerOneHand = new MahjongTiles[mgs.playerOneHand.length];
+		this.playerOneHand = new MahjongTile[mgs.playerOneHand.length];
 		copyArray(mgs.playerOneHand,this.playerOneHand);
-		this.playerTwoHand = new MahjongTiles[mgs.playerTwoHand.length];
+		this.playerTwoHand = new MahjongTile[mgs.playerTwoHand.length];
 		copyArray(mgs.playerTwoHand,this.playerTwoHand);
-		this.playerThreeHand = new MahjongTiles[mgs.playerThreeHand.length];
+		this.playerThreeHand = new MahjongTile[mgs.playerThreeHand.length];
 		copyArray(mgs.playerThreeHand,this.playerThreeHand);
-		this.playerFourHand = new MahjongTiles[mgs.playerFourHand.length];
+		this.playerFourHand = new MahjongTile[mgs.playerFourHand.length];
 		copyArray(mgs.playerFourHand,this.playerFourHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
-		this.deck = new MahjongTiles[mgs.getDeck().length];
+		this.deck = new MahjongTile[mgs.getDeck().length];
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
 
@@ -86,24 +85,24 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Helper method for deep copy ctor to copy arrays
 	 */
-	public void copyArray (MahjongTiles[] newArray, MahjongTiles[] origArray) {
+	public void copyArray (MahjongTile[] newArray, MahjongTile[] origArray) {
 		for (int i = 0; i < origArray.length; i++) {
-			newArray[i] = new MahjongTiles(origArray[i].getSuit(), origArray[i].getValue());
+			newArray[i] = new MahjongTile(origArray[i].getSuit(), origArray[i].getValue());
 		}
 	}
 
 	/**
 	 * Helper method for deep copy ctor to copy array lists
 	 */
-	public void copyArrayList (ArrayList<MahjongTiles> newArrayList,
-							   ArrayList<MahjongTiles> origArrayList) {
+	public void copyArrayList (ArrayList<MahjongTile> newArrayList,
+							   ArrayList<MahjongTile> origArrayList) {
         newArrayList.addAll(origArrayList);
 	}
 
 	/**
 	 * Helper method that clears an array and resets location of tiles
 	 */
-	public void clearHand(MahjongTiles[] hand) {
+	public void clearArray(MahjongTile[] hand) {
 		for (int i = 0 ; i < hand.length; i++) {
 			if (hand[i] != null) {
 				hand[i].setLocationNum(0); //reset location to general deck
@@ -118,8 +117,8 @@ public class MahjongGameState extends GameState {
 	 * to the array list and returns the array list
 	 * LJH( use of chatgpt to debug for loops)
 	 */
-	public MahjongTiles[] mahjongDeck(MahjongTiles[] deck){
-		clearHand(deck);
+	public MahjongTile[] mahjongDeck(MahjongTile[] deck){
+		clearArray(deck);
 
 		//index of entire deck array, should cap at 135
 		int deckIndex = 0;
@@ -128,29 +127,29 @@ public class MahjongGameState extends GameState {
 		for (int i = 0; i < 4; i++) {
 			//create tiles in each of three suits: hanzi, dots, sticks
 			for (int j = 0; j < 9; j++) {
-				deck[deckIndex] = new HanziTiles(j+1);
+				deck[deckIndex] = new HanziTile(j+1);
 				deckIndex++;
-				deck[deckIndex] = new DotsTiles(j+1);
+				deck[deckIndex] = new DotsTile(j+1);
 				deckIndex++;
-				deck[deckIndex] = new StickTiles(j+1);
+				deck[deckIndex] = new StickTile(j+1);
 				deckIndex++;
 			}
 
 			//create all 7b unique symbol tiles
 			//all symbol tiles have a value of 0
-			deck[deckIndex] = new SymbolsTiles("Earth");
+			deck[deckIndex] = new SymbolsTile("Earth");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Fire");
+			deck[deckIndex] = new SymbolsTile("Fire");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Water");
+			deck[deckIndex] = new SymbolsTile("Water");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Wind");
+			deck[deckIndex] = new SymbolsTile("Wind");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Flower");
+			deck[deckIndex] = new SymbolsTile("Flower");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Star");
+			deck[deckIndex] = new SymbolsTile("Star");
 			deckIndex++;
-			deck[deckIndex] = new SymbolsTiles("Cat");
+			deck[deckIndex] = new SymbolsTile("Cat");
 			deckIndex++;
 		}
 
@@ -165,13 +164,13 @@ public class MahjongGameState extends GameState {
 //
 //			if (t > 2){//for non-numbered sets
 //				for (int q = 0; q < 4; q++) {
-//					theDeck.add(new MahjongTiles(tileSuits[t], 0));
+//					theDeck.add(new MahjongTile(tileSuits[t], 0));
 //				}
 //			}
 //			else{//for numerical sets
 //				for(int m = 1; m < 9; m++){
 //					for(int l = 0; l < 4; l++){
-//						theDeck.add(new MahjongTiles(tileSuits[t], m));
+//						theDeck.add(new MahjongTile(tileSuits[t], m));
 //					}
 //				}
 //			}
@@ -196,10 +195,10 @@ public class MahjongGameState extends GameState {
 	 */
 	public void dealTiles() {
 		//set all hands to null
-		clearHand(playerOneHand);
-		clearHand(playerTwoHand);
-		clearHand(playerThreeHand);
-		clearHand(playerFourHand);
+		clearArray(playerOneHand);
+		clearArray(playerTwoHand);
+		clearArray(playerThreeHand);
+		clearArray(playerFourHand);
 
 		//deal tiles to player 1
 		int numDrawn = 0;
@@ -251,6 +250,93 @@ public class MahjongGameState extends GameState {
 		}
 	} //dealTiles()
 
+	/**
+	 * Method that sorts the deck by tile location after every action (deal, draw, discard, or chow)
+	 */
+	public void sortDeck() {
+		MahjongTile[] sortedDeck = new MahjongTile[deck.length];
+		clearArray(sortedDeck);
+
+		int num0 = 0;
+		int num1 = 0;
+		int num2 = 0;
+		int num3 = 0;
+		int num4 = 0;
+		int num5 = 0;
+
+		//first loop goes into the deck and counts how many tiles are in each location
+		for (int i = 0; i < deck.length; i++) {
+			switch (deck[i].getLocationNum()) {
+				case 0:
+					num0++;
+					break;
+				case 1:
+					num1++;
+					break;
+				case 2:
+					num2++;
+					break;
+				case 3:
+					num3++;
+					break;
+				case 4:
+					num4++;
+					break;
+				case 5:
+					num5++;
+					break;
+			}
+		}
+
+		//find starting index for each location based on how many tiles are in each location
+
+		int index0 = 0;
+		int index1 = num0;
+		int index2 = index1 + num1;
+		int index3 = index2 + num2;
+		int index4 = index3 + num3;
+		int index5 = index4 + num4;
+
+
+		//second loop goes in and reassigns tiles to sortedDeck
+
+		for (int i = 0; i < deck.length; i++) {
+			switch (deck[i].getLocationNum()) {
+				case 0:
+					sortedDeck[index0] = deck[i];
+					index0++;
+					break;
+				case 1:
+					sortedDeck[index1] = deck[i];
+					index1++;
+					break;
+				case 2:
+					sortedDeck[index2] = deck[i];
+					index2++;
+					break;
+				case 3:
+					sortedDeck[index3] = deck[i];
+					index3++;
+					break;
+				case 4:
+					sortedDeck[index4] = deck[i];
+					index4++;
+					break;
+				case 5:
+					sortedDeck[index5] = deck[i];
+					index5++;
+					break;
+			}
+		}
+
+		//set sorted deck to deck
+
+		for (int i = 0; i < deck.length; i++) {
+			deck[i] = sortedDeck[i];
+		}
+
+		clearArray(sortedDeck);
+	}
 
 
 	/**
@@ -352,7 +438,7 @@ public class MahjongGameState extends GameState {
 	 * @param index - the current element of the deck being examined
 	 * @return the deck element as a string
 	 */
-	public String deckToString(MahjongTiles[] deck, int index) {
+	public String deckToString(MahjongTile[] deck, int index) {
 		String listTiles = "";
 
 		for (int i = 0; i < deck.length; i++) {
@@ -369,7 +455,7 @@ public class MahjongGameState extends GameState {
 	 * @return all of the tiles of the hand as a string
 	*
 	*/
-	public String handToString(MahjongTiles[] hand, int index) {
+	public String handToString(MahjongTile[] hand, int index) {
 		//There was an issue with the recursion, we will come back to this
 		/*if (index > 0) {
 			return handToString(hand, index - 1);
@@ -403,27 +489,27 @@ public class MahjongGameState extends GameState {
 		return playerID;
 	}
 
-	public MahjongTiles[] getDeck() {
+	public MahjongTile[] getDeck() {
 		return deck;
 	}
 
-	public MahjongTiles[] getPlayerOneHand() {
+	public MahjongTile[] getPlayerOneHand() {
 		return playerOneHand;
 	}
 
-	public MahjongTiles[] getPlayerTwoHand() {
+	public MahjongTile[] getPlayerTwoHand() {
 		return playerTwoHand;
 	}
 
-	public MahjongTiles[] getPlayerThreeHand() {
+	public MahjongTile[] getPlayerThreeHand() {
 		return playerThreeHand;
 	}
 
-	public MahjongTiles[] getPlayerFourHand() {
+	public MahjongTile[] getPlayerFourHand() {
 		return playerFourHand;
 	}
 
-	public MahjongTiles getCurrentDrawnTile() {
+	public MahjongTile getCurrentDrawnTile() {
 		return currentDrawnTile;
 	}
 
@@ -431,7 +517,7 @@ public class MahjongGameState extends GameState {
 		return numSets;
 	}
 
-	public MahjongTiles getLastDiscarded() {
+	public MahjongTile getLastDiscarded() {
 		return lastDiscarded;
 	}
 	public boolean getIsTurn(){
@@ -441,11 +527,11 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Setter Methods
 	 */
-	public void setCurrentDrawnTile(MahjongTiles currentDrawnTile) {
+	public void setCurrentDrawnTile(MahjongTile currentDrawnTile) {
 		this.currentDrawnTile = currentDrawnTile;
 	}
 
-	public void setLastDiscarded(MahjongTiles lastDiscarded) {
+	public void setLastDiscarded(MahjongTile lastDiscarded) {
 		this.lastDiscarded = lastDiscarded;
 	}
 
@@ -465,19 +551,19 @@ public class MahjongGameState extends GameState {
 		this.playerID = playerID;
 	}
 
-	public void setPlayerOneHand(int index, MahjongTiles tile) {
+	public void setPlayerOneHand(int index, MahjongTile tile) {
 		this.playerOneHand[index] = tile;
 	}
 
-	public void setPlayerTwoHand(int index, MahjongTiles tile) {
+	public void setPlayerTwoHand(int index, MahjongTile tile) {
 		this.playerTwoHand[index] = tile;
 	}
 
-	public void setPlayerThreeHand(int index, MahjongTiles tile) {
+	public void setPlayerThreeHand(int index, MahjongTile tile) {
 		this.playerThreeHand[index] = tile;
 	}
 
-	public void setPlayerFourHand(int index, MahjongTiles tile) {
+	public void setPlayerFourHand(int index, MahjongTile tile) {
 		this.playerFourHand[index] = tile;
 	}
 
