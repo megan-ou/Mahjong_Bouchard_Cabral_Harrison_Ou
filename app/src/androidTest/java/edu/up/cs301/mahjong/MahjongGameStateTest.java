@@ -61,11 +61,19 @@ public class MahjongGameStateTest extends TestCase {
     public void testMahjongDeck() {
         MahjongGameState mgs = new MahjongGameState();
 
-        ArrayList<MahjongTiles> testDeck = mgs.mahjongDeck(mgs.getDeck());
+        //ArrayList<MahjongTiles> testDeck = mgs.mahjongDeck(mgs.getDeck());
 
-        int deckSize = testDeck.size();
+        //int deckSize = testDeck.size();
 
-        assertEquals(135,deckSize);
+        //assertEquals(135,deckSize);
+        mgs.mahjongDeck(mgs.getDeck());
+
+        for (int i = 0; i < mgs.getDeck().length; i++) {
+            assertNotNull(mgs.getDeck()[i]);
+            System.out.println(mgs.getDeck()[i].toString());
+        }
+
+
 
     }
 

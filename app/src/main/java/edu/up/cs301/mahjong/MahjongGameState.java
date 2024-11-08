@@ -37,7 +37,7 @@ public class MahjongGameState extends GameState {
 	private MahjongTiles[] playerFourHand;
 	private MahjongTiles currentDrawnTile;
 	private MahjongTiles lastDiscarded;
-	private ArrayList<MahjongTiles> deck; // 136 tiles in a deck
+	private MahjongTiles[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
 	/**
@@ -53,10 +53,9 @@ public class MahjongGameState extends GameState {
 		this.playerThreeHand = new MahjongTiles[14];
 		this.playerFourHand = new MahjongTiles[14];
 		this.currentDrawnTile = null;
-		//temporary set a last drawn tile, because we don't have code for that and it is initialized as a null value
-		this.deck = new ArrayList<>();
+		this.deck = new MahjongTiles[136];
 		this.deck = mahjongDeck(this.deck);
-		this.lastDiscarded = deck.get(0);
+		this.lastDiscarded = null;
 		this.lastDrawnTile = "none";
 	}
 
@@ -78,8 +77,8 @@ public class MahjongGameState extends GameState {
 		copyArray(mgs.playerFourHand,this.playerFourHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
-		this.deck = new ArrayList<>();
-		copyArrayList(this.deck, mgs.deck); //copy array list using helper method
+		this.deck = new MahjongTiles[mgs.getDeck().length];
+		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
 
 	}
@@ -102,35 +101,79 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Helper method that clears an array
+	 */
+	public void clearHand(MahjongTiles[] hand) {
+		for (int i = 0 ; i < hand.length; i++) {
+			hand[i] = null;
+		}
+	}
+
+	/**
 	 * method that initializes and adds all elements to the classes deck
 	 * takes an arraylist, adds all tiles with for loops
 	 * to the array list and returns the array list
 	 * LJH( use of chatgpt to debug for loops)
 	 */
-	public ArrayList<MahjongTiles> mahjongDeck(ArrayList<MahjongTiles> theDeck){
-		theDeck.clear();
-		//array of tile suits
-		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
-									"Star", "Water", "Wind"};
+	public MahjongTiles[] mahjongDeck(MahjongTiles[] deck){
+		clearHand(deck);
 
-		//iterates through all suits
-		for(int t = 0; t < 9; t++) {
+		//index of entire deck array, should cap at 135
+		int deckIndex = 0;
+
+		//creates 4 copies of each tile
+		for (int i = 0; i < 4; i++) {
+			//create tiles in each of three suits: hanzi, dots, sticks
+			for (int j = 0; j < 9; j++) {
+				deck[deckIndex] = new HanziTiles(j+1);
+				deckIndex++;
+				deck[deckIndex] = new DotsTiles(j+1);
+				deckIndex++;
+				deck[deckIndex] = new StickTiles(j+1);
+				deckIndex++;
+			}
+
+			//create all 7b unique symbol tiles
+			//all symbol tiles have a value of 0
+			deck[deckIndex] = new SymbolsTiles("Earth");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Fire");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Water");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Wind");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Flower");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Star");
+			deckIndex++;
+			deck[deckIndex] = new SymbolsTiles("Cat");
+			deckIndex++;
+		}
 
 
-			if (t > 2){//for non-numbered sets
-				for (int q = 0; q < 4; q++) {
-					theDeck.add(new MahjongTiles(tileSuits[t], 0));
-				}
-			}
-			else{//for numerical sets
-				for(int m = 1; m < 9; m++){
-					for(int l = 0; l < 4; l++){
-						theDeck.add(new MahjongTiles(tileSuits[t], m));
-					}
-				}
-			}
-			}
-		return theDeck;
+//		//array of tile suits
+//		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
+//									"Star", "Water", "Wind"};
+//
+//		//iterates through all suits
+//		for(int t = 0; t < 9; t++) {
+//
+//
+//			if (t > 2){//for non-numbered sets
+//				for (int q = 0; q < 4; q++) {
+//					theDeck.add(new MahjongTiles(tileSuits[t], 0));
+//				}
+//			}
+//			else{//for numerical sets
+//				for(int m = 1; m < 9; m++){
+//					for(int l = 0; l < 4; l++){
+//						theDeck.add(new MahjongTiles(tileSuits[t], m));
+//					}
+//				}
+//			}
+//			}
+		return deck;
 
 	}
 
@@ -139,7 +182,7 @@ public class MahjongGameState extends GameState {
 	 * deal the tiles in the deck
 	 */
 	public void startGame() {
-		this.deck = dealTiles(this.deck);
+		//this.deck = dealTiles(this.deck);
 
 	}
 
@@ -207,7 +250,7 @@ public class MahjongGameState extends GameState {
 	public void factorDrawTileAction() {
 		boolean cardDrawn = false;
 		while (!cardDrawn) {
-			currentDrawnTile = deck.get((int) (Math.random() * 135.0));
+			currentDrawnTile = deck[(int) (Math.random() * 135.0)];
 			if (currentDrawnTile.getLocationNum() == 0) {
 				lastDrawnTile = currentDrawnTile.toString();
 				currentDrawnTile.setLocationNum(playerID);
@@ -261,7 +304,7 @@ public class MahjongGameState extends GameState {
 				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
 				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
-				+ "\nThe deck: " + deckToString(deck, deck.size());
+				+ "\nThe deck: " + deckToString(deck, deck.length);
 	}
 
 	/**
@@ -273,11 +316,11 @@ public class MahjongGameState extends GameState {
 	 * @param index - the current element of the deck being examined
 	 * @return the deck element as a string
 	 */
-	public String deckToString(ArrayList<MahjongTiles> deck, int index) {
+	public String deckToString(MahjongTiles[] deck, int index) {
 		String listTiles = "";
 
-		for (int i = 0; i < deck.size(); i++) {
-			listTiles = listTiles + deck.get(i).toString();
+		for (int i = 0; i < deck.length; i++) {
+			listTiles = listTiles + deck[i].toString();
 		}
 		return listTiles;
 	}
@@ -324,7 +367,7 @@ public class MahjongGameState extends GameState {
 		return playerID;
 	}
 
-	public ArrayList<MahjongTiles> getDeck() {
+	public MahjongTiles[] getDeck() {
 		return deck;
 	}
 

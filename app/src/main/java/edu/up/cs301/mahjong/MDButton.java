@@ -30,6 +30,11 @@ public class MDButton extends androidx.appcompat.widget.AppCompatButton {
     public MDButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
+        //reset for when the static variable gets a little too silly
+        if (tempButtonID > 14) {
+            tempButtonID = 0;
+        }
+
         buttonID = tempButtonID;
 
         this.tempButtonID++;
