@@ -88,6 +88,16 @@ public class MahjongGameStateTest extends TestCase {
 
         assertEquals(2,mgs.getPlayerTwoHand()[0].getLocationNum());
 
+        MahjongTiles testTile = new MahjongTiles(mgs.getPlayerTwoHand()[0]);
+
+        mgs.dealTiles();
+
+        assertEquals(mgs.getPlayerTwoHand()[0].getLocationNum(),testTile.getLocationNum());
+
+        //this test should fail
+        //assertEquals(mgs.getPlayerTwoHand()[0],testTile);
+
+        //passed test commented out
 //        for (int i = 0; i < 13; i++) {
 //            assertNotNull(mgs.getPlayerOneHand()[i]);
 //            System.out.println(mgs.getPlayerOneHand()[i].toString());
