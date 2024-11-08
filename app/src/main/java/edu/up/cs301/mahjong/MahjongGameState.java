@@ -101,11 +101,14 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Helper method that clears an array
+	 * Helper method that clears an array and resets location of tiles
 	 */
 	public void clearHand(MahjongTiles[] hand) {
 		for (int i = 0 ; i < hand.length; i++) {
-			hand[i] = null;
+			if (hand[i] != null) {
+				hand[i].setLocationNum(0); //reset location to general deck
+				hand[i] = null;
+			}
 		}
 	}
 

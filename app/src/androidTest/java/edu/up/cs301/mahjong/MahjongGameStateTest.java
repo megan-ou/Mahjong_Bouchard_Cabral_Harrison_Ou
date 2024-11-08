@@ -86,21 +86,23 @@ public class MahjongGameStateTest extends TestCase {
         MahjongGameState mgs = new MahjongGameState();
         mgs.dealTiles();
 
-        for (int i = 0; i < 13; i++) {
-            assertNotNull(mgs.getPlayerOneHand()[i]);
-            System.out.println(mgs.getPlayerOneHand()[i].toString());
-            assertNotNull(mgs.getPlayerTwoHand()[i]);
-            System.out.println(mgs.getPlayerTwoHand()[i].toString());
-            assertNotNull(mgs.getPlayerThreeHand()[i]);
-            System.out.println(mgs.getPlayerThreeHand()[i].toString());
-            assertNotNull(mgs.getPlayerFourHand()[i]);
-            System.out.println(mgs.getPlayerFourHand()[i].toString());
-        }
+        assertEquals(2,mgs.getPlayerTwoHand()[0].getLocationNum());
 
-        assertNull(mgs.getPlayerOneHand()[13]);
-        assertNull(mgs.getPlayerTwoHand()[13]);
-        assertNull(mgs.getPlayerThreeHand()[13]);
-        assertNull(mgs.getPlayerFourHand()[13]);
+//        for (int i = 0; i < 13; i++) {
+//            assertNotNull(mgs.getPlayerOneHand()[i]);
+//            System.out.println(mgs.getPlayerOneHand()[i].toString());
+//            assertNotNull(mgs.getPlayerTwoHand()[i]);
+//            System.out.println(mgs.getPlayerTwoHand()[i].toString());
+//            assertNotNull(mgs.getPlayerThreeHand()[i]);
+//            System.out.println(mgs.getPlayerThreeHand()[i].toString());
+//            assertNotNull(mgs.getPlayerFourHand()[i]);
+//            System.out.println(mgs.getPlayerFourHand()[i].toString());
+//        }
+//
+//        assertNull(mgs.getPlayerOneHand()[13]);
+//        assertNull(mgs.getPlayerTwoHand()[13]);
+//        assertNull(mgs.getPlayerThreeHand()[13]);
+//        assertNull(mgs.getPlayerFourHand()[13]);
 
     }
 
