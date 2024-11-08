@@ -187,13 +187,9 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * method that will "deal" the initial tiles
-	 * essentially each tile in the deck arraylist is given a number 0-6 indicating its
-	 * location on the table (locationNum)
-	 * this will randomly draw a tile, if it is not in the draw pile, it will try to draw again
-	 *
-	 * * @param theDeck
-	 * @return
+	 * method that will deal the 13 initial tiles to all 4 players
+	 * If a tile is dealt, set locationNum variable to player ID (1-4)
+	 * this will randomly draw a tile, if it is not in the draw pile (Location 0), it will  draw again
 	 */
 	public void dealTiles() {
 		//set all hands to null
@@ -206,7 +202,7 @@ public class MahjongGameState extends GameState {
 		int numDrawn = 0;
 		int randIndex;
 
-		while (numDrawn < 14) {
+		while (numDrawn < 13) {
 			randIndex = (int)(Math.random() * 135.0);
 			if (deck[randIndex].getLocationNum() == 0) {
 				deck[randIndex].setLocationNum(1); //tile location in deck set to player 1
@@ -218,7 +214,7 @@ public class MahjongGameState extends GameState {
 		//deal tiles to player 2
 		numDrawn = 0;
 
-		while (numDrawn < 14) {
+		while (numDrawn < 13) {
 			randIndex = (int)(Math.random() * 135.0);
 			if (deck[randIndex].getLocationNum() == 0) {
 				deck[randIndex].setLocationNum(2); //tile location in deck set to player 2
@@ -230,7 +226,7 @@ public class MahjongGameState extends GameState {
 		//deal tiles to player 3
 		numDrawn = 0;
 
-		while (numDrawn < 14) {
+		while (numDrawn < 13) {
 			randIndex = (int)(Math.random() * 135.0);
 			if (deck[randIndex].getLocationNum() == 0) {
 				deck[randIndex].setLocationNum(3); //tile location in deck set to player 3
@@ -242,7 +238,7 @@ public class MahjongGameState extends GameState {
 		//deal tiles to player 4
 		numDrawn = 0;
 
-		while (numDrawn < 14) {
+		while (numDrawn < 13) {
 			randIndex = (int)(Math.random() * 135.0);
 			if (deck[randIndex].getLocationNum() == 0) {
 				deck[randIndex].setLocationNum(4); //tile location in deck set to player 4
@@ -410,6 +406,18 @@ public class MahjongGameState extends GameState {
 
 	public MahjongTiles[] getPlayerOneHand() {
 		return playerOneHand;
+	}
+
+	public MahjongTiles[] getPlayerTwoHand() {
+		return playerTwoHand;
+	}
+
+	public MahjongTiles[] getPlayerThreeHand() {
+		return playerThreeHand;
+	}
+
+	public MahjongTiles[] getPlayerFourHand() {
+		return playerFourHand;
 	}
 
 	public MahjongTiles getCurrentDrawnTile() {
