@@ -195,25 +195,62 @@ public class MahjongGameState extends GameState {
 	 * * @param theDeck
 	 * @return
 	 */
-	public ArrayList<MahjongTiles> dealTiles(ArrayList<MahjongTiles> theDeck){
+	public void dealTiles() {
+		//set all hands to null
+		clearHand(playerOneHand);
+		clearHand(playerTwoHand);
+		clearHand(playerThreeHand);
+		clearHand(playerFourHand);
 
-		int randIndex = 0;
+		//deal tiles to player 1
+		int numDrawn = 0;
+		int randIndex;
 
-		//TODO: review this code and fix potential infinite loop
-		//TODO: set the index thirteen of the decks to null
-//		for(int q = 1; q < 4; q++){
-//
-//			for (int s = 1; s < 13; s++) {
-//				randIndex = (int) (136 * Math.random());
-//				while (theDeck.get(randIndex).getLocationNum() != 0){
-//					randIndex = (int) (136 * Math.random());
-//				}
-//				theDeck.get(randIndex).setLocationNum(q);
-//			}
-//		}
+		while (numDrawn < 14) {
+			randIndex = (int)(Math.random() * 135.0);
+			if (deck[randIndex].getLocationNum() == 0) {
+				deck[randIndex].setLocationNum(1); //tile location in deck set to player 1
+				playerOneHand[numDrawn] = deck[randIndex]; //shallow copy, we want both to point at same object
+				numDrawn ++;
+			}
+		}
 
-		return theDeck;
-	}
+		//deal tiles to player 2
+		numDrawn = 0;
+
+		while (numDrawn < 14) {
+			randIndex = (int)(Math.random() * 135.0);
+			if (deck[randIndex].getLocationNum() == 0) {
+				deck[randIndex].setLocationNum(2); //tile location in deck set to player 2
+				playerTwoHand[numDrawn] = deck[randIndex]; //shallow copy, we want both to point at same object
+				numDrawn ++;
+			}
+		}
+
+		//deal tiles to player 3
+		numDrawn = 0;
+
+		while (numDrawn < 14) {
+			randIndex = (int)(Math.random() * 135.0);
+			if (deck[randIndex].getLocationNum() == 0) {
+				deck[randIndex].setLocationNum(3); //tile location in deck set to player 3
+				playerThreeHand[numDrawn] = deck[randIndex]; //shallow copy, we want both to point at same object
+				numDrawn ++;
+			}
+		}
+
+		//deal tiles to player 4
+		numDrawn = 0;
+
+		while (numDrawn < 14) {
+			randIndex = (int)(Math.random() * 135.0);
+			if (deck[randIndex].getLocationNum() == 0) {
+				deck[randIndex].setLocationNum(4); //tile location in deck set to player 4
+				playerFourHand[numDrawn] = deck[randIndex]; //shallow copy, we want both to point at same object
+				numDrawn ++;
+			}
+		}
+	} //dealTiles()
 
 
 
