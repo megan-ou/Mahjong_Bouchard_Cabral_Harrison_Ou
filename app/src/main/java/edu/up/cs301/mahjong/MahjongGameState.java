@@ -152,31 +152,7 @@ public class MahjongGameState extends GameState {
 			deck[deckIndex] = new SymbolsTile("Cat");
 			deckIndex++;
 		}
-
-
-//		//array of tile suits
-//		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
-//									"Star", "Water", "Wind"};
-//
-//		//iterates through all suits
-//		for(int t = 0; t < 9; t++) {
-//
-//
-//			if (t > 2){//for non-numbered sets
-//				for (int q = 0; q < 4; q++) {
-//					theDeck.add(new MahjongTile(tileSuits[t], 0));
-//				}
-//			}
-//			else{//for numerical sets
-//				for(int m = 1; m < 9; m++){
-//					for(int l = 0; l < 4; l++){
-//						theDeck.add(new MahjongTile(tileSuits[t], m));
-//					}
-//				}
-//			}
-//			}
 		return deck;
-
 	}
 
 	/**
