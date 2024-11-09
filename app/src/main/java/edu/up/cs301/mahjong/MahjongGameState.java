@@ -297,6 +297,8 @@ public class MahjongGameState extends GameState {
 		copyTile.setSuit(mahjongTile.getSuit());
 		copyTile.setValue(mahjongTile.getValue());
 
+		return copyTile;
+
 	}
 
 	/**
