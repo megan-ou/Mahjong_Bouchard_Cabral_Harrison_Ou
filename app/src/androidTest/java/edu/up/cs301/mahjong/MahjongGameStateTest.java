@@ -193,9 +193,17 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testSetLastDrawnTile() {
+        MahjongGameState mgs = new MahjongGameState();
+        MahjongTile lastDrawn = new MahjongTile("Hanzi", 4);
+        mgs.setLastDrawnTile(lastDrawn.getSuit());
+        assertEquals("Hanzi", lastDrawn.getSuit());
     }
 
     public void testSetNumPairs() {
+        MahjongGameState mgs = new MahjongGameState();
+        mgs.setNumPairs(5);
+        int num = mgs.getNumPairs();
+        assertEquals(5, num);
     }
 
     public void testSetNumSets() {
