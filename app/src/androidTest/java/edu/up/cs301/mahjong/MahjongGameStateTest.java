@@ -2,8 +2,13 @@ package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
 
+import java.lang.invoke.MethodHandle;
+
+import edu.up.cs301.mahjong.tiles.DotsTile;
 import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
+import edu.up.cs301.mahjong.tiles.StickTile;
+import edu.up.cs301.mahjong.tiles.SymbolsTile;
 
 public class MahjongGameStateTest extends TestCase {
 
@@ -40,7 +45,7 @@ public class MahjongGameStateTest extends TestCase {
 
         state.copyArray(copyArray, originalArray);
 
-        // Change on of the elements in the array to then get an error that it did not opy right
+        // Change one of the elements in the array to then get an error that it did not opy right
         copyArray[0].setValue(5);
         copyArray[0].setSuit("circle");
 
@@ -55,21 +60,42 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testMahjongDeck() {
-        MahjongGameState mgs = new MahjongGameState();
 
-        //ArrayList<MahjongTile> testDeck = mgs.mahjongDeck(mgs.getDeck());
+        // Set up a test deck and populate it
+        MahjongGameState state = new MahjongGameState();
+        MahjongTile[] deck = new MahjongTile[136];
+        MahjongTile[] populatedDeck = state.mahjongDeck(deck);
 
-        //int deckSize = testDeck.size();
+        // Test that the deck is not null and has 136 tiles
+        assertNotNull("The deck should not be null", populatedDeck);
+        assertEquals("The deck should contain 136 tiles", 136, populatedDeck.length);
 
-        //assertEquals(135,deckSize);
-        mgs.mahjongDeck(mgs.getDeck());
+        // A count for each suit
+        int hanziCount = 0;
+        int dotsCount = 0;
+        int stickCount = 0;
+        int symbolsCount = 0;
 
-        for (int i = 0; i < mgs.getDeck().length; i++) {
-            assertNotNull(mgs.getDeck()[i]);
-            System.out.println(mgs.getDeck()[i].toString());
+        // Count the number of tiles per suit and update the count
+        for (MahjongTile tile : populatedDeck) {
+            if (tile instanceof HanziTile) {
+                hanziCount++;
+            } else if (tile instanceof DotsTile) {
+                dotsCount++;
+            } else if (tile instanceof StickTile) {
+                stickCount++;
+            } else if (tile instanceof SymbolsTile) {
+                symbolsCount++;
+            }
         }
 
 
+        assertEquals("There should be 36 Hanzi tiles", 36, hanziCount);
+        assertEquals("There should be 36 Dots tiles", 36, dotsCount);
+        assertEquals("There should be 36 Stick tiles", 36, stickCount);
+
+        // Each of the 7 unique symbol tiles should appear 4 times (7 * 4 = 28)
+        assertEquals("There should be 28 Symbols tiles", 28, symbolsCount);
 
     }
 
