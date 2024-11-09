@@ -111,11 +111,10 @@ public class MahjongGameState extends GameState {
 		}
 	}
 
+
 	/**
 	 * method that initializes and adds all elements to the classes deck
-	 * takes an arraylist, adds all tiles with for loops
-	 * to the array list and returns the array list
-	 * LJH( use of chatgpt to debug for loops)
+	 * takes an array, adds all tiles with for loops
 	 */
 	public MahjongTile[] mahjongDeck(MahjongTile[] deck){
 		clearArray(deck);
@@ -135,7 +134,7 @@ public class MahjongGameState extends GameState {
 				deckIndex++;
 			}
 
-			//create all 7b unique symbol tiles
+			//create all 7 unique symbol tiles
 			//all symbol tiles have a value of 0
 			deck[deckIndex] = new SymbolsTile("Earth");
 			deckIndex++;
@@ -152,31 +151,7 @@ public class MahjongGameState extends GameState {
 			deck[deckIndex] = new SymbolsTile("Cat");
 			deckIndex++;
 		}
-
-
-//		//array of tile suits
-//		String[] tileSuits = {"Hanzi", "Sticks", "Dots", "Cat", "Earth", "Flower", "Fire",
-//									"Star", "Water", "Wind"};
-//
-//		//iterates through all suits
-//		for(int t = 0; t < 9; t++) {
-//
-//
-//			if (t > 2){//for non-numbered sets
-//				for (int q = 0; q < 4; q++) {
-//					theDeck.add(new MahjongTile(tileSuits[t], 0));
-//				}
-//			}
-//			else{//for numerical sets
-//				for(int m = 1; m < 9; m++){
-//					for(int l = 0; l < 4; l++){
-//						theDeck.add(new MahjongTile(tileSuits[t], m));
-//					}
-//				}
-//			}
-//			}
 		return deck;
-
 	}
 
 	/**
@@ -184,8 +159,7 @@ public class MahjongGameState extends GameState {
 	 * deal the tiles in the deck
 	 */
 	public void startGame() {
-		//this.deck = dealTiles(this.deck);
-
+		dealTiles();
 	}
 
 	/**
@@ -256,21 +230,20 @@ public class MahjongGameState extends GameState {
 	 * or within just a hand array
 	 * prioritizes the values
 	 */
-	public void sortHand(MahjongTile[] mahjongTiles, int playerIDNum){
+	public void sortHand(MahjongTile[] mahjongTiles){
 		//hold the beginning of the players hand as an index
-		int index = 0;
+		int fromRefTile = 0;
 		MahjongTile holder;
-		while(mahjongTiles[index].getLocationNum() != playerIDNum){index++;}
 
 		//iterates through each tile in a players hand
-		for(int q = index; q < index+13; q++){
+		for(int q = 0; q < 13; q++){
 			//sorts the tiles based on suit
-			for(int x = q+1; x < index+13; x++){
+			for(int x = q+1; x < 13; x++){
 				if(mahjongTiles[x].getSuit() == mahjongTiles[q].getSuit()){
-					holder = tileCopy(mahjongTiles[x]);
-					mahjongTiles[x] = tileCopy(mahjongTiles[q+1]);
-					mahjongTiles[q+1] = holder;
-
+					holder = mahjongTiles[x];
+					mahjongTiles[x] = mahjongTiles[q+1+ fromRefTile];
+					mahjongTiles[q+1+ fromRefTile] = holder;
+					fromRefTile++;
 				}
 			}
 			//sorts the tiles based on value (IE: runs)
@@ -278,24 +251,13 @@ public class MahjongGameState extends GameState {
 					mahjongTiles[q].getSuit(); l++){
 				if ((mahjongTiles[l].getValue()+1) == mahjongTiles[q].getValue()
 				|| (mahjongTiles[l].getValue()) == mahjongTiles[q].getValue()){
-					holder = tileCopy(mahjongTiles[l]);
-					mahjongTiles[l] = tileCopy(mahjongTiles[q+1]);
-					mahjongTiles[q+1] = holder;
+					holder = mahjongTiles[l];
+					mahjongTiles[l] = mahjongTiles[q+1+fromRefTile];
+					mahjongTiles[q+1+fromRefTile] = holder;
 
 				}
 			}
 		}
-
-	}
-
-	/**
-	 * method to copy a tile's information to another tile object
-	 */
-	public MahjongTile tileCopy(MahjongTile mahjongTile){
-		MahjongTile copyTile = new MahjongTile("suit", 0);
-		copyTile.setLocationNum(mahjongTile.getLocationNum());
-		copyTile.setSuit(mahjongTile.getSuit());
-		copyTile.setValue(mahjongTile.getValue());
 
 	}
 
