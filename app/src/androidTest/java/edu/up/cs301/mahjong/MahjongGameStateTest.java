@@ -61,7 +61,7 @@ public class MahjongGameStateTest extends TestCase {
 
     public void testMahjongDeck() {
 
-        // Set up a test deck
+        // Set up a test deck and populate it
         MahjongGameState state = new MahjongGameState();
         MahjongTile[] deck = new MahjongTile[136];
         MahjongTile[] populatedDeck = state.mahjongDeck(deck);
@@ -88,6 +88,7 @@ public class MahjongGameStateTest extends TestCase {
                 symbolsCount++;
             }
         }
+
 
         assertEquals("There should be 36 Hanzi tiles", 36, hanziCount);
         assertEquals("There should be 36 Dots tiles", 36, dotsCount);
