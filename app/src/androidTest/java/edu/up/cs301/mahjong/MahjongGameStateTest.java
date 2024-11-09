@@ -73,6 +73,22 @@ public class MahjongGameStateTest extends TestCase {
 
     }
 
+    public void testSortHand() {
+        MahjongGameState mgs = new MahjongGameState();
+        mgs.dealTiles();
+
+        for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
+            System.out.println(mgs.getPlayerOneHand()[i].toString());
+        }
+
+        mgs.sortHand(mgs.getPlayerOneHand());
+
+        for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
+            System.out.println(mgs.getPlayerOneHand()[i].toString());
+        }
+
+    }
+
     public void testStartGame() {
     }
 
