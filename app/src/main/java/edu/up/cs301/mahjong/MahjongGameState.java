@@ -250,6 +250,55 @@ public class MahjongGameState extends GameState {
 		}
 	} //dealTiles()
 
+
+	/**
+	 * method that sorts a given hand by suit, can either do it within a deck
+	 * or within just a hand array
+	 * prioritizes the values
+	 */
+	public void sortHand(MahjongTile[] mahjongTiles, int playerIDNum){
+		//hold the beginning of the players hand as an index
+		int index = 0;
+		MahjongTile holder;
+		while(mahjongTiles[index].getLocationNum() != playerIDNum){index++;}
+
+		//iterates through each tile in a players hand
+		for(int q = index; q < index+13; q++){
+			//sorts the tiles based on suit
+			for(int x = q+1; x < index+13; x++){
+				if(mahjongTiles[x].getSuit() == mahjongTiles[q].getSuit()){
+					holder = tileCopy(mahjongTiles[x]);
+					mahjongTiles[x] = tileCopy(mahjongTiles[q+1]);
+					mahjongTiles[q+1] = holder;
+
+				}
+			}
+			//sorts the tiles based on value (IE: runs)
+			for(int l = q+1; (mahjongTiles[l].getSuit()+1) ==
+					mahjongTiles[q].getSuit(); l++){
+				if ((mahjongTiles[l].getValue()+1) == mahjongTiles[q].getValue()
+				|| (mahjongTiles[l].getValue()) == mahjongTiles[q].getValue()){
+					holder = tileCopy(mahjongTiles[l]);
+					mahjongTiles[l] = tileCopy(mahjongTiles[q+1]);
+					mahjongTiles[q+1] = holder;
+
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * method to copy a tile's information to another tile object
+	 */
+	public MahjongTile tileCopy(MahjongTile mahjongTile){
+		MahjongTile copyTile = new MahjongTile("suit", 0);
+		copyTile.setLocationNum(mahjongTile.getLocationNum());
+		copyTile.setSuit(mahjongTile.getSuit());
+		copyTile.setValue(mahjongTile.getValue());
+
+	}
+
 	/**
 	 * Method that sorts the deck by tile location after every action (deal, draw, discard, or chow)
 	 */
