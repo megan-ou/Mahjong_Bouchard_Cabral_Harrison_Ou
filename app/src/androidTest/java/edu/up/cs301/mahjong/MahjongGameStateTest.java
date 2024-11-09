@@ -146,6 +146,28 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testSortDeck(){
+//        MahjongGameState state = new MahjongGameState();
+//        state.dealTiles();
+//        state.sortDeck();
+//        int locationNumPlus = 0;
+//        int locationNumMinus = 0;
+//        for(int q = 1; q < 134; q++){
+//
+//            locationNumMinus = state.getDeck()[q-1].getLocationNum();
+//            locationNumPlus = state.getDeck()[q+1].getLocationNum();
+//            assertFalse(state.getDeck()[q].getLocationNum() <=
+//                    state.getDeck()[q-1].getLocationNum());
+//            if(state.getDeck()[q].getLocationNum() <=
+//                    state.getDeck()[q-1].getLocationNum()){
+//                System.out.println("not in order: test1 " + locationNumMinus);
+//            }
+//            assertFalse(state.getDeck()[q].getLocationNum() >=
+//                    state.getDeck()[q+1].getLocationNum());
+//            if(state.getDeck()[q].getLocationNum() >=
+//                    state.getDeck()[q+1].getLocationNum()){
+//                System.out.println("not in order: test2 " + locationNumPlus);
+//            }
+//        }
 
     }
 
