@@ -170,6 +170,12 @@ public class MahjongGameStateTest extends TestCase {
         
     }
 
+    public void testSortDeck(){
+
+    }
+
+
+
     public void testTestToString() {
     }
 
