@@ -188,9 +188,20 @@ public class MahjongGameStateTest extends TestCase {
     }
 
     public void testSortDeck(){
-//        MahjongGameState state = new MahjongGameState();
-//        state.dealTiles();
-//        state.sortDeck();
+        MahjongGameState state = new MahjongGameState();
+        state.dealTiles();
+
+        for (int i = 0; i < state.getDeck().length; i++) {
+            System.out.println(state.getDeck()[i].getLocationNum());
+        }
+
+        state.sortDeck();
+
+        for (int i = 0; i < state.getDeck().length; i++) {
+            System.out.println(state.getDeck()[i].getLocationNum());
+        }
+
+
 //        int locationNumPlus = 0;
 //        int locationNumMinus = 0;
 //        for(int q = 1; q < 134; q++){
