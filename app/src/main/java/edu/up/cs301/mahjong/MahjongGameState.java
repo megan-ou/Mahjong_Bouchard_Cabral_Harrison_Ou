@@ -345,7 +345,7 @@ public class MahjongGameState extends GameState {
 
 		//First, sort the hand by suit
 
-		//counter variables to see how many tiles are in each location
+		//counter variables to see how many tiles are in each suit
 
 		int numHanzi = 0;
 		int numDots = 0;
@@ -358,7 +358,7 @@ public class MahjongGameState extends GameState {
 		int numStar = 0;
 		int numCat = 0;
 
-		//first loop goes into the deck and counts how many tiles are in each location
+		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < mahjongTiles.length - 1; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
@@ -394,8 +394,8 @@ public class MahjongGameState extends GameState {
 			}
 		}
 
-		//find starting index for each location based on how many tiles are in each suit, first must
-		//check if any cards are of each suit are in the hand
+		//find starting index for each suit based on how many tiles are in each suit, first must
+		//check if any cards of each suit are in the hand
 
 		int lastEndingIndex = 0;
 
@@ -529,6 +529,7 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Helper method for sorting by ascending numerical value
+	 * TODO: edit code to sort tiles in ascending order AND skip duplicates (EX: H1,H2,H3,H4,H2,H2,D2)
 	 */
 	public void ascendingSort(MahjongTile[] hand, int begIndex, int lastEndingIndex, int numTiles) {
 		MahjongTile tempTile;
@@ -543,6 +544,113 @@ public class MahjongGameState extends GameState {
 			}
 		}
 
+	}
+
+	/**
+	 * Method that counts how many sets are in a player's hand
+	 * A set is three tiles of the same suit in numerical order (Ex: Hanzi 1, Hanzi 2, Hanzi 3)
+	 * OR three identical tiles (Ex: Hanzi 1, Hanzi 1, Hanzi 1 OR Flower, Flower Flower)
+	 *
+	 * TODO: discuss numSets variable and if we just want a return value and move this
+	 * 	IV to human/computer player classes
+	 *
+	 * @param playerHand array of tiles that represents a player's hand
+	 * @return number of sets in a given hand
+	 */
+	public int numSets (MahjongTile[] playerHand) {
+		//reset numSets
+		this.numSets = 0;
+
+		String firstTileSuit;
+		String secondTileSuit;
+		String thirdTileSuit;
+		int firstVal;
+		int secondVal;
+		int thirdVal;
+
+		for (int i = 0; i < playerHand.length; i++) {
+			firstTileSuit = playerHand[i].getSuit();
+			secondTileSuit = playerHand[i+1].getSuit();
+			thirdTileSuit = playerHand[i+2].getSuit();
+
+			//check if 3 tiles in a row are of the same suit
+			if (firstTileSuit.equals(secondTileSuit) && firstTileSuit.equals(thirdTileSuit)) {
+				firstVal = playerHand[i].getValue();
+				secondVal = playerHand[i+1].getValue();
+				thirdVal = playerHand[i+2].getValue();
+
+				//check to see if values are in numerical order
+				//deck SHOULD be sorted into tiles of ascending order, so this should check if
+				//the three values are sequential
+				if (secondVal == (firstVal + 1) && thirdVal == (firstVal+2) ) {
+					this.numSets++;
+
+					playerHand[i].setPartOfSet(true);
+					playerHand[i+1].setPartOfSet(true);
+					playerHand[i+2].setPartOfSet(true);
+
+					//set i to the index of the third tile so when loop increments, it skips the
+					//counted set
+					i += 2;
+				}
+
+				//check if there is a three of a kind
+				else if (firstVal == secondVal && firstVal == thirdVal) {
+					this.numSets++;
+
+					playerHand[i].setPartOfSet(true);
+					playerHand[i+1].setPartOfSet(true);
+					playerHand[i+2].setPartOfSet(true);
+
+					i += 2;
+				}
+			}
+		}
+		return numSets;
+	}
+
+	/**
+	 * Method that counts how many pairs are in a player's hand that are NOT already part of
+	 * a set.
+	 * A pair is two identical tiles
+	 *
+	 * TODO: discuss numPairs variable and if we just want a return value and move this
+	 * 	IV to human/computer player classes
+	 *
+	 * @param playerHand array of tiles that represents a player's hand
+	 * @return number of pairs in a given hand
+	 */
+	public int numPairs (MahjongTile[] playerHand) {
+		//reset numSets
+		this.numPairs = 0;
+
+		String firstTileSuit;
+		String secondTileSuit;
+		int firstVal;
+		int secondVal;
+
+		for (int i = 0; i < playerHand.length; i++) {
+			firstTileSuit = playerHand[i].getSuit();
+			secondTileSuit = playerHand[i+1].getSuit();
+
+			//check if 2 tiles in a row are of the same suit and if the two tiles are NOT part of a
+			// set
+			if (firstTileSuit.equals(secondTileSuit) && !playerHand[i].isPartOfSet()
+					&& !playerHand[i+1].isPartOfSet()) {
+				firstVal = playerHand[i].getValue();
+				secondVal = playerHand[i+1].getValue();
+
+				//check to see if values are equal
+				if (secondVal == firstVal) {
+					this.numPairs++;
+
+					//set i to the index of the second tile so when loop increments, it skips the
+					//counted pair
+					i += 1;
+				}
+			}
+		}
+		return numPairs;
 	}
 
 	/**
