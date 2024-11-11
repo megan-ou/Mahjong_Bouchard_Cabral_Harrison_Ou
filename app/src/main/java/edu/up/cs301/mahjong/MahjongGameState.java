@@ -1,6 +1,8 @@
 package edu.up.cs301.mahjong;
 
+import java.net.BindException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
@@ -100,17 +102,15 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Helper method that clears an array and resets location of tiles
+	 * Helper method that clears an array.
 	 */
 	public void clearArray(MahjongTile[] hand) {
 		for (int i = 0 ; i < hand.length; i++) {
 			if (hand[i] != null) {
-				hand[i].setLocationNum(0); //reset location to general deck
 				hand[i] = null;
 			}
 		}
 	}
-
 
 	/**
 	 * method that initializes and adds all elements to the classes deck
@@ -224,54 +224,23 @@ public class MahjongGameState extends GameState {
 		}
 	} //dealTiles()
 
-
-	/**
-	 * method that sorts a given hand by suit, can either do it within a deck
-	 * or within just a hand array
-	 * prioritizes the values
-	 */
-	public void sortHand(MahjongTile[] mahjongTiles){
-		//hold the beginning of the players hand as an index
-		int fromRefTile = 0;
-		MahjongTile holder;
-
-		//iterates through each tile in a players hand
-		for(int q = 0; q < 13; q+=(fromRefTile + 1)){
-			fromRefTile = 0;
-			//sorts the tiles based on suit
-			for(int x = q+1; x < 13; x++){
-				if(mahjongTiles[x].getSuit().equals(mahjongTiles[q].getSuit())){
-					holder = mahjongTiles[x];
-					mahjongTiles[x] = mahjongTiles[q+1+fromRefTile];
-					mahjongTiles[q+1+fromRefTile] = holder;
-					fromRefTile++;
-				}
-			}
-		}
-
-		for (int i = 0; i < 13; i ++) {
-			fromRefTile = 0;
-
-			//sorts the tiles based on value (IE: runs)
-			for(int l = i+1; (mahjongTiles[l].getSuit()).equals(mahjongTiles[i].getSuit()); l++){
-				if ((mahjongTiles[l].getValue()+1) == mahjongTiles[i].getValue()
-						|| (mahjongTiles[l].getValue()) == mahjongTiles[i].getValue()){
-					holder = mahjongTiles[l];
-					mahjongTiles[l] = mahjongTiles[i+1+fromRefTile];
-					mahjongTiles[i+1+fromRefTile] = holder;
-
-				}
-			}
-		}
-
-	}
-
 	/**
 	 * Method that sorts the deck by tile location after every action (deal, draw, discard, or chow)
+	 * Tile location numbers should look like this after sorting: 000000,11111,22222,3333,44444,5555
+	 *
+	 * First switch case counts number of tiles are in each location to figure out starting indexes
+	 * in the copy array for each location.
+	 *
+	 * Second switch case copies over tiles into the copy array based on the starting index calculated
+	 * using the previously collected values
+	 *
+	 * Then, sets the deck to the copy array and clears out the copy array
 	 */
 	public void sortDeck() {
 		MahjongTile[] sortedDeck = new MahjongTile[deck.length];
 		clearArray(sortedDeck);
+
+		//counter variables to see how many tiles are in each location
 
 		int num0 = 0;
 		int num1 = 0;
@@ -348,12 +317,221 @@ public class MahjongGameState extends GameState {
 		//set sorted deck to deck
 
 		for (int i = 0; i < deck.length; i++) {
-			deck[i] = sortedDeck[i];
+			this.deck[i] = sortedDeck[i];
 		}
 
 		clearArray(sortedDeck);
 	}
 
+	/**
+	 * method that sorts a given hand by suit and then ascending numerical value
+	 * prioritizes the values
+	 */
+	public void sortHand(MahjongTile[] mahjongTiles) {
+		MahjongTile[] sortedHand = new MahjongTile[mahjongTiles.length - 1];
+		clearArray(sortedHand);
+
+		//First, sort the hand by suit
+
+		//counter variables to see how many tiles are in each location
+
+		int numHanzi = 0;
+		int numDots = 0;
+		int numSticks = 0;
+		int numFire = 0;
+		int numWater = 0;
+		int numEarth = 0;
+		int numWind = 0;
+		int numFlower = 0;
+		int numStar = 0;
+		int numCat = 0;
+
+		//first loop goes into the deck and counts how many tiles are in each location
+		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+			switch (mahjongTiles[i].getSuit()) {
+				case "Hanzi":
+					numHanzi++;
+					break;
+				case "Dots":
+					numDots++;
+					break;
+				case "Sticks":
+					numSticks++;
+					break;
+				case "Fire":
+					numFire++;
+					break;
+				case "Water":
+					numWater++;
+					break;
+				case "Earth":
+					numEarth++;
+					break;
+				case "Wind":
+					numWind++;
+					break;
+				case "Flower":
+					numFlower++;
+					break;
+				case "Star":
+					numStar++;
+					break;
+				case "Cat":
+					numCat++;
+					break;
+			}
+		}
+
+		//find starting index for each location based on how many tiles are in each suit, first must
+		//check if any cards are of each suit are in the hand
+
+		int lastEndingIndex = 0;
+
+		int indexHanzi = 0;
+		int indexDots = 0;
+		int indexSticks = 0;
+		int indexFire = 0;
+		int indexWater = 0;
+		int indexEarth = 0;
+		int indexWind = 0;
+		int indexFlower = 0;
+		int indexStar = 0;
+		int indexCat = 0;
+
+		if(numHanzi != 0) {
+			lastEndingIndex += numHanzi;
+		}
+		if(numDots != 0 ) {
+			indexDots = lastEndingIndex;
+			lastEndingIndex += numDots;
+		}
+		if (numSticks != 0) {
+			indexSticks = lastEndingIndex;
+			lastEndingIndex += numSticks;
+		}
+		if (numFire != 0) {
+			indexFire = lastEndingIndex;
+			lastEndingIndex += indexFire;
+		}
+		if (numWater != 0)  {
+			indexWater = lastEndingIndex;
+			lastEndingIndex += numWater;
+		}
+		if (numEarth != 0) {
+			indexEarth = lastEndingIndex;
+			lastEndingIndex += numEarth;
+		}
+		if (numWind != 0) {
+			indexWind = lastEndingIndex;
+			lastEndingIndex += numWind;
+		}
+		if (numFlower != 0) {
+			indexFlower = lastEndingIndex;
+			lastEndingIndex += numFlower;
+		}
+		if (numStar != 0) {
+			indexStar = lastEndingIndex;
+			lastEndingIndex += numStar;
+		}
+		if (numCat != 0) {
+			indexCat = lastEndingIndex;
+        }
+
+		//second loop goes in and reassigns tiles to sortedHand
+
+		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+			switch (mahjongTiles[i].getSuit()) {
+				case "Hanzi":
+					sortedHand[indexHanzi] = mahjongTiles[i];
+					indexHanzi++;
+					break;
+				case "Dots":
+					sortedHand[indexDots] = mahjongTiles[i];
+					indexDots++;
+					break;
+				case "Sticks":
+					sortedHand[indexSticks] = mahjongTiles[i];
+					indexSticks++;
+					break;
+				case "Fire":
+					sortedHand[indexFire] = mahjongTiles[i];
+					indexFire++;
+					break;
+				case "Water":
+					sortedHand[indexWater] = mahjongTiles[i];
+					indexWater++;
+					break;
+				case "Earth":
+					sortedHand[indexEarth] = mahjongTiles[i];
+					indexEarth++;
+					break;
+				case "Wind":
+					sortedHand[indexWind] = mahjongTiles[i];
+					indexWind++;
+					break;
+				case "Flower":
+					sortedHand[indexFlower] = mahjongTiles[i];
+					indexFlower++;
+					break;
+				case "Star":
+					sortedHand[indexStar] = mahjongTiles[i];
+					indexStar++;
+					break;
+				case "Cat":
+					sortedHand[indexCat] = mahjongTiles[i];
+					indexCat++;
+					break;
+			}
+		}
+
+		//set sortedHand by suit to mahjongTiles[]
+
+		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+			mahjongTiles[i] = sortedHand[i];
+		}
+
+		clearArray(sortedHand);
+
+		/*Sort the hanzi, dots, and sticks suits by ascending numerical values
+			Reset all starting indexes to utilize range
+		 */
+
+		lastEndingIndex = 0;
+
+		if(numHanzi != 0) {
+			lastEndingIndex += numHanzi;
+			ascendingSort(mahjongTiles, 1, lastEndingIndex, numHanzi);
+		}
+		if(numDots != 0 ) {
+			indexDots = lastEndingIndex;
+			lastEndingIndex += numDots;
+			ascendingSort(mahjongTiles,indexDots + 1,lastEndingIndex, numDots);
+		}
+		if (numSticks != 0) {
+			indexSticks = lastEndingIndex;
+			lastEndingIndex += numSticks;
+			ascendingSort(mahjongTiles, indexSticks + 1, lastEndingIndex, numSticks);
+		}
+
+	}
+
+	/**
+	 * Helper method for sorting by ascending numerical value
+	 */
+	public void ascendingSort(MahjongTile[] hand, int begIndex, int lastEndingIndex, int numTiles) {
+		MahjongTile tempTile;
+
+		for (int k = 0; k < numTiles; k++) {
+			for (int i = begIndex; i < lastEndingIndex; i++) {
+				if (hand[i].getValue() < hand[i - 1].getValue()) {
+					tempTile = hand[i - 1];
+					hand[i - 1] = hand[i];
+					hand[i] = tempTile;
+				}
+			}
+		}
+
+	}
 
 	/**
 	 * Discard tile action
@@ -506,7 +684,7 @@ public class MahjongGameState extends GameState {
 	}
 
 	public MahjongTile[] getDeck() {
-		return deck;
+		return this.deck;
 	}
 
 	public MahjongTile[] getPlayerOneHand() {

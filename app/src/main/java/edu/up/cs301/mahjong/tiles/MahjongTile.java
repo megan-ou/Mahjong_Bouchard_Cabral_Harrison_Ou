@@ -62,11 +62,6 @@ public class MahjongTile {
         return partOfSet;
     }
 
-//TODO: get rid of
-//    public boolean isCanDraw(){
-//        return canDraw;
-//    }
-
     public boolean isRevealed() {
         return isRevealed;
     }
@@ -85,11 +80,6 @@ public class MahjongTile {
     public void setPartOfSet(boolean partOfSet) {
         this.partOfSet = partOfSet;
     }
-
-//    //TODO: get rid of
-//    public void setCanDraw(boolean canDraw) {
-//        this.canDraw = canDraw;
-//    }
 
     public void setRevealed(boolean revealed) {
         isRevealed = revealed;

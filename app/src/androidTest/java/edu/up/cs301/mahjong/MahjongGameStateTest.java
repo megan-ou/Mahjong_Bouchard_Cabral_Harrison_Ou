@@ -101,6 +101,7 @@ public class MahjongGameStateTest extends TestCase {
 
     public void testSortHand() {
         MahjongGameState mgs = new MahjongGameState();
+        mgs.mahjongDeck(mgs.getDeck());
         mgs.dealTiles();
 
         for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
@@ -108,6 +109,9 @@ public class MahjongGameStateTest extends TestCase {
         }
 
         mgs.sortHand(mgs.getPlayerOneHand());
+
+        System.out.println("-----------------------------------------------");
+
 
         for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
             System.out.println(mgs.getPlayerOneHand()[i].toString());
@@ -194,6 +198,8 @@ public class MahjongGameStateTest extends TestCase {
         for (int i = 0; i < state.getDeck().length; i++) {
             System.out.println(state.getDeck()[i].getLocationNum());
         }
+
+        System.out.println("-----------------------------------------------");
 
         state.sortDeck();
 
