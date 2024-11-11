@@ -333,7 +333,7 @@ public class MahjongGameState extends GameState {
 
 		//First, sort the hand by suit
 
-		//counter variables to see how many tiles are in each location
+		//counter variables to see how many tiles are in each suit
 
 		int numHanzi = 0;
 		int numDots = 0;
@@ -346,7 +346,7 @@ public class MahjongGameState extends GameState {
 		int numStar = 0;
 		int numCat = 0;
 
-		//first loop goes into the deck and counts how many tiles are in each location
+		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < mahjongTiles.length - 1; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
@@ -382,8 +382,8 @@ public class MahjongGameState extends GameState {
 			}
 		}
 
-		//find starting index for each location based on how many tiles are in each suit, first must
-		//check if any cards are of each suit are in the hand
+		//find starting index for each suit based on how many tiles are in each suit, first must
+		//check if any cards of each suit are in the hand
 
 		int lastEndingIndex = 0;
 
