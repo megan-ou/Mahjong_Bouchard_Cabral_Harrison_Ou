@@ -1,0 +1,305 @@
+package edu.up.cs301.mahjong.OldCode;
+
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import edu.up.cs301.GameFramework.GameMainActivity;
+import edu.up.cs301.mahjong.MDButton;
+import edu.up.cs301.mahjong.MahjongChowAction;
+import edu.up.cs301.mahjong.MahjongDiscardTileAction;
+import edu.up.cs301.mahjong.MahjongDrawTileAction;
+import edu.up.cs301.mahjong.MahjongGameState;
+import edu.up.cs301.mahjong.MahjongSwitchViewAction;
+import edu.up.cs301.mahjong.R;
+import edu.up.cs301.mahjong.tiles.MahjongTile;
+
+/**
+ * A place to hold old code that was scrapped, but we don't want to delete and review later
+ * Please don't look at this code
+ */
+public class OldCode {
+
+    /* instance variables */
+
+    // The TextView the displays the current counter value
+    private TextView testResultsTextView;
+    //private Button btRunTest;
+
+    // the most recent game state, as given to us by the CounterLocalGame
+    private MahjongGameState state;
+
+    // the android activity that we are running
+    private GameMainActivity myActivity;
+
+
+    //references to buttons
+    private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+    private MDButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlotT1);
+    private MDButton btDiscardT2 = myActivity.findViewById(R.id.btDiscSlotT2);
+    private MDButton btDiscardT3 = myActivity.findViewById(R.id.btDiscSlotT3);
+    private MDButton btDiscardT4 = myActivity.findViewById(R.id.btDiscSlotT4);
+    private MDButton btDiscardT5 = myActivity.findViewById(R.id.btDiscSlotT5);
+    private MDButton btDiscardT6 = myActivity.findViewById(R.id.btDiscSlotT6);
+    private MDButton btDiscardT7 = myActivity.findViewById(R.id.btDiscSlotT7);
+    private MDButton btDiscardB1 = myActivity.findViewById(R.id.btDiscSlotB1);
+    private MDButton btDiscardB2 = myActivity.findViewById(R.id.btDiscSlotB2);
+    private MDButton btDiscardB3 = myActivity.findViewById(R.id.btDiscSlotB3);
+    private MDButton btDiscardB4 = myActivity.findViewById(R.id.btDiscSlotB4);
+    private MDButton btDiscardB5 = myActivity.findViewById(R.id.btDiscSlotB5);
+    private MDButton btDiscardB6 = myActivity.findViewById(R.id.btDiscSlotB6);
+    private MDButton btDiscardB7 = myActivity.findViewById(R.id.btDiscSlotB7);
+
+    //references to imageViews
+    private ImageView IVnum0;
+    private ImageView IVnum1;
+    private ImageView IVnum2;
+    private ImageView IVnum3;
+    private ImageView IVnum4;
+    private ImageView IVnum5;
+    private ImageView IVnum6;
+    private ImageView IVnum7;
+    private ImageView IVnum8;
+    private ImageView IVnum9;
+    private ImageView IVnum10;
+    private ImageView IVnum11;
+    private ImageView IVnum12;
+    private ImageView IVnum13;
+
+    public void sortHand(MahjongTile[] mahjongTiles) {
+        //hold the beginning of the players hand as an index
+        int fromRefTile = 0;
+        MahjongTile holder;
+
+        //iterates through each tile in a players hand
+        for(int q = 0; q < 13; q+=(fromRefTile + 1)){
+            fromRefTile = 0;
+            //sorts the tiles based on suit
+            for(int x = q+1; x < 13; x++){
+                if(mahjongTiles[x].getSuit().equals(mahjongTiles[q].getSuit())){
+                    holder = mahjongTiles[x];
+                    mahjongTiles[x] = mahjongTiles[q+1+fromRefTile];
+                    mahjongTiles[q+1+fromRefTile] = holder;
+                    fromRefTile++;
+                }
+            }
+        }
+
+        for (int i = 0; i < 13; i ++) {
+            fromRefTile = 0;
+
+            //sorts the tiles based on value (IE: runs)
+            for(int l = i+1; (mahjongTiles[l].getSuit()).equals(mahjongTiles[i].getSuit()); l++){
+                if ((mahjongTiles[l].getValue()+1) == mahjongTiles[i].getValue()
+                        || (mahjongTiles[l].getValue()) == mahjongTiles[i].getValue()){
+                    holder = mahjongTiles[l];
+                    mahjongTiles[l] = mahjongTiles[i+1+fromRefTile];
+                    mahjongTiles[i+1+fromRefTile] = holder;
+
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Project Part E
+     * Old code in Human player
+     */
+    public void onClickTestCode() {
+        String existingText;
+        String newText;
+        //create instances of actions
+        MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+        MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+        MahjongChowAction chowAction = new MahjongChowAction(this);
+        MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
+
+        //Any text from previous run cleared
+        testResultsTextView.setText("");
+
+        // if we are not yet connected to a game, ignore
+        if (game == null) return;
+
+        MahjongGameState firstInstance = new MahjongGameState();
+
+        MahjongGameState firstCopy = new MahjongGameState(firstInstance);
+
+        //Any text from previous run cleared
+        testResultsTextView.setText("");
+
+        firstInstance.startGame();
+        existingText = getExistingText();
+        newText = "Game has begun and card are dealt.";
+
+        testResultsTextView.setText(existingText + "\n" + newText);
+
+        //Call draw tile method for human player
+        if (firstInstance.makeDrawTileAction(drawTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        //TODO: write code to specify what tile was discarded, we spent a few hours
+        // on this code and needed to move on. Make clearTile method which sets the image
+        // in the GUI to a null slot.
+        if (firstInstance.makeDiscardAction(discardTileAction)) {
+			/*existingText = getExistingText();
+			newText = "Player 1 discards a tile.";
+
+			testResultsTextView.setText(existingText + "\n" + newText);*/
+
+            if (button instanceof MDButton) {
+                //change hand--> change pointer of discardedTile to a null object
+                //get the last drawn tile
+                //change pointer of previously discarded tile to the last drawn tile
+                //call the sort method
+                //call the setImageView method
+                if (button == btDiscardT1) {
+
+                }
+                else if (button == btDiscardT2) {
+
+                }
+            }
+            else if (button instanceof Button) {
+                //clear discDrawn image view
+                //set the discDrawn image view to null
+                if (button == btDiscDrawn) {
+
+                }
+            }
+        }
+
+        //TODO: write code to specify what tile was ponged
+        if (firstInstance.makeChowAction(chowAction)) {
+            existingText = getExistingText();
+            newText = "Player 3 called pong to take player 2's discarded tile. " +
+                    "Player 3's completed set of 3 is revealed.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 switches to Table View to see which tiles were revealed.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 switches back to Game View to continue playing.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDrawTileAction(drawTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 2 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDiscardAction(discardTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 2 discards a tile.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        //TODO: write code to specify what tile was chowed
+        if (firstInstance.makeChowAction(chowAction)) {
+            existingText = getExistingText();
+            newText = "Player 4 called chow to take player 3's discarded tile. " +
+                    "Player 4's completed set of 3 is revealed.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 switches to Table View to see which tiles were revealed.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeSwitchViewAction(switchViewAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 switches back to Game View to continue playing.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDrawTileAction(drawTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 3 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDiscardAction(discardTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 3 discards a tile.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDrawTileAction(drawTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 4 draws the " + firstInstance.getLastDrawnTile() + ".";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        if (firstInstance.makeDiscardAction(discardTileAction)) {
+            existingText = getExistingText();
+            newText = "Player 4 discards a tile.";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        //TODO: write code to specify what tile was chowed
+        if (firstInstance.makeChowAction(chowAction)) {
+            existingText = getExistingText();
+            newText = "Player 1 called chow to take player 4's discarded pile";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        existingText = getExistingText();
+        testResultsTextView.setText(existingText + "\n" + "For brevity, assume draw, discard, pong, and switch view " +
+                "continues between all 4 players until game is over");
+
+        gameIsOver("Player 1 won the game!");
+
+        MahjongGameState secondInstance = new MahjongGameState();
+
+        MahjongGameState secondCopy = new MahjongGameState(secondInstance);
+
+        String firstCopyString;
+        String secondCopyString;
+
+        firstCopyString = firstCopy.toString();
+        secondCopyString = secondCopy.toString();
+
+        //check if first copy and second copy are equal
+
+        if (firstCopyString.equals(secondCopyString)) {
+            existingText = getExistingText();
+            newText = "First copy and second copy are identical";
+
+            testResultsTextView.setText(existingText + "\n" + newText);
+        }
+
+        //print out first copy and second copy string
+        existingText = getExistingText();
+        newText = firstCopyString + "\n" + secondCopyString;
+
+        testResultsTextView.setText(existingText + "\n" + newText);
+
+    }
+
+}
