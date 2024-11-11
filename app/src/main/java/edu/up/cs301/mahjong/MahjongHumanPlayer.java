@@ -160,13 +160,23 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);*/
 
 			if (button instanceof MDButton) {
+				//change hand--> change pointer of discardedTile to a null object
+				//get the last drawn tile
+				//change pointer of previously discarded tile to the last drawn tile
+				//call the sort method
+				//call the setImageView method
 				if (button == btDiscardT1) {
+
+				}
+				else if (button == btDiscardT2) {
 
 				}
 			}
 			else if (button instanceof Button) {
+				//clear discDrawn image view
+				//set the discDrawn image view to null
 				if (button == btDiscDrawn) {
-					//clear discDrawn image view
+
 				}
 			}
 		}
