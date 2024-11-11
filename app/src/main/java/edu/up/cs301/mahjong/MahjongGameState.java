@@ -49,10 +49,14 @@ public class MahjongGameState extends GameState {
 		this.isTurn = false;
 		this.numSets = 0;
 		this.numPairs = 0;
-		this.playerOneHand = new MahjongTile[14]; //need to copy each object to a new array when constructing, example on moodle
+		this.playerOneHand = new MahjongTile[14];
+		setEmptyHand(playerOneHand);
 		this.playerTwoHand = new MahjongTile[14];
+		setEmptyHand(playerTwoHand);
 		this.playerThreeHand = new MahjongTile[14];
+		setEmptyHand(playerThreeHand);
 		this.playerFourHand = new MahjongTile[14];
+		setEmptyHand(playerFourHand);
 		this.currentDrawnTile = null;
 		this.deck = new MahjongTile[136];
 		this.deck = mahjongDeck(this.deck);
@@ -69,18 +73,34 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.playerOneHand = new MahjongTile[mgs.playerOneHand.length];
-		copyArray(mgs.playerOneHand,this.playerOneHand);
+		//copyArray(mgs.playerOneHand,this.playerOneHand);
+		copyArray(this.playerOneHand,mgs.playerOneHand);
 		this.playerTwoHand = new MahjongTile[mgs.playerTwoHand.length];
-		copyArray(mgs.playerTwoHand,this.playerTwoHand);
+		//copyArray(mgs.playerTwoHand,this.playerTwoHand);
+		copyArray(this.playerOneHand,mgs.playerOneHand);
 		this.playerThreeHand = new MahjongTile[mgs.playerThreeHand.length];
-		copyArray(mgs.playerThreeHand,this.playerThreeHand);
+		//copyArray(mgs.playerThreeHand,this.playerThreeHand);
+		copyArray(this.playerOneHand,mgs.playerOneHand);
 		this.playerFourHand = new MahjongTile[mgs.playerFourHand.length];
-		copyArray(mgs.playerFourHand,this.playerFourHand);
+		//copyArray(mgs.playerFourHand,this.playerFourHand);
+		copyArray(this.playerOneHand,mgs.playerOneHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new MahjongTile[mgs.getDeck().length];
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
+
+	}
+
+	/**
+	 * all tiles set to empty tiles
+	 * no null objects in array
+	 */
+	public void setEmptyHand(MahjongTile[] mta){
+		for(int q = 0; q < mta.length; q++){
+			mta[q] = new MahjongTile("empty suit", -1);
+
+		}
 
 	}
 
@@ -91,14 +111,6 @@ public class MahjongGameState extends GameState {
 		for (int i = 0; i < origArray.length; i++) {
 			newArray[i] = new MahjongTile(origArray[i].getSuit(), origArray[i].getValue());
 		}
-	}
-
-	/**
-	 * Helper method for deep copy ctor to copy array lists
-	 */
-	public void copyArrayList (ArrayList<MahjongTile> newArrayList,
-							   ArrayList<MahjongTile> origArrayList) {
-        newArrayList.addAll(origArrayList);
 	}
 
 	/**
