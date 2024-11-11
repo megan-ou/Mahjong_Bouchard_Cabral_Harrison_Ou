@@ -39,6 +39,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
+
 	//references to buttons
 	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
 	private MDButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlotT1);
@@ -78,6 +79,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public MahjongHumanPlayer(String name) {
 		super(name);
+		state = new MahjongGameState();
 	}
 
 	/**
@@ -160,13 +162,23 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);*/
 
 			if (button instanceof MDButton) {
+				//change hand--> change pointer of discardedTile to a null object
+				//get the last drawn tile
+				//change pointer of previously discarded tile to the last drawn tile
+				//call the sort method
+				//call the setImageView method
 				if (button == btDiscardT1) {
+
+				}
+				else if (button == btDiscardT2) {
 
 				}
 			}
 			else if (button instanceof Button) {
+				//clear discDrawn image view
+				//set the discDrawn image view to null
 				if (button == btDiscDrawn) {
-					//clear discDrawn image view
+
 				}
 			}
 		}
@@ -327,62 +339,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		updateDisplay();
 	}
 
-	/**
-	 *
-	 * this assigns the imageview that will be changing when
-	 * tiles are changed (makes the setTiles method shorter)
-	 *
-	 * @param IVCurr
-	 * @param IV
-	 */
-	public void pickImageView(ImageView IVCurr,int IV){
-
-		switch(IV){
-			case 0:
-				IVCurr = IVnum0;
-				break;
-			case 1:
-				IVCurr = IVnum1;
-				break;
-			case 2:
-				IVCurr = IVnum2;
-				break;
-			case 3:
-				IVCurr = IVnum3;
-				break;
-			case 4:
-				IVCurr = IVnum4;
-				break;
-			case 5:
-				IVCurr = IVnum5;
-				break;
-			case 6:
-				IVCurr = IVnum6;
-				break;
-			case 7:
-				IVCurr = IVnum7;
-				break;
-			case 8:
-				IVCurr = IVnum8;
-				break;
-			case 9:
-				IVCurr = IVnum9;
-				break;
-			case 10:
-				IVCurr = IVnum10;
-				break;
-			case 11:
-				IVCurr = IVnum11;
-				break;
-			case 12:
-				IVCurr = IVnum12;
-				break;
-			case 13:
-				IVCurr = IVnum13;
-				break;
-
-		}
-	}
 
 	/**
 	 * sets the tiles to the ImageViews on the GUI
@@ -391,14 +347,58 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public void setTiles(){
 
 		//load GUI
-		MahjongTile mt;
+		MahjongTile mt ;
 		ImageView IVCurr = null;
 
 		//iterates through hand
-		for(int q = 0; q < 13; q++){
+		for(int q = 0; q < 12; q++){
 			//reassigns the holder mahjong tile and current image view
-			mt = state.getDeck()[q];
-			pickImageView(IVCurr, q);
+			mt = state.getPlayerOneHand()[q];
+			switch(q){
+				case 0:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT1);
+					break;
+				case 1:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT2);
+					break;
+				case 2:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT3);
+					break;
+				case 3:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT4);
+					break;
+				case 4:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT5);
+					break;
+				case 5:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT6);
+					break;
+				case 6:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotT7);
+					break;
+				case 7:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotB1);
+					break;
+				case 8:
+					IVCurr  = myActivity.findViewById(R.id.iVCSlotB2);
+					break;
+				case 9:
+					IVCurr  = myActivity.findViewById(R.id.iVCSlotB3);
+					break;
+				case 10:
+					IVCurr  = myActivity.findViewById(R.id.iVCSlotB4);
+					break;
+				case 11:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotB5);
+					break;
+				case 12:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotB6);
+					break;
+				case 13:
+					IVCurr = myActivity.findViewById(R.id.iVCSlotB7);
+					break;
+
+			}
 			switch(mt.getSuit()) {
 				case "hanzi":
 					switch (mt.getValue()) {
@@ -533,7 +533,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	    // Load the layout resource for our GUI
 		activity.setContentView((R.layout.activity_main_09_22));
 
-		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
+		activity.setContentView((R.layout.activity_main_09_22));
+		state.dealTiles();
+		state.sortDeck();
+
+		//testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
 
 		//btRunTest = activity.findViewById(R.id.btRunTest);
 
