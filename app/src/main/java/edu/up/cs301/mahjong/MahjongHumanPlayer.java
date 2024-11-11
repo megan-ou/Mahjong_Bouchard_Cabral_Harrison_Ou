@@ -31,9 +31,26 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
 	//private Button btRunTest;
-	private ImageView iVC1;
+
+	//references to buttons
 	private Button btDiscDrawn;
 	private MDButton btDiscardT1;
+	private MDButton btDiscardT2;
+	private MDButton btDiscardT3;
+	private MDButton btDiscardT4;
+	private MDButton btDiscardT5;
+	private MDButton btDiscardT6;
+	private MDButton btDiscardT7;
+	private MDButton btDiscardB1;
+	private MDButton btDiscardB2;
+	private MDButton btDiscardB3;
+	private MDButton btDiscardB4;
+	private MDButton btDiscardB5;
+	private MDButton btDiscardB6;
+	private MDButton btDiscardB7; //14th tile, should be null until player wins
+
+	//references to imageViews
+	private ImageView iVC1;
 
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -85,6 +102,29 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 
 	public void onClick(View button) {
+		//create instances of actions
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+		MahjongChowAction chowAction = new MahjongChowAction(this);
+		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
+
+		//get references to buttons
+		btDiscDrawn.findViewById(R.id.btDiscardDrawn);
+		btDiscardT1.findViewById(R.id.btDiscSlotT1);
+		btDiscardT2.findViewById(R.id.btDiscSlotT2);
+		btDiscardT3.findViewById(R.id.btDiscSlotT3);
+		btDiscardT4.findViewById(R.id.btDiscSlotT4);
+		btDiscardT5.findViewById(R.id.btDiscSlotT5);
+		btDiscardT6.findViewById(R.id.btDiscSlotT6);
+		btDiscardT7.findViewById(R.id.btDiscSlotT7);
+		btDiscardB1.findViewById(R.id.btDiscSlotB1);
+		btDiscardB2.findViewById(R.id.btDiscSlotB2);
+		btDiscardB3.findViewById(R.id.btDiscSlotB3);
+		btDiscardB4.findViewById(R.id.btDiscSlotB4);
+		btDiscardB5.findViewById(R.id.btDiscSlotB5);
+		btDiscardB6.findViewById(R.id.btDiscSlotB6);
+		btDiscardB7.findViewById(R.id.btDiscSlotB7);
+
 		String existingText;
 		String newText;
 
@@ -100,12 +140,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
-
-		//create instances of actions
-		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
-		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
-        MahjongChowAction chowAction = new MahjongChowAction(this);
-        MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
 		firstInstance.startGame();
 		existingText = getExistingText();
@@ -130,12 +164,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			testResultsTextView.setText(existingText + "\n" + newText);
 
-			//Button references
-			btDiscDrawn.findViewById(R.id.btDiscardDrawn);
-			btDiscardT1.findViewById(R.id.btDiscSlotT1);
 
 			//Tile references
 			iVC1.findViewById(R.id.iVCSlotT1);
+
 
 			if (button instanceof MDButton) {
 				if (button == btDiscardT1) {
@@ -318,8 +350,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-
-		activity.setContentView((R.layout.run_test_layout));
+		activity.setContentView((R.layout.activity_main_09_22));
 
 		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
 
