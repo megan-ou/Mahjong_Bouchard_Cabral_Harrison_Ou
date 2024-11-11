@@ -411,7 +411,7 @@ public class MahjongGameState extends GameState {
 		}
 		if (numFire != 0) {
 			indexFire = lastEndingIndex;
-			lastEndingIndex += indexFire;
+			lastEndingIndex += numFire;
 		}
 		if (numWater != 0)  {
 			indexWater = lastEndingIndex;
