@@ -33,32 +33,30 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private TextView testResultsTextView;
 	//private Button btRunTest;
 
-	//references to buttons
-	private Button btDiscDrawn;
-	private MDButton btDiscardT1;
-	private MDButton btDiscardT2;
-	private MDButton btDiscardT3;
-	private MDButton btDiscardT4;
-	private MDButton btDiscardT5;
-	private MDButton btDiscardT6;
-	private MDButton btDiscardT7;
-	private MDButton btDiscardB1;
-	private MDButton btDiscardB2;
-	private MDButton btDiscardB3;
-	private MDButton btDiscardB4;
-	private MDButton btDiscardB5;
-	private MDButton btDiscardB6;
-	private MDButton btDiscardB7; //14th tile, should be null until player wins
-
-	//references to imageViews
-	private ImageView iVC1;
-
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
 	
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
+	//references to buttons
+	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+	private MDButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlotT1);
+	private MDButton btDiscardT2 = myActivity.findViewById(R.id.btDiscSlotT2);
+	private MDButton btDiscardT3 = myActivity.findViewById(R.id.btDiscSlotT3);
+	private MDButton btDiscardT4 = myActivity.findViewById(R.id.btDiscSlotT4);
+	private MDButton btDiscardT5 = myActivity.findViewById(R.id.btDiscSlotT5);
+	private MDButton btDiscardT6 = myActivity.findViewById(R.id.btDiscSlotT6);
+	private MDButton btDiscardT7 = myActivity.findViewById(R.id.btDiscSlotT7);
+	private MDButton btDiscardB1 = myActivity.findViewById(R.id.btDiscSlotB1);
+	private MDButton btDiscardB2 = myActivity.findViewById(R.id.btDiscSlotB2);
+	private MDButton btDiscardB3 = myActivity.findViewById(R.id.btDiscSlotB3);
+	private MDButton btDiscardB4 = myActivity.findViewById(R.id.btDiscSlotB4);
+	private MDButton btDiscardB5 = myActivity.findViewById(R.id.btDiscSlotB5);
+	private MDButton btDiscardB6 = myActivity.findViewById(R.id.btDiscSlotB6);
+	private MDButton btDiscardB7 = myActivity.findViewById(R.id.btDiscSlotB7);
+
+	//references to imageViews
 	private ImageView IVnum0;
 	private ImageView IVnum1;
 	private ImageView IVnum2;
@@ -122,23 +120,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
-		//get references to buttons
-		btDiscDrawn.findViewById(R.id.btDiscardDrawn);
-		btDiscardT1.findViewById(R.id.btDiscSlotT1);
-		btDiscardT2.findViewById(R.id.btDiscSlotT2);
-		btDiscardT3.findViewById(R.id.btDiscSlotT3);
-		btDiscardT4.findViewById(R.id.btDiscSlotT4);
-		btDiscardT5.findViewById(R.id.btDiscSlotT5);
-		btDiscardT6.findViewById(R.id.btDiscSlotT6);
-		btDiscardT7.findViewById(R.id.btDiscSlotT7);
-		btDiscardB1.findViewById(R.id.btDiscSlotB1);
-		btDiscardB2.findViewById(R.id.btDiscSlotB2);
-		btDiscardB3.findViewById(R.id.btDiscSlotB3);
-		btDiscardB4.findViewById(R.id.btDiscSlotB4);
-		btDiscardB5.findViewById(R.id.btDiscSlotB5);
-		btDiscardB6.findViewById(R.id.btDiscSlotB6);
-		btDiscardB7.findViewById(R.id.btDiscSlotB7);
-
 		String existingText;
 		String newText;
 
@@ -173,15 +154,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		// on this code and needed to move on. Make clearTile method which sets the image
 		// in the GUI to a null slot.
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
-			existingText = getExistingText();
+			/*existingText = getExistingText();
 			newText = "Player 1 discards a tile.";
 
-			testResultsTextView.setText(existingText + "\n" + newText);
-
-
-			//Tile references
-			iVC1.findViewById(R.id.iVCSlotT1);
-
+			testResultsTextView.setText(existingText + "\n" + newText);*/
 
 			if (button instanceof MDButton) {
 				if (button == btDiscardT1) {
