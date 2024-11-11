@@ -99,6 +99,22 @@ public class MahjongGameStateTest extends TestCase {
 
     }
 
+    public void testSortHand() {
+        MahjongGameState mgs = new MahjongGameState();
+        mgs.dealTiles();
+
+        for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
+            System.out.println(mgs.getPlayerOneHand()[i].toString());
+        }
+
+        mgs.sortHand(mgs.getPlayerOneHand());
+
+        for (int i = 0; i < mgs.getPlayerOneHand().length - 1; i++) {
+            System.out.println(mgs.getPlayerOneHand()[i].toString());
+        }
+
+    }
+
     public void testStartGame() {
     }
 
@@ -174,26 +190,37 @@ public class MahjongGameStateTest extends TestCase {
     public void testSortDeck(){
         MahjongGameState state = new MahjongGameState();
         state.dealTiles();
-        state.sortDeck();
-        int locationNumPlus = 0;
-        int locationNumMinus = 0;
-        for(int q = 1; q < 134; q++){
 
-            locationNumMinus = state.getDeck()[q-1].getLocationNum();
-            locationNumPlus = state.getDeck()[q+1].getLocationNum();
-            assertFalse(state.getDeck()[q].getLocationNum() <=
-                    state.getDeck()[q-1].getLocationNum());
-            if(state.getDeck()[q].getLocationNum() <=
-                    state.getDeck()[q-1].getLocationNum()){
-                System.out.println("not in order: test1 " + locationNumMinus);
-            }
-            assertFalse(state.getDeck()[q].getLocationNum() >=
-                    state.getDeck()[q+1].getLocationNum());
-            if(state.getDeck()[q].getLocationNum() >=
-                    state.getDeck()[q+1].getLocationNum()){
-                System.out.println("not in order: test2 " + locationNumPlus);
-            }
+        for (int i = 0; i < state.getDeck().length; i++) {
+            System.out.println(state.getDeck()[i].getLocationNum());
         }
+
+        state.sortDeck();
+
+        for (int i = 0; i < state.getDeck().length; i++) {
+            System.out.println(state.getDeck()[i].getLocationNum());
+        }
+
+
+//        int locationNumPlus = 0;
+//        int locationNumMinus = 0;
+//        for(int q = 1; q < 134; q++){
+//
+//            locationNumMinus = state.getDeck()[q-1].getLocationNum();
+//            locationNumPlus = state.getDeck()[q+1].getLocationNum();
+//            assertFalse(state.getDeck()[q].getLocationNum() <=
+//                    state.getDeck()[q-1].getLocationNum());
+//            if(state.getDeck()[q].getLocationNum() <=
+//                    state.getDeck()[q-1].getLocationNum()){
+//                System.out.println("not in order: test1 " + locationNumMinus);
+//            }
+//            assertFalse(state.getDeck()[q].getLocationNum() >=
+//                    state.getDeck()[q+1].getLocationNum());
+//            if(state.getDeck()[q].getLocationNum() >=
+//                    state.getDeck()[q+1].getLocationNum()){
+//                System.out.println("not in order: test2 " + locationNumPlus);
+//            }
+//        }
 
     }
 

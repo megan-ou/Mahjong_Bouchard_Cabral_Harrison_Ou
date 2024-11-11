@@ -31,8 +31,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
-
-	private Button btRunTest;
+	//private Button btRunTest;
+	private ImageView iVC1;
+	private Button btDiscDrawn;
+	private MDButton btDiscardT1;
 
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -134,12 +136,31 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 
 		//TODO: write code to specify what tile was discarded, we spent a few hours
-		// on this code and needed to move on.
+		// on this code and needed to move on. Make clearTile method which sets the image
+		// in the GUI to a null slot.
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
 			existingText = getExistingText();
 			newText = "Player 1 discards a tile.";
 
 			testResultsTextView.setText(existingText + "\n" + newText);
+
+			//Button references
+			btDiscDrawn.findViewById(R.id.btDiscardDrawn);
+			btDiscardT1.findViewById(R.id.btDiscSlotT1);
+
+			//Tile references
+			iVC1.findViewById(R.id.iVCSlotT1);
+
+			if (button instanceof MDButton) {
+				if (button == btDiscardT1) {
+
+				}
+			}
+			else if (button instanceof Button) {
+				if (button == btDiscDrawn) {
+					//clear discDrawn image view
+				}
+			}
 		}
 
 		//TODO: write code to specify what tile was ponged
@@ -507,9 +528,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
 
-		btRunTest = activity.findViewById(R.id.btRunTest);
+		//btRunTest = activity.findViewById(R.id.btRunTest);
 
-		btRunTest.setOnClickListener(this);
+		//btRunTest.setOnClickListener(this);
 		}
 	}
 
