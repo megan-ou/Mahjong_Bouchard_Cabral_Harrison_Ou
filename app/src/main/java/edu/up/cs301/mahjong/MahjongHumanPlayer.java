@@ -2,10 +2,12 @@ package edu.up.cs301.mahjong;
 
 import edu.up.cs301.GameFramework.players.GameHumanPlayer;
 import edu.up.cs301.GameFramework.GameMainActivity;
-import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
+import edu.up.cs301.mahjong.tiles.MahjongTile;
+
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -29,8 +31,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	
 	// The TextView the displays the current counter value
 	private TextView testResultsTextView;
-
-	private Button btRunTest;
+	//private Button btRunTest;
 
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -38,7 +39,38 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
-	
+	//references to buttons
+	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+	private MDButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlotT1);
+	private MDButton btDiscardT2 = myActivity.findViewById(R.id.btDiscSlotT2);
+	private MDButton btDiscardT3 = myActivity.findViewById(R.id.btDiscSlotT3);
+	private MDButton btDiscardT4 = myActivity.findViewById(R.id.btDiscSlotT4);
+	private MDButton btDiscardT5 = myActivity.findViewById(R.id.btDiscSlotT5);
+	private MDButton btDiscardT6 = myActivity.findViewById(R.id.btDiscSlotT6);
+	private MDButton btDiscardT7 = myActivity.findViewById(R.id.btDiscSlotT7);
+	private MDButton btDiscardB1 = myActivity.findViewById(R.id.btDiscSlotB1);
+	private MDButton btDiscardB2 = myActivity.findViewById(R.id.btDiscSlotB2);
+	private MDButton btDiscardB3 = myActivity.findViewById(R.id.btDiscSlotB3);
+	private MDButton btDiscardB4 = myActivity.findViewById(R.id.btDiscSlotB4);
+	private MDButton btDiscardB5 = myActivity.findViewById(R.id.btDiscSlotB5);
+	private MDButton btDiscardB6 = myActivity.findViewById(R.id.btDiscSlotB6);
+	private MDButton btDiscardB7 = myActivity.findViewById(R.id.btDiscSlotB7);
+
+	//references to imageViews
+	private ImageView IVnum0;
+	private ImageView IVnum1;
+	private ImageView IVnum2;
+	private ImageView IVnum3;
+	private ImageView IVnum4;
+	private ImageView IVnum5;
+	private ImageView IVnum6;
+	private ImageView IVnum7;
+	private ImageView IVnum8;
+	private ImageView IVnum9;
+	private ImageView IVnum10;
+	private ImageView IVnum11;
+	private ImageView IVnum12;
+	private ImageView IVnum13;
 	/**
 	 * constructor
 	 * @param name
@@ -82,6 +114,12 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 
 	public void onClick(View button) {
+		//create instances of actions
+		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
+		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+		MahjongChowAction chowAction = new MahjongChowAction(this);
+		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
+
 		String existingText;
 		String newText;
 
@@ -98,12 +136,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Any text from previous run cleared
 		testResultsTextView.setText("");
 
-		//create instances of actions
-		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
-		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
-        MahjongChowAction chowAction = new MahjongChowAction(this);
-        MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
-
 		firstInstance.startGame();
 		existingText = getExistingText();
 		newText = "Game has begun and card are dealt.";
@@ -119,12 +151,24 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 
 		//TODO: write code to specify what tile was discarded, we spent a few hours
-		// on this code and needed to move on.
+		// on this code and needed to move on. Make clearTile method which sets the image
+		// in the GUI to a null slot.
 		if (firstInstance.makeDiscardAction(discardTileAction)) {
-			existingText = getExistingText();
+			/*existingText = getExistingText();
 			newText = "Player 1 discards a tile.";
 
-			testResultsTextView.setText(existingText + "\n" + newText);
+			testResultsTextView.setText(existingText + "\n" + newText);*/
+
+			if (button instanceof MDButton) {
+				if (button == btDiscardT1) {
+
+				}
+			}
+			else if (button instanceof Button) {
+				if (button == btDiscDrawn) {
+					//clear discDrawn image view
+				}
+			}
 		}
 
 		//TODO: write code to specify what tile was ponged
@@ -282,7 +326,198 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.state = (MahjongGameState)info;
 		updateDisplay();
 	}
-	
+
+	/**
+	 *
+	 * this assigns the imageview that will be changing when
+	 * tiles are changed (makes the setTiles method shorter)
+	 *
+	 * @param IVCurr
+	 * @param IV
+	 */
+	public void pickImageView(ImageView IVCurr,int IV){
+
+		switch(IV){
+			case 0:
+				IVCurr = IVnum0;
+				break;
+			case 1:
+				IVCurr = IVnum1;
+				break;
+			case 2:
+				IVCurr = IVnum2;
+				break;
+			case 3:
+				IVCurr = IVnum3;
+				break;
+			case 4:
+				IVCurr = IVnum4;
+				break;
+			case 5:
+				IVCurr = IVnum5;
+				break;
+			case 6:
+				IVCurr = IVnum6;
+				break;
+			case 7:
+				IVCurr = IVnum7;
+				break;
+			case 8:
+				IVCurr = IVnum8;
+				break;
+			case 9:
+				IVCurr = IVnum9;
+				break;
+			case 10:
+				IVCurr = IVnum10;
+				break;
+			case 11:
+				IVCurr = IVnum11;
+				break;
+			case 12:
+				IVCurr = IVnum12;
+				break;
+			case 13:
+				IVCurr = IVnum13;
+				break;
+
+		}
+	}
+
+	/**
+	 * sets the tiles to the ImageViews on the GUI
+	 *
+	 */
+	public void setTiles(){
+
+		//load GUI
+		MahjongTile mt;
+		ImageView IVCurr = null;
+
+		//iterates through hand
+		for(int q = 0; q < 13; q++){
+			//reassigns the holder mahjong tile and current image view
+			mt = state.getDeck()[q];
+			pickImageView(IVCurr, q);
+			switch(mt.getSuit()) {
+				case "hanzi":
+					switch (mt.getValue()) {
+						case 1:
+							IVCurr.setImageResource(R.drawable.c_num_1);
+							break;
+						case 2:
+							IVCurr.setImageResource(R.drawable.c_num_2);
+							break;
+						case 3:
+							IVCurr.setImageResource(R.drawable.c_num_3);
+							break;
+						case 4:
+							IVCurr.setImageResource(R.drawable.c_num_4);
+							break;
+						case 5:
+							IVCurr.setImageResource(R.drawable.c_num_5);
+							break;
+						case 6:
+							IVCurr.setImageResource(R.drawable.c_num_6);
+							break;
+						case 7:
+							IVCurr.setImageResource(R.drawable.c_num_7);
+							break;
+						case 8:
+							IVCurr.setImageResource(R.drawable.c_num_8);
+							break;
+						case 9:
+							IVCurr.setImageResource(R.drawable.c_num_9);
+							break;
+					}
+					break;
+				case "dots":
+					switch (mt.getValue()) {
+						case 1:
+							IVCurr.setImageResource(R.drawable.dots_1);
+							break;
+						case 2:
+							IVCurr.setImageResource(R.drawable.dots_2);
+							break;
+						case 3:
+							IVCurr.setImageResource(R.drawable.dots_3);
+							break;
+						case 4:
+							IVCurr.setImageResource(R.drawable.dots_4);
+							break;
+						case 5:
+							IVCurr.setImageResource(R.drawable.dots_5);
+							break;
+						case 6:
+							IVCurr.setImageResource(R.drawable.dots_6);
+							break;
+						case 7:
+							IVCurr.setImageResource(R.drawable.dots_7);
+							break;
+						case 8:
+							IVCurr.setImageResource(R.drawable.dots_8);
+							break;
+						case 9:
+							IVCurr.setImageResource(R.drawable.dots_9);
+							break;
+					}
+				case "sticks":
+					switch (mt.getValue()) {
+						case 1:
+							IVCurr.setImageResource(R.drawable.sticks_1);
+							break;
+						case 2:
+							IVCurr.setImageResource(R.drawable.sticks_2);
+							break;
+						case 3:
+							IVCurr.setImageResource(R.drawable.sticks_3);
+							break;
+						case 4:
+							IVCurr.setImageResource(R.drawable.sticks_4);
+							break;
+						case 5:
+							IVCurr.setImageResource(R.drawable.sticks_5);
+							break;
+						case 6:
+							IVCurr.setImageResource(R.drawable.sticks_6);
+							break;
+						case 7:
+							IVCurr.setImageResource(R.drawable.sticks_7);
+							break;
+						case 8:
+							IVCurr.setImageResource(R.drawable.sticks_8);
+							break;
+						case 9:
+							IVCurr.setImageResource(R.drawable.sticks_9);
+							break;
+					}
+				case "cat":
+					IVCurr.setImageResource(R.drawable.cat);
+					break;
+				case "fire":
+					IVCurr.setImageResource(R.drawable.fire);
+					break;
+				case "earth":
+					IVCurr.setImageResource(R.drawable.earth);
+					break;
+				case "flower":
+					IVCurr.setImageResource(R.drawable.flower);
+					break;
+				case "star":
+					IVCurr.setImageResource(R.drawable.star);
+					break;
+				case "water":
+					IVCurr.setImageResource(R.drawable.water);
+					break;
+				case "wind":
+					IVCurr.setImageResource(R.drawable.wind);
+					break;
+			}
+		}
+
+
+	}
+
 	/**
 	 * callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
@@ -296,16 +531,17 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-
-		activity.setContentView((R.layout.run_test_layout));
+		activity.setContentView((R.layout.activity_main_09_22));
 
 		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
 
-		btRunTest = activity.findViewById(R.id.btRunTest);
+		//btRunTest = activity.findViewById(R.id.btRunTest);
 
-		btRunTest.setOnClickListener(this);
+		//btRunTest.setOnClickListener(this);
 		}
 	}
+
+
 
 // class CounterHumanPlayer
 
