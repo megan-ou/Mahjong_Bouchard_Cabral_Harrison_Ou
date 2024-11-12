@@ -656,14 +656,9 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Discard tile action
 	 */
-	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
-		if (action instanceof MahjongDiscardTileAction) {
+	public void makeDiscardAction (MahjongDiscardTileAction action) {
 
-			return true;
-		}
-		else {
-			return false;
-		}
+
 	}
 
 	/**

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+
 /**
  * A GUI of a Mahjong-player. The GUI displays the current state of game,
  * and allows the human player to send moves to the game.
@@ -56,7 +58,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private MDiscButton btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
 	private MDiscButton btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
 
-	//references to imageViews
+	//references to imageViews for hand
 	private ImageView IVnum0;
 	private ImageView IVnum1;
 	private ImageView IVnum2;
@@ -71,6 +73,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVnum11;
 	private ImageView IVnum12;
 	private ImageView IVnum13;
+
+	//references to non-hand imageviews
+	private ImageView IVdrawn;
+	private ImageView IVlastDiscarded;
+
 	/**
 	 * constructor
 	 * @param name
@@ -96,6 +103,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc12.setButtonID(12);
 		btDisc13.setButtonID(13);
 		btDisc14.setButtonID(14);
+
+		IVdrawn.findViewById(R.id.iVDrawnCard);
+		IVlastDiscarded.findViewById(R.id.iVLastDiscarded);
 	}
 
 	/**
@@ -163,10 +173,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 
 	/**
-	 * sets the tiles to the ImageViews on the GUI
 	 *
+	 * sets either the GUI for the hand or a single tile
+	 * for a single tile send all three parameters (including your target imageview and tile)
+	 * for setting the hand GUI send a null object for the second and third parameter
+	 *
+	 * @param activity - the game main activity state
+	 * @param iVsingle - the target image view (leave null if setting the whole hand)
+	 * @param tile - the tile you want to send to the image view (leave null if setting whole hand)
 	 */
-	public void setHandGUI(GameMainActivity activity){
+	public void setHandGUI(GameMainActivity activity,  ImageView iVsingle, MahjongTile tile){
 
 
 
@@ -189,17 +205,29 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		IVnum11 = myActivity.findViewById(R.id.iVCSlot12);
 		IVnum12 = myActivity.findViewById(R.id.iVCSlot13);
 		IVnum13 = myActivity.findViewById(R.id.iVCSlotB14);
+		ArrayList<ImageView> IVCurr = null;
 
-		ImageView[] IVCurr = {IVnum0, IVnum1, IVnum2, IVnum3, IVnum4, IVnum5, IVnum6, IVnum7
-				, IVnum8, IVnum9, IVnum10, IVnum11, IVnum12, IVnum13};
+		if(tile == null) {
+			IVCurr.add(IVnum0);	IVCurr.add(IVnum1);	IVCurr.add(IVnum2);
+			IVCurr.add(IVnum3); IVCurr.add(IVnum5); IVCurr.add(IVnum6);
+			IVCurr.add(IVnum7); IVCurr.add(IVnum8); IVCurr.add(IVnum9);
+			IVCurr.add(IVnum10); IVCurr.add(IVnum11); IVCurr.add(IVnum12);
+			IVCurr.add(IVnum13);
+		}else {
+			IVCurr.add(iVsingle);
+		}
 		int q = 0;
-
 		//iterates through hand
 		for(ImageView iv: IVCurr){
-			//reassigns the holder mahjong tile and current image view
-			if(state.getPlayerOneHand()[q] == null){ break;}
-			mt = state.getPlayerOneHand()[q];
-			q++;
+
+			if(tile == null) {
+				//reassigns the holder mahjong tile and current image view
+				if (state.getPlayerOneHand()[q] == null) {
+					break;
+				}
+				mt = state.getPlayerOneHand()[q];
+				q++;
+			}else{ mt = tile; }
 
 			switch(mt.getSuit()) {
 				//switch statement to set Hanzi
@@ -328,137 +356,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 	}
 
-	/**
-	 * sets the drawn card or the chow card
-	 *
-	 */
-	public void setTileGui(GameMainActivity activity, ImageView iv, MahjongTile tile){
-		switch(tile.getSuit()) {
-			//switch statement to set Hanzi
-			case "Hanzi":
-				switch (tile.getValue()) {
-					case 1:
-						iv.setImageResource(R.drawable.c_num_1);
-						break;
-					case 2:
-						iv.setImageResource(R.drawable.c_num_2);
-						break;
-					case 3:
-						iv.setImageResource(R.drawable.c_num_3);
-						break;
-					case 4:
-						iv.setImageResource(R.drawable.c_num_4);
-						break;
-					case 5:
-						iv.setImageResource(R.drawable.c_num_5);
-						break;
-					case 6:
-						iv.setImageResource(R.drawable.c_num_6);
-						break;
-					case 7:
-						iv.setImageResource(R.drawable.c_num_7);
-						break;
-					case 8:
-						iv.setImageResource(R.drawable.c_num_8);
-						break;
-					case 9:
-						iv.setImageResource(R.drawable.c_num_9);
-						break;
-				}
-				break;
-			//switch statement to set Dots
-			case "Dots":
-				switch (tile.getValue()) {
-					case 1:
-						iv.setImageResource(R.drawable.dots_1);
-						break;
-					case 2:
-						iv.setImageResource(R.drawable.dots_2);
-						break;
-					case 3:
-						iv.setImageResource(R.drawable.dots_3);
-						break;
-					case 4:
-						iv.setImageResource(R.drawable.dots_4);
-						break;
-					case 5:
-						iv.setImageResource(R.drawable.dots_5);
-						break;
-					case 6:
-						iv.setImageResource(R.drawable.dots_6);
-						break;
-					case 7:
-						iv.setImageResource(R.drawable.dots_7);
-						break;
-					case 8:
-						iv.setImageResource(R.drawable.dots_8);
-						break;
-					case 9:
-						iv.setImageResource(R.drawable.dots_9);
-						break;
-				}
-				break;
-			//switch statement to set Sticks
-			case "Sticks":
-				switch (tile.getValue()) {
-					case 1:
-						iv.setImageResource(R.drawable.sticks_1);
-						break;
-					case 2:
-						iv.setImageResource(R.drawable.sticks_2);
-						break;
-					case 3:
-						iv.setImageResource(R.drawable.sticks_3);
-						break;
-					case 4:
-						iv.setImageResource(R.drawable.sticks_4);
-						break;
-					case 5:
-						iv.setImageResource(R.drawable.sticks_5);
-						break;
-					case 6:
-						iv.setImageResource(R.drawable.sticks_6);
-						break;
-					case 7:
-						iv.setImageResource(R.drawable.sticks_7);
-						break;
-					case 8:
-						iv.setImageResource(R.drawable.sticks_8);
-						break;
-					case 9:
-						iv.setImageResource(R.drawable.sticks_9);
-						break;
-				}
-				break;
 
-			//switch case to set imageviews for symbols
-			case "Cat":
-				iv.setImageResource(R.drawable.cat);
-				break;
-			case "Fire":
-				iv.setImageResource(R.drawable.fire);
-				break;
-			case "Earth":
-				iv.setImageResource(R.drawable.earth);
-				break;
-			case "Flower":
-				iv.setImageResource(R.drawable.flower);
-				break;
-			case "Star":
-				iv.setImageResource(R.drawable.star);
-				break;
-			case "Water":
-				iv.setImageResource(R.drawable.water);
-				break;
-			case "Wind":
-				iv.setImageResource(R.drawable.wind);
-				break;
-			case "String":
-				iv.setImageResource(R.drawable.blank_tile);
-				break;
-		}
-
-	}
 
 
 	/**
