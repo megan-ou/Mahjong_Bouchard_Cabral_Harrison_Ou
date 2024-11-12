@@ -61,6 +61,16 @@ public class MahjongLocalGame extends LocalGame {
 		Log.i("action", action.getClass().toString());
 
 		if (action instanceof MahjongDrawTileAction) {
+			boolean cardDrawn = false;
+			MahjongTile tile = gameState.getCurrentDrawnTile();
+
+			while (!cardDrawn) {
+				tile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+				if (tile.getLocationNum() == 0) {
+					tile.setLocationNum(gameState.getPlayerID() + 1);
+					cardDrawn = true;
+				}
+			}
 			gameState.makeDrawTileAction((MahjongDrawTileAction) action);
 			return true;
 		}
@@ -86,6 +96,8 @@ public class MahjongLocalGame extends LocalGame {
 			//set last current drawn tile to null
 			gameState.setCurrentDrawnTile(null);
 
+			gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+
 			return true;
 		}
 		else if (action instanceof MahjongChowAction) {
@@ -109,8 +121,8 @@ public class MahjongLocalGame extends LocalGame {
 	 */
 	public void discardTileHelper (MahjongTile drawnTile, int playerID, int index) {
 		//set location of drawn tile to player hand
-		drawnTile.setLocationNum(playerID);
-		if (playerID == 1) {
+		drawnTile.setLocationNum(playerID + 1);
+		if (playerID == 0) {
 			//set tile location in player hand to discard
 			gameState.getPlayerOneHand()[index].setLocationNum(5);
 			//set pointer to null
@@ -120,7 +132,7 @@ public class MahjongLocalGame extends LocalGame {
 			gameState.sortHand(gameState.getPlayerOneHand());
 		}
 
-		if (playerID == 2) {
+		if (playerID == 1) {
 			//set tile location in player hand to discard
 			gameState.getPlayerTwoHand()[index].setLocationNum(5);
 			//set pointer to null
@@ -130,7 +142,7 @@ public class MahjongLocalGame extends LocalGame {
 			gameState.sortHand(gameState.getPlayerTwoHand());
 		}
 
-		if (playerID == 3) {
+		if (playerID == 2) {
 			//set tile location in player hand to discard
 			gameState.getPlayerThreeHand()[index].setLocationNum(5);
 			//set pointer to null
@@ -140,7 +152,7 @@ public class MahjongLocalGame extends LocalGame {
 			gameState.sortHand(gameState.getPlayerThreeHand());
 		}
 
-		if (playerID == 4) {
+		if (playerID == 3) {
 			//set tile location in player hand to discard
 			gameState.getPlayerFourHand()[index].setLocationNum(5);
 			//set pointer to null

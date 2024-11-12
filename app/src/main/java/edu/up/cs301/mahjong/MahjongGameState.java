@@ -669,19 +669,25 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Discard tile action
+	 * Change player turn after discard
 	 * Caveats: right now, only works for a drawn tile, not chow yet
 	 */
 	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
-			//get currentDrawnTile
-			//if drawn tile is being discarded
-				//do nothing, the drawn tile IV would be changed to empty
-			//else: change array based on tile that should be discarded:
-				//set the pointer in the index of the array of the discarded tile
-				//to the currentDrawnTile
-
-			//TODO:  change this.playerID to be the next player
+//			switch (playerID) {
+//				case 0:
+//					playerID = 1;
+//					break;
+//				case 1:
+//					playerID = 2;
+//					break;
+//				case 2:
+//					playerID = 3;
+//					break;
+//				case 3:
+//					playerID = 0;
+//					break;
+//			}
 			return true;
 		}
 		else {
@@ -694,28 +700,12 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDrawTileAction (GameAction action) {
 		if (action instanceof MahjongDrawTileAction) {
-			factorDrawTileAction();
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-
-	/**
-	 * Factored code for testing
-	 */
-	public void factorDrawTileAction() {
-		boolean cardDrawn = false;
-		while (!cardDrawn) {
-			currentDrawnTile = deck[(int) (Math.random() * 135.0)];
-			if (currentDrawnTile.getLocationNum() == 0) {
-				currentDrawnTile.setLocationNum(playerID + 1);
-				cardDrawn = true;
-			}
-		}
-	}
-
 
 	/**
 	 * Chow action method which adds the chow'd tile to the current hand array.
