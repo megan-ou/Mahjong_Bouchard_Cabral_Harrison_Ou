@@ -325,3 +325,12 @@ public class OldCode {
     		return testResultsTextView.getText().toString();
     	}
 }
+
+
+///SetAsGUI method
+
+		testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
+
+		btRunTest = activity.findViewById(R.id.btRunTest);
+
+		btRunTest.setOnClickListener(this);
