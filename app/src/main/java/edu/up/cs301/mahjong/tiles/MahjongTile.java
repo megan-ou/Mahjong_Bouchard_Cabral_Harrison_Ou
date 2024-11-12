@@ -14,6 +14,7 @@ public class MahjongTile {
     private int value;
     private boolean partOfSet;
     private boolean isRevealed;
+    private int drawableID;
 
     /**
      * this integer will indicate the location of mahjong tiles

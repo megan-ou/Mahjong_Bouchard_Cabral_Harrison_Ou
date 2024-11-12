@@ -15,9 +15,6 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
  */
 public class MahjongDrawTileAction extends GameAction {
 
-	/** Instance Variables **/
-	private MahjongTile drawnTile;
-
 	/**
 	 * Constructor for the MahjongDrawTileAction class.
 	 *
@@ -27,8 +24,4 @@ public class MahjongDrawTileAction extends GameAction {
 		super(player);
 	}
 
-	/** Getter Method for draw tile **/
-	public MahjongTile getDrawnTile() {
-		return drawnTile;
-	}
 }

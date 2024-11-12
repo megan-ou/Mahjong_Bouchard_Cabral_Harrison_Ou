@@ -692,7 +692,6 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDrawTileAction (GameAction action) {
 		if (action instanceof MahjongDrawTileAction) {
-//			this.currentDrawnTile = action.getDrawnTile();
 			factorDrawTileAction();
 			return true;
 		}
