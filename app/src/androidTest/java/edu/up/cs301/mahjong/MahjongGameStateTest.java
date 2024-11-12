@@ -173,8 +173,6 @@ public class MahjongGameStateTest extends TestCase {
     public void testMakeDrawTileAction() {
         MahjongGameState mgs = new MahjongGameState();
 
-        mgs.factorDrawTileAction();
-
         assertNotNull(mgs.getCurrentDrawnTile());
     }
 
@@ -249,7 +247,7 @@ public class MahjongGameStateTest extends TestCase {
     public void testGetLastDrawnTile() {
     }
 
-    public void testGetNumPairs() {
+    public void testGetCountNumPairs() {
     }
 
     public void testGetPlayerID() {
@@ -264,7 +262,7 @@ public class MahjongGameStateTest extends TestCase {
     public void testGetCurrentDrawnTile() {
     }
 
-    public void testGetNumSets() {
+    public void testGetCountNumSets() {
     }
 
     public void testGetLastDiscarded() {
@@ -286,14 +284,14 @@ public class MahjongGameStateTest extends TestCase {
         assertEquals("Hanzi", lastDrawn.getSuit());
     }
 
-    public void testSetNumPairs() {
+    public void testSetCountNumPairs() {
         MahjongGameState mgs = new MahjongGameState();
         mgs.setNumPairs(5);
         int num = mgs.getNumPairs();
         assertEquals(5, num);
     }
 
-    public void testSetNumSets() {
+    public void testSetCountNumSets() {
     }
 
     public void testSetPlayerID() {

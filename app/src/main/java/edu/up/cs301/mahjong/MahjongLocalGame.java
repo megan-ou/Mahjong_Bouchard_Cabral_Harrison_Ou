@@ -7,7 +7,6 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.util.Log;
-import android.widget.ImageView;
 
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
@@ -186,31 +185,41 @@ public class MahjongLocalGame extends LocalGame {
 	 */
 	@Override
 	protected String checkIfGameOver() {
-		
-		// get the value of the counter
-		//int counterVal = this.gameState.getCounter();
-		
-		//if (counterVal >= TARGET_MAGNITUDE) {
-			// counter has reached target magnitude, so return message that
-			// player 0 has won.
-			//return playerNames[0]+" has won.";
-		//}
-		//else if (counterVal <= -TARGET_MAGNITUDE) {
-			// counter has reached negative of target magnitude; if there
-			// is a second player, return message that this player has won,
-			// otherwise that the first player has lost
-			//if (playerNames.length >= 2) {
-			//	return playerNames[1]+" has won.";
-		//	}
-			//else {
-			//	return playerNames[0]+" has lost.";
-		//	}
-		//}//else {
-			// game is still between the two limit: return null, as the game
-			// is not yet over
-			//return null;
-		//}
-		return null;
+
+		int numSets = gameState.getNumSets();
+		int numPairs = gameState.getNumPairs();
+		int playerID = gameState.getPlayerID();
+		MahjongTile[] handOne = gameState.getPlayerOneHand();
+		MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+		MahjongTile[] handThree = gameState.getPlayerThreeHand();
+		MahjongTile[] handFour = gameState.getPlayerFourHand();
+
+		switch (playerID) {
+			case 0:
+				numSets = gameState.countNumSets(handOne);
+				numPairs = gameState.countNumPairs(handOne);
+				break;
+			case 1:
+				numSets = gameState.countNumSets(handTwo);
+				numPairs = gameState.countNumPairs(handTwo);
+				break;
+			case 2:
+				numSets = gameState.countNumSets(handThree);
+				numPairs = gameState.countNumPairs(handThree);
+				break;
+			case 3:
+				numSets = gameState.countNumSets(handFour);
+				numPairs = gameState.countNumPairs(handFour);
+				break;
+		}
+
+		if (numSets == 4 && numPairs == 1) {
+			return playerNames[playerID] + " has won!!! Yippee!";
+		}
+
+		else {
+			return null;
+		}
 	}
 
 }// class CounterLocalGame

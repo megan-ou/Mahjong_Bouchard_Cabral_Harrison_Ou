@@ -1,9 +1,5 @@
 package edu.up.cs301.mahjong;
 
-import java.net.BindException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
 
@@ -572,7 +568,7 @@ public class MahjongGameState extends GameState {
 	 * @param playerHand array of tiles that represents a player's hand
 	 * @return number of sets in a given hand
 	 */
-	public int numSets (MahjongTile[] playerHand) {
+	public int countNumSets(MahjongTile[] playerHand) {
 		//reset numSets
 		this.numSets = 0;
 
@@ -635,7 +631,7 @@ public class MahjongGameState extends GameState {
 	 * @param playerHand array of tiles that represents a player's hand
 	 * @return number of pairs in a given hand
 	 */
-	public int numPairs (MahjongTile[] playerHand) {
+	public int countNumPairs(MahjongTile[] playerHand) {
 		//reset numSets
 		this.numPairs = 0;
 
