@@ -54,6 +54,7 @@ public class MahjongLocalGame extends LocalGame {
 
 	/**
 	 * There are four different actions a user can take
+	 * TODO: Add conditions (ex: only discard IF a card is drawn)
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
@@ -69,21 +70,22 @@ public class MahjongLocalGame extends LocalGame {
 			MahjongTile drawnTile = gameState.getCurrentDrawnTile();
 			int playerID = gameState.getPlayerID();
 
-			//check if drawn tile is being discarded
-			if (buttonID == allButtonIDs[0]) {
-				drawnTile.setLocationNum(5);
+			//iterate through all possible discard buttons
+			for (int i = 0; i < allButtonIDs.length; i++) {
+				//check if drawn tile is being discarded and discard it
+				if (buttonID == allButtonIDs[0]) {
+					drawnTile.setLocationNum(5);
+					gameState.setLastDiscarded(drawnTile);
+				}
+				//discard action on other tiles
+				else {
+					discardTileHelper(drawnTile, playerID, i);
+				}
 			}
 
-			//discard action on other tiles
-			else if (buttonID == allButtonIDs[1]){
-				drawnTile.setLocationNum(playerID);
-				if (playerID == 1) {
-					gameState.getPlayerOneHand()[1] = drawnTile;
-					gameState.setLastDiscarded(drawnTile);
-					gameState.setCurrentDrawnTile(null);
-				}
-				//TODO: set into other player hands
-			}
+			//set last current drawn tile to null
+			gameState.setCurrentDrawnTile(null);
+
 			return true;
 		}
 		else if (action instanceof MahjongChowAction) {
@@ -98,6 +100,56 @@ public class MahjongLocalGame extends LocalGame {
 			return false;
 		}
 	}//makeMove
+
+	/**
+	 * Helper method for discard tile, takes the given drawn tile and swaps it with the
+	 * selected tile to discard
+	 * @param drawnTile
+	 * @param playerID
+	 */
+	public void discardTileHelper (MahjongTile drawnTile, int playerID, int index) {
+		//set location of drawn tile to player hand
+		drawnTile.setLocationNum(playerID);
+		if (playerID == 1) {
+			//set tile location in player hand to discard
+			gameState.getPlayerOneHand()[index].setLocationNum(5);
+			//set pointer to null
+			gameState.getPlayerOneHand()[index] = null;
+			//set drawn tile to player hand
+			gameState.getPlayerOneHand()[index] = drawnTile;
+			gameState.sortHand(gameState.getPlayerOneHand());
+		}
+
+		if (playerID == 2) {
+			//set tile location in player hand to discard
+			gameState.getPlayerTwoHand()[index].setLocationNum(5);
+			//set pointer to null
+			gameState.getPlayerTwoHand()[index] = null;
+			//set drawn tile to player hand
+			gameState.getPlayerTwoHand()[index] = drawnTile;
+			gameState.sortHand(gameState.getPlayerTwoHand());
+		}
+
+		if (playerID == 3) {
+			//set tile location in player hand to discard
+			gameState.getPlayerThreeHand()[index].setLocationNum(5);
+			//set pointer to null
+			gameState.getPlayerThreeHand()[index] = null;
+			//set drawn tile to player hand
+			gameState.getPlayerThreeHand()[index] = drawnTile;
+			gameState.sortHand(gameState.getPlayerThreeHand());
+		}
+
+		if (playerID == 4) {
+			//set tile location in player hand to discard
+			gameState.getPlayerFourHand()[index].setLocationNum(5);
+			//set pointer to null
+			gameState.getPlayerFourHand()[index] = null;
+			//set drawn tile to player hand
+			gameState.getPlayerFourHand()[index] = drawnTile;
+			gameState.sortHand(gameState.getPlayerFourHand());
+		}
+	}
 	
 	/**
 	 * send the updated state to a given player

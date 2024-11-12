@@ -30,10 +30,6 @@ import java.util.ArrayList;
 public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
 	/* instance variables */
-	
-	// The TextView the displays the current counter value
-	private TextView testResultsTextView;
-	//private Button btRunTest;
 
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -82,6 +78,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVDrawnCard;
 	private ImageView IVlastDiscarded;
 
+	//reference to discard pile text view
+	private TextView discardPile = myActivity.findViewById(R.id.tvDiscardPile);
+
 
 	/**
 	 * constructor
@@ -129,12 +128,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
     }
 
-
-
-	public int[] getDiscButtonIDArray() {
-		return discButtonIDArray;
-	}
-
 	/**
 	 * Returns the GUI's top view object
 	 * 
@@ -174,6 +167,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			game.sendAction(discardTileAction);
 			setDrawnCard(R.drawable.blank_tile);
 			setHandGUI(myActivity,null,null);
+			//TODO:update TextView
 		}
 //		else if (button instanceof MChowButton) {
 //			game.sendAction(chowAction);
@@ -405,9 +399,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 	}
 
-
-
-
 	/**
 	 * callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
@@ -427,7 +418,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		state.dealTiles();
 		state.sortDeck();
 		state.sortHand(state.getPlayerOneHand());
-		setHandGUI(this.myActivity);
+		setHandGUI(this.myActivity,null,null);
 
 
 
