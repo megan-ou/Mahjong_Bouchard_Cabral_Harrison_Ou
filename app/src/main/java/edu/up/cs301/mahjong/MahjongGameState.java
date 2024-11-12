@@ -659,6 +659,8 @@ public class MahjongGameState extends GameState {
 	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
 
+
+
 			return true;
 		}
 		else {
