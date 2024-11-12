@@ -24,7 +24,10 @@ public class MahjongLocalGame extends LocalGame {
 
 	// the game's state
 	private MahjongGameState gameState;
-	
+	//tells game you have to discard
+	private boolean hasDrawnTile = false;
+
+
 	/**
 	 * can this player move
 	 * 
@@ -57,60 +60,62 @@ public class MahjongLocalGame extends LocalGame {
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
+		int playerID = gameState.getPlayerID();
+		MahjongTile drawnTile = gameState.getCurrentDrawnTile();
+
 		Log.i("action", action.getClass().toString());
+		if (canMove(playerID)) {
+			if (action instanceof MahjongDrawTileAction) {
+				boolean cardDrawn = false;
 
-		if (action instanceof MahjongDrawTileAction) {
-			boolean cardDrawn = false;
-			MahjongTile tile;
-
-			while (!cardDrawn) {
-				tile = gameState.getDeck()[(int) (Math.random() * 135.0)];
-				if (tile.getLocationNum() == 0) {
-					gameState.setCurrentDrawnTile(tile);
-					tile.setLocationNum(gameState.getPlayerID() + 1);
-					cardDrawn = true;
+				while (!cardDrawn) {
+					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+					if (drawnTile.getLocationNum() == 0) {
+						gameState.setCurrentDrawnTile(drawnTile);
+						drawnTile.setLocationNum(gameState.getPlayerID() + 1);
+						cardDrawn = true;
+						hasDrawnTile = true;
+					}
 				}
-			}
 //			gameState.makeDrawTileAction((MahjongDrawTileAction) action);
-			return true;
-		}
-		else if (action instanceof MahjongDiscardTileAction) {
-			int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
-			int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
-			MahjongTile drawnTile = gameState.getCurrentDrawnTile();
-			int playerID = gameState.getPlayerID();
+				return true;
+			} else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
+				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
+				int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
 
-			//iterate through all possible discard buttons
-			for (int i = 0; i < allButtonIDs.length; i++) {
-				//check if drawn tile is being discarded and discard it
-				if (buttonID == allButtonIDs[0]) {
-					drawnTile.setLocationNum(5);
-					gameState.setLastDiscarded(drawnTile);
+				//iterate through all possible discard buttons
+				for (int i = 0; i < allButtonIDs.length; i++) {
+					//check if drawn tile is being discarded and discard it
+					if (buttonID == allButtonIDs[0]) {
+						drawnTile.setLocationNum(5);
+						gameState.setLastDiscarded(drawnTile);
+					}
+					//discard action on other tiles
+					else {
+						discardTileHelper(drawnTile, playerID, i);
+					}
 				}
-				//discard action on other tiles
-				else {
-					discardTileHelper(drawnTile, playerID, i);
-				}
+
+				//set last current drawn tile to null
+				gameState.setCurrentDrawnTile(null);
+
+				gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+
+				//reset the variable
+				hasDrawnTile = false;
+
+				return true;
+			} else if (action instanceof MahjongChowAction) {
+				gameState.makeChowAction((MahjongChowAction) action);
+				return true;
+			} else if (action instanceof MahjongSwitchViewAction) {
+				gameState.makeSwitchViewAction((MahjongSwitchViewAction) action);
+				return true;
+			} else {
+				return false;
 			}
-
-			//set last current drawn tile to null
-			gameState.setCurrentDrawnTile(null);
-
-			gameState.makeDiscardAction((MahjongDiscardTileAction) action);
-
-			return true;
 		}
-		else if (action instanceof MahjongChowAction) {
-			gameState.makeChowAction((MahjongChowAction) action);
-			return true;
-		}
-		else if (action instanceof MahjongSwitchViewAction) {
-			gameState.makeSwitchViewAction((MahjongSwitchViewAction) action);
-			return true;
-		}
-		else {
-			return false;
-		}
+		return false;
 	}//makeMove
 
 	/**
