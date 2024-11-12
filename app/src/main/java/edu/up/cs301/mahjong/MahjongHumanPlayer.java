@@ -152,13 +152,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setTileGUI(GameMainActivity activity){
 
-		ImageView IVCurr = activity.findViewById(R.id.iVCSlot1);
-		IVCurr.setImageResource(R.drawable.star);
+
 
 
 		//load GUI
 		MahjongTile mt ;
-		IVCurr = null;
 
 		IVnum0 = myActivity.findViewById(R.id.iVCSlot1);
 		IVnum1 = myActivity.findViewById(R.id.iVCSlot2);
