@@ -402,7 +402,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		state.dealTiles();
 		state.sortDeck();
 		state.sortHand(state.getPlayerOneHand());
-		setHandGUI(this.myActivity);
+		setHandGUI(this.myActivity, null, null);
 
 
 
