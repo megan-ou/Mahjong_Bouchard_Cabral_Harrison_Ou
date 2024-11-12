@@ -132,6 +132,18 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
+		if (button instanceof MDiscButton) {
+			game.sendAction(discardTileAction);
+		}
+		/*else if (button instanceof MDrawButton) {
+			game.sendAction(drawTileAction);
+		}
+		else if (button instanceof MChowButton) {
+			game.sendAction(chowAction);
+		}
+		else if (button instanceof MSwitchViewButton) {
+			game.sendAction(switchViewAction);
+		}*/
 	}// onClick
 
 	/**
