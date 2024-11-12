@@ -6,7 +6,6 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -82,7 +81,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		state = new MahjongGameState();
 
 		//set all MDiscButton IDs
-//		btDiscDrawn = new MDiscButton(myActivity,myActivity.findViewById(R.layout.activity_main_09_22),0);
+//		btDiscDrawn = new MDiscButton(myActivity,myActivity.findViewById(R.layout.gameplay_view),0);
 //		btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
 //		btDiscDrawn.setButtonID(0);
 
@@ -472,9 +471,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView((R.layout.activity_main_09_22));
+		activity.setContentView((R.layout.gameplay_view));
 
-		activity.setContentView((R.layout.activity_main_09_22));
+		activity.setContentView((R.layout.gameplay_view));
 		state.dealTiles();
 		state.sortDeck();
 		state.sortHand(state.getPlayerOneHand());
