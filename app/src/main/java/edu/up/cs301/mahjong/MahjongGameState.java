@@ -655,10 +655,21 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Discard tile action
+	 * Caveats: right now, only works for a drawn tile, not chow yet
 	 */
-	public void makeDiscardAction (MahjongDiscardTileAction action) {
-
-
+	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
+		if (action instanceof MahjongDiscardTileAction) {
+			//get currentDrawnTile
+			//if drawn tile is being discarded
+				//do nothing, the drawn tile IV would be changed to empty
+			//else: change array based on tile that should be discarded:
+				//set the pointer in the index of the array of the discarded tile
+				//to the currentDrawnTile
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -683,7 +694,6 @@ public class MahjongGameState extends GameState {
 		while (!cardDrawn) {
 			currentDrawnTile = deck[(int) (Math.random() * 135.0)];
 			if (currentDrawnTile.getLocationNum() == 0) {
-				lastDrawnTile = currentDrawnTile.toString();
 				currentDrawnTile.setLocationNum(playerID);
 				cardDrawn = true;
 			}

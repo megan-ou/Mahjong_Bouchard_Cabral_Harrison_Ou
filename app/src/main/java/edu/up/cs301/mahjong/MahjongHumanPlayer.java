@@ -6,6 +6,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -40,23 +41,26 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
-//TODO: instantiate the buttons
+	//array of discard button ids
+	private int[] discButtonIDArray = new int[15];
+
+//TODO: Ask about MDButton Class: way too many errors, says null object reference
 	//references to buttons
-	private MDiscButton btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);;
-	private MDiscButton btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
-	private MDiscButton btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
-	private MDiscButton btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
-	private MDiscButton btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
-	private MDiscButton btDisc5 = myActivity.findViewById(R.id.btDiscSlot5);
-	private MDiscButton btDisc6 = myActivity.findViewById(R.id.btDiscSlot6);
-	private MDiscButton btDisc7 = myActivity.findViewById(R.id.btDiscSlot7);
-	private MDiscButton btDisc8 = myActivity.findViewById(R.id.btDiscSlot8);
-	private MDiscButton btDisc9 = myActivity.findViewById(R.id.btDiscSlot9);
-	private MDiscButton btDisc10 = myActivity.findViewById(R.id.btDiscSlot10);
-	private MDiscButton btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
-	private MDiscButton btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
-	private MDiscButton btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
-	private MDiscButton btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
+	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+	private Button btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
+	private Button btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
+	private Button btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
+	private Button btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
+	private Button btDisc5 = myActivity.findViewById(R.id.btDiscSlot5);
+	private Button btDisc6 = myActivity.findViewById(R.id.btDiscSlot6);
+	private Button btDisc7 = myActivity.findViewById(R.id.btDiscSlot7);
+	private Button btDisc8 = myActivity.findViewById(R.id.btDiscSlot8);
+	private Button btDisc9 = myActivity.findViewById(R.id.btDiscSlot9);
+	private Button btDisc10 = myActivity.findViewById(R.id.btDiscSlot10);
+	private Button btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
+	private Button btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
+	private Button btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
+	private Button btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
 
 	//references to imageViews for hand
 	private ImageView IVnum0;
@@ -78,6 +82,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVdrawn;
 	private ImageView IVlastDiscarded;
 
+
 	/**
 	 * constructor
 	 * @param name
@@ -87,32 +92,40 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		super(name);
 		state = new MahjongGameState();
 
-		//set all MDiscButton IDs
-		btDiscDrawn.setButtonID(0);
-		btDisc1.setButtonID(1);
-		btDisc2.setButtonID(2);
-		btDisc3.setButtonID(3);
-		btDisc4.setButtonID(4);
-		btDisc5.setButtonID(5);
-		btDisc6.setButtonID(6);
-		btDisc7.setButtonID(7);
-		btDisc8.setButtonID(8);
-		btDisc9.setButtonID(9);
-		btDisc10.setButtonID(10);
-		btDisc11.setButtonID(11);
-		btDisc12.setButtonID(12);
-		btDisc13.setButtonID(13);
-		btDisc14.setButtonID(14);
+		discButtonIDArray[0] = R.id.btDiscardDrawn;
+		discButtonIDArray[1] = R.id.btDiscSlot1;
+		discButtonIDArray[2] = R.id.btDiscSlot2;
+		discButtonIDArray[3] = R.id.btDiscSlot3;
+		discButtonIDArray[4] = R.id.btDiscSlot4;
+		discButtonIDArray[5] = R.id.btDiscSlot5;
+		discButtonIDArray[6] = R.id.btDiscSlot6;
+		discButtonIDArray[7] = R.id.btDiscSlot7;
+		discButtonIDArray[8] = R.id.btDiscSlot8;
+		discButtonIDArray[9] = R.id.btDiscSlot9;
+		discButtonIDArray[10] = R.id.btDiscSlot10;
+		discButtonIDArray[11] = R.id.btDiscSlot11;
+		discButtonIDArray[12] = R.id.btDiscSlot12;
+		discButtonIDArray[13] = R.id.btDiscSlot13;
+		discButtonIDArray[14] = R.id.btDiscSlot14;
 
-		IVdrawn.findViewById(R.id.iVDrawnCard);
-		IVlastDiscarded.findViewById(R.id.iVLastDiscarded);
-	}
+        IVdrawn.findViewById(R.id.iVDrawnCard);
+        IVlastDiscarded.findViewById(R.id.iVLastDiscarded);
+
+    }
+
+
+	public int[] getDiscButtonIDArray() {
+		return discButtonIDArray;
+		//set all MDiscButton IDs
+
+
+		}
 
 	/**
 	 * Returns the GUI's top view object
 	 * 
 	 * @return
-	 * 		the top object in the GUI's view heirarchy
+	 * 		the top object in the GUI's view hierarchy
 	 */
 	public View getTopView() {
 		return myActivity.findViewById(R.id.top_gui_layout);
@@ -127,8 +140,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * This method gets called when the user clicks the run test button. It then repeatedly
-	 * calls methods in the GameState class to test if it will run
+	 * This method gets called when the user clicks a button. It will determine what
+	 * action needs to be made based on the button type. Finally, it'll send that action
+	 * to the game state.
 	 * 
 	 * @param button
 	 * 		the button that was clicked
@@ -141,17 +155,30 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
-
-
-
-
+		if (isDiscardButton(button.getId())) {
+			game.sendAction(drawTileAction);
+		}
+//		else if (button instanceof MChowButton) {
+//			game.sendAction(chowAction);
+//		}
+//		else if (button instanceof MSwitchViewButton) {
+//			game.sendAction(switchViewAction);
+//		}
 	}// onClick
 
 	/**
-	 * Helper method for getting existing text in testResultsTextView
+	 * Helper method that takes the id of a clicked button from onClick() and checks if it is
+	 * a discard button
+	 * @param id
+	 * @return
 	 */
-	public String getExistingText () {
-		return testResultsTextView.getText().toString();
+	public boolean isDiscardButton (int id) {
+		for (int i = 0; i < this.discButtonIDArray.length; i++) {
+			if (id == discButtonIDArray[i]) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 
@@ -183,9 +210,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * @param tile - the tile you want to send to the image view (leave null if setting whole hand)
 	 */
 	public void setHandGUI(GameMainActivity activity,  ImageView iVsingle, MahjongTile tile){
-
-
-
 
 		//load GUI
 		MahjongTile mt ;
@@ -372,9 +396,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView((R.layout.activity_main_09_22));
+		activity.setContentView((R.layout.gameplay_view));
 
-		activity.setContentView((R.layout.activity_main_09_22));
+		activity.setContentView((R.layout.gameplay_view));
 		state.dealTiles();
 		state.sortDeck();
 		state.sortHand(state.getPlayerOneHand());
