@@ -144,12 +144,17 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		testResultsTextView.setText(existingText + "\n" + newText);
 
+		//TODO: Write code for what should actually happen
 		//Call draw tile method for human player
 		if (firstInstance.makeDrawTileAction(drawTileAction)) {
-			existingText = getExistingText();
+			// Get a random tile from the deck at locationNum 0
+			// set currentDrawnTile from the gameState to this random tile
+			// get this tile's imageView and update the GUI
+
+			/*existingText = getExistingText();
 			newText = "Player 1 draws the " + firstInstance.getLastDrawnTile() + ".";
 
-			testResultsTextView.setText(existingText + "\n" + newText);
+			testResultsTextView.setText(existingText + "\n" + newText);*/
 		}
 
 		//TODO: write code to specify what tile was discarded, we spent a few hours
@@ -163,8 +168,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			if (button instanceof MDButton) {
 				//change hand--> change pointer of discardedTile to a null object
-				//get the last drawn tile
-				//change pointer of previously discarded tile to the last drawn tile
+				//get the current drawn tile
+				//change pointer of the array index that previously held the discarded tile to
+				// the current drawn tile.
+				//set the lastDiscarded tile in gameState to the discardedTile
 				//call the sort method
 				//call the setImageView method
 				if (button == btDiscardT1) {
@@ -183,13 +190,17 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			}
 		}
 
-		//TODO: write code to specify what tile was ponged
+		//TODO: write code to specify what tile was chowed
 		if (firstInstance.makeChowAction(chowAction)) {
-			existingText = getExistingText();
+			//get the lastDiscarded tile from gameState
+			//put the lastDiscarded tile into the imageView that holds the drawn tile
+			//User then should discard
+
+			/*existingText = getExistingText();
 			newText = "Player 3 called pong to take player 2's discarded tile. " +
 					"Player 3's completed set of 3 is revealed.";
 
-			testResultsTextView.setText(existingText + "\n" + newText);
+			testResultsTextView.setText(existingText + "\n" + newText);*/
 		}
 
 		if (firstInstance.makeSwitchViewAction(switchViewAction)) {
@@ -220,7 +231,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
-		//TODO: write code to specify what tile was chowed
 		if (firstInstance.makeChowAction(chowAction)) {
 			existingText = getExistingText();
 			newText = "Player 4 called chow to take player 3's discarded tile. " +
@@ -271,7 +281,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			testResultsTextView.setText(existingText + "\n" + newText);
 		}
 
-		//TODO: write code to specify what tile was chowed
 		if (firstInstance.makeChowAction(chowAction)) {
 			existingText = getExistingText();
 			newText = "Player 1 called chow to take player 4's discarded pile";
