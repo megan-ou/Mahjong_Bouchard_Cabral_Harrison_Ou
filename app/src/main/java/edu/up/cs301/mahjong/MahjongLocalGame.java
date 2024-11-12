@@ -79,6 +79,8 @@ public class MahjongLocalGame extends LocalGame {
 				drawnTile.setLocationNum(playerID);
 				if (playerID == 1) {
 					gameState.getPlayerOneHand()[1] = drawnTile;
+					gameState.setLastDiscarded(drawnTile);
+					gameState.setCurrentDrawnTile(null);
 				}
 				//TODO: set into other player hands
 			}
