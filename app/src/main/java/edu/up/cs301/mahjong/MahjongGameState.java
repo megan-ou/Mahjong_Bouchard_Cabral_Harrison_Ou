@@ -125,6 +125,21 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 *  Helper method for Local Game to find which tile is discarded
+	 */
+	public int findIndex (MahjongTile tile) {
+		int index = -1;
+
+		for (int i = 0; i < deck.length; i++) {
+			if(tile.equals(deck[i])) {
+				index = i;
+			}
+		}
+
+		return index;
+	}
+
+	/**
 	 * method that initializes and adds all elements to the classes deck
 	 * takes an array, adds all tiles with for loops
 	 */
@@ -677,7 +692,6 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDrawTileAction (GameAction action) {
 		if (action instanceof MahjongDrawTileAction) {
-//			this.currentDrawnTile = action.getDrawnTile();
 			factorDrawTileAction();
 			return true;
 		}

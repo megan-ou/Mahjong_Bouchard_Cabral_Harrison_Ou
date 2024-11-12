@@ -30,10 +30,6 @@ import java.util.ArrayList;
 public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
 
 	/* instance variables */
-	
-	// The TextView the displays the current counter value
-	private TextView testResultsTextView;
-	//private Button btRunTest;
 
 	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
@@ -45,9 +41,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private int[] discButtonIDArray = new int[15];
 
 //TODO: Ask about MDButton Class: way too many errors, says null object reference
+	//TODO: move references down to ctor
 	//references to buttons
-	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
-	private Button btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
+	private Button btDiscDrawn;
+	private Button btDisc1;
 	private Button btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
 	private Button btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
 	private Button btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
@@ -61,8 +58,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
 	private Button btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
 	private Button btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
+	private Button btDraw = myActivity.findViewById(R.id.btDraw);
 
-	//references to imageViews for hand
+	//references to imageViews
 	private ImageView IVnum0;
 	private ImageView IVnum1;
 	private ImageView IVnum2;
@@ -79,8 +77,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVnum13;
 
 	//references to non-hand imageviews
-	private ImageView IVdrawn;
+	private ImageView IVDrawnCard;
 	private ImageView IVlastDiscarded;
+
+	//reference to discard pile text view
+	private TextView discardPile = myActivity.findViewById(R.id.tvDiscardPile);
 
 
 	/**
@@ -108,18 +109,33 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
 
-        IVdrawn.findViewById(R.id.iVDrawnCard);
-        IVlastDiscarded.findViewById(R.id.iVLastDiscarded);
+		//set references
+		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
+		IVlastDiscarded = myActivity.findViewById(R.id.iVLastDiscarded);
+
+		btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+		btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
+
+		//set listeners
+
+		btDiscDrawn.setOnClickListener(this);
+		btDisc1.setOnClickListener(this);
+		btDisc2.setOnClickListener(this);
+		btDisc3.setOnClickListener(this);
+		btDisc4.setOnClickListener(this);
+		btDisc5.setOnClickListener(this);
+		btDisc6.setOnClickListener(this);
+		btDisc7.setOnClickListener(this);
+		btDisc8.setOnClickListener(this);
+		btDisc9.setOnClickListener(this);
+		btDisc10.setOnClickListener(this);
+		btDisc11.setOnClickListener(this);
+		btDisc12.setOnClickListener(this);
+		btDisc13.setOnClickListener(this);
+		btDisc14.setOnClickListener(this);
+		btDraw.setOnClickListener(this);
 
     }
-
-
-	public int[] getDiscButtonIDArray() {
-		return discButtonIDArray;
-		//set all MDiscButton IDs
-
-
-		}
 
 	/**
 	 * Returns the GUI's top view object
@@ -151,12 +167,21 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public void onClick(View button) {
 		//create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
-		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
+		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
-		if (isDiscardButton(button.getId())) {
+		if (button.getId() == R.id.btDraw) {
 			game.sendAction(drawTileAction);
+			setHandGUI(IVDrawnCard,state.getCurrentDrawnTile());
+		}
+
+		else if (isDiscardButton(button.getId())) {
+			discardTileAction.setDiscardButtonID(button.getId());
+			game.sendAction(discardTileAction);
+			emptyDrawnCard(R.drawable.blank_tile);
+			setHandGUI(null,null);
+			//TODO:update TextView
 		}
 //		else if (button instanceof MChowButton) {
 //			game.sendAction(chowAction);
@@ -181,7 +206,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		return false;
 	}
 
-
 	/**
 	 * callback method when we get a message (e.g., from the game)
 	 * 
@@ -198,18 +222,26 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		updateDisplay();
 	}
 
+	/**
+	 * set drawn card IV
+	 */
+	public void emptyDrawnCard(int imageResource) {
+		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
+
+		IVDrawnCard.setImageResource(imageResource);
+	}
 
 	/**
+	 * sets the tiles to the ImageViews on the GUI
 	 *
 	 * sets either the GUI for the hand or a single tile
 	 * for a single tile send all three parameters (including your target imageview and tile)
 	 * for setting the hand GUI send a null object for the second and third parameter
 	 *
-	 * @param activity - the game main activity state
 	 * @param iVsingle - the target image view (leave null if setting the whole hand)
 	 * @param tile - the tile you want to send to the image view (leave null if setting whole hand)
 	 */
-	public void setHandGUI(GameMainActivity activity,  ImageView iVsingle, MahjongTile tile){
+	public void setHandGUI(ImageView iVsingle, MahjongTile tile){
 
 		//load GUI
 		MahjongTile mt ;
@@ -380,9 +412,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 	}
 
-
-
-
 	/**
 	 * callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
@@ -402,7 +431,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		state.dealTiles();
 		state.sortDeck();
 		state.sortHand(state.getPlayerOneHand());
-		setHandGUI(this.myActivity, null, null);
+		setHandGUI(null,null);
 
 
 
