@@ -6,6 +6,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
@@ -38,7 +39,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
-//TODO: instantiate the buttons
+//TODO: Ask about MDButton Class: way too many errors, says null object reference
 	//references to buttons
 //	private MDiscButton btDiscDrawn;
 //	private MDiscButton btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
@@ -55,6 +56,22 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 //	private MDiscButton btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
 //	private MDiscButton btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
 //	private MDiscButton btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
+
+	private Button btDiscDrawn;
+	private Button btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
+	private Button btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
+	private Button btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
+	private Button btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
+	private Button btDisc5 = myActivity.findViewById(R.id.btDiscSlot5);
+	private Button btDisc6 = myActivity.findViewById(R.id.btDiscSlot6);
+	private Button btDisc7 = myActivity.findViewById(R.id.btDiscSlot7);
+	private Button btDisc8 = myActivity.findViewById(R.id.btDiscSlot8);
+	private Button btDisc9 = myActivity.findViewById(R.id.btDiscSlot9);
+	private Button btDisc10 = myActivity.findViewById(R.id.btDiscSlot10);
+	private Button btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
+	private Button btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
+	private Button btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
+	private Button btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -79,26 +96,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public MahjongHumanPlayer(String name) {
 		super(name);
 		state = new MahjongGameState();
-
-		//set all MDiscButton IDs
-//		btDiscDrawn = new MDiscButton(myActivity,myActivity.findViewById(R.layout.gameplay_view),0);
-//		btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
-//		btDiscDrawn.setButtonID(0);
-
-//		btDisc1.setButtonID(1);
-//		btDisc2.setButtonID(2);
-//		btDisc3.setButtonID(3);
-//		btDisc4.setButtonID(4);
-//		btDisc5.setButtonID(5);
-//		btDisc6.setButtonID(6);
-//		btDisc7.setButtonID(7);
-//		btDisc8.setButtonID(8);
-//		btDisc9.setButtonID(9);
-//		btDisc10.setButtonID(10);
-//		btDisc11.setButtonID(11);
-//		btDisc12.setButtonID(12);
-//		btDisc13.setButtonID(13);
-//		btDisc14.setButtonID(14);
 	}
 
 	/**
@@ -135,9 +132,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
-		if (button instanceof MDiscButton) {
-			game.sendAction(discardTileAction);
-		}
+
 		/*else if (button instanceof MDrawButton) {
 			game.sendAction(drawTileAction);
 		}
@@ -148,14 +143,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			game.sendAction(switchViewAction);
 		}*/
 	}// onClick
-
-	/**
-	 * Helper method for getting existing text in testResultsTextView
-	 */
-	public String getExistingText () {
-		return testResultsTextView.getText().toString();
-	}
-
 
 	/**
 	 * callback method when we get a message (e.g., from the game)

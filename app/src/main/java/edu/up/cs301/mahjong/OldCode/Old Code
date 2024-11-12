@@ -302,4 +302,10 @@ public class OldCode {
 
     }
 
+    	/**
+    	 * Helper method for getting existing text in testResultsTextView
+    	 */
+    	public String getExistingText () {
+    		return testResultsTextView.getText().toString();
+    	}
 }
