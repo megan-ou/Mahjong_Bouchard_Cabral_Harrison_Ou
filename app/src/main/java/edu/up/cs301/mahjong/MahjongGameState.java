@@ -125,6 +125,21 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 *  Helper method for Local Game to find which tile is discarded
+	 */
+	public int findIndex (MahjongTile tile) {
+		int index = -1;
+
+		for (int i = 0; i < deck.length; i++) {
+			if(tile.equals(deck[i])) {
+				index = i;
+			}
+		}
+
+		return index;
+	}
+
+	/**
 	 * method that initializes and adds all elements to the classes deck
 	 * takes an array, adds all tiles with for loops
 	 */
@@ -657,18 +672,19 @@ public class MahjongGameState extends GameState {
 	 * Discard tile action
 	 * Caveats: right now, only works for a drawn tile, not chow yet
 	 */
-	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
-		if (action instanceof MahjongDiscardTileAction) {
-			//change array based on tile that should be discarded:
-				//set the pointer in the index of the array of the discarded tile
-				//to the currentDrawnTile
-			//get currentDrawnTile
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+//	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
+//		if (action instanceof MahjongDiscardTileAction) {
+//			//change array based on tile that should be discarded:
+//				//set the pointer in the index of the array of the discarded tile
+//				//to the currentDrawnTile
+//			//get currentDrawnTile
+//			if ()
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
 
 	/**
 	 * Draw tile action

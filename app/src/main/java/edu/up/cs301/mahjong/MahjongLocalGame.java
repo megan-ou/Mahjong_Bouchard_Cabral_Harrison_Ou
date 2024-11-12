@@ -4,6 +4,8 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.mahjong.tiles.MahjongTile;
+
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -62,7 +64,24 @@ public class MahjongLocalGame extends LocalGame {
 			return true;
 		}
 		else if (action instanceof MahjongDiscardTileAction) {
-			gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+			int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
+			int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
+			MahjongTile drawnTile = gameState.getCurrentDrawnTile();
+			int playerID = gameState.getPlayerID();
+
+			//check if drawn tile is being discarded
+			if (buttonID == allButtonIDs[0]) {
+				drawnTile.setLocationNum(5);
+			}
+
+			//discard action on other tiles
+			else if (buttonID == allButtonIDs[1]){
+				drawnTile.setLocationNum(playerID);
+				if (playerID == 1) {
+					gameState.getPlayerOneHand()[1] = drawnTile;
+				}
+				//TODO: set into other player hands
+			}
 			return true;
 		}
 		else if (action instanceof MahjongChowAction) {
