@@ -121,8 +121,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * This method gets called when the user clicks the run test button. It then repeatedly
-	 * calls methods in the GameState class to test if it will run
+	 * This method gets called when the user clicks a button. It will determine what
+	 * action needs to be made based on the button type. Finally, it'll send that action
+	 * to the game state.
 	 * 
 	 * @param button
 	 * 		the button that was clicked
@@ -134,10 +135,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this);
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
-
-
-
-
 
 	}// onClick
 

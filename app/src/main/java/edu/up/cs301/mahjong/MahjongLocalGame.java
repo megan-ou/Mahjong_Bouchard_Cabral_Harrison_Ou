@@ -56,26 +56,26 @@ public class MahjongLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		Log.i("action", action.getClass().toString());
-		
-		//if (action instanceof MahjongDiscardTileAction) {
-		//test.setImageResource(R.drawable.blank_tile);
-			// cast so that we Java knows it's a CounterMoveAction
-			//MahjongMoveAction cma = (MahjongMoveAction)action;
 
-			// Update the counter values based upon the action
-			//int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-			//gameState.setCounter(result);
-			
-			// denote that this was a legal/successful move
-
-
-
-			//return true;
-		//}
-		//else {
-			// denote that this was an illegal move
+		if (action instanceof MahjongDrawTileAction) {
+			gameState.makeDrawTileAction((MahjongDrawTileAction) action);
+			return true;
+		}
+		else if (action instanceof MahjongDiscardTileAction) {
+			gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+			return true;
+		}
+		else if (action instanceof MahjongChowAction) {
+			gameState.makeChowAction((MahjongChowAction) action);
+			return true;
+		}
+		else if (action instanceof MahjongSwitchViewAction) {
+			gameState.makeSwitchViewAction((MahjongSwitchViewAction) action);
+			return true;
+		}
+		else {
 			return false;
-		//}
+		}
 	}//makeMove
 	
 	/**
