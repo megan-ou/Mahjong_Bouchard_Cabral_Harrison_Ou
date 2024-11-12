@@ -28,12 +28,12 @@ public class MahjongLocalGame extends LocalGame {
 	 * can this player move
 	 * 
 	 * @return
-	 * 		true, because all player are always allowed to move at all times,
-	 * 		as this is a fully asynchronous game
+	 * 		true if it is player's turn
+	 * 		false if it is not player's turn
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
-		return true;
+		return playerIdx == gameState.getPlayerID();
 	}
 
 	/**

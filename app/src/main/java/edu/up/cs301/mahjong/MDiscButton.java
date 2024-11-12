@@ -34,4 +34,7 @@ public class MDiscButton extends androidx.appcompat.widget.AppCompatButton {
         return this.buttonID;
     }
 
+    public void setButtonID(int buttonID) {
+        this.buttonID = buttonID;
+    }
 }
