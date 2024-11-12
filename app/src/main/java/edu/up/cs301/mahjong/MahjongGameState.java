@@ -708,7 +708,7 @@ public class MahjongGameState extends GameState {
 		while (!cardDrawn) {
 			currentDrawnTile = deck[(int) (Math.random() * 135.0)];
 			if (currentDrawnTile.getLocationNum() == 0) {
-				currentDrawnTile.setLocationNum(playerID);
+				currentDrawnTile.setLocationNum(playerID + 1);
 				cardDrawn = true;
 			}
 		}
