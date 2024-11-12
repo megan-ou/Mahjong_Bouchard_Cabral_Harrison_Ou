@@ -102,7 +102,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * Returns the GUI's top view object
 	 * 
 	 * @return
-	 * 		the top object in the GUI's view heirarchy
+	 * 		the top object in the GUI's view hierarchy
 	 */
 	public View getTopView() {
 		return myActivity.findViewById(R.id.top_gui_layout);
