@@ -659,10 +659,12 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
-			//change array based on tile that should be discarded:
+			//get currentDrawnTile
+			//if drawn tile is being discarded
+				//do nothing, the drawn tile IV would be changed to empty
+			//else: change array based on tile that should be discarded:
 				//set the pointer in the index of the array of the discarded tile
 				//to the currentDrawnTile
-			//get currentDrawnTile
 			return true;
 		}
 		else {
