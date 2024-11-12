@@ -59,6 +59,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btDisc13;
 	private Button btDisc14;
 	private Button btDraw;
+	private Button btRestart;
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -157,6 +158,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(null,null);
 			//TODO:update TextView
 		}
+
+		else if (button.getId() == R.id.btRestart){
+			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
+			state.restartGame();
+			setHandGUI(null,null);
+
+
+        }
 //		else if (button instanceof MChowButton) {
 //			game.sendAction(chowAction);
 //		}
@@ -242,7 +251,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			IVCurr.add(IVnum3); IVCurr.add(IVnum5); IVCurr.add(IVnum6);
 			IVCurr.add(IVnum7); IVCurr.add(IVnum8); IVCurr.add(IVnum9);
 			IVCurr.add(IVnum10); IVCurr.add(IVnum11); IVCurr.add(IVnum12);
-			IVCurr.add(IVnum13);
+			IVCurr.add(IVnum13); IVCurr.add(IVnum4);
 		}else {
 			IVCurr.add(iVsingle);
 		}
@@ -387,26 +396,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * callback method--our game has been chosen/rechosen to be the GUI,
-	 * called from the GUI thread
-	 * 
-	 * @param activity
-	 * 		the activity under which we are running
+	 * helper method that initializes all of the object references to the XML
+	 * makes setAsGUI shorter
+	 *
 	 */
-	public void setAsGui(GameMainActivity activity) {
-		
-		// remember the activity
-		this.myActivity = activity;
-		
-	    // Load the layout resource for our GUI
-		activity.setContentView((R.layout.gameplay_view));
-
-		activity.setContentView((R.layout.gameplay_view));
-		state.dealTiles();
-		state.sortDeck();
-		state.sortHand(state.getPlayerOneHand());
-		setHandGUI(null,null);
-
+	public void initializeObjects(){
 		//Initialize all View references
 		//   image views
 		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
@@ -429,6 +423,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
 		btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
 		btDraw = myActivity.findViewById(R.id.btDraw);
+		btRestart = myActivity.findViewById(R.id.btRestart);
 
 
 		//set listeners
@@ -448,9 +443,34 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc13.setOnClickListener(this);
 		btDisc14.setOnClickListener(this);
 		btDraw.setOnClickListener(this);
+		btRestart.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.tvDiscardPile);
+	}
+
+	/**
+	 * callback method--our game has been chosen/rechosen to be the GUI,
+	 * called from the GUI thread
+	 * 
+	 * @param activity
+	 * 		the activity under which we are running
+	 */
+	public void setAsGui(GameMainActivity activity) {
+		
+		// remember the activity
+		this.myActivity = activity;
+		
+	    // Load the layout resource for our GUI
+		activity.setContentView((R.layout.gameplay_view));
+
+		activity.setContentView((R.layout.gameplay_view));
+		initializeObjects();
+		state.dealTiles();
+		state.sortDeck();
+		state.sortHand(state.getPlayerOneHand());
+		setHandGUI(null,null);
+
 	}
 }
 

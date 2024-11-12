@@ -691,6 +691,14 @@ public class MahjongGameState extends GameState {
 		}
 	}
 
+	public void restartGame(){
+		new MahjongGameState();
+		dealTiles();
+		sortDeck();
+		sortHand(playerOneHand);
+
+	}
+
 	/**
 	 * Draw tile action
 	 */
