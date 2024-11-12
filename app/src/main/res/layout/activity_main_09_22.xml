@@ -167,49 +167,49 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iVCSlotT7"
+                    android:id="@+id/iVCSlot1"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/star" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT1"
+                    android:id="@+id/iVCSlot2"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/c_num_7" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT2"
+                    android:id="@+id/iVCSlot3"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/c_num_8" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT3"
+                    android:id="@+id/iVCSlot4"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/c_num_9" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT4"
+                    android:id="@+id/iVCSlot5"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/sticks_1" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT5"
+                    android:id="@+id/iVCSlot6"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/sticks_2" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotT6"
+                    android:id="@+id/iVCSlot7"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
@@ -222,56 +222,56 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT1"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT2"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT3"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT4"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT5"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT6"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotT7"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -286,53 +286,53 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/iVCSlotB1"
+                    android:id="@+id/iVCSlot8"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/c_num_6" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB2"
+                    android:id="@+id/iVCSlot9"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/dots_1" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB3"
+                    android:id="@+id/iVCSlot10"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/water" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB4"
+                    android:id="@+id/iVCSlot11"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/dots_7" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB5"
+                    android:id="@+id/iVCSlot12"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/flower" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB6"
+                    android:id="@+id/iVCSlot13"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
                     android:src="@drawable/c_num_4" />
 
                 <ImageView
-                    android:id="@+id/iVCSlotB7"
+                    android:id="@+id/iVCSlotB14"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/sticks_4" />
+                    android:src="@drawable/blank_tile" />
 
             </LinearLayout>
 
@@ -341,56 +341,56 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB1"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB2"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB3"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB4"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB5"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB6"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/bTDiscard"
                     android:textSize="12sp" />
 
-                <edu.up.cs301.mahjong.MDButton
-                    android:id="@+id/btDiscSlotB7"
+                <edu.up.cs301.mahjong.MDiscButton
+                    android:id="@+id/btDiscSlot14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
