@@ -35,7 +35,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private MahjongGameState state;
 	
 	// the android activity that we are running
-	private GameMainActivity myActivity;
+	private GameMainActivity myActivity = null;
 
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
@@ -45,20 +45,20 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//references to buttons
 	private Button btDiscDrawn;
 	private Button btDisc1;
-	private Button btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
-	private Button btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
-	private Button btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
-	private Button btDisc5 = myActivity.findViewById(R.id.btDiscSlot5);
-	private Button btDisc6 = myActivity.findViewById(R.id.btDiscSlot6);
-	private Button btDisc7 = myActivity.findViewById(R.id.btDiscSlot7);
-	private Button btDisc8 = myActivity.findViewById(R.id.btDiscSlot8);
-	private Button btDisc9 = myActivity.findViewById(R.id.btDiscSlot9);
-	private Button btDisc10 = myActivity.findViewById(R.id.btDiscSlot10);
-	private Button btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
-	private Button btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
-	private Button btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
-	private Button btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
-	private Button btDraw = myActivity.findViewById(R.id.btDraw);
+	private Button btDisc2;
+	private Button btDisc3;
+	private Button btDisc4;
+	private Button btDisc5;
+	private Button btDisc6;
+	private Button btDisc7;
+	private Button btDisc8;
+	private Button btDisc9;
+	private Button btDisc10;
+	private Button btDisc11;
+	private Button btDisc12;
+	private Button btDisc13;
+	private Button btDisc14;
+	private Button btDraw;
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -81,7 +81,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVlastDiscarded;
 
 	//reference to discard pile text view
-	private TextView discardPile = myActivity.findViewById(R.id.tvDiscardPile);
+	private TextView discardPile;
 
 
 	/**
@@ -108,32 +108,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[12] = R.id.btDiscSlot12;
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
-
-		//set references
-		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
-		IVlastDiscarded = myActivity.findViewById(R.id.iVLastDiscarded);
-
-		btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
-		btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
-
-		//set listeners
-
-		btDiscDrawn.setOnClickListener(this);
-		btDisc1.setOnClickListener(this);
-		btDisc2.setOnClickListener(this);
-		btDisc3.setOnClickListener(this);
-		btDisc4.setOnClickListener(this);
-		btDisc5.setOnClickListener(this);
-		btDisc6.setOnClickListener(this);
-		btDisc7.setOnClickListener(this);
-		btDisc8.setOnClickListener(this);
-		btDisc9.setOnClickListener(this);
-		btDisc10.setOnClickListener(this);
-		btDisc11.setOnClickListener(this);
-		btDisc12.setOnClickListener(this);
-		btDisc13.setOnClickListener(this);
-		btDisc14.setOnClickListener(this);
-		btDraw.setOnClickListener(this);
 
     }
 
@@ -261,7 +235,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		IVnum11 = myActivity.findViewById(R.id.iVCSlot12);
 		IVnum12 = myActivity.findViewById(R.id.iVCSlot13);
 		IVnum13 = myActivity.findViewById(R.id.iVCSlotB14);
-		ArrayList<ImageView> IVCurr = null;
+		ArrayList<ImageView> IVCurr = new ArrayList<>();
 
 		if(tile == null) {
 			IVCurr.add(IVnum0);	IVCurr.add(IVnum1);	IVCurr.add(IVnum2);
@@ -433,16 +407,52 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		state.sortHand(state.getPlayerOneHand());
 		setHandGUI(null,null);
 
+		//Initialize all View references
+		//   image views
+		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
+		IVlastDiscarded = myActivity.findViewById(R.id.iVLastDiscarded);
+
+		//   buttons
+		btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
+		btDisc1 = myActivity.findViewById(R.id.btDiscSlot1);
+		btDisc2 = myActivity.findViewById(R.id.btDiscSlot2);
+		btDisc3 = myActivity.findViewById(R.id.btDiscSlot3);
+		btDisc4 = myActivity.findViewById(R.id.btDiscSlot4);
+		btDisc5 = myActivity.findViewById(R.id.btDiscSlot5);
+		btDisc6 = myActivity.findViewById(R.id.btDiscSlot6);
+		btDisc7 = myActivity.findViewById(R.id.btDiscSlot7);
+		btDisc8 = myActivity.findViewById(R.id.btDiscSlot8);
+		btDisc9 = myActivity.findViewById(R.id.btDiscSlot9);
+		btDisc10 = myActivity.findViewById(R.id.btDiscSlot10);
+		btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
+		btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
+		btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
+		btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
+		btDraw = myActivity.findViewById(R.id.btDraw);
 
 
+		//set listeners
+		btDiscDrawn.setOnClickListener(this);
+		btDisc1.setOnClickListener(this);
+		btDisc2.setOnClickListener(this);
+		btDisc3.setOnClickListener(this);
+		btDisc4.setOnClickListener(this);
+		btDisc5.setOnClickListener(this);
+		btDisc6.setOnClickListener(this);
+		btDisc7.setOnClickListener(this);
+		btDisc8.setOnClickListener(this);
+		btDisc9.setOnClickListener(this);
+		btDisc10.setOnClickListener(this);
+		btDisc11.setOnClickListener(this);
+		btDisc12.setOnClickListener(this);
+		btDisc13.setOnClickListener(this);
+		btDisc14.setOnClickListener(this);
+		btDraw.setOnClickListener(this);
 
-		//testResultsTextView = activity.findViewById(R.id.multiLineRunTest);
-
-		//btRunTest = activity.findViewById(R.id.btRunTest);
-
-		//btRunTest.setOnClickListener(this);
-		}
+		//    textviews
+		discardPile = myActivity.findViewById(R.id.tvDiscardPile);
 	}
+}
 
 
 

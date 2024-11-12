@@ -680,6 +680,8 @@ public class MahjongGameState extends GameState {
 			//else: change array based on tile that should be discarded:
 				//set the pointer in the index of the array of the discarded tile
 				//to the currentDrawnTile
+
+			//TODO:  change this.playerID to be the next player
 			return true;
 		}
 		else {
