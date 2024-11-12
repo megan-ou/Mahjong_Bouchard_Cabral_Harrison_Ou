@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.lang.reflect.Array;
-
 /**
  * Written for Lab 6!
  *
@@ -23,21 +21,13 @@ import java.lang.reflect.Array;
  */
 
 
-public class MDButton extends androidx.appcompat.widget.AppCompatButton {
-    private static int tempButtonID = 0;
+public class MDiscButton extends androidx.appcompat.widget.AppCompatButton {
     private int buttonID;
 
-    public MDButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MDiscButton(@NonNull Context context, @Nullable AttributeSet attrs, int id) {
         super(context, attrs);
 
-        //reset for when the static variable gets a little too silly
-        if (tempButtonID > 14) {
-            tempButtonID = 0;
-        }
-
-        buttonID = tempButtonID;
-
-        this.tempButtonID++;
+        this.buttonID = id;
     }
 
     public int getID(){

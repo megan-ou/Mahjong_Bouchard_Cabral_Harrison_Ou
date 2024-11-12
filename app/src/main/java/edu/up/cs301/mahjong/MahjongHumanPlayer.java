@@ -5,15 +5,10 @@ import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
-import android.graphics.drawable.Drawable;
-import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-
-import com.google.android.material.drawable.DrawableUtils;
 
 /**
  * A GUI of a Mahjong-player. The GUI displays the current state of game,
@@ -43,23 +38,23 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	// the android activity that we are running
 	private GameMainActivity myActivity;
 
-
+//TODO: instantiate the buttons
 	//references to buttons
-//	private Button btDiscDrawn = myActivity.findViewById(R.id.btDiscardDrawn);
-//	private MDButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlotT1);
-//	private MDButton btDiscardT2 = myActivity.findViewById(R.id.btDiscSlotT2);
-//	private MDButton btDiscardT3 = myActivity.findViewById(R.id.btDiscSlotT3);
-//	private MDButton btDiscardT4 = myActivity.findViewById(R.id.btDiscSlotT4);
-//	private MDButton btDiscardT5 = myActivity.findViewById(R.id.btDiscSlotT5);
-//	private MDButton btDiscardT6 = myActivity.findViewById(R.id.btDiscSlotT6);
-//	private MDButton btDiscardT7 = myActivity.findViewById(R.id.btDiscSlotT7);
-//	private MDButton btDiscardB1 = myActivity.findViewById(R.id.btDiscSlotB1);
-//	private MDButton btDiscardB2 = myActivity.findViewById(R.id.btDiscSlotB2);
-//	private MDButton btDiscardB3 = myActivity.findViewById(R.id.btDiscSlotB3);
-//	private MDButton btDiscardB4 = myActivity.findViewById(R.id.btDiscSlotB4);
-//	private MDButton btDiscardB5 = myActivity.findViewById(R.id.btDiscSlotB5);
-//	private MDButton btDiscardB6 = myActivity.findViewById(R.id.btDiscSlotB6);
-//	private MDButton btDiscardB7 = myActivity.findViewById(R.id.btDiscSlotB7);
+	private MDiscButton btDiscDrawn = new MDiscButton(myActivity.getApplicationContext(),null,0);
+	private MDiscButton btDiscardT1 = myActivity.findViewById(R.id.btDiscSlot1);
+	private MDiscButton btDiscardT2 = myActivity.findViewById(R.id.btDiscSlot2);
+	private MDiscButton btDiscardT3 = myActivity.findViewById(R.id.btDiscSlot3);
+	private MDiscButton btDiscardT4 = myActivity.findViewById(R.id.btDiscSlot4);
+	private MDiscButton btDiscardT5 = myActivity.findViewById(R.id.btDiscSlot5);
+	private MDiscButton btDiscardT6 = myActivity.findViewById(R.id.btDiscSlot6);
+	private MDiscButton btDiscardT7 = myActivity.findViewById(R.id.btDiscSlot7);
+	private MDiscButton btDiscardB1 = myActivity.findViewById(R.id.btDiscSlot8);
+	private MDiscButton btDiscardB2 = myActivity.findViewById(R.id.btDiscSlot9);
+	private MDiscButton btDiscardB3 = myActivity.findViewById(R.id.btDiscSlot10);
+	private MDiscButton btDiscardB4 = myActivity.findViewById(R.id.btDiscSlot11);
+	private MDiscButton btDiscardB5 = myActivity.findViewById(R.id.btDiscSlot12);
+	private MDiscButton btDiscardB6 = myActivity.findViewById(R.id.btDiscSlot13);
+	private MDiscButton btDiscardB7 = myActivity.findViewById(R.id.btDiscSlot14);
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -84,6 +79,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public MahjongHumanPlayer(String name) {
 		super(name);
 		state = new MahjongGameState();
+		btDiscDrawn = (MDiscButton) myActivity.findViewById(R.id.btDiscardDrawn);
 	}
 
 	/**
@@ -97,7 +93,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 	
 	/**
-	 * sets the counter value in the text view
+	 * sets the discard pile in the text view
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
@@ -156,23 +152,28 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setTileGUI(GameMainActivity activity){
 
+		ImageView IVCurr = activity.findViewById(R.id.iVCSlot1);
+		IVCurr.setImageResource(R.drawable.star);
+
+
 		//load GUI
 		MahjongTile mt ;
+		IVCurr = null;
 
-		IVnum0 = myActivity.findViewById(R.id.iVCSlotT1);
-		IVnum1 = myActivity.findViewById(R.id.iVCSlotT2);
-		IVnum2 = myActivity.findViewById(R.id.iVCSlotT3);
-		IVnum3 = myActivity.findViewById(R.id.iVCSlotT4);
-		IVnum4 = myActivity.findViewById(R.id.iVCSlotT5);
-		IVnum5 = myActivity.findViewById(R.id.iVCSlotT6);
-		IVnum6 = myActivity.findViewById(R.id.iVCSlotT7);
-		IVnum7 = myActivity.findViewById(R.id.iVCSlotB1);
-		IVnum8 = myActivity.findViewById(R.id.iVCSlotB2);
-		IVnum9 = myActivity.findViewById(R.id.iVCSlotB3);
-		IVnum10 = myActivity.findViewById(R.id.iVCSlotB4);
-		IVnum11 = myActivity.findViewById(R.id.iVCSlotB5);
-		IVnum12 = myActivity.findViewById(R.id.iVCSlotB6);
-		IVnum13 = myActivity.findViewById(R.id.iVCSlotB7);
+		IVnum0 = myActivity.findViewById(R.id.iVCSlot1);
+		IVnum1 = myActivity.findViewById(R.id.iVCSlot2);
+		IVnum2 = myActivity.findViewById(R.id.iVCSlot3);
+		IVnum3 = myActivity.findViewById(R.id.iVCSlot4);
+		IVnum4 = myActivity.findViewById(R.id.iVCSlot5);
+		IVnum5 = myActivity.findViewById(R.id.iVCSlot6);
+		IVnum6 = myActivity.findViewById(R.id.iVCSlot7);
+		IVnum7 = myActivity.findViewById(R.id.iVCSlot8);
+		IVnum8 = myActivity.findViewById(R.id.iVCSlot9);
+		IVnum9 = myActivity.findViewById(R.id.iVCSlot10);
+		IVnum10 = myActivity.findViewById(R.id.iVCSlot11);
+		IVnum11 = myActivity.findViewById(R.id.iVCSlot12);
+		IVnum12 = myActivity.findViewById(R.id.iVCSlot13);
+		IVnum13 = myActivity.findViewById(R.id.iVCSlotB14);
 
 		ImageView[] IVCurr = {IVnum0, IVnum1, IVnum2, IVnum3, IVnum4, IVnum5, IVnum6, IVnum7
 				, IVnum8, IVnum9, IVnum10, IVnum11, IVnum12, IVnum13};
