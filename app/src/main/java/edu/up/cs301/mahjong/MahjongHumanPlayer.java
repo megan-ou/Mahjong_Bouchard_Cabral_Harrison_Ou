@@ -248,10 +248,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		if(tile == null) {
 			IVCurr.add(IVnum0);	IVCurr.add(IVnum1);	IVCurr.add(IVnum2);
-			IVCurr.add(IVnum3); IVCurr.add(IVnum5); IVCurr.add(IVnum6);
-			IVCurr.add(IVnum7); IVCurr.add(IVnum8); IVCurr.add(IVnum9);
-			IVCurr.add(IVnum10); IVCurr.add(IVnum11); IVCurr.add(IVnum12);
-			IVCurr.add(IVnum13); IVCurr.add(IVnum4);
+			IVCurr.add(IVnum3); IVCurr.add(IVnum4); IVCurr.add(IVnum5);
+			IVCurr.add(IVnum6); IVCurr.add(IVnum7); IVCurr.add(IVnum8);
+			IVCurr.add(IVnum9); IVCurr.add(IVnum10); IVCurr.add(IVnum11);
+			IVCurr.add(IVnum12); IVCurr.add(IVnum13);
 		}else {
 			IVCurr.add(iVsingle);
 		}

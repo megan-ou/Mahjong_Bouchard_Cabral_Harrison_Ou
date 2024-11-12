@@ -579,7 +579,7 @@ public class MahjongGameState extends GameState {
 		int secondVal;
 		int thirdVal;
 
-		for (int i = 0; i < playerHand.length; i++) {
+		for (int i = 0; i < playerHand.length - 3; i++) {
 			firstTileSuit = playerHand[i].getSuit();
 			secondTileSuit = playerHand[i+1].getSuit();
 			thirdTileSuit = playerHand[i+2].getSuit();
@@ -640,7 +640,7 @@ public class MahjongGameState extends GameState {
 		int firstVal;
 		int secondVal;
 
-		for (int i = 0; i < playerHand.length; i++) {
+		for (int i = 0; i < playerHand.length - 2; i++) {
 			firstTileSuit = playerHand[i].getSuit();
 			secondTileSuit = playerHand[i+1].getSuit();
 
