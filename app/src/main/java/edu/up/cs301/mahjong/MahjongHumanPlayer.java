@@ -151,31 +151,31 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(IVDrawnCard,state.getCurrentDrawnTile());
 		}
 
-//		else if (button.getId() == R.id.btDiscSlot1) {
-//			// Set IVnum0 to display the tile from IVDrawnCard
-//			IVnum0.setImageDrawable(IVDrawnCard.getDrawable());
-//
-//			// Clear IVDrawnCard by setting it to a blank tile image
-//			emptyDrawnCard(R.drawable.blank_tile);
-//
-//			// Optionally send a discard action if needed
-//			discardTileAction.setDiscardButtonID(button.getId());
-//			game.sendAction(discardTileAction);
-//		}
+		else if (isDiscardButton(button.getId())) {
+			discardTileAction.setDiscardButtonID(button.getId());
+			game.sendAction(discardTileAction);
+			emptyDrawnCard(R.drawable.blank_tile);
+			setHandGUI(null,null);
+
+			//TODO:update TextView
+		}
 
 		else if (isDiscardButton(button.getId())) {
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
 			emptyDrawnCard(R.drawable.blank_tile);
-			if (button.getId() == discButtonIDArray[1]) {
-				IVnum0.setImageDrawable(IVDrawnCard.getDrawable());
-			}
-			else if (button.getId() == discButtonIDArray[2]) {
-				IVnum1.setImageDrawable(IVDrawnCard.getDrawable());
-			}
-			else if (button.getId() == discButtonIDArray[3]) {
-				IVnum2.setImageDrawable(IVDrawnCard.getDrawable());
-			}
+
+			// Redundant code, did not want to delete yet until talking with the team
+
+//			if (button.getId() == discButtonIDArray[1]) {
+//				IVnum0.setImageDrawable(IVDrawnCard.getDrawable());
+//			}
+//			else if (button.getId() == discButtonIDArray[2]) {
+//				IVnum1.setImageDrawable(IVDrawnCard.getDrawable());
+//			}
+//			else if (button.getId() == discButtonIDArray[3]) {
+//				IVnum2.setImageDrawable(IVDrawnCard.getDrawable());
+//			}
             state.sortHand(state.getPlayerOneHand());
 			setHandGUI(null,null);
 
@@ -183,12 +183,12 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 
 		else if (button.getId() == R.id.btRestart){
-			myActivity.findViewById(R.id.btRestart);//.setVisibility(View.GONE);
+			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
 			setHandGUI(null,null);
         }
 //		else if (button instanceof MChowButton) {
-//		`	game.sendAction(chowAction);
+//			game.sendAction(chowAction);
 //		}
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
@@ -224,6 +224,19 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		// update our state; then update the display
 		this.state = (MahjongGameState)info;
 		updateDisplay();
+
+		//Update the display to reflect this new state
+		setHandGUI(null, null);
+		MahjongTile drawnTile = state.getCurrentDrawnTile();
+		if (drawnTile != null) {
+			setHandGUI(IVDrawnCard, drawnTile);
+		}
+
+		//TODO:  update the discarded card image
+
+
+		//TODO:  update the discard pile too!
+
 	}
 
 	/**
