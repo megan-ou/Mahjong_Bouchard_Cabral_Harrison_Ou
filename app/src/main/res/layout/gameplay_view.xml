@@ -172,49 +172,49 @@
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/star" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot2"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_7" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot3"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_8" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot4"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_9" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot5"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/sticks_1" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot6"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/sticks_2" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot7"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/sticks_3" />
+                    android:src="@drawable/blank_tile" />
 
             </LinearLayout>
 
@@ -291,42 +291,42 @@
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_6" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot9"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/dots_1" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot10"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/water" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot11"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/dots_7" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot12"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/flower" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot13"
                     android:layout_width="50dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_4" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB14"
