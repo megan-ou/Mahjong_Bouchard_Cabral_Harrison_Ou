@@ -432,7 +432,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="Draw New Card" />
+            android:text="Draw New Tile" />
 
     </LinearLayout>
 </LinearLayout>
