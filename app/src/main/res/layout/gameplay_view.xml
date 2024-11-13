@@ -112,14 +112,14 @@
                     android:layout_width="35dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
-                    android:src="@drawable/sticks_8" />
+                    android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVDrawnCard"
                     android:layout_width="35dp"
                     android:layout_height="140dp"
                     android:layout_weight="1"
-                    android:src="@drawable/c_num_4" />
+                    android:src="@drawable/blank_tile" />
 
             </LinearLayout>
 

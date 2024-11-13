@@ -25,7 +25,9 @@ public class MahjongLocalGame extends LocalGame {
 	// the game's state
 	private MahjongGameState gameState;
 	//tells game you have to discard
-	private boolean hasDrawnTile = false;
+	private boolean hasDrawnTile;
+
+	private MahjongTile drawnTile;
 
 
 	/**
@@ -44,12 +46,15 @@ public class MahjongLocalGame extends LocalGame {
 	 * This ctor should be called when a new counter game is started
 	 */
 	public MahjongLocalGame(GameState state) {
-		// initialize the game state, with the counter value starting at 0
+		// initialize the game state
 		if (! (state instanceof MahjongGameState)) {
 			state = new MahjongGameState();
 		}
 		this.gameState = (MahjongGameState)state;
 		super.state = state;
+
+		hasDrawnTile = false;
+		drawnTile = null;
 
 		//test.findViewById(R.id.iVCSlotT1); from Lab 6
 	}
@@ -61,7 +66,7 @@ public class MahjongLocalGame extends LocalGame {
 	@Override
 	protected boolean makeMove(GameAction action) {
 		int playerID = gameState.getPlayerID();
-		MahjongTile drawnTile = gameState.getCurrentDrawnTile();
+		drawnTile = gameState.getCurrentDrawnTile();
 
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
@@ -85,14 +90,16 @@ public class MahjongLocalGame extends LocalGame {
 
 				//iterate through all possible discard buttons
 				for (int i = 0; i < allButtonIDs.length; i++) {
-					//check if drawn tile is being discarded and discard it
-					if (buttonID == allButtonIDs[0]) {
-						drawnTile.setLocationNum(5);
-						gameState.setLastDiscarded(drawnTile);
-					}
-					//discard action on other tiles
-					else {
-						discardTileHelper(drawnTile, playerID, i);
+					if (buttonID == allButtonIDs [i]) {
+						//check if drawn tile is being discarded and discard it
+						if (i == 0) {
+							drawnTile.setLocationNum(5);
+							gameState.setLastDiscarded(drawnTile);
+						}
+						//discard action on other tiles
+						else {
+							discardTileHelper(drawnTile, playerID, i-1);
+						}
 					}
 				}
 

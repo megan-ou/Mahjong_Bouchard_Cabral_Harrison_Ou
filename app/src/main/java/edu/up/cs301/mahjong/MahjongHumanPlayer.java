@@ -163,8 +163,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
 			setHandGUI(null,null);
-
-
         }
 //		else if (button instanceof MChowButton) {
 //			game.sendAction(chowAction);
@@ -466,9 +464,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		activity.setContentView((R.layout.gameplay_view));
 		initializeObjects();
-		state.dealTiles();
-		state.sortDeck();
-		state.sortHand(state.getPlayerOneHand());
 		setHandGUI(null,null);
 
 	}

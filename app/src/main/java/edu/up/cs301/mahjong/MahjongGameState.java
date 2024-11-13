@@ -58,6 +58,15 @@ public class MahjongGameState extends GameState {
 		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = null;
 		this.lastDrawnTile = "none";
+
+		//TODO: find out a way to do all this ONCE at start of game so when we press draw card,
+		// it doesn't re-deal tiles
+		dealTiles();
+		sortDeck();
+		sortHand(playerOneHand);
+		sortHand(playerTwoHand);
+		sortHand(playerThreeHand);
+		sortHand(playerFourHand);
 	}
 
 	/**
@@ -69,23 +78,18 @@ public class MahjongGameState extends GameState {
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.playerOneHand = new MahjongTile[mgs.playerOneHand.length];
-		//copyArray(mgs.playerOneHand,this.playerOneHand);
 		copyArray(this.playerOneHand,mgs.playerOneHand);
 		this.playerTwoHand = new MahjongTile[mgs.playerTwoHand.length];
-		//copyArray(mgs.playerTwoHand,this.playerTwoHand);
-		copyArray(this.playerOneHand,mgs.playerOneHand);
+		copyArray(this.playerTwoHand,mgs.playerTwoHand);
 		this.playerThreeHand = new MahjongTile[mgs.playerThreeHand.length];
-		//copyArray(mgs.playerThreeHand,this.playerThreeHand);
-		copyArray(this.playerOneHand,mgs.playerOneHand);
+		copyArray(this.playerThreeHand,mgs.playerThreeHand);
 		this.playerFourHand = new MahjongTile[mgs.playerFourHand.length];
-		//copyArray(mgs.playerFourHand,this.playerFourHand);
-		copyArray(this.playerOneHand,mgs.playerOneHand);
+		copyArray(this.playerFourHand,mgs.playerFourHand);
 		this.currentDrawnTile = mgs.currentDrawnTile;
 		this.lastDiscarded = mgs.lastDiscarded;
 		this.deck = new MahjongTile[mgs.getDeck().length];
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
-
 	}
 
 	/**
@@ -178,24 +182,16 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * will start the game
-	 * deal the tiles in the deck
-	 */
-	public void startGame() {
-		dealTiles();
-	}
-
-	/**
 	 * method that will deal the 13 initial tiles to all 4 players
 	 * If a tile is dealt, set locationNum variable to player ID (1-4)
 	 * this will randomly draw a tile, if it is not in the draw pile (Location 0), it will  draw again
 	 */
 	public void dealTiles() {
 		//set all hands to null
-		clearArray(playerOneHand);
-		clearArray(playerTwoHand);
-		clearArray(playerThreeHand);
-		clearArray(playerFourHand);
+		setEmptyHand(playerOneHand);
+		setEmptyHand(playerTwoHand);
+		setEmptyHand(playerThreeHand);
+		setEmptyHand(playerFourHand);
 
 		//deal tiles to player 1
 		int numDrawn = 0;
