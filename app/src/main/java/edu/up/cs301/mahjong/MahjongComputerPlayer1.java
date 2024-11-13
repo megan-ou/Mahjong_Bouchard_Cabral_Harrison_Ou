@@ -5,13 +5,17 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
 
 /**
- * A computer-version of a counter-player.  Since this is such a simple game,
- * it just sends "+" and "-" commands with equal probability, at an average
- * rate of one per second. 
- * 
+ * A dumb computer version of a Mahjong player. This player cannot use the "Chow"
+ * action/button. It simply draws a tile, determines if it fits in their hand,
+ * or else it's discarded.
+ *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2013
+ * @author Jacqui Bouchard
+ * @author Jazmine Cabral
+ * @author Landon Harrison
+ * @author Megan Ou
+ * @version November 2024
  */
 public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickable {
 	

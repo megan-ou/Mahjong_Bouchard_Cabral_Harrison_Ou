@@ -11,17 +11,26 @@ import android.widget.TextView;
 
 
 /**
-* A computer-version of a counter-player.  Since this is such a simple game,
-* it just sends "+" and "-" commands with equal probability, at an average
-* rate of one per second. This computer player does, however, have an option to
-* display the game as it is progressing, so if there is no human player on the
-* device, this player will display a GUI that shows the value of the counter
-* as the game is being played.
-* 
-* @author Steven R. Vegdahl
-* @author Andrew M. Nuxoll
-* @version September 2013
-*/
+* A smart computer version of a Mahjong player. This player can use the "chow" action/
+ * button which is used if the last discarded tile completes a set of 3. This player
+ * will prioritize runs over three of a kind. It will also account for many options/
+ * strategies to take when discarding a tile in its hand:
+ * 		- Priority will be given to potential sets already in its hand.
+ * 		- When a tile is drawn, it will see if it first completes a run, then a three
+ * 		  of a kind, then a pair, and it will discard a tile not currently part of a pair/set.
+ * 		- If the tile could complete two different sets of 3, it will randomly choose which
+ * 		  set of three to complete and discard the other tile.
+ * 		- A set of three can be broken up if a tile in the set is required to complete a pair
+ * 		  AND the drawn tile can repair the broken set.
+ *
+ * @author Steven R. Vegdahl
+ * @author Andrew M. Nuxoll
+ * @author Jacqui Bouchard
+ * @author Jazmine Cabral
+ * @author  Landon Harrison
+ * @author Megan Ou
+ * @version November 2024
+ */
 public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 {
 	
 	/*
