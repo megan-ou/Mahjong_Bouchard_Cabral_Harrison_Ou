@@ -164,18 +164,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
 			emptyDrawnCard(R.drawable.blank_tile);
-
-			// Redundant code, did not want to delete yet until talking with the team
-
-//			if (button.getId() == discButtonIDArray[1]) {
-//				IVnum0.setImageDrawable(IVDrawnCard.getDrawable());
-//			}
-//			else if (button.getId() == discButtonIDArray[2]) {
-//				IVnum1.setImageDrawable(IVDrawnCard.getDrawable());
-//			}
-//			else if (button.getId() == discButtonIDArray[3]) {
-//				IVnum2.setImageDrawable(IVDrawnCard.getDrawable());
-//			}
             state.sortHand(state.getPlayerOneHand());
 			setHandGUI(null,null);
 

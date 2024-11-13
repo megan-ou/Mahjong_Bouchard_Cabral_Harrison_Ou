@@ -55,8 +55,6 @@ public class MahjongLocalGame extends LocalGame {
 
 		hasDrawnTile = false;
 		drawnTile = null;
-
-		//test.findViewById(R.id.iVCSlotT1); from Lab 6
 	}
 
 	/**
@@ -70,7 +68,7 @@ public class MahjongLocalGame extends LocalGame {
 
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
-			if (action instanceof MahjongDrawTileAction) {
+			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
 				boolean cardDrawn = false;
 
 				while (!cardDrawn) {
