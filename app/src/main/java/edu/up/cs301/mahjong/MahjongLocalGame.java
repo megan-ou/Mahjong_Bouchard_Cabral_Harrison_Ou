@@ -141,7 +141,6 @@ public class MahjongLocalGame extends LocalGame {
 			gameState.getPlayerOneHand()[index] = null;
 			//set drawn tile to player hand
 			gameState.getPlayerOneHand()[index] = drawnTile;
-			gameState.sortHand(gameState.getPlayerOneHand());
 		}
 
 		if (playerID == 1) {

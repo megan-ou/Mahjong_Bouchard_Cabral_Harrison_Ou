@@ -151,21 +151,39 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(IVDrawnCard,state.getCurrentDrawnTile());
 		}
 
+		else if (button.getId() == R.id.btDiscSlot1) {
+			// Set IVnum0 to display the tile from IVDrawnCard
+			IVnum0.setImageDrawable(IVDrawnCard.getDrawable());
+
+			// Clear IVDrawnCard by setting it to a blank tile image
+			emptyDrawnCard(R.drawable.blank_tile);
+
+			// Optionally send a discard action if needed
+			discardTileAction.setDiscardButtonID(button.getId());
+			game.sendAction(discardTileAction);
+		}
+
 		else if (isDiscardButton(button.getId())) {
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
 			emptyDrawnCard(R.drawable.blank_tile);
+			switch (button.getId()) {
+				case :
+
+			}
+			state.sortHand(state.getPlayerOneHand());
 			setHandGUI(null,null);
+
 			//TODO:update TextView
 		}
 
 		else if (button.getId() == R.id.btRestart){
-			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
+			myActivity.findViewById(R.id.btRestart);//.setVisibility(View.GONE);
 			state.restartGame();
 			setHandGUI(null,null);
         }
 //		else if (button instanceof MChowButton) {
-//			game.sendAction(chowAction);
+//		`	game.sendAction(chowAction);
 //		}
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
