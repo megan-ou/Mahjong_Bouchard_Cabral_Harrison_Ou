@@ -696,18 +696,6 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Draw tile action
-	 */
-	public boolean makeDrawTileAction (GameAction action) {
-		if (action instanceof MahjongDrawTileAction) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	/**
 	 * Chow action method which adds the chow'd tile to the current hand array.
 	 *
 	 * @param action - the action occuring

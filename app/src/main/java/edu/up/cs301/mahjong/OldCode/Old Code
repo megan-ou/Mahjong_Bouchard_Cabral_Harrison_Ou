@@ -349,3 +349,17 @@ public class OldCode {
 //			else if (button.getId() == discButtonIDArray[3]) {
 //				IVnum2.setImageDrawable(IVDrawnCard.getDrawable());
 //			}
+
+//Game state draw tile action
+
+/**
+	 * Draw tile action
+	 */
+	public boolean makeDrawTileAction (GameAction action) {
+		if (action instanceof MahjongDrawTileAction) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}

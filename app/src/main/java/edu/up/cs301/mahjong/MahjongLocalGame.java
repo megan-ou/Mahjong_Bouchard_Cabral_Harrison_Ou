@@ -69,18 +69,15 @@ public class MahjongLocalGame extends LocalGame {
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
 			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-				boolean cardDrawn = false;
 
-				while (!cardDrawn) {
+				while (!hasDrawnTile) {
 					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
 					if (drawnTile.getLocationNum() == 0) {
 						gameState.setCurrentDrawnTile(drawnTile);
 						drawnTile.setLocationNum(gameState.getPlayerID() + 1);
-						cardDrawn = true;
 						hasDrawnTile = true;
 					}
 				}
-//			gameState.makeDrawTileAction((MahjongDrawTileAction) action);
 				return true;
 			} else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
 				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
