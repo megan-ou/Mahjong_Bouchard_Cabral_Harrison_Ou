@@ -155,6 +155,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
 			emptyDrawnCard(R.drawable.blank_tile);
+			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			setHandGUI(null,null);
 
 			//TODO:update TextView
@@ -220,8 +221,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(IVDrawnCard, drawnTile);
 		}
 
-		//TODO:  update the discarded card image
-
+		//Update the discarded tile image
+		MahjongTile lastDiscardedTile = state.getLastDiscarded();
+		if (lastDiscardedTile != null) {
+			setHandGUI(IVlastDiscarded, lastDiscardedTile);
+		}
 
 		//TODO:  update the discard pile too!
 
