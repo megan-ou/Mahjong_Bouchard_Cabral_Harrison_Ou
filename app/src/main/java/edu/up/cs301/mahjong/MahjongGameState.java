@@ -61,8 +61,6 @@ public class MahjongGameState extends GameState {
 		this.lastDiscarded = null;
 		this.lastDrawnTile = "none";
 
-		//TODO: find out a way to do all this ONCE at start of game so when we press draw card,
-		// it doesn't re-deal tiles
 		dealTiles();
 		sortDeck();
 		sortHand(playerOneHand);

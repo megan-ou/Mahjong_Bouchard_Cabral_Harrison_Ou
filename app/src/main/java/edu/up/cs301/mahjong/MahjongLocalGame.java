@@ -59,7 +59,6 @@ public class MahjongLocalGame extends LocalGame {
 
 	/**
 	 * There are four different actions a user can take
-	 * TODO: Add conditions (ex: only discard IF a card is drawn)
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {

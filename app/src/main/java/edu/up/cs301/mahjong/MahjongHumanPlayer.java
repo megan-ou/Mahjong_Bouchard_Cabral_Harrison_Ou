@@ -40,8 +40,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
-//TODO: Ask about MDButton Class: way too many errors, says null object reference
-	//TODO: move references down to ctor
 	//references to buttons
 	private Button btDiscDrawn;
 	private Button btDisc1;
@@ -84,7 +82,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//reference to discard pile text view
 	private TextView discardPile;
 
-
 	/**
 	 * constructor
 	 * @param name
@@ -109,8 +106,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[12] = R.id.btDiscSlot12;
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
-
-    }
+    } //ctor
 
 	/**
 	 * Returns the GUI's top view object
@@ -124,6 +120,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	
 	/**
 	 * sets the discard pile in the text view
+	 * TODO: Delete this?
 	 */
 	protected void updateDisplay() {
 		// set the text in the appropriate widget
@@ -212,7 +209,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		
 		// update our state; then update the display
 		this.state = (MahjongGameState)info;
-		updateDisplay();
+		updateDisplay(); //do we need this?
 
 		//Update the display to reflect this new state
 		setHandGUI(null, null);
