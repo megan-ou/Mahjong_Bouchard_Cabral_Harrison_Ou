@@ -52,6 +52,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	try {
 		Thread.sleep(800);
 
+		//Do we need this if statement because of the canMove() condition in local game?
 		if (state.getPlayerID() == this.playerNum) {
 			//First draw tile
 			timerTicked();
