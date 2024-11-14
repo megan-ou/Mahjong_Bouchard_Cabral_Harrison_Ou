@@ -696,24 +696,24 @@ public class MahjongGameState extends GameState {
 	 */
 	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
-//			switch (playerID) {
-//				case 0:
+			switch (playerID) {
+				case 0:
 					sortHand(playerOneHand);
-//					playerID = 1;
-//					break;
-//				case 1:
+					playerID = 1;
+					break;
+				case 1:
 					sortHand(playerTwoHand);
-//					playerID = 2;
-//					break;
-//				case 2:
+					playerID = 2;
+					break;
+				case 2:
 					sortHand(playerThreeHand);
-//					playerID = 3;
-//					break;
-//				case 3:
+					playerID = 3;
+					break;
+				case 3:
 					sortHand(playerFourHand);
-//					playerID = 0;
-//					break;
-//			}
+					playerID = 0;
+					break;
+			}
 			return true;
 		}
 		else {
