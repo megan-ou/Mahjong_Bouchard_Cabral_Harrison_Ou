@@ -668,15 +668,19 @@ public class MahjongGameState extends GameState {
 		if (action instanceof MahjongDiscardTileAction) {
 //			switch (playerID) {
 //				case 0:
+					sortHand(playerOneHand);
 //					playerID = 1;
 //					break;
 //				case 1:
+					sortHand(playerTwoHand);
 //					playerID = 2;
 //					break;
 //				case 2:
+					sortHand(playerThreeHand);
 //					playerID = 3;
 //					break;
 //				case 3:
+					sortHand(playerFourHand);
 //					playerID = 0;
 //					break;
 //			}
@@ -693,18 +697,6 @@ public class MahjongGameState extends GameState {
 		sortDeck();
 		sortHand(playerOneHand);
 
-	}
-
-	/**
-	 * Draw tile action
-	 */
-	public boolean makeDrawTileAction (GameAction action) {
-		if (action instanceof MahjongDrawTileAction) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	/**

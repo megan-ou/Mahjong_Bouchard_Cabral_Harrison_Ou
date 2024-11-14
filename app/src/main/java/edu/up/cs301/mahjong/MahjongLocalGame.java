@@ -55,8 +55,6 @@ public class MahjongLocalGame extends LocalGame {
 
 		hasDrawnTile = false;
 		drawnTile = null;
-
-		//test.findViewById(R.id.iVCSlotT1); from Lab 6
 	}
 
 	/**
@@ -70,19 +68,16 @@ public class MahjongLocalGame extends LocalGame {
 
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
-			if (action instanceof MahjongDrawTileAction) {
-				boolean cardDrawn = false;
+			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
 
-				while (!cardDrawn) {
+				while (!hasDrawnTile) {
 					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
 					if (drawnTile.getLocationNum() == 0) {
 						gameState.setCurrentDrawnTile(drawnTile);
 						drawnTile.setLocationNum(gameState.getPlayerID() + 1);
-						cardDrawn = true;
 						hasDrawnTile = true;
 					}
 				}
-//			gameState.makeDrawTileAction((MahjongDrawTileAction) action);
 				return true;
 			} else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
 				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
@@ -137,6 +132,7 @@ public class MahjongLocalGame extends LocalGame {
 		if (playerID == 0) {
 			//set tile location in player hand to discard
 			gameState.getPlayerOneHand()[index].setLocationNum(5);
+			gameState.setLastDiscarded(gameState.getPlayerOneHand()[index]);
 			//set pointer to null
 			gameState.getPlayerOneHand()[index] = null;
 			//set drawn tile to player hand
@@ -146,6 +142,7 @@ public class MahjongLocalGame extends LocalGame {
 		if (playerID == 1) {
 			//set tile location in player hand to discard
 			gameState.getPlayerTwoHand()[index].setLocationNum(5);
+			gameState.setLastDiscarded(gameState.getPlayerTwoHand()[index]);
 			//set pointer to null
 			gameState.getPlayerTwoHand()[index] = null;
 			//set drawn tile to player hand
@@ -156,6 +153,7 @@ public class MahjongLocalGame extends LocalGame {
 		if (playerID == 2) {
 			//set tile location in player hand to discard
 			gameState.getPlayerThreeHand()[index].setLocationNum(5);
+			gameState.setLastDiscarded(gameState.getPlayerThreeHand()[index]);
 			//set pointer to null
 			gameState.getPlayerThreeHand()[index] = null;
 			//set drawn tile to player hand
@@ -166,6 +164,7 @@ public class MahjongLocalGame extends LocalGame {
 		if (playerID == 3) {
 			//set tile location in player hand to discard
 			gameState.getPlayerFourHand()[index].setLocationNum(5);
+			gameState.setLastDiscarded(gameState.getPlayerFourHand()[index]);
 			//set pointer to null
 			gameState.getPlayerFourHand()[index] = null;
 			//set drawn tile to player hand

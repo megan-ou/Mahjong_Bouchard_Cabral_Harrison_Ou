@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="Restart"
-            android:visibility="visible"/>
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btPause"
@@ -99,7 +99,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <LinearLayout
@@ -133,7 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="bottom|center"
+                    android:gravity="center|center_vertical"
                     android:orientation="horizontal">
 
                     <Button
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="bottom|center"
+                    android:gravity="center|center_vertical"
                     android:orientation="horizontal">
 
                     <Button
@@ -164,7 +164,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -221,6 +221,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <Button
@@ -283,7 +285,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -340,6 +342,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <Button
@@ -395,7 +399,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/bTDiscard"
+                    android:text="Win!"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -411,7 +415,7 @@
 
             <ImageView
                 android:id="@+id/ivKey"
-                android:layout_width="150dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:src="@drawable/mahjong_key" />
@@ -424,6 +428,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_weight="0"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -432,6 +437,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:height="80dp"
             android:text="Draw New Tile" />
 
     </LinearLayout>
