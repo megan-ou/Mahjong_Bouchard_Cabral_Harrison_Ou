@@ -586,9 +586,6 @@ public class MahjongGameState extends GameState {
 	 * A set is three tiles of the same suit in numerical order (Ex: Hanzi 1, Hanzi 2, Hanzi 3)
 	 * OR three identical tiles (Ex: Hanzi 1, Hanzi 1, Hanzi 1 OR Flower, Flower Flower)
 	 *
-	 * TODO: discuss numSets variable and if we just want a return value and move this
-	 * 	IV to human/computer player classes
-	 *
 	 * @param playerHand array of tiles that represents a player's hand
 	 * @return number of sets in a given hand
 	 */
