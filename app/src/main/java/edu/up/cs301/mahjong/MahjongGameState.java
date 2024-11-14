@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.util.ArrayList;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
 
@@ -554,6 +556,32 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Helper method to sort tiles by run type so a hand with H1, H2, H2, H2, H3 will be
+	 * sorted to H1, H2, H3, H2, H2 prioritizing a run over a trio
+	 *
+	 * This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
+	 */
+	public void runTypeSort(MahjongTile[] hand) {
+		ArrayList<MahjongTile> hanzi = new ArrayList<>();
+		ArrayList<MahjongTile> stick = new ArrayList<>();
+		ArrayList<MahjongTile> dot = new ArrayList<>();
+
+		//iterate through the given hand and sort tiles into their corresponding ArrayLists by suit
+
+		for (int i = 0; i < hand.length; i++) {
+			if (hand[i].getSuit().equals("Hanzi")) {
+				hanzi.add(hand[i]);
+			}
+			else if (hand[i].getSuit().equals("Sticks")) {
+				stick.add(hand[i]);
+			}
+			else if (hand[i].getSuit().equals("Dots")) {
+				dot.add(hand[i]);
+			}
+		}
+	}
+
+	/**
 	 * Method that counts how many sets are in a player's hand
 	 * A set is three tiles of the same suit in numerical order (Ex: Hanzi 1, Hanzi 2, Hanzi 3)
 	 * OR three identical tiles (Ex: Hanzi 1, Hanzi 1, Hanzi 1 OR Flower, Flower Flower)
@@ -592,9 +620,9 @@ public class MahjongGameState extends GameState {
 				if (secondVal == (firstVal + 1) && thirdVal == (firstVal+2) ) {
 					this.numSets++;
 
-					playerHand[i].setPartOfSet(true);
-					playerHand[i+1].setPartOfSet(true);
-					playerHand[i+2].setPartOfSet(true);
+					playerHand[i].setTileStatus(2);
+					playerHand[i+1].setTileStatus(2);
+					playerHand[i+2].setTileStatus(2);
 
 					//set i to the index of the third tile so when loop increments, it skips the
 					//counted set
@@ -605,9 +633,9 @@ public class MahjongGameState extends GameState {
 				else if (firstVal == secondVal && firstVal == thirdVal) {
 					this.numSets++;
 
-					playerHand[i].setPartOfSet(true);
-					playerHand[i+1].setPartOfSet(true);
-					playerHand[i+2].setPartOfSet(true);
+					playerHand[i].setTileStatus(2);
+					playerHand[i+1].setTileStatus(2);
+					playerHand[i+2].setTileStatus(2);
 
 					i += 2;
 				}
@@ -642,13 +670,15 @@ public class MahjongGameState extends GameState {
 
 			//check if 2 tiles in a row are of the same suit and if the two tiles are NOT part of a
 			// set
-			if (firstTileSuit.equals(secondTileSuit) && !playerHand[i].isPartOfSet()
-					&& !playerHand[i+1].isPartOfSet()) {
+			if (firstTileSuit.equals(secondTileSuit) && playerHand[i].getTileStatus() <= 1
+					&& playerHand[i+1].getTileStatus() <= 1) {
 				firstVal = playerHand[i].getValue();
 				secondVal = playerHand[i+1].getValue();
 
 				//check to see if values are equal
 				if (secondVal == firstVal) {
+					playerHand[i].setTileStatus(1);
+					playerHand[i+1].setTileStatus(1);
 					this.numPairs++;
 
 					//set i to the index of the second tile so when loop increments, it skips the

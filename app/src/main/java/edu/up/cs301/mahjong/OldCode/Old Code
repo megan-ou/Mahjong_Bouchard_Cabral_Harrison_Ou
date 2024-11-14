@@ -363,3 +363,15 @@ public class OldCode {
 			return false;
 		}
 	}
+
+///MahjongTile unused method
+
+    /** Returns true if card was discarded and false if not **/
+    public boolean discard(){
+        // If tile has not been discarded, discard it
+        if (locationNum < 5){
+            setLocationNum(5);
+            return true; //Card was successfully discarded
+        }
+        return false; // Card was not discarded
+    }

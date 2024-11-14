@@ -12,41 +12,40 @@ public class MahjongTile {
     /** Instance Variables **/
     private String suit;
     private int value;
-    private boolean partOfSet;
-    private boolean isRevealed;
-
     /**
      * this integer will indicate the location of mahjong tiles
      * allowing for parsing of player hands, discard, and draw pile
      * 0: draw pile
-     * 1: player
-     * 2: AI 1
-     * 3: AI 2
-     * 4: AI 3
-     * 5: last discarded
-     * 6: discard pile
-     *
-     * potentially create a sorting algorithm, reduces the need for multiple arrays
-     *
+     * 1: player 1
+     * 2: player 2
+     * 3: player 3
+     * 4: player 4
+     * 5: discard pile
      */
     private int locationNum;
+    /**
+     * integer to check status of tile
+     * 0: lone tile
+     * 1: part of pair
+     * 2: part of set
+     * 3: part of set and is revealed on table
+     */
+    private int tileStatus;
 
     /** Constructor **/
     public MahjongTile(String suit, int value) {
         this.suit = suit;
         this.value = value;
-        this.partOfSet = false;  // Default value
-        this.isRevealed = false;
         this.locationNum = 0;
+        this.tileStatus = 0;
     }
 
     /** Copy Constructor **/
     public MahjongTile(MahjongTile orig){
         suit = orig.suit;
         value = orig.value;
-        partOfSet = orig.partOfSet;
-        isRevealed = orig.isRevealed;
         locationNum = orig.locationNum;
+        tileStatus = orig.tileStatus;
     }
 
     /** Getter Methods **/
@@ -58,15 +57,11 @@ public class MahjongTile {
         return value;
     }
 
-    public boolean isPartOfSet() {
-        return partOfSet;
-    }
-
-    public boolean isRevealed() {
-        return isRevealed;
-    }
-
     public int getLocationNum() { return locationNum; }
+
+    public int getTileStatus() {
+        return tileStatus;
+    }
 
     /** Setter Methods **/
     public void setSuit(String suit) {
@@ -77,31 +72,10 @@ public class MahjongTile {
         this.value = value;
     }
 
-    public void setPartOfSet(boolean partOfSet) {
-        this.partOfSet = partOfSet;
-    }
-
-    public void setRevealed(boolean revealed) {
-        isRevealed = revealed;
-    }
-
     public void setLocationNum(int location) { locationNum = location; }
 
-    /** Returns true if card can be added to a set **/
-    public boolean canAddToSet(){
-        // If tile is discarded and not part of a set then we can add the tile to a set
-        return isPartOfSet();
-    }
-
-    //TODO: Method needs to be changed to implement number system
-    /** Returns true if card was discarded and false if not **/
-    public boolean discard(){
-        // If tile has not been discarded, discard it
-        if (locationNum < 5){
-            setLocationNum(5);
-            return true; //Card was successfully discarded
-        }
-        return false; // Card was not discarded
+    public void setTileStatus(int tileStatus) {
+        this.tileStatus = tileStatus;
     }
 
     /** Returns true if the tiles are equal **/
