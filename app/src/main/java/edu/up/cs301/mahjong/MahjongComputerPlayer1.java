@@ -49,16 +49,23 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	@Override
 	protected void receiveInfo(GameInfo info) {
 
-	try {
-		Thread.sleep(800);
+		try {
+			Thread.sleep(800);
 
-		//Do we need this if statement because of the canMove() condition in local game?
-		if (state.getPlayerID() == this.playerNum) {
-			//First draw tile
-			timerTicked();
+			//Do we need this if statement because of the canMove() condition in local game?
+			if (state.getPlayerID() == this.playerNum) {
+				//First draw tile
+				game.sendAction(new MahjongDrawTileAction(this));
+
+				//brief pause
+				Thread.sleep(800);
+
+				//then discard
+				timerTicked();
+			}
+
+		} catch (InterruptedException e) {
 		}
-
-	} catch (InterruptedException e) {}
 
 	}
 	
