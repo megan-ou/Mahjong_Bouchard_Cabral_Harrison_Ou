@@ -106,6 +106,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[12] = R.id.btDiscSlot12;
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
+
     } //ctor
 
 	/**
@@ -116,15 +117,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public View getTopView() {
 		return myActivity.findViewById(R.id.top_gui_layout);
-	}
-	
-	/**
-	 * sets the discard pile in the text view
-	 * TODO: Delete this?
-	 */
-	protected void updateDisplay() {
-		// set the text in the appropriate widget
-		//counterValueTextView.setText("" + state.getCounter());
 	}
 
 	/**
@@ -154,18 +146,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			emptyDrawnCard(R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			setHandGUI(null,null);
-
-			//TODO:update TextView
-		}
-
-		else if (isDiscardButton(button.getId())) {
-			discardTileAction.setDiscardButtonID(button.getId());
-			game.sendAction(discardTileAction);
-			emptyDrawnCard(R.drawable.blank_tile);
-            state.sortHand(state.getPlayerOneHand());
-			setHandGUI(null,null);
-
-			//TODO:update TextView
 		}
 
 		else if (button.getId() == R.id.btRestart){
@@ -173,9 +153,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			state.restartGame();
 			setHandGUI(null,null);
         }
+
+		//TODO: Implement chow & switch view after alpha release
 //		else if (button instanceof MChowButton) {
 //			game.sendAction(chowAction);
-//		}
+//
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
 //		}
@@ -197,6 +179,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
+	 * Helper method for getting existing text in testResultsTextView
+	 */
+	public void updateDiscardPile (String addedText) {
+		String existingText = discardPile.getText().toString();
+		discardPile.setText(existingText + "\n" + addedText);
+	}
+
+	/**
 	 * callback method when we get a message (e.g., from the game)
 	 * 
 	 * @param info
@@ -209,7 +199,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		
 		// update our state; then update the display
 		this.state = (MahjongGameState)info;
-		updateDisplay(); //do we need this?
 
 		setHandGUI(null, null);
 
@@ -225,10 +214,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongTile lastDiscardedTile = state.getLastDiscarded();
 		if (lastDiscardedTile != null) {
 			setHandGUI(IVlastDiscarded, lastDiscardedTile);
+			//TODO: Bug, discard pile updates twice (at beginning & ending of turn)
+			updateDiscardPile(state.getLastDiscarded().toString());
 		}
-
-		//TODO:  update the discard pile too!
-
 	}
 
 	/**

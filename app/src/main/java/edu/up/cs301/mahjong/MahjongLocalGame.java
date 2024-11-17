@@ -7,6 +7,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.util.Log;
+import android.widget.TextView;
 
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
