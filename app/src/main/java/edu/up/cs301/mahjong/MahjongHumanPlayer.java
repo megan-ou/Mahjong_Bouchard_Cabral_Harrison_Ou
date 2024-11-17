@@ -5,6 +5,7 @@ import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -148,7 +149,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			emptyDrawnCard(R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			setHandGUI(null,null);
-            myActivity.findViewById(R.id.playerName).setVisibility(View.GONE);
+            myActivity.findViewById(R.id.llplayername).setVisibility(View.GONE);
 
         }
 
@@ -218,7 +219,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongTile lastDiscardedTile = state.getLastDiscarded();
 		if (lastDiscardedTile != null) {
 			setHandGUI(IVlastDiscarded, lastDiscardedTile);
-			//TODO: Bug, discard pile updates twice (at beginning & ending of turn)
 			if (lastDiscardCheck != state.getLastDiscarded() ) {
 				updateDiscardPile(state.getLastDiscarded().toString());
 				lastDiscardCheck = state.getLastDiscarded();
@@ -274,7 +274,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			IVCurr.add(IVnum6); IVCurr.add(IVnum7); IVCurr.add(IVnum8);
 			IVCurr.add(IVnum9); IVCurr.add(IVnum10); IVCurr.add(IVnum11);
 			IVCurr.add(IVnum12); IVCurr.add(IVnum13);
-		}else {
+
+			}else {
 			IVCurr.add(iVsingle);
 		}
 		int q = 0;
@@ -485,12 +486,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	    // Load the layout resource for our GUI
 		activity.setContentView((R.layout.gameplay_view));
 
-		activity.setContentView((R.layout.gameplay_view));
 		initializeObjects();
 		setHandGUI(null,null);
-
-		//human player indicator set to visible
-		activity.findViewById(R.id.playerName).setVisibility(View.VISIBLE);
 
 	}
 }
