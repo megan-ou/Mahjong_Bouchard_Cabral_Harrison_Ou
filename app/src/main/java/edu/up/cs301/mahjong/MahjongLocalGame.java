@@ -32,11 +32,11 @@ public class MahjongLocalGame extends LocalGame {
 
 
 	/**
-	 * can this player move
+	 * Can this player move
 	 * 
 	 * @return
-	 * 		true if it is player's turn
-	 * 		false if it is not player's turn
+	 * 		- true if it is player's turn
+	 * 		- false if it is not player's turn
 	 */
 	@Override
 	protected boolean canMove(int playerIdx) {
@@ -45,6 +45,8 @@ public class MahjongLocalGame extends LocalGame {
 
 	/**
 	 * This ctor should be called when a new counter game is started
+	 *
+	 * @param state - the state of the game
 	 */
 	public MahjongLocalGame(GameState state) {
 		// initialize the game state
@@ -60,6 +62,8 @@ public class MahjongLocalGame extends LocalGame {
 
 	/**
 	 * There are four different actions a user can take
+	 *
+	 * @param action - the action received
 	 */
 	@Override
 	protected boolean makeMove(GameAction action) {
@@ -125,8 +129,10 @@ public class MahjongLocalGame extends LocalGame {
 	/**
 	 * Helper method for discard tile, takes the given drawn tile and swaps it with the
 	 * selected tile to discard
-	 * @param drawnTile
-	 * @param playerID
+	 *
+	 * @param drawnTile - the tile to be swapped
+	 * @param playerID - the player that's discarding a tile
+	 * @param index - the index of the drawnTile in the player's hand
 	 */
 	public void discardTileHelper (MahjongTile drawnTile, int playerID, int index) {
 		//set location of drawn tile to player hand
@@ -176,7 +182,9 @@ public class MahjongLocalGame extends LocalGame {
 	}
 	
 	/**
-	 * send the updated state to a given player
+	 * Send the updated state to a given player
+	 *
+	 * @param p - given player
 	 */
 	@Override
 	protected void sendUpdatedStateTo(GamePlayer p) {
@@ -193,8 +201,7 @@ public class MahjongLocalGame extends LocalGame {
 	 *
 	 * Win requirement: a player has 4 sets and 1 pair
 	 * 
-	 * @return
-	 * 		a message that tells who has won the game, or null if the
+	 * @return a message that tells who has won the game, or null if the
 	 * 		game is not over
 	 */
 	@Override

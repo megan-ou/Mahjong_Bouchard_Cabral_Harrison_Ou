@@ -93,8 +93,9 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * all tiles set to empty tiles
-	 * no null objects in array
+	 * All tiles set to empty tiles, no null objects in array
+	 *
+	 * @param mta - the tile array to be set
 	 */
 	public void setEmptyHand(MahjongTile[] mta){
 		for(int q = 0; q < mta.length; q++){
@@ -106,6 +107,9 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Helper method for deep copy ctor to copy arrays
+	 *
+	 * @param newArray - the tile array we want to copy into
+	 * @param origArray - the tile array we want to copy
 	 */
 	public void copyArray (MahjongTile[] newArray, MahjongTile[] origArray) {
 		for (int i = 0; i < origArray.length; i++) {
@@ -115,6 +119,8 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Helper method that clears an array.
+	 *
+	 * @param hand - the tile array/hand we want to clear
 	 */
 	public void clearArray(MahjongTile[] hand) {
 		for (int i = 0 ; i < hand.length; i++) {
@@ -124,24 +130,13 @@ public class MahjongGameState extends GameState {
 		}
 	}
 
-	/**
-	 *  Helper method for Local Game to find which tile is discarded
-	 */
-	public int findIndex (MahjongTile tile) {
-		int index = -1;
-
-		for (int i = 0; i < deck.length; i++) {
-			if(tile.equals(deck[i])) {
-				index = i;
-			}
-		}
-
-		return index;
-	}
 
 	/**
 	 * method that initializes and adds all elements to the classes deck
 	 * takes an array, adds all tiles with for loops
+	 *
+	 * @param deck - the deck we want to initialize
+	 * @return the deck we've initialized
 	 */
 	public MahjongTile[] mahjongDeck(MahjongTile[] deck){
 		clearArray(deck);
@@ -182,9 +177,9 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * method that will deal the 13 initial tiles to all 4 players
-	 * If a tile is dealt, set locationNum variable to player ID (1-4)
-	 * this will randomly draw a tile, if it is not in the draw pile (Location 0), it will  draw again
+	 * Method that will deal the 13 initial tiles to all 4 players
+	 * - If a tile is dealt, set locationNum variable to player ID (1-4)
+	 * - This will randomly draw a tile, if it is not in the draw pile (Location 0), it will  draw again
 	 */
 	public void dealTiles() {
 		//set all hands to null
@@ -247,13 +242,13 @@ public class MahjongGameState extends GameState {
 	 * Method that sorts the deck by tile location after every action (deal, draw, discard, or chow)
 	 * Tile location numbers should look like this after sorting: 000000,11111,22222,3333,44444,5555
 	 *
-	 * First switch case counts number of tiles are in each location to figure out starting indexes
-	 * in the copy array for each location.
+	 * - First switch case counts number of tiles are in each location to figure out starting indexes
+	 *   in the copy array for each location.
 	 *
-	 * Second switch case copies over tiles into the copy array based on the starting index calculated
-	 * using the previously collected values
+	 * - Second switch case copies over tiles into the copy array based on the starting index calculated
+	 *   using the previously collected values
 	 *
-	 * Then, sets the deck to the copy array and clears out the copy array
+	 * - Then, sets the deck to the copy array and clears out the copy array
 	 */
 	public void sortDeck() {
 		MahjongTile[] sortedDeck = new MahjongTile[deck.length];
@@ -343,8 +338,10 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * method that sorts a given hand by suit and then ascending numerical value
+	 * Method that sorts a given hand by suit and then ascending numerical value
 	 * prioritizes the values
+	 *
+	 * @param mahjongTiles - the tile array/hand to be sorted
 	 */
 	public void sortHand(MahjongTile[] mahjongTiles) {
 		MahjongTile[] sortedHand = new MahjongTile[mahjongTiles.length - 1];
@@ -537,6 +534,11 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Helper method for sorting by ascending numerical value
 	 * TODO: edit code to sort tiles in ascending order AND skip duplicates (EX: H1,H2,H3,H4,H2,H2,D2)
+	 *
+	 * @param hand - the tile array/hand to be sorted
+	 * @param begIndex - the first index in the deck of the given hand
+	 * @param lastEndingIndex - the last index in the deck of the given hand
+	 * @param numTiles - the size of the hand
 	 */
 	public void ascendingSort(MahjongTile[] hand, int begIndex, int lastEndingIndex, int numTiles) {
 		MahjongTile tempTile;
@@ -557,7 +559,10 @@ public class MahjongGameState extends GameState {
 	 * Helper method to sort tiles by run type so a hand with H1, H2, H2, H2, H3 will be
 	 * sorted to H1, H2, H3, H2, H2 prioritizing a run over a trio
 	 *
-	 * This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
+	 * - This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
+	 *
+	 * @param hand - the tile array/hand to be sorted
+	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
 	public void runTypeSort(MahjongTile[] hand) {
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
@@ -584,7 +589,7 @@ public class MahjongGameState extends GameState {
 	 * A set is three tiles of the same suit in numerical order (Ex: Hanzi 1, Hanzi 2, Hanzi 3)
 	 * OR three identical tiles (Ex: Hanzi 1, Hanzi 1, Hanzi 1 OR Flower, Flower Flower)
 	 *
-	 * @param playerHand array of tiles that represents a player's hand
+	 * @param playerHand - array of tiles that represents a player's hand
 	 * @return number of sets in a given hand
 	 */
 	public int countNumSets(MahjongTile[] playerHand) {
@@ -641,13 +646,12 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * Method that counts how many pairs are in a player's hand that are NOT already part of
-	 * a set.
-	 * A pair is two identical tiles
+	 * a set (a pair is two identical tiles)
 	 *
 	 * TODO: discuss numPairs variable and if we just want a return value and move this
 	 * 	IV to human/computer player classes
 	 *
-	 * @param playerHand array of tiles that represents a player's hand
+	 * @param playerHand - array of tiles that represents a player's hand
 	 * @return number of pairs in a given hand
 	 */
 	public int countNumPairs(MahjongTile[] playerHand) {
@@ -688,6 +692,8 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Change player turn after discard
 	 * Caveats: right now, only works for a drawn tile, not chow yet
+	 *
+	 * @param action - the action occurring
 	 */
 	public boolean makeDiscardAction (MahjongDiscardTileAction action) {
 		if (action instanceof MahjongDiscardTileAction) {
@@ -716,6 +722,9 @@ public class MahjongGameState extends GameState {
 		}
 	}
 
+	/**
+	 * Restarts the game by re-dealing the tiles
+	 */
 	public void restartGame(){
 		new MahjongGameState();
 		dealTiles();
@@ -727,7 +736,7 @@ public class MahjongGameState extends GameState {
 	/**
 	 * Chow action method which adds the chow'd tile to the current hand array.
 	 *
-	 * @param action - the action occuring
+	 * @param action - the action occurring
 	 */
 	public boolean makeChowAction (MahjongChowAction action) {
 		if (action instanceof MahjongChowAction) {
@@ -745,7 +754,9 @@ public class MahjongGameState extends GameState {
 
 	/**
 	 * See pile action
-	 * Switches from default view to table view and vice versa
+	 * - Switches from default view to table view and vice versa
+	 *
+	 * @param action - the action occurring
 	 */
 	public boolean makeSwitchViewAction (MahjongSwitchViewAction action) {
 		if (action instanceof MahjongSwitchViewAction) {
@@ -768,7 +779,7 @@ public class MahjongGameState extends GameState {
 				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
 				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
-				+ "\nThe deck: " + deckToString(deck, deck.length);
+				+ "\nThe deck: " + deckToString(deck);
 	}
 
 	/**
@@ -777,10 +788,9 @@ public class MahjongGameState extends GameState {
 	 * front to back.
 	 *
 	 * @param deck - the array list to be returned as a string
-	 * @param index - the current element of the deck being examined
 	 * @return the deck element as a string
 	 */
-	public String deckToString(MahjongTile[] deck, int index) {
+	public String deckToString(MahjongTile[] deck) {
 		String listTiles = "";
 
 		for (int i = 0; i < deck.length; i++) {
@@ -792,10 +802,9 @@ public class MahjongGameState extends GameState {
 	/**
 	* This is a  method that will return a string of all of the tiles
 	* in a specified hand.
-	*
+	 * TODO: Fix Me -- Not included in Alpha Release
 	* @param hand - the hand of tiles to be printed
 	 * @return all of the tiles of the hand as a string
-	*
 	*/
 	public String handToString(MahjongTile[] hand, int index) {
 		//There was an issue with the recursion, we will come back to this
