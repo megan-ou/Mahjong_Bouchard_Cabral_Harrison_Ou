@@ -228,7 +228,8 @@ public class MahjongLocalGame extends LocalGame {
 		}
 
 		if (numSets == 4 && numPairs == 1) {
-			return playerNames[playerID] + " has won!!! Yippee!";
+			//return playerNames[playerID] + " has won!!! Yippee!";
+			return "Player " + playerID + " has won!!! Yippee!";
 		}
 
 		else {

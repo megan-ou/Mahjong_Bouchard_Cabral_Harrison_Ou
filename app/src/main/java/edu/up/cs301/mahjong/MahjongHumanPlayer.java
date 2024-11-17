@@ -219,7 +219,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongTile lastDiscardedTile = state.getLastDiscarded();
 		if (lastDiscardedTile != null) {
 			setHandGUI(IVlastDiscarded, lastDiscardedTile);
-			//TODO: Bug, discard pile updates twice (at beginning & ending of turn)
 			if (lastDiscardCheck != state.getLastDiscarded() ) {
 				updateDiscardPile(state.getLastDiscarded().toString());
 				lastDiscardCheck = state.getLastDiscarded();
