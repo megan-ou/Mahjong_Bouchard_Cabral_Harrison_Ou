@@ -1,9 +1,6 @@
 package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
-
-import java.lang.invoke.MethodHandle;
-
 import edu.up.cs301.mahjong.tiles.DotsTile;
 import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;

@@ -52,18 +52,14 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 		try {
 			Thread.sleep(800);
 
-			//Do we need this if statement because of the canMove() condition in local game?
-			if (state.getPlayerID() == this.playerNum) {
-				//First draw tile
-				game.sendAction(new MahjongDrawTileAction(this));
+			//First draw tile
+			game.sendAction(new MahjongDrawTileAction(this));
 
-				//brief pause
-				Thread.sleep(800);
+			//then discard
+			timerTicked();
 
-				//then discard
-				timerTicked();
-			}
-
+			//brief pause
+			Thread.sleep(800);
 		} catch (InterruptedException e) {
 		}
 
@@ -77,13 +73,14 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 				discButtonIDArray);
 
 		if (Math.random() >= 0.15) { // 85% of the time discard from hand
-			discardTileAction.setDiscardButtonID((int) Math.random() * 13 + 1);
+			discardTileAction.setDiscardButtonID((int) (Math.random() * 13.0) + 1);
 			game.sendAction(discardTileAction);
 		}
 		else {
+			// discard drawn tile
 			discardTileAction.setDiscardButtonID(0);
-		}
+			game.sendAction(discardTileAction);
 
-		// discard drawn tile
+		}
 	}
 }
