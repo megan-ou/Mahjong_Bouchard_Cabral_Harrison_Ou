@@ -82,6 +82,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//reference to discard pile text view
 	private TextView discardPile;
 
+	//checker for mahjong tile to prevent double printing
+	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
+
 	/**
 	 * constructor
 	 * @param name
@@ -217,7 +220,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		if (lastDiscardedTile != null) {
 			setHandGUI(IVlastDiscarded, lastDiscardedTile);
 			//TODO: Bug, discard pile updates twice (at beginning & ending of turn)
-			updateDiscardPile(state.getLastDiscarded().toString());
+			if (lastDiscardCheck != state.getLastDiscarded() ) {
+				updateDiscardPile(state.getLastDiscarded().toString());
+				lastDiscardCheck = state.getLastDiscarded();
+			}
 		}
 	}
 
