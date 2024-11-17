@@ -65,6 +65,8 @@ public class MahjongLocalGame extends LocalGame {
 		int playerID = gameState.getPlayerID();
 		drawnTile = gameState.getCurrentDrawnTile();
 
+
+
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
 			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
@@ -180,6 +182,7 @@ public class MahjongLocalGame extends LocalGame {
 		// this is a perfect-information game, so we'll make a
 		// complete copy of the state to send to the player
 		p.sendInfo(new MahjongGameState(this.gameState));
+
 		
 	}//sendUpdatedSate
 	

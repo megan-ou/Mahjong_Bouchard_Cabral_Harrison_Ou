@@ -154,7 +154,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			emptyDrawnCard(R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			setHandGUI(null,null);
-
+			myActivity.findViewById(R.id.playerName).setVisibility(View.GONE);
 			//TODO:update TextView
 		}
 
@@ -480,7 +480,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
-		
+
 		// remember the activity
 		this.myActivity = activity;
 		
@@ -490,6 +490,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		activity.setContentView((R.layout.gameplay_view));
 		initializeObjects();
 		setHandGUI(null,null);
+
+		//human player indicator set to visible
+		activity.findViewById(R.id.playerName).setVisibility(View.VISIBLE);
 
 	}
 }
