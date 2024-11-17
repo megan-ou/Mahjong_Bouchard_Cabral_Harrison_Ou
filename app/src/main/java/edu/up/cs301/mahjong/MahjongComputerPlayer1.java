@@ -20,8 +20,6 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
  */
 public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickable {
 
-	MahjongGameState state = new MahjongGameState();
-
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
@@ -38,6 +36,11 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
         // start the timer, ticking 20 times per second
         getTimer().setInterval(50);
         getTimer().start();
+
+		//initialize discButtonIDArray
+		for (int i = 0; i < discButtonIDArray.length; i++) {
+			discButtonIDArray[i] = i;
+		}
     }
     
     /**
@@ -48,6 +51,21 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
      */
 	@Override
 	protected void receiveInfo(GameInfo info) {
+
+		MahjongGameState mgs;
+
+		if (info instanceof MahjongGameState) {
+			mgs = new MahjongGameState((MahjongGameState) info);
+		}
+
+		else {
+			return;
+		}
+
+		//exit if it is human player
+		if (mgs.getPlayerID() == 0) {
+			return;
+		}
 
 		try {
 			Thread.sleep(1000);
@@ -62,6 +80,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 		}
+
+		sendInfo(mgs);
 
 	}
 	
