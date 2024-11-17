@@ -25,7 +25,7 @@ public class MahjongLocalGame extends LocalGame {
 
 	// the game's state
 	private MahjongGameState gameState;
-	//tells game you have to discard
+	//tells game you can only draw once and you can only discard if a tile is drawn
 	private boolean hasDrawnTile;
 
 	private MahjongTile drawnTile;
@@ -71,7 +71,9 @@ public class MahjongLocalGame extends LocalGame {
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
 			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-
+				//check if there are any drawable tiles and reset them if none
+				gameState.reshuffleDiscard();
+				//keep randomly selecting a tile until an unused tile is drawn
 				while (!hasDrawnTile) {
 					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
 					if (drawnTile.getLocationNum() == 0) {

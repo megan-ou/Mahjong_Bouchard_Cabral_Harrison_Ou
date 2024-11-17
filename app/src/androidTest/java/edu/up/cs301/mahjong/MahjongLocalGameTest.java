@@ -26,32 +26,34 @@ public class MahjongLocalGameTest {
         MahjongGameState state = new MahjongGameState();
         MahjongLocalGame lg = new MahjongLocalGame(state);
 
+        state.setPlayerID(3);
+
         //check if game is over given a winning hand
 
         //set a winning hand
 
-        state.setPlayerOneHand(0, new HanziTile(1));
-        state.setPlayerOneHand(1, new HanziTile(2));
-        state.setPlayerOneHand(2, new HanziTile(3));
+        state.setPlayerFourHand(0, new HanziTile(1));
+        state.setPlayerFourHand(1, new HanziTile(1));
+        state.setPlayerFourHand(2, new HanziTile(1));
 
-        state.setPlayerOneHand(3, new HanziTile(4));
-        state.setPlayerOneHand(4, new HanziTile(5));
-        state.setPlayerOneHand(5, new HanziTile(6));
+        state.setPlayerFourHand(3, new HanziTile(2));
+        state.setPlayerFourHand(4, new HanziTile(2));
+        state.setPlayerFourHand(5, new HanziTile(2));
 
-        state.setPlayerOneHand(6, new HanziTile(7));
-        state.setPlayerOneHand(7, new HanziTile(8));
-        state.setPlayerOneHand(8, new HanziTile(9));
+        state.setPlayerFourHand(6, new HanziTile(9));
+        state.setPlayerFourHand(7, new HanziTile(9));
+        state.setPlayerFourHand(8, new HanziTile(9));
 
-        state.setPlayerOneHand(9, new DotsTile(2));
-        state.setPlayerOneHand(10, new DotsTile(2));
-        state.setPlayerOneHand(11, new DotsTile(2));
+        state.setPlayerFourHand(9, new DotsTile(2));
+        state.setPlayerFourHand(10, new DotsTile(2));
+        state.setPlayerFourHand(11, new DotsTile(2));
 
-        state.setPlayerOneHand(12, new SymbolsTile("Flower"));
-        state.setPlayerOneHand(13, new SymbolsTile("Flower"));
+        state.setPlayerFourHand(12, new SymbolsTile("Flower"));
+        state.setPlayerFourHand(13, new SymbolsTile("Flower"));
 
         String winner = lg.checkIfGameOver();
 
-        assertEquals("Player 0 has won!!! Yippee!",winner);
+        assertEquals("Player 3 has won!!! Yippee!",winner);
 
     }
 }

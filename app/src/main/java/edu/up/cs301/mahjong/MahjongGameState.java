@@ -686,6 +686,29 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
+	 * Counts how many drawable tiles are left in the deck. If there are none, reset the
+	 * all discarded tiles to drawable tiles
+	 */
+	public void reshuffleDiscard() {
+		int numDrawable = 0;
+		//count num drawable tiles in deck
+		for (int i = 0; i < deck.length; i++) {
+			if(deck[i].getLocationNum() == 0) {
+				numDrawable++;
+			}
+		}
+
+		//if no drawable, set all location 5 tiles to 0
+		if (numDrawable == 0) {
+			for (int i = 0; i < deck.length; i++) {
+				if(deck[i].getLocationNum() == 5) {
+					deck[i].setLocationNum(0);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Change player turn after discard
 	 * Caveats: right now, only works for a drawn tile, not chow yet
 	 */
