@@ -69,7 +69,7 @@ public class MahjongMainActivity extends GameMainActivity {
 		defaultConfig.addPlayer("Human", 0); // player 1: a human player
 		defaultConfig.addPlayer("Computer", 1); // player 2: a computer player
 		defaultConfig.addPlayer("Computer 2",1); //player 3: a computer player
-		defaultConfig.addPlayer("Computer 3",2); //player 4: smart computer player
+		defaultConfig.addPlayer("Computer 3",1); //player 4: a computer player (temporary until we add code for smart player
 		
 		// Set the default remote-player setup:
 		// - player name: "Remote Player"
