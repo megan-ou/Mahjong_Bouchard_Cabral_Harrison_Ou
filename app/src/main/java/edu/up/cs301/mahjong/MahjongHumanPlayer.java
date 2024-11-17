@@ -211,11 +211,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.state = (MahjongGameState)info;
 		updateDisplay(); //do we need this?
 
-		//Update the display to reflect this new state
 		setHandGUI(null, null);
-		MahjongTile drawnTile = state.getCurrentDrawnTile();
-		if (drawnTile != null) {
-			setHandGUI(IVDrawnCard, drawnTile);
+
+		//Update the display to reflect this new state IF it is human player's turn
+		if (state.getPlayerID() == 0) {
+			MahjongTile drawnTile = state.getCurrentDrawnTile();
+			if (drawnTile != null) {
+				setHandGUI(IVDrawnCard, drawnTile);
+			}
 		}
 
 		//Update the discarded tile image
