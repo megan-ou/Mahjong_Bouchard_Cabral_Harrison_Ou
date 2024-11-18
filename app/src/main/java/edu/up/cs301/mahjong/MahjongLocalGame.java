@@ -110,6 +110,9 @@ public class MahjongLocalGame extends LocalGame {
 				//reset the variable
 				hasDrawnTile = false;
 
+				//check if game is over
+				checkIfGameOver();
+
 				return true;
 			} else if (action instanceof MahjongChowAction) {
 				gameState.makeChowAction((MahjongChowAction) action);
