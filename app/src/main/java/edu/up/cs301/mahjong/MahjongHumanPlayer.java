@@ -82,6 +82,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 	//reference to discard pile text view
 	private TextView discardPile;
+	private TextView playerName;
 
 	//checker for mahjong tile to prevent double printing
 	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
@@ -150,7 +151,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			emptyDrawnCard(R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			setHandGUI(null,null);
-            myActivity.findViewById(R.id.llplayername).setVisibility(View.GONE);
 
         }
 
@@ -487,6 +487,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		
 	    // Load the layout resource for our GUI
 		activity.setContentView((R.layout.gameplay_view));
+		//playerName.setText();
 
 		initializeObjects();
 		setHandGUI(null,null);
