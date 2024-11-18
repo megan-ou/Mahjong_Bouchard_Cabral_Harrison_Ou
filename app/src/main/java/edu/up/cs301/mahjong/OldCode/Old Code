@@ -375,3 +375,21 @@ public class OldCode {
         }
         return false; // Card was not discarded
     }
+
+
+    /**From MahjongGameState
+    	 *  Helper method for Local Game to find which tile is discarded
+    	 *
+    	 * @param tile -
+    	 */
+    	public int findIndex (MahjongTile tile) {
+    		int index = -1;
+
+    		for (int i = 0; i < deck.length; i++) {
+    			if(tile.equals(deck[i])) {
+    				index = i;
+    			}
+    		}
+
+    		return index;
+    	}
