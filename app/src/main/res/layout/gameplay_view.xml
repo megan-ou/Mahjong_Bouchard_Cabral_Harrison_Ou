@@ -85,8 +85,8 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -102,19 +102,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:editable="false"
-                android:ems="10"
+                android:ems="5"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 tools:ignore="Deprecated"
                 android:lines="@integer/dicardpile"
                 android:scrollbars="vertical"
-                android:nestedScrollingEnabled="true"
                 />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="bottom"
                 android:orientation="vertical">
 
@@ -122,7 +121,7 @@
                     android:id="@+id/btSeePile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
+                    android:layout_weight="2"
                     android:text="See Pile" />
 
             </LinearLayout>
