@@ -85,48 +85,53 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvDiscardPile"
+                android:id="@+id/tvDiscardTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="Discard Pile: " />
 
-            <EditText
-                android:id="@+id/mLDiscard"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:editable="false"
-                android:ems="5"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                tools:ignore="Deprecated"
-                android:lines="@integer/dicardpile"
-                android:scrollbars="vertical"
-                />
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="bottom"
-                android:orientation="vertical">
+                android:focusable="false"
+                android:overScrollMode="ifContentScrolls"
+                android:scrollIndicators="top|start"
+                android:layout_weight="0">
 
+                <EditText
+                    android:id="@+id/mlDiscardPile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="false"
+                    android:gravity="top"
+                    android:inputType="none"
+                    android:lines="18"
+                    android:maxLines="15" />
+            </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="bottom"
+            android:orientation="vertical">
                 <Button
                     android:id="@+id/btSeePile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="See Pile" />
+                    android:text="See Pile"
+                   />
+        </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -144,14 +149,14 @@
                 <ImageView
                     android:id="@+id/iVLastDiscarded"
                     android:layout_width="35dp"
-                    android:layout_height="140dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVDrawnCard"
                     android:layout_width="35dp"
-                    android:layout_height="140dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
@@ -204,49 +209,49 @@
                 <ImageView
                     android:id="@+id/iVCSlot1"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot2"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot3"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot4"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot5"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot6"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot7"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
@@ -325,49 +330,49 @@
                 <ImageView
                     android:id="@+id/iVCSlot8"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot9"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot10"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot11"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot12"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlot13"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
                 <ImageView
                     android:id="@+id/iVCSlotB14"
                     android:layout_width="50dp"
-                    android:layout_height="150dp"
+                    android:layout_height="135dp"
                     android:layout_weight="1"
                     android:src="@drawable/blank_tile" />
 
@@ -471,7 +476,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:height="80dp"
+            android:height="60dp"
             android:text="Draw New Tile" />
 
     </LinearLayout>
