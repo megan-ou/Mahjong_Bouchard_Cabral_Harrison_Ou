@@ -40,16 +40,18 @@ public class MahjongLocalGameTest {
         state.setPlayerFourHand(4, new HanziTile(2));
         state.setPlayerFourHand(5, new HanziTile(2));
 
-        state.setPlayerFourHand(6, new HanziTile(9));
-        state.setPlayerFourHand(7, new HanziTile(9));
+        state.setPlayerFourHand(6, new SymbolsTile("Flower"));
+        state.setPlayerFourHand(7, new SymbolsTile("Flower"));
+
         state.setPlayerFourHand(8, new HanziTile(9));
+        state.setPlayerFourHand(9, new HanziTile(9));
+        state.setPlayerFourHand(10, new HanziTile(9));
 
-        state.setPlayerFourHand(9, new DotsTile(2));
-        state.setPlayerFourHand(10, new DotsTile(2));
         state.setPlayerFourHand(11, new DotsTile(2));
+        state.setPlayerFourHand(12, new DotsTile(2));
+        state.setPlayerFourHand(13, new DotsTile(2));
 
-        state.setPlayerFourHand(12, new SymbolsTile("Flower"));
-        state.setPlayerFourHand(13, new SymbolsTile("Flower"));
+
 
         String winner = lg.checkIfGameOver();
 
