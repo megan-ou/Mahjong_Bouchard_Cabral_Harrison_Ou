@@ -26,8 +26,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
     /**
      * Constructor for objects of class CounterComputerPlayer1
      * 
-     * @param name
-     * 		the player's name
+     * @param name - the player's name
      */
     public MahjongComputerPlayer1(String name) {
         // invoke superclass constructor
@@ -44,10 +43,9 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
     }
     
     /**
-     * callback method--game's state has changed
+     * Callback method--game's state has changed
      * 
-     * @param info
-     * 		the information (presumably containing the game's state)
+     * @param info - the information (presumably containing the game's state)
      */
 	@Override
 	protected void receiveInfo(GameInfo info) {
@@ -86,7 +84,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	}
 	
 	/**
-	 * callback method: the timer ticked
+	 * Callback method: the timer ticked
 	 */
 	protected void timerTicked() {
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,

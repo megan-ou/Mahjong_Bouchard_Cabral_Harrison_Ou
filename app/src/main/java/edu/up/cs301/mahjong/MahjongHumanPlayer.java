@@ -132,7 +132,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * @param button
 	 * 		the button that was clicked
 	 */
-
 	public void onClick(View button) {
 		//create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
@@ -172,8 +171,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	/**
 	 * Helper method that takes the id of a clicked button from onClick() and checks if it is
 	 * a discard button
-	 * @param id
-	 * @return
+	 * @param id - the id of the button pressed
+	 * @return true if the given id is a discard button
 	 */
 	public boolean isDiscardButton (int id) {
 		for (int i = 0; i < this.discButtonIDArray.length; i++) {
@@ -185,7 +184,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * Helper method for getting existing text in testResultsTextView
+	 * Updates the text in our GUI discard pile
+	 * @param addedText - the text we want to add to the discard pile multiline text view
 	 */
 	public void updateDiscardPile (String addedText) {
 		String existingText = discardPile.getText().toString();
@@ -193,10 +193,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * callback method when we get a message (e.g., from the game)
+	 * Callback method when we get a message (e.g., from the game)
 	 * 
-	 * @param info
-	 * 		the message
+	 * @param info - the message
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
@@ -220,7 +219,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongTile lastDiscardedTile = state.getLastDiscarded();
 		if (lastDiscardedTile != null) {
 			setHandGUI(IVlastDiscarded, lastDiscardedTile);
-			//TODO: Bug, discard pile updates twice (at beginning & ending of turn)
 			if (lastDiscardCheck != state.getLastDiscarded() ) {
 				updateDiscardPile(state.getLastDiscarded().toString());
 				lastDiscardCheck = state.getLastDiscarded();
@@ -229,7 +227,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * set drawn card IV
+	 * Set drawn card IV
+	 * @param imageResource - the image we want to set the drawn card to
 	 */
 	public void emptyDrawnCard(int imageResource) {
 		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
@@ -238,11 +237,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * sets the tiles to the ImageViews on the GUI
+	 * Sets the tiles to the ImageViews on the GUI, our version of updateDisplay()
 	 *
-	 * sets either the GUI for the hand or a single tile
-	 * for a single tile send all three parameters (including your target imageview and tile)
-	 * for setting the hand GUI send a null object for the second and third parameter
+	 * - sets either the GUI for the hand or a single tile
+	 * - for a single tile send all three parameters (including your target imageview and tile)
+	 * - for setting the hand GUI send a null object for the second and third parameter
 	 *
 	 * @param iVsingle - the target image view (leave null if setting the whole hand)
 	 * @param tile - the tile you want to send to the image view (leave null if setting whole hand)
@@ -420,7 +419,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * helper method that initializes all of the object references to the XML
+	 * Helper method that initializes all of the object references to the XML
 	 * makes setAsGUI shorter
 	 *
 	 */
@@ -474,11 +473,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	}
 
 	/**
-	 * callback method--our game has been chosen/rechosen to be the GUI,
+	 * Callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
 	 * 
-	 * @param activity
-	 * 		the activity under which we are running
+	 * @param activity - the activity under which we are running
 	 */
 	public void setAsGui(GameMainActivity activity) {
 
