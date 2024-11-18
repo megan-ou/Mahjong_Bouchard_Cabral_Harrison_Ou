@@ -344,8 +344,14 @@ public class MahjongGameState extends GameState {
 	 * @param mahjongTiles - the tile array/hand to be sorted
 	 */
 	public void sortHand(MahjongTile[] mahjongTiles) {
-		MahjongTile[] sortedHand = new MahjongTile[mahjongTiles.length - 1];
+		MahjongTile[] sortedHand = new MahjongTile[mahjongTiles.length];
 		clearArray(sortedHand);
+
+		int handSize = mahjongTiles.length;
+
+		if (mahjongTiles[13].getValue() == -1) {
+			handSize += -1;
+		}
 
 		//First, sort the hand by suit
 
@@ -363,7 +369,7 @@ public class MahjongGameState extends GameState {
 		int numCat = 0;
 
 		//first loop goes into the deck and counts how many tiles are in each suit
-		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+		for (int i = 0; i < handSize; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
 					numHanzi++;
@@ -455,7 +461,7 @@ public class MahjongGameState extends GameState {
 
 		//second loop goes in and reassigns tiles to sortedHand
 
-		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+		for (int i = 0; i < handSize; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
 					sortedHand[indexHanzi] = mahjongTiles[i];
@@ -502,7 +508,7 @@ public class MahjongGameState extends GameState {
 
 		//set sortedHand by suit to mahjongTiles[]
 
-		for (int i = 0; i < mahjongTiles.length - 1; i++) {
+		for (int i = 0; i < handSize; i++) {
 			mahjongTiles[i] = sortedHand[i];
 		}
 
