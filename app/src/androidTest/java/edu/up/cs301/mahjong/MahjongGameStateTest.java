@@ -332,4 +332,26 @@ public class MahjongGameStateTest extends TestCase {
 
     public void testSetTurn() {
     }
+
+    public void testReshuffleDiscard() {
+        MahjongGameState mgs = new MahjongGameState();
+
+        for (int i = 0; i < mgs.getDeck().length; i++) {
+            mgs.getDeck()[i].setLocationNum(1);
+        }
+
+        mgs.reshuffleDiscard();
+
+        assertEquals(0, mgs.getDeck()[6].getLocationNum());
+        assertEquals(0, mgs.getDeck()[100].getLocationNum());
+        assertEquals(0, mgs.getDeck()[76].getLocationNum());
+        assertEquals(0, mgs.getDeck()[89].getLocationNum());
+        assertEquals(0, mgs.getDeck()[0].getLocationNum());
+        assertEquals(0, mgs.getDeck()[43].getLocationNum());
+        assertEquals(0, mgs.getDeck()[59].getLocationNum());
+        assertEquals(0, mgs.getDeck()[27].getLocationNum());
+        assertEquals(0, mgs.getDeck()[125].getLocationNum());
+
+
+    }
 }

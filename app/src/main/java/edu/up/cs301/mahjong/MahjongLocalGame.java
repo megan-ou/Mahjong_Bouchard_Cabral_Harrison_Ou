@@ -70,13 +70,13 @@ public class MahjongLocalGame extends LocalGame {
 		int playerID = gameState.getPlayerID();
 		drawnTile = gameState.getCurrentDrawnTile();
 
-
+		if (!tileDrawable()) {
+			gameState.reshuffleDiscard();
+		}
 
 		Log.i("action", action.getClass().toString());
 		if (canMove(playerID)) {
 			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-				//check if there are any drawable tiles and reset them if none
-				gameState.reshuffleDiscard();
 				//keep randomly selecting a tile until an unused tile is drawn
 				while (!hasDrawnTile) {
 					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
@@ -87,6 +87,7 @@ public class MahjongLocalGame extends LocalGame {
 					}
 				}
 				return true;
+
 			} else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
 				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
 				int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
@@ -130,6 +131,27 @@ public class MahjongLocalGame extends LocalGame {
 		}
 		return false;
 	}//makeMove
+
+	/**
+	 * Helper method for checking to see if there are drawable tiles, if not, then reshuffle
+	 * the discard pile
+	 */
+	public boolean tileDrawable() {
+		int numDrawable = 0;
+		//count num drawable tiles in deck
+		for (int i = 0; i < gameState.getDeck().length; i++) {
+			if(gameState.getDeck()[i].getLocationNum() == 0) {
+				numDrawable++;
+			}
+		}
+		//if no tiles are drawable
+		if (numDrawable == 0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 
 	/**
 	 * Helper method for discard tile, takes the given drawn tile and swaps it with the
