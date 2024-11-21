@@ -75,7 +75,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			timerTicked();
 
 			//brief pause
-			Thread.sleep(1500);
+			Thread.sleep(200);
 		} catch (InterruptedException e) {
 		}
 

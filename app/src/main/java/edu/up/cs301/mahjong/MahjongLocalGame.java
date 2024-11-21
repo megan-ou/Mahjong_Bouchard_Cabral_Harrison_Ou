@@ -4,7 +4,10 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.mahjong.tiles.DotsTile;
+import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
+import edu.up.cs301.mahjong.tiles.SymbolsTile;
 
 import android.util.Log;
 import android.widget.TextView;
@@ -114,9 +117,6 @@ public class MahjongLocalGame extends LocalGame {
 
 				//reset the variable
 				hasDrawnTile = false;
-
-				//check if game is over
-				checkIfGameOver();
 
 				return true;
 			} else if (action instanceof MahjongChowAction) {
@@ -234,36 +234,46 @@ public class MahjongLocalGame extends LocalGame {
 	@Override
 	protected String checkIfGameOver() {
 
-		int numSets = gameState.getNumSets();
-		int numPairs = gameState.getNumPairs();
-		int playerID = gameState.getPlayerID();
+		int numSets1;
+		int numPairs1;
+		int numSets2;
+		int numPairs2;
+		int numSets3;
+		int numPairs3;
+		int numSets4;
+		int numPairs4;
+
 		MahjongTile[] handOne = gameState.getPlayerOneHand();
 		MahjongTile[] handTwo = gameState.getPlayerTwoHand();
 		MahjongTile[] handThree = gameState.getPlayerThreeHand();
 		MahjongTile[] handFour = gameState.getPlayerFourHand();
 
-		switch (playerID) {
-			case 0:
-				numSets = gameState.countNumSets(handOne);
-				numPairs = gameState.countNumPairs(handOne);
-				break;
-			case 1:
-				numSets = gameState.countNumSets(handTwo);
-				numPairs = gameState.countNumPairs(handTwo);
-				break;
-			case 2:
-				numSets = gameState.countNumSets(handThree);
-				numPairs = gameState.countNumPairs(handThree);
-				break;
-			case 3:
-				numSets = gameState.countNumSets(handFour);
-				numPairs = gameState.countNumPairs(handFour);
-				break;
+		numSets1 = gameState.countNumSets(handOne);
+		numPairs1 = gameState.countNumPairs(handOne);
+
+		numSets2 = gameState.countNumSets(handTwo);
+		numPairs2 = gameState.countNumPairs(handTwo);
+
+		numSets3 = gameState.countNumSets(handThree);
+		numPairs3 = gameState.countNumPairs(handThree);
+
+		numSets4 = gameState.countNumSets(handFour);
+		numPairs4 = gameState.countNumPairs(handFour);
+
+		if (numSets1 == 4 && numPairs1 == 1) {
+			return "Player 1 has won!!! Yippee!";
 		}
 
-		if (numSets == 4 && numPairs == 1) {
-			//return playerNames[playerID] + " has won!!! Yippee!";
-			return "Player " + playerID + " has won!!! Yippee!";
+		if (numSets2 == 4 && numPairs2 == 1) {
+			return "Player 2 has won!!! Yippee!";
+		}
+
+		if (numSets3 == 4 && numPairs3 == 1) {
+			return "Player 3 has won!!! Yippee!";
+		}
+
+		if (numSets4 == 4 && numPairs4 == 1) {
+			return "Player 4 has won!!! Yippee!";
 		}
 
 		else {
