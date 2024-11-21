@@ -441,3 +441,21 @@ public class OldCode {
                 assertTrue(works);
             }
         }
+
+    ArrayList<MahjongTile> hanzi = new ArrayList<>();
+    		ArrayList<MahjongTile> stick = new ArrayList<>();
+    		ArrayList<MahjongTile> dot = new ArrayList<>();
+
+    		//iterate through the given hand and sort tiles into their corresponding ArrayLists by suit
+
+    		for (int i = 0; i < hand.length; i++) {
+    			if (hand[i].getSuit().equals("Hanzi")) {
+    				hanzi.add(hand[i]);
+    			}
+    			else if (hand[i].getSuit().equals("Sticks")) {
+    				stick.add(hand[i]);
+    			}
+    			else if (hand[i].getSuit().equals("Dots")) {
+    				dot.add(hand[i]);
+    			}
+    		}

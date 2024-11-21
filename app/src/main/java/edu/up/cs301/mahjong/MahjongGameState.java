@@ -27,7 +27,6 @@ public class MahjongGameState extends GameState {
 	private final int MAX_TILES = 14; //Max number of tiles in a hand
 
 	private int playerID;
-	private boolean isTurn;
 	private int numSets;
 	private int numPairs;
 	private MahjongTile[] playerOneHand;
@@ -44,7 +43,6 @@ public class MahjongGameState extends GameState {
 	 */
 	public MahjongGameState(){
 		this.playerID = 0;
-		this.isTurn = false;
 		this.numSets = 0;
 		this.numPairs = 0;
 		this.playerOneHand = new MahjongTile[14];
@@ -74,7 +72,6 @@ public class MahjongGameState extends GameState {
 	 */
 	public MahjongGameState(MahjongGameState mgs){
 		this.playerID = mgs.playerID;
-		this.isTurn = mgs.isTurn;
 		this.numSets = mgs.numSets;
 		this.numPairs = mgs.numPairs;
 		this.playerOneHand = new MahjongTile[mgs.playerOneHand.length];
@@ -562,31 +559,30 @@ public class MahjongGameState extends GameState {
 	}
 
 	/**
-	 * Helper method to sort tiles by run type so a hand with H1, H2, H2, H2, H3 will be
-	 * sorted to H1, H2, H3, H2, H2 prioritizing a run over a trio
+	 * Helper method to sort tiles by permutation, keeping the hand with the highest amount of
+	 * sets and one pair
 	 *
 	 * - This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
 	 *
 	 * @param hand - the tile array/hand to be sorted
 	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
-	public void runTypeSort(MahjongTile[] hand) {
-		ArrayList<MahjongTile> hanzi = new ArrayList<>();
-		ArrayList<MahjongTile> stick = new ArrayList<>();
-		ArrayList<MahjongTile> dot = new ArrayList<>();
+	public void permutationSort(MahjongTile[] hand, int idx) {
+		MahjongTile[] sortHand = new MahjongTile[hand.length];
+		MahjongTile temp;
 
-		//iterate through the given hand and sort tiles into their corresponding ArrayLists by suit
+		if (idx < hand.length) {
+			for (int i = idx; i < hand.length; i++) {
+				temp = hand[i];
+				hand[i] = hand[idx];
+				hand[idx] = temp;
 
-		for (int i = 0; i < hand.length; i++) {
-			if (hand[i].getSuit().equals("Hanzi")) {
-				hanzi.add(hand[i]);
+				permutationSort(hand,idx + 1);
 			}
-			else if (hand[i].getSuit().equals("Sticks")) {
-				stick.add(hand[i]);
-			}
-			else if (hand[i].getSuit().equals("Dots")) {
-				dot.add(hand[i]);
-			}
+		}
+
+		else {
+
 		}
 	}
 
@@ -609,7 +605,7 @@ public class MahjongGameState extends GameState {
 		int secondVal;
 		int thirdVal;
 
-		for (int i = 0; i < playerHand.length - 3; i++) {
+		for (int i = 0; i < playerHand.length - 2; i++) {
 			firstTileSuit = playerHand[i].getSuit();
 			secondTileSuit = playerHand[i+1].getSuit();
 			thirdTileSuit = playerHand[i+2].getSuit();
@@ -793,7 +789,7 @@ public class MahjongGameState extends GameState {
 	@Override
 	public String toString() {
 
-		return "\nPlayer ID: " + playerID + "\nPlayer's turn? " + isTurn + "\nNumber of Sets: "
+		return "\nPlayer ID: " + playerID + "\nNumber of Sets: "
 				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
 				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
@@ -889,9 +885,6 @@ public class MahjongGameState extends GameState {
 	public MahjongTile getLastDiscarded() {
 		return lastDiscarded;
 	}
-	public boolean getIsTurn(){
-		return isTurn;
-	}
 
 	/**
 	 * Setter Methods
@@ -934,9 +927,5 @@ public class MahjongGameState extends GameState {
 
 	public void setPlayerFourHand(int index, MahjongTile tile) {
 		this.playerFourHand[index] = tile;
-	}
-
-	public void setTurn(boolean turn) {
-		isTurn = turn;
 	}
 }
