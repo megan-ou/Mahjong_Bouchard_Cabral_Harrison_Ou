@@ -27,6 +27,8 @@ public class MahjongChowAction extends GameAction {
     public MahjongChowAction(GamePlayer player, int[] buttonArray){
         super(player);
 
+        discardButtons = new int[buttonArray.length];
+
         for (int i = 0; i < buttonArray.length; i++) {
             discardButtons[i] = buttonArray[i];
         }
