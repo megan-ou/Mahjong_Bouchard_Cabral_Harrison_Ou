@@ -33,6 +33,8 @@ public class MahjongLocalGame extends LocalGame {
 
 	private MahjongTile drawnTile;
 
+	private int chowPlayer;
+
 
 	/**
 	 * Can this player move
@@ -61,6 +63,7 @@ public class MahjongLocalGame extends LocalGame {
 
 		hasDrawnTile = false;
 		drawnTile = null;
+		chowPlayer = -1;
 	}
 
 	/**
@@ -91,7 +94,9 @@ public class MahjongLocalGame extends LocalGame {
 				}
 				return true;
 
-			} else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
+			}
+
+			else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
 				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
 				int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
 
@@ -113,20 +118,76 @@ public class MahjongLocalGame extends LocalGame {
 				//set last current drawn tile to null
 				gameState.setCurrentDrawnTile(null);
 
+				MahjongTile lastDiscarded = gameState.getLastDiscarded();
+				MahjongTile[] handOne = gameState.getPlayerOneHand();
+				MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+				MahjongTile[] handThree = gameState.getPlayerThreeHand();
+				MahjongTile[] handFour = gameState.getPlayerFourHand();
+
+				//check to see if any other player can chow the last discarded tile
+				switch (playerID) {
+					case 0:
+						if (canChow(handTwo, lastDiscarded)) {
+							chowPlayer = 1; //player ID of player 2
+						} else if (canChow(handThree, lastDiscarded)) {
+							chowPlayer = 2;
+						} else if (canChow(handFour, lastDiscarded)) {
+							chowPlayer = 3;
+						}
+						break;
+					case 1:
+						if (canChow(handOne, lastDiscarded)) {
+							chowPlayer = 0;
+						} else if (canChow(handThree, lastDiscarded)) {
+							chowPlayer = 2;
+						} else if (canChow(handFour, lastDiscarded)) {
+							chowPlayer = 3;
+						}
+						break;
+					case 2:
+						if (canChow(handOne, lastDiscarded)) {
+							chowPlayer = 0; //player ID of player 2
+						} else if (canChow(handTwo, lastDiscarded)) {
+							chowPlayer = 1;
+						} else if (canChow(handFour, lastDiscarded)) {
+							chowPlayer = 3;
+						}
+						break;
+					case 3:
+						if (canChow(handOne, lastDiscarded)) {
+							chowPlayer = 0; //player ID of player 2
+						} else if (canChow(handTwo, lastDiscarded)) {
+							chowPlayer = 1;
+						} else if (canChow(handThree, lastDiscarded)) {
+							chowPlayer = 2;
+						}
+						break;
+
+				} //end switch case
+
+				//change turns of players
 				gameState.makeDiscardAction((MahjongDiscardTileAction) action);
 
 				//reset the variable
 				hasDrawnTile = false;
 
 				return true;
-			} else if (action instanceof MahjongChowAction) {
-				gameState.makeChowAction((MahjongChowAction) action);
-				return true;
-			} else if (action instanceof MahjongSwitchViewAction) {
-				gameState.makeSwitchViewAction((MahjongSwitchViewAction) action);
+			}  else if (action instanceof MahjongSwitchViewAction) {
 				return true;
 			} else {
 				return false;
+			}
+		}
+
+		//TODO: figure out how to change player ID to whoever sent the action
+		else if (chowPlayer == playerID) {
+			 if (action instanceof MahjongChowAction) {
+
+				 //TODO:somehow use discardtilehelper to take user input
+				 // for which tile in hand they want to switch the chow tile with
+
+				 chowPlayer = -1;
+				return true;
 			}
 		}
 		return false;
@@ -207,7 +268,41 @@ public class MahjongLocalGame extends LocalGame {
 			gameState.sortHand(gameState.getPlayerFourHand());
 		}
 	}
-	
+
+	/**
+	 * Helper method to check if other players can chow the last discarded tile
+	 * @return true if last discarded will complete a set
+	 */
+	public boolean canChow (MahjongTile[] playerHand, MahjongTile lastDiscarded) {
+		int numSetsBefore;
+		int numSetsAfter;
+		MahjongTile[] copyHand = new MahjongTile[playerHand.length];
+		//Make a shallow copy of the player's hand
+		for (int i = 0; i < copyHand.length; i++) {
+			copyHand[i] = playerHand[i];
+		}
+
+		//count number of sets in hand before chow
+		numSetsBefore = gameState.countNumSets(copyHand);
+
+		//set the null 14th tile slot to last discarded
+		copyHand[13] = lastDiscarded;
+
+		//sort hand so countNumSets works
+		gameState.sortHand(copyHand);
+
+		//count number of sets WITH chow
+		numSetsAfter = gameState.countNumSets(copyHand);
+
+		if ((numSetsBefore + 1) == numSetsAfter) {
+			return true;
+		}
+
+		else {
+			return false;
+		}
+	}
+
 	/**
 	 * Send the updated state to a given player
 	 *

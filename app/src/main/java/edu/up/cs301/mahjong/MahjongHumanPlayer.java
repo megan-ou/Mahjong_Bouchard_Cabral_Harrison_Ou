@@ -138,7 +138,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
-		MahjongChowAction chowAction = new MahjongChowAction(this);
+		MahjongChowAction chowAction = new MahjongChowAction(this,discButtonIDArray);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
 		if (button.getId() == R.id.btDraw) {

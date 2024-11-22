@@ -2,7 +2,6 @@ package edu.up.cs301.mahjong;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
-import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 /**
  * A MahjongChowAction is an action the current player takes when they want to call "chow" (or press
@@ -17,22 +16,28 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
  */
 
 public class MahjongChowAction extends GameAction {
-    private MahjongTile chowTile;
+    private int[] discardButtons;
+    private int buttonID;
 
     /**
      * constructor for MahjongChowAction
      *
      * @param player the player who called the action
      */
-    public MahjongChowAction(GamePlayer player){
-            //, MahjongTile chowTile) {
+    public MahjongChowAction(GamePlayer player, int[] buttonArray){
         super(player);
-        //this.chowTile = chowTile;
-        //chowTile.setRevealed(true);
+
+        for (int i = 0; i < buttonArray.length; i++) {
+            discardButtons[i] = buttonArray[i];
+        }
+        buttonID = -1;
     }
 
-    /**
-     * Getter Method for the tile that the player calls "chow" on
-     */
-    public MahjongTile getChowTile() { return chowTile; }
+    public void setButtonID(int buttonID) {
+        this.buttonID = buttonID;
+    }
+
+    public int getButtonID() {
+        return buttonID;
+    }
 }
