@@ -38,6 +38,9 @@ public class MahjongGameState extends GameState {
 	private MahjongTile[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
+	private MahjongTile[] bestPerm;
+	private int bestNumSets;
+
 	/**
 	 * default ctor
 	 */
@@ -65,6 +68,10 @@ public class MahjongGameState extends GameState {
 		sortHand(playerTwoHand);
 		sortHand(playerThreeHand);
 		sortHand(playerFourHand);
+
+		bestNumSets = 0;
+		bestPerm = new MahjongTile[14];
+		setEmptyHand(bestPerm);
 	}
 
 	/**
@@ -87,6 +94,10 @@ public class MahjongGameState extends GameState {
 		this.deck = new MahjongTile[mgs.getDeck().length];
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
+		this.bestNumSets = mgs.bestNumSets;
+		this.bestPerm = new MahjongTile[mgs.bestPerm.length];
+		copyArray(this.bestPerm, mgs.bestPerm);
+
 	}
 
 	/**
@@ -568,20 +579,145 @@ public class MahjongGameState extends GameState {
 	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
 	public void permutationSort(MahjongTile[] hand, int idx) {
-		MahjongTile[] sortHand = new MahjongTile[hand.length];
-		MahjongTile temp;
 
-		if (idx < hand.length) {
+		//base case that handles the assignment to bestPerm
+		//and checks for numsets and pairs when index is length
+		if(idx == hand.length){
+
+			if(countNumSets(hand) >= bestNumSets){
+				copyArray(bestPerm, hand);
+				bestNumSets = countNumSets(hand);
+			}
+		}
+		else {
+
 			for (int i = idx; i < hand.length; i++) {
-				temp = hand[i];
-				hand[i] = hand[idx];
-				hand[idx] = temp;
-
-				permutationSort(hand,idx + 1);
+				swap(hand, i, idx);
+				permutationSort(hand, idx + 1);
+				swap(hand, i, idx);
 			}
 		}
 
-		else {
+	}
+
+	public void swap (MahjongTile[] hand, int i, int idx){
+		MahjongTile holder = hand[i];
+		hand[i] = hand[idx];
+		hand[idx] = holder;
+
+	}
+
+	public void prePerm(MahjongTile[] hand){
+
+		ArrayList<MahjongTile> symbols = new ArrayList<>();
+		ArrayList<MahjongTile> Hanzi = new ArrayList<>();
+		ArrayList<MahjongTile> Dots = new ArrayList<>();
+		ArrayList<MahjongTile> Sticks = new ArrayList<>();
+		int numFire = 0;
+		int numWat = 0;
+		int numEarth = 0;
+		int numWind = 0;
+		int numFlower = 0;
+		int numStar = 0;
+		int numCat = 0;
+
+		//first loop goes into the deck and counts how many tiles are in each suit
+		for (int i = 0; i < hand.length; i++) {
+			switch (hand[i].getSuit()) {
+				case "Hanzi":
+					Hanzi.add(hand[i]);
+					break;
+				case "Dots":
+					Dots.add(hand[i]);
+					break;
+				case "Sticks":
+					Sticks.add(hand[i]);
+					break;
+				case "Fire":
+					symbols.add(hand[i]);
+					numFire++;
+					break;
+				case "Water":
+					symbols.add(hand[i]);
+					numWat++;
+					break;
+				case "Earth":
+					symbols.add(hand[i]);
+					numEarth++;
+					break;
+				case "Wind":
+					symbols.add(hand[i]);
+					numWind++;
+					break;
+				case "Flower":
+					symbols.add(hand[i]);
+					numFlower++;
+					break;
+				case "Star":
+					symbols.add(hand[i]);
+					numStar++;
+					break;
+				case "Cat":
+					symbols.add(hand[i]);
+					numCat++;
+					break;
+			}
+
+			MahjongTile[] hanziHand = new MahjongTile[Hanzi.size()];
+			for(int q = 0; q < Hanzi.size(); q++){
+				hanziHand[q] = Hanzi.get(q);
+			}
+
+			MahjongTile[] dotsHand = new MahjongTile[Dots.size()];
+			for(int q = 0; q < Dots.size(); q++){
+				dotsHand[q] = Dots.get(q);
+			}
+
+			MahjongTile[] sticksHand = new MahjongTile[Sticks.size()];
+			for(int q = 0; q < Sticks.size(); q++){
+				sticksHand[q] = Sticks.get(q);
+			}
+
+			if(hanziHand.length > 4){
+				copyArray(bestPerm, hanziHand);
+				permutationSort(hanziHand, 0);
+				copyArray(hanziHand, bestPerm);
+				clearArray(bestPerm);
+				bestNumSets = 0;
+			}
+			if(dotsHand.length > 4){
+				copyArray(bestPerm, dotsHand);
+				permutationSort(dotsHand, 0);
+				copyArray(dotsHand, bestPerm);
+				clearArray(bestPerm);
+				bestNumSets = 0;
+			}
+			if(sticksHand.length > 4){
+				copyArray(bestPerm, sticksHand);
+				permutationSort(sticksHand, 0);
+				copyArray(sticksHand, bestPerm);
+				clearArray(bestPerm);
+				bestNumSets = 0;
+			}
+
+			int index = 0;
+				for (MahjongTile ht : hanziHand) {
+					hand[index] = new MahjongTile(ht);
+					index++;
+				}
+				for (MahjongTile st : sticksHand) {
+					hand[index] = new MahjongTile(st);
+					index++;
+				}
+				for (MahjongTile dt : dotsHand) {
+					hand[index] = new MahjongTile(dt);
+					index++;
+				}
+				for(MahjongTile miscTile: symbols){
+					hand[index] = new MahjongTile(miscTile);
+					index++;
+				}
+
 
 		}
 	}

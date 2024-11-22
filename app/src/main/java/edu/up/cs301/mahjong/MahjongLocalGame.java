@@ -339,9 +339,13 @@ public class MahjongLocalGame extends LocalGame {
 		int numPairs4;
 
 		MahjongTile[] handOne = gameState.getPlayerOneHand();
+		//gameState.permutationSort(handOne, 0);
 		MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+		//gameState.permutationSort(handTwo, 0);
 		MahjongTile[] handThree = gameState.getPlayerThreeHand();
+		//gameState.permutationSort(handThree, 0);
 		MahjongTile[] handFour = gameState.getPlayerFourHand();
+		//gameState.permutationSort(handFour, 0);
 
 		numSets1 = gameState.countNumSets(handOne);
 		numPairs1 = gameState.countNumPairs(handOne);
