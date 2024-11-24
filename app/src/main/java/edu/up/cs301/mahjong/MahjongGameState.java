@@ -586,7 +586,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		if(idx == hand.length){
 
 			if(countNumSets(hand) >= bestNumSets){
-				copyArray(bestPerm, hand);
+				copyArray(bestPerm, hand); //is deep copy necessary?
 				bestNumSets = countNumSets(hand);
 			}
 		}
@@ -614,6 +614,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		ArrayList<MahjongTile> Hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> Dots = new ArrayList<>();
 		ArrayList<MahjongTile> Sticks = new ArrayList<>();
+
 		int numFire = 0;
 		int numWat = 0;
 		int numEarth = 0;
@@ -679,21 +680,31 @@ public class MahjongGameState extends GameState implements Serializable {
 				sticksHand[q] = Sticks.get(q);
 			}
 
-			if(hanziHand.length > 4){
+			if(hanziHand.length >= 4){
 				copyArray(bestPerm, hanziHand);
 				permutationSort(hanziHand, 0);
 				copyArray(hanziHand, bestPerm);
 				clearArray(bestPerm);
 				bestNumSets = 0;
 			}
-			if(dotsHand.length > 4){
+
+			else {
+				sortHand(hanziHand); //use ascending sort on the hand if 3 tiles or less
+			}
+
+			if(dotsHand.length >= 4){
 				copyArray(bestPerm, dotsHand);
 				permutationSort(dotsHand, 0);
 				copyArray(dotsHand, bestPerm);
 				clearArray(bestPerm);
 				bestNumSets = 0;
 			}
-			if(sticksHand.length > 4){
+
+			else {
+				sortHand(dotsHand);
+			}
+
+			if(sticksHand.length >= 4){
 				copyArray(bestPerm, sticksHand);
 				permutationSort(sticksHand, 0);
 				copyArray(sticksHand, bestPerm);
@@ -701,25 +712,27 @@ public class MahjongGameState extends GameState implements Serializable {
 				bestNumSets = 0;
 			}
 
+			else {
+				sortHand(sticksHand);
+			}
+
 			int index = 0;
-				for (MahjongTile ht : hanziHand) {
-					hand[index] = new MahjongTile(ht);
-					index++;
-				}
-				for (MahjongTile st : sticksHand) {
-					hand[index] = new MahjongTile(st);
-					index++;
-				}
-				for (MahjongTile dt : dotsHand) {
-					hand[index] = new MahjongTile(dt);
-					index++;
-				}
-				for(MahjongTile miscTile: symbols){
-					hand[index] = new MahjongTile(miscTile);
-					index++;
-				}
-
-
+			for (MahjongTile ht : hanziHand) {
+				hand[index] = new MahjongTile(ht);
+				index++;
+			}
+			for (MahjongTile st : sticksHand) {
+				hand[index] = new MahjongTile(st);
+				index++;
+			}
+			for (MahjongTile dt : dotsHand) {
+				hand[index] = new MahjongTile(dt);
+				index++;
+			}
+			for (MahjongTile miscTile : symbols) {
+				hand[index] = new MahjongTile(miscTile);
+				index++;
+			}
 		}
 	}
 
