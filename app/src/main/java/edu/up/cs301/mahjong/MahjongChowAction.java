@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.io.Serializable;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
@@ -15,10 +17,7 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  * @version October 2024
  */
 
-public class MahjongChowAction extends GameAction {
-    private int[] discardButtons;
-    private int buttonID;
-
+public class MahjongChowAction extends GameAction implements Serializable {
     /**
      * constructor for MahjongChowAction
      *
@@ -27,17 +26,6 @@ public class MahjongChowAction extends GameAction {
     public MahjongChowAction(GamePlayer player, int[] buttonArray){
         super(player);
 
-        for (int i = 0; i < buttonArray.length; i++) {
-            discardButtons[i] = buttonArray[i];
-        }
-        buttonID = -1;
     }
 
-    public void setButtonID(int buttonID) {
-        this.buttonID = buttonID;
-    }
-
-    public int getButtonID() {
-        return buttonID;
-    }
 }
