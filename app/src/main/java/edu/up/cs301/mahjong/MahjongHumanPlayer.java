@@ -139,7 +139,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
-		//MahjongChowAction chowAction = new MahjongChowAction(this,discButtonIDArray);
+		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
 		if (button.getId() == R.id.btDraw) {
@@ -163,10 +163,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(null,null);
         }
 
+		else if (button.getId() == R.id.btChow) {
+			game.sendAction(chowAction);
+		}
 		//TODO: Implement chow & switch view after alpha release
-//		else if (button instanceof MChowButton) {
-//			game.sendAction(chowAction);
-//
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
 //		}

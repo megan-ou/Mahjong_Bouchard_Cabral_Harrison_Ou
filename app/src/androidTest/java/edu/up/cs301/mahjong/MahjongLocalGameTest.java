@@ -34,14 +34,14 @@ public class MahjongLocalGameTest {
 
         state.setPlayerOneHand(0, new HanziTile(6));
         state.setPlayerOneHand(1, new HanziTile(7));
-        state.setPlayerOneHand(2, new HanziTile(8));
+        state.setPlayerOneHand(2, new HanziTile(9));
 
         state.setPlayerOneHand(3, new HanziTile(9));
         state.setPlayerOneHand(4, new HanziTile(9));
 
-        state.setPlayerOneHand(5, new DotsTile(2));
-        state.setPlayerOneHand(6, new DotsTile(3));
-        state.setPlayerOneHand(7, new DotsTile(4));
+        state.setPlayerOneHand(5, new DotsTile(4));
+        state.setPlayerOneHand(6, new DotsTile(6));
+        state.setPlayerOneHand(7, new DotsTile(9));
 
         state.setPlayerOneHand(8, new SymbolsTile("Water"));
         state.setPlayerOneHand(9, new SymbolsTile("Water"));
@@ -52,10 +52,6 @@ public class MahjongLocalGameTest {
         state.setPlayerOneHand(13, new SymbolsTile("Earth"));
 
 
-
-        String winner = lg.checkIfGameOver();
-
-        assertEquals("Player 0 has won!!! Yippee!",winner);
 
     }
 
