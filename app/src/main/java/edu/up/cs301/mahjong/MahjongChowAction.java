@@ -16,9 +16,6 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  */
 
 public class MahjongChowAction extends GameAction {
-    private int[] discardButtons;
-    private int buttonID;
-
     /**
      * constructor for MahjongChowAction
      *
@@ -27,19 +24,6 @@ public class MahjongChowAction extends GameAction {
     public MahjongChowAction(GamePlayer player, int[] buttonArray){
         super(player);
 
-        discardButtons = new int[buttonArray.length];
-
-        for (int i = 0; i < buttonArray.length; i++) {
-            discardButtons[i] = buttonArray[i];
-        }
-        buttonID = -1;
     }
 
-    public void setButtonID(int buttonID) {
-        this.buttonID = buttonID;
-    }
-
-    public int getButtonID() {
-        return buttonID;
-    }
 }
