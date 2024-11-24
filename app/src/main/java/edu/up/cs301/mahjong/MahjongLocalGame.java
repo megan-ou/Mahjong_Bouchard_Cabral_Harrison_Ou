@@ -12,6 +12,8 @@ import edu.up.cs301.mahjong.tiles.SymbolsTile;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
  * how many pairs and sets a player has.
@@ -24,7 +26,7 @@ import android.widget.TextView;
  * @author Megan Ou
  * @version October 2024
  */
-public class MahjongLocalGame extends LocalGame {
+public class MahjongLocalGame extends LocalGame implements Serializable {
 
 	// the game's state
 	private MahjongGameState gameState;

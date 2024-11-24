@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.io.Serializable;
+
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
@@ -13,7 +15,7 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
  * @author Jazmine Cabral
  * @version October 2024
  */
-public class MahjongDrawTileAction extends GameAction {
+public class MahjongDrawTileAction extends GameAction implements Serializable {
 
 	/**
 	 * Constructor for the MahjongDrawTileAction class.

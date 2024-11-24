@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.io.Serializable;
+
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
@@ -15,7 +17,7 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  * @version October 2024
  */
 
-public class MahjongChowAction extends GameAction {
+public class MahjongChowAction extends GameAction implements Serializable {
     /**
      * constructor for MahjongChowAction
      *

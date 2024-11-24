@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * @author Jazmine Cabral
  * @version October 2024
  */
-public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListener, Serializable {
 
 	/* instance variables */
 

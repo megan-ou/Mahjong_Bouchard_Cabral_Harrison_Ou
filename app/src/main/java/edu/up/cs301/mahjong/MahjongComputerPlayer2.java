@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 
 
 /**
@@ -31,7 +32,7 @@ import android.widget.TextView;
  * @author Megan Ou
  * @version November 2024
  */
-public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 {
+public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Serializable {
 	
 	/*
 	 * instance variables

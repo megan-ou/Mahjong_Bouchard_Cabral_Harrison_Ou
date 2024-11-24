@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import java.io.Serializable;
+
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
@@ -18,7 +20,7 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
  * @author Megan Ou
  * @version November 2024
  */
-public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickable {
+public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickable, Serializable {
 
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
