@@ -123,6 +123,12 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 //                MahjongTile[] handThree = gameState.getPlayerThreeHand();
 //                MahjongTile[] handFour = gameState.getPlayerFourHand();
 //
+                // Added as a check just in case
+//                if (lastDiscarded == null) {
+//                    Log.e("ChowLogic", "No tile to chow");
+//                    return false; // No tile to chow
+//                }
+
 //                //check to see if any other player can chow the last discarded tile
 //                switch (playerID) {
 //                    case 0:
