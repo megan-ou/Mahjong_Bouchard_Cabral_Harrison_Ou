@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong.tiles;
 
+import java.io.Serializable;
+
 /**
  * @author Jazmine Cabral, Megan Ou
  * @version October 2024
@@ -7,7 +9,7 @@ package edu.up.cs301.mahjong.tiles;
  * Abstract class for tile object with suit, value, and boolean values to detect if it
  * is a part of a set and can be drawn
  */
-public class MahjongTile {
+public class MahjongTile implements Serializable {
 
     /** Instance Variables **/
     private String suit;

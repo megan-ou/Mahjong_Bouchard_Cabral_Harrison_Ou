@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong.tiles;
 
+import java.io.Serializable;
+
 /**
  * @author Jazmine Cabral
  * @author Megan Ou
@@ -8,7 +10,7 @@ package edu.up.cs301.mahjong.tiles;
  * Miscellaneous Symbols suit
  */
 
-public class SymbolsTile extends MahjongTile {
+public class SymbolsTile extends MahjongTile implements Serializable {
     /**
      * Constructor
      *
