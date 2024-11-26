@@ -119,8 +119,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.lastDrawnTile = mgs.lastDrawnTile;
 		this.bestNumSets = mgs.bestNumSets;
 		this.pair = mgs.pair;
-		this.bestPerm = new MahjongTile[mgs.bestPerm.length];
-		copyArray(this.bestPerm, mgs.bestPerm);
+		//this.bestPerm = new MahjongTile[mgs.bestPerm.length];
+		//setEmptyHand(this.bestPerm);
+		//copyArray(this.bestPerm, mgs.bestPerm);
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
 
@@ -689,7 +690,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		int totalScore = 0;
 		MahjongTile[] hand;
 		hand = Arrays.copyOf(origHand, 14);
-		if (hand[13].getSuit().equals("empty suit")) {
+		if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null ) {
 			hand[13] = getCurrentDrawnTile();
 		}
 
