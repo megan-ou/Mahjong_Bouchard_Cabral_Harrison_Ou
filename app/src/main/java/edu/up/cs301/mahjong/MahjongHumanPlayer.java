@@ -234,6 +234,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			if (drawnTile != null) {
 				setHandGUI(IVDrawnCard, drawnTile);
 			}
+			else {
+				emptyDrawnCard(R.drawable.blank_tile);
+			}
 		}
 
 		//Update the discarded tile image
