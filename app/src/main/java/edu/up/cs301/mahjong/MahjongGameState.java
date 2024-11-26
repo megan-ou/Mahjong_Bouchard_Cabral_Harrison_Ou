@@ -135,7 +135,6 @@ public class MahjongGameState extends GameState implements Serializable {
 	public void setEmptyHand(MahjongTile[] mta){
 		for(int q = 0; q < mta.length; q++){
 			mta[q] = new MahjongTile("empty suit", -1);
-
 		}
 
 	}
@@ -964,8 +963,6 @@ public class MahjongGameState extends GameState implements Serializable {
 			return false;
 		}
 	}
-
-
 
 	/**
 	 * Restarts the game by re-dealing the tiles
