@@ -160,6 +160,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else if (button.getId() == R.id.btRestart){
 			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
+			discardPile.setText("");
 			setHandGUI(null,null);
         }
 
