@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -157,12 +159,14 @@ public class MahjongGameState extends GameState implements Serializable {
 	public void setChowMode(int chowPlayer) {
 		//turn on chow mode
 		if (!chowMode) {
+			Log.e("Chow Called", "Chow mode was turned on.");
 			chowMode = true;
 			origPlayer = playerID;
 			playerID = chowPlayer;
 		}
 
 		else {
+			Log.e("Chow Called", "Chow mode was turned off.");
 			chowMode = false;
 			playerID = origPlayer;
 			origPlayer = -1;
