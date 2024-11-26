@@ -80,10 +80,13 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
 
-        if (gameState.isChowMode()) {
+        //set drawn tile to chow tile if chow action occurs
+        if (gameState.isChowMode() && chowTile != null) {
             drawnTile = chowTile;
         }
 
+        //if drawable tiles run out, reshuffle the discard pile and make all discarded tiles
+        //drawable
         if (!tileDrawable()) {
             gameState.reshuffleDiscard();
         }
@@ -91,16 +94,26 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         Log.i("action", action.getClass().toString());
         if (canMove(playerID)) {
             if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-                //keep randomly selecting a tile until an unused tile is drawn
-                while (!hasDrawnTile) {
-                    drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
-                    if (drawnTile.getLocationNum() == 0) {
-                        gameState.setCurrentDrawnTile(drawnTile);
-                        drawnTile.setLocationNum(gameState.getPlayerID() + 1);
-                        hasDrawnTile = true;
-                    }
+                //if it is chow mode and draw tile (renamed to continue) is clicked,
+                //exit chow mode
+                if (gameState.isChowMode()) {
+                    gameState.setChowMode(-1);
+                    return true;
                 }
-                return true;
+
+                //draw tiles normally
+                else {
+                    //keep randomly selecting a tile until an unused tile is drawn
+                    while (!hasDrawnTile) {
+                        drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+                        if (drawnTile.getLocationNum() == 0) {
+                            gameState.setCurrentDrawnTile(drawnTile);
+                            drawnTile.setLocationNum(gameState.getPlayerID() + 1);
+                            hasDrawnTile = true;
+                        }
+                    }
+                    return true;
+                }
 
             } else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
                 int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
@@ -144,49 +157,49 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                     case 0:
                         if (canChow(handTwo, lastDiscarded)) {
                             chowPlayer = 1; //player ID of player 2
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handThree, lastDiscarded)) {
                             chowPlayer = 2;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handFour, lastDiscarded)) {
                             chowPlayer = 3;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         }
                         break;
                     case 1:
                         if (canChow(handOne, lastDiscarded)) {
                             chowPlayer = 0;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handThree, lastDiscarded)) {
                             chowPlayer = 2;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handFour, lastDiscarded)) {
                             chowPlayer = 3;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         }
                         break;
                     case 2:
                         if (canChow(handOne, lastDiscarded)) {
                             chowPlayer = 0;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handTwo, lastDiscarded)) {
                             chowPlayer = 1;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handFour, lastDiscarded)) {
                             chowPlayer = 3;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         }
                         break;
                     case 3:
                         if (canChow(handOne, lastDiscarded)) {
                             chowPlayer = 0;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handTwo, lastDiscarded)) {
                             chowPlayer = 1;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         } else if (canChow(handThree, lastDiscarded)) {
                             chowPlayer = 2;
-                            setChow(chowPlayer);
+                            gameState.setChowMode(chowPlayer);
                         }
                         break;
 
@@ -204,13 +217,11 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
             }
         } else if (chowPlayer == playerID) {
             if (action instanceof MahjongChowAction) {
-
+                //set chow tile as a drawn tile
                 chowTile = gameState.getLastDiscarded();
-
                 chowTile.setLocationNum(playerID + 1);
-
+                chowTile.setTileStatus(3);
                 hasDrawnTile = true;
-
                 chowPlayer = -1;
                 return true;
             }
@@ -247,18 +258,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
      * @param index     - the index of the drawnTile in the player's hand
      */
     public void discardTileHelper(MahjongTile drawnTile, int playerID, int index) {
-        //TODO REMOVE DEBUG
-        int count = 10;
-        while  (drawnTile == null) {
-            count--;
-            try { Thread.sleep(1); }
-            catch(InterruptedException ie) {}
-            if (count < 0) {
-                break;
-            }
-        }
-
-
         //set location of drawn tile to player hand
         drawnTile.setLocationNum(playerID + 1);
         if (playerID == 0) {
@@ -336,15 +335,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         } else {
             return false;
         }
-    }
-
-    public void setChow(int chowPlayer) {
-        Log.e("Chow Called", "Chow mode was entered");
-        //turn on chow mode in game state
-        gameState.setChowMode(chowPlayer);
-
-        //turn off chow mode if it is turned on
-        gameState.setChowMode(-1);
     }
 
     /**

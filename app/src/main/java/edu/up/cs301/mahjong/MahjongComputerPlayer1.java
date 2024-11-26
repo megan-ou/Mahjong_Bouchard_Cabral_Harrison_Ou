@@ -68,8 +68,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 
 
 
-		//exit if it is human player
-		if (mgs.getPlayerID() == 0) {
+		//exit if it is not computer's turn
+		if (mgs.getPlayerID() != playerNum) {
 			return;
 		}
 

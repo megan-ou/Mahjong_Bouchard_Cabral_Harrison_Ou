@@ -6,6 +6,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,6 +61,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btDisc14;
 	private Button btDraw;
 	private Button btRestart;
+	private Button btChow;
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -88,8 +90,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//checker for mahjong tile to prevent double printing
 	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
 
+	//color for buttons
+	private Color btGreen;
+
 	/**
 	 * constructor
+	 *
+	 * Populates discButtonIDArray with each unique discard button ID
+	 *
 	 * @param name
 	 * 		the player's name
 	 */
@@ -113,7 +121,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
 
-
+		//TODO: fix this?
+		//btGreen = new Color(95, 199, 64);
 
     } //ctor
 
@@ -220,7 +229,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		setHandGUI(null, null);
 
 		//Update the display to reflect this new state IF it is human player's turn
-		if (state.getPlayerID() == 0) {
+		if (state.getPlayerID() == playerNum) {
 			MahjongTile drawnTile = state.getCurrentDrawnTile();
 			if (drawnTile != null) {
 				setHandGUI(IVDrawnCard, drawnTile);
@@ -236,7 +245,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 				lastDiscardCheck = state.getLastDiscarded();
 			}
 		}
-	}
+
+		//Change text of draw tile button if Chow Mode entered
+		if (state.getPlayerID() == playerNum && state.isChowMode()) {
+			btDraw.setText("Continue");
+		}
+		//Change text of draw tile button back
+		else {
+			btDraw.setText("Draw New Tile");
+		}
+	} //receiveInfo
 
 	/**
 	 * Set drawn card IV
@@ -458,6 +476,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
 		btDraw = myActivity.findViewById(R.id.btDraw);
 		btRestart = myActivity.findViewById(R.id.btRestart);
+		btChow = myActivity.findViewById(R.id.btChow);
 
 
 		//set listeners
@@ -478,6 +497,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc14.setOnClickListener(this);
 		btDraw.setOnClickListener(this);
 		btRestart.setOnClickListener(this);
+		btChow.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);
