@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
@@ -67,13 +69,14 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			return;
 		}
 
+		//First draw tile
+		game.sendAction(new MahjongDrawTileAction(this));
+		Log.e("Computer Player", "Tile is drawn");
+
+		//then discard
+		timerTicked();
+
 		try {
-			//First draw tile
-			game.sendAction(new MahjongDrawTileAction(this));
-
-			//then discard
-			timerTicked();
-
 			//brief pause
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
@@ -87,6 +90,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	 * Callback method: the timer ticked
 	 */
 	protected void timerTicked() {
+		Log.e("Computer Player", "Computer player discards a tile.");
+
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
 

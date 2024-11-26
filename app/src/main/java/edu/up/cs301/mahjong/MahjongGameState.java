@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +51,14 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * default ctor
+	 *
+	 * Set all player stats (ID, numSets/Pairs) to 0.
+	 * Instantiate all player hand arrays and calls helper method to give them empty tiles
+	 * 	Empty tiles have a value of -1 and no suit, meant only as a placeholder
+	 * Any MahjongTile objects are set to null.
+	 * Instantiates the deck of tiles, deals tiles to all 4 players, and sorts all hands
+	 * Sets up permutation array and holder variable that denotes best permutation numSets
+	 * Sets up chowMode to be false with negative playerID value.
 	 */
 	public MahjongGameState(){
 		this.playerID = 0;
@@ -76,6 +86,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		sortHand(playerFourHand);
 
 		bestNumSets = 0;
+		pair = 0;
 		bestPerm = new MahjongTile[14];
 		setEmptyHand(bestPerm);
 
@@ -85,6 +96,9 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * Copy ctor
+	 *
+	 * Makes a deep copy of all instance variables using a helper method to make a deep copy of
+	 * arrays.
 	 */
 	public MahjongGameState(MahjongGameState mgs){
 		this.playerID = mgs.playerID;
@@ -104,6 +118,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
 		this.bestNumSets = mgs.bestNumSets;
+		this.pair = mgs.pair;
 		this.bestPerm = new MahjongTile[mgs.bestPerm.length];
 		copyArray(this.bestPerm, mgs.bestPerm);
 		this.chowMode = mgs.chowMode;
@@ -152,17 +167,26 @@ public class MahjongGameState extends GameState implements Serializable {
 	/**
 	 * Helper method to set chowMode either true or false
 	 *
+	 * External Citation
+	 *  Date: 11/22/2024
+	 *  Problem: How can we implement chow as an action taken out of turn?
+	 *  Resource: Dr. Nuxoll's office hours
+	 *  Solution: Create new instance variables for "chow mode" that temporarily exits
+	 *  the current turn into a chow turn state, but reverts back for normal game play
+	 *
 	 * Chow mode resets player ID to player who can chow and changes back afterwards
 	 */
 	public void setChowMode(int chowPlayer) {
 		//turn on chow mode
 		if (!chowMode) {
+			Log.e("Chow Called", "Chow mode was turned on.");
 			chowMode = true;
 			origPlayer = playerID;
 			playerID = chowPlayer;
 		}
 
 		else {
+			Log.e("Chow Called", "Chow mode was turned off.");
 			chowMode = false;
 			playerID = origPlayer;
 			origPlayer = -1;
@@ -605,6 +629,12 @@ public class MahjongGameState extends GameState implements Serializable {
 	 *
 	 * - This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
 	 *
+	 * External Citation
+	 *  Date: 11/22/2024
+	 *  Problem: Did not how to implement a permutation to sort our hand
+	 *  Resource: Dr. Libby's Office Hours
+	 *  Solution: Libby walked us through how to write the code.
+	 *
 	 * @param hand - the tile array/hand to be sorted
 	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
@@ -850,9 +880,6 @@ public class MahjongGameState extends GameState implements Serializable {
 	/**
 	 * Method that counts how many pairs are in a player's hand that are NOT already part of
 	 * a set (a pair is two identical tiles)
-	 *
-	 * TODO: discuss numPairs variable and if we just want a return value and move this
-	 * 	IV to human/computer player classes
 	 *
 	 * @param playerHand - array of tiles that represents a player's hand
 	 * @return number of pairs in a given hand
