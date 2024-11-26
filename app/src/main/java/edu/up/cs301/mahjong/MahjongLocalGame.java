@@ -80,11 +80,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
 
-        //set drawn tile to chow tile if chow action occurs
-        if (gameState.isChowMode() && chowTile != null) {
-            drawnTile = chowTile;
-        }
-
         //if drawable tiles run out, reshuffle the discard pile and make all discarded tiles
         //drawable
         if (!tileDrawable()) {
@@ -221,6 +216,8 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 chowTile = gameState.getLastDiscarded();
                 chowTile.setLocationNum(playerID + 1);
                 chowTile.setTileStatus(3);
+
+                drawnTile = chowTile;
                 hasDrawnTile = true;
                 chowPlayer = -1;
                 return true;
