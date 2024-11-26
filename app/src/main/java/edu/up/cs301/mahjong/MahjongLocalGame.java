@@ -17,7 +17,7 @@ import java.io.Serializable;
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
  * how many pairs and sets a player has.
- * 
+ *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
  * @author Jacqui Bouchard
@@ -28,358 +28,377 @@ import java.io.Serializable;
  */
 public class MahjongLocalGame extends LocalGame implements Serializable {
 
-	// the game's state
-	private MahjongGameState gameState;
-	//tells game you can only draw once and you can only discard if a tile is drawn
-	private boolean hasDrawnTile;
+    // the game's state
+    private MahjongGameState gameState;
+    //tells game you can only draw once and you can only discard if a tile is drawn
+    private boolean hasDrawnTile;
 
-	private MahjongTile drawnTile;
+    private MahjongTile drawnTile;
 
-	private int chowPlayer;
+    //private int chowPlayer;
 
 
-	/**
-	 * Can this player move
-	 * 
-	 * @return
-	 * 		- true if it is player's turn
-	 * 		- false if it is not player's turn
-	 */
-	@Override
-	protected boolean canMove(int playerIdx) {
-		return playerIdx == gameState.getPlayerID();
-	}
+    /**
+     * Can this player move
+     *
+     * @return - true if it is player's turn
+     * - false if it is not player's turn
+     */
+    @Override
+    protected boolean canMove(int playerIdx) {
+        return playerIdx == gameState.getPlayerID();
+    }
 
-	/**
-	 * This ctor should be called when a new counter game is started
-	 *
-	 * @param state - the state of the game
-	 */
-	public MahjongLocalGame(GameState state) {
-		// initialize the game state
-		if (! (state instanceof MahjongGameState)) {
-			state = new MahjongGameState();
-		}
-		this.gameState = (MahjongGameState)state;
-		super.state = state;
+    /**
+     * This ctor should be called when a new counter game is started
+     *
+     * @param state - the state of the game
+     */
+    public MahjongLocalGame(GameState state) {
+        // initialize the game state
+        if (!(state instanceof MahjongGameState)) {
+            state = new MahjongGameState();
+        }
+        this.gameState = (MahjongGameState) state;
+        super.state = state;
 
-		hasDrawnTile = false;
-		drawnTile = null;
-		chowPlayer = -1;
-	}
+        hasDrawnTile = false;
+        drawnTile = null;
+        //chowPlayer = -1;
+    }
 
-	/**
-	 * There are four different actions a user can take
-	 *
-	 * @param action - the action received
-	 */
-	@Override
-	protected boolean makeMove(GameAction action) {
-		int playerID = gameState.getPlayerID();
-		drawnTile = gameState.getCurrentDrawnTile();
+    /**
+     * There are four different actions a user can take
+     *
+     * @param action - the action received
+     */
+    @Override
+    protected boolean makeMove(GameAction action) {
+        int playerID = gameState.getPlayerID();
+        drawnTile = gameState.getCurrentDrawnTile();
 
-		if (!tileDrawable()) {
-			gameState.reshuffleDiscard();
-		}
+        if (!tileDrawable()) {
+            gameState.reshuffleDiscard();
+        }
 
-		Log.i("action", action.getClass().toString());
-		if (canMove(playerID)) {
-			if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-				//keep randomly selecting a tile until an unused tile is drawn
-				while (!hasDrawnTile) {
-					drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
-					if (drawnTile.getLocationNum() == 0) {
-						gameState.setCurrentDrawnTile(drawnTile);
-						drawnTile.setLocationNum(gameState.getPlayerID() + 1);
-						hasDrawnTile = true;
-					}
-				}
-				return true;
+        Log.i("action", action.getClass().toString());
+        if (canMove(playerID)) {
+            if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
+                //keep randomly selecting a tile until an unused tile is drawn
+                while (!hasDrawnTile) {
+                    drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+                    if (drawnTile.getLocationNum() == 0) {
+                        gameState.setCurrentDrawnTile(drawnTile);
+                        drawnTile.setLocationNum(gameState.getPlayerID() + 1);
+                        hasDrawnTile = true;
+                    }
+                }
+                return true;
 
-			}
+            } else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
+                int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
+                int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
 
-			else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
-				int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
-				int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
+                //iterate through all possible discard buttons
+                for (int i = 0; i < allButtonIDs.length; i++) {
+                    if (buttonID == allButtonIDs[i]) {
+                        //check if drawn tile is being discarded and discard it
+                        if (i == 0) {
+                            drawnTile.setLocationNum(5);
+                            gameState.setLastDiscarded(drawnTile);
+                        }
+                        //discard action on other tiles
+                        else {
+                            discardTileHelper(drawnTile, playerID, i - 1);
+                        }
+                    }
+                }
 
-				//iterate through all possible discard buttons
-				for (int i = 0; i < allButtonIDs.length; i++) {
-					if (buttonID == allButtonIDs [i]) {
-						//check if drawn tile is being discarded and discard it
-						if (i == 0) {
-							drawnTile.setLocationNum(5);
-							gameState.setLastDiscarded(drawnTile);
-						}
-						//discard action on other tiles
-						else {
-							discardTileHelper(drawnTile, playerID, i-1);
-						}
-					}
-				}
+                //set last current drawn tile to null
+                gameState.setCurrentDrawnTile(null);
 
-				//set last current drawn tile to null
-				gameState.setCurrentDrawnTile(null);
+//                MahjongTile lastDiscarded = gameState.getLastDiscarded();
+//                MahjongTile[] handOne = gameState.getPlayerOneHand();
+//                MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+//                MahjongTile[] handThree = gameState.getPlayerThreeHand();
+//                MahjongTile[] handFour = gameState.getPlayerFourHand();
+//
+                // Added as a check just in case
+//                if (lastDiscarded == null) {
+//                    Log.e("ChowLogic", "No tile to chow");
+//                    return false; // No tile to chow
+//                }
 
-				MahjongTile lastDiscarded = gameState.getLastDiscarded();
-				MahjongTile[] handOne = gameState.getPlayerOneHand();
-				MahjongTile[] handTwo = gameState.getPlayerTwoHand();
-				MahjongTile[] handThree = gameState.getPlayerThreeHand();
-				MahjongTile[] handFour = gameState.getPlayerFourHand();
+//                //check to see if any other player can chow the last discarded tile
+//                switch (playerID) {
+//                    case 0:
+//                        if (canChow(handTwo, lastDiscarded)) {
+//                            chowPlayer = 1; //player ID of player 2
+//                        } else if (canChow(handThree, lastDiscarded)) {
+//                            chowPlayer = 2;
+//                        } else if (canChow(handFour, lastDiscarded)) {
+//                            chowPlayer = 3;
+//                        }
+//                        break;
+//                    case 1:
+//                        if (canChow(handOne, lastDiscarded)) {
+//                            chowPlayer = 0;
+//                        } else if (canChow(handThree, lastDiscarded)) {
+//                            chowPlayer = 2;
+//                        } else if (canChow(handFour, lastDiscarded)) {
+//                            chowPlayer = 3;
+//                        }
+//                        break;
+//                    case 2:
+//                        if (canChow(handOne, lastDiscarded)) {
+//                            chowPlayer = 0; //player ID of player 2
+//                        } else if (canChow(handTwo, lastDiscarded)) {
+//                            chowPlayer = 1;
+//                        } else if (canChow(handFour, lastDiscarded)) {
+//                            chowPlayer = 3;
+//                        }
+//                        break;
+//                    case 3:
+//                        if (canChow(handOne, lastDiscarded)) {
+//                            chowPlayer = 0; //player ID of player 2
+//                        } else if (canChow(handTwo, lastDiscarded)) {
+//                            chowPlayer = 1;
+//                        } else if (canChow(handThree, lastDiscarded)) {
+//                            chowPlayer = 2;
+//                        }
+//                        break;
+//
+//                } //end switch case
+//
+//                if (chowPlayer == 0) {
+//                    gameState.setChowMode(0);
+//                } else if (chowPlayer == 1) {
+//                    gameState.setChowMode(1);
+//                } else if (chowPlayer == 2) {
+//                    gameState.setChowMode(2);
+//                } else if (chowPlayer == 3) {
+//                    gameState.setChowMode(3);
+//                }
+//
+//                //sleep for a bit sp player has time to chow
+//                try {
+//                    Thread.sleep(300);
+//                } catch (InterruptedException e) {
+//                }
+//
+//                //turn off chow mode if it is turned on
+//
+//                if (gameState.isChowMode()) {
+//                    gameState.setChowMode(-1);
+//                }
 
-				//check to see if any other player can chow the last discarded tile
-				switch (playerID) {
-					case 0:
-						if (canChow(handTwo, lastDiscarded)) {
-							chowPlayer = 1; //player ID of player 2
-						} else if (canChow(handThree, lastDiscarded)) {
-							chowPlayer = 2;
-						} else if (canChow(handFour, lastDiscarded)) {
-							chowPlayer = 3;
-						}
-						break;
-					case 1:
-						if (canChow(handOne, lastDiscarded)) {
-							chowPlayer = 0;
-						} else if (canChow(handThree, lastDiscarded)) {
-							chowPlayer = 2;
-						} else if (canChow(handFour, lastDiscarded)) {
-							chowPlayer = 3;
-						}
-						break;
-					case 2:
-						if (canChow(handOne, lastDiscarded)) {
-							chowPlayer = 0; //player ID of player 2
-						} else if (canChow(handTwo, lastDiscarded)) {
-							chowPlayer = 1;
-						} else if (canChow(handFour, lastDiscarded)) {
-							chowPlayer = 3;
-						}
-						break;
-					case 3:
-						if (canChow(handOne, lastDiscarded)) {
-							chowPlayer = 0; //player ID of player 2
-						} else if (canChow(handTwo, lastDiscarded)) {
-							chowPlayer = 1;
-						} else if (canChow(handThree, lastDiscarded)) {
-							chowPlayer = 2;
-						}
-						break;
+                //change turns of players
+                gameState.makeDiscardAction((MahjongDiscardTileAction) action);
 
-				} //end switch case
+                //reset the variable
+                hasDrawnTile = false;
 
-				//change turns of players
-				gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+                return true;
+            } else if (action instanceof MahjongSwitchViewAction) {
+                return true;
+            }
+//        } else if (chowPlayer == playerID) {
+//            if (action instanceof MahjongChowAction) {
+//
+//                drawnTile = gameState.getLastDiscarded();
+//
+//                drawnTile.setLocationNum(playerID + 1);
+//
+//                hasDrawnTile = true;
+//
+//                chowPlayer = -1;
+//                return true;
+//            }
+        }
+        return false;
+    }//makeMove
 
-				//reset the variable
-				hasDrawnTile = false;
+    /**
+     * Helper method for checking to see if there are drawable tiles, if not, then reshuffle
+     * the discard pile
+     */
+    public boolean tileDrawable() {
+        int numDrawable = 0;
+        //count num drawable tiles in deck
+        for (int i = 0; i < gameState.getDeck().length; i++) {
+            if (gameState.getDeck()[i].getLocationNum() == 0) {
+                numDrawable++;
+            }
+        }
+        //if no tiles are drawable
+        if (numDrawable == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-				return true;
-			}  else if (action instanceof MahjongSwitchViewAction) {
-				return true;
-			} else {
-				return false;
-			}
-		}
+    /**
+     * Helper method for discard tile, takes the given drawn tile and swaps it with the
+     * selected tile to discard
+     *
+     * @param drawnTile - the tile to be swapped
+     * @param playerID  - the player that's discarding a tile
+     * @param index     - the index of the drawnTile in the player's hand
+     */
+    public void discardTileHelper(MahjongTile drawnTile, int playerID, int index) {
+        //set location of drawn tile to player hand
+        drawnTile.setLocationNum(playerID + 1);
+        if (playerID == 0) {
+            //set tile location in player hand to discard
+            gameState.getPlayerOneHand()[index].setLocationNum(5);
+            gameState.setLastDiscarded(gameState.getPlayerOneHand()[index]);
+            //set pointer to null
+            gameState.getPlayerOneHand()[index] = null;
+            //set drawn tile to player hand
+            gameState.getPlayerOneHand()[index] = drawnTile;
+        }
 
-		//TODO: figure out how to change player ID to whoever sent the action
-		else if (chowPlayer == playerID) {
-			 if (action instanceof MahjongChowAction) {
+        if (playerID == 1) {
+            //set tile location in player hand to discard
+            gameState.getPlayerTwoHand()[index].setLocationNum(5);
+            gameState.setLastDiscarded(gameState.getPlayerTwoHand()[index]);
+            //set pointer to null
+            gameState.getPlayerTwoHand()[index] = null;
+            //set drawn tile to player hand
+            gameState.getPlayerTwoHand()[index] = drawnTile;
+            gameState.sortHand(gameState.getPlayerTwoHand());
+        }
 
-				 //TODO:somehow use discardtilehelper to take user input
-				 // for which tile in hand they want to switch the chow tile with
+        if (playerID == 2) {
+            //set tile location in player hand to discard
+            gameState.getPlayerThreeHand()[index].setLocationNum(5);
+            gameState.setLastDiscarded(gameState.getPlayerThreeHand()[index]);
+            //set pointer to null
+            gameState.getPlayerThreeHand()[index] = null;
+            //set drawn tile to player hand
+            gameState.getPlayerThreeHand()[index] = drawnTile;
+            gameState.sortHand(gameState.getPlayerThreeHand());
+        }
 
-				 chowPlayer = -1;
-				return true;
-			}
-		}
-		return false;
-	}//makeMove
+        if (playerID == 3) {
+            //set tile location in player hand to discard
+            gameState.getPlayerFourHand()[index].setLocationNum(5);
+            gameState.setLastDiscarded(gameState.getPlayerFourHand()[index]);
+            //set pointer to null
+            gameState.getPlayerFourHand()[index] = null;
+            //set drawn tile to player hand
+            gameState.getPlayerFourHand()[index] = drawnTile;
+            gameState.sortHand(gameState.getPlayerFourHand());
+        }
+    }
 
-	/**
-	 * Helper method for checking to see if there are drawable tiles, if not, then reshuffle
-	 * the discard pile
-	 */
-	public boolean tileDrawable() {
-		int numDrawable = 0;
-		//count num drawable tiles in deck
-		for (int i = 0; i < gameState.getDeck().length; i++) {
-			if(gameState.getDeck()[i].getLocationNum() == 0) {
-				numDrawable++;
-			}
-		}
-		//if no tiles are drawable
-		if (numDrawable == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
+    /**
+     * Helper method to check if other players can chow the last discarded tile
+     *
+     * @return true if last discarded will complete a set
+     */
+//    public boolean canChow(MahjongTile[] playerHand, MahjongTile lastDiscarded) {
+//        int numSetsBefore;
+//        int numSetsAfter;
+//        MahjongTile[] copyHand = new MahjongTile[playerHand.length];
+//        //Make a shallow copy of the player's hand
+//        for (int i = 0; i < copyHand.length; i++) {
+//            copyHand[i] = playerHand[i];
+//        }
+//
+//        //count number of sets in hand before chow
+//        numSetsBefore = gameState.countNumSets(copyHand);
+//
+//        //set the null 14th tile slot to last discarded
+//        copyHand[13] = lastDiscarded;
+//
+//        //sort hand so countNumSets works
+//        gameState.sortHand(copyHand);
+//
+//        //count number of sets WITH chow
+//        numSetsAfter = gameState.countNumSets(copyHand);
+//
+//        if ((numSetsBefore + 1) == numSetsAfter) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
-	/**
-	 * Helper method for discard tile, takes the given drawn tile and swaps it with the
-	 * selected tile to discard
-	 *
-	 * @param drawnTile - the tile to be swapped
-	 * @param playerID - the player that's discarding a tile
-	 * @param index - the index of the drawnTile in the player's hand
-	 */
-	public void discardTileHelper (MahjongTile drawnTile, int playerID, int index) {
-		//set location of drawn tile to player hand
-		drawnTile.setLocationNum(playerID + 1);
-		if (playerID == 0) {
-			//set tile location in player hand to discard
-			gameState.getPlayerOneHand()[index].setLocationNum(5);
-			gameState.setLastDiscarded(gameState.getPlayerOneHand()[index]);
-			//set pointer to null
-			gameState.getPlayerOneHand()[index] = null;
-			//set drawn tile to player hand
-			gameState.getPlayerOneHand()[index] = drawnTile;
-		}
+    /**
+     * Send the updated state to a given player
+     *
+     * @param p - given player
+     */
+    @Override
+    protected void sendUpdatedStateTo(GamePlayer p) {
+        // this is a perfect-information game, so we'll make a
+        // complete copy of the state to send to the player
+        p.sendInfo(new MahjongGameState(this.gameState));
 
-		if (playerID == 1) {
-			//set tile location in player hand to discard
-			gameState.getPlayerTwoHand()[index].setLocationNum(5);
-			gameState.setLastDiscarded(gameState.getPlayerTwoHand()[index]);
-			//set pointer to null
-			gameState.getPlayerTwoHand()[index] = null;
-			//set drawn tile to player hand
-			gameState.getPlayerTwoHand()[index] = drawnTile;
-			gameState.sortHand(gameState.getPlayerTwoHand());
-		}
 
-		if (playerID == 2) {
-			//set tile location in player hand to discard
-			gameState.getPlayerThreeHand()[index].setLocationNum(5);
-			gameState.setLastDiscarded(gameState.getPlayerThreeHand()[index]);
-			//set pointer to null
-			gameState.getPlayerThreeHand()[index] = null;
-			//set drawn tile to player hand
-			gameState.getPlayerThreeHand()[index] = drawnTile;
-			gameState.sortHand(gameState.getPlayerThreeHand());
-		}
+    }//sendUpdatedSate
 
-		if (playerID == 3) {
-			//set tile location in player hand to discard
-			gameState.getPlayerFourHand()[index].setLocationNum(5);
-			gameState.setLastDiscarded(gameState.getPlayerFourHand()[index]);
-			//set pointer to null
-			gameState.getPlayerFourHand()[index] = null;
-			//set drawn tile to player hand
-			gameState.getPlayerFourHand()[index] = drawnTile;
-			gameState.sortHand(gameState.getPlayerFourHand());
-		}
-	}
+    /**
+     * Check if the game is over. It is over, return a string that tells
+     * who the winner(s), if any, are. If the game is not over, return null;
+     * <p>
+     * Win requirement: a player has 4 sets and 1 pair
+     *
+     * @return a message that tells who has won the game, or null if the
+     * game is not over
+     */
+    @Override
+    protected String checkIfGameOver() {
 
-	/**
-	 * Helper method to check if other players can chow the last discarded tile
-	 * @return true if last discarded will complete a set
-	 */
-	public boolean canChow (MahjongTile[] playerHand, MahjongTile lastDiscarded) {
-		int numSetsBefore;
-		int numSetsAfter;
-		MahjongTile[] copyHand = new MahjongTile[playerHand.length];
-		//Make a shallow copy of the player's hand
-		for (int i = 0; i < copyHand.length; i++) {
-			copyHand[i] = playerHand[i];
-		}
+        int numSets1;
+        int numPairs1;
+        int numSets2;
+        int numPairs2;
+        int numSets3;
+        int numPairs3;
+        int numSets4;
+        int numPairs4;
 
-		//count number of sets in hand before chow
-		numSetsBefore = gameState.countNumSets(copyHand);
+        MahjongTile[] handOne = gameState.getPlayerOneHand();
+        //gameState.permutationSort(handOne, 0);
+        MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+        //gameState.permutationSort(handTwo, 0);
+        MahjongTile[] handThree = gameState.getPlayerThreeHand();
+        //gameState.permutationSort(handThree, 0);
+        MahjongTile[] handFour = gameState.getPlayerFourHand();
+        //gameState.permutationSort(handFour, 0);
 
-		//set the null 14th tile slot to last discarded
-		copyHand[13] = lastDiscarded;
+        numSets1 = gameState.countNumSets(handOne);
+        numPairs1 = gameState.countNumPairs(handOne);
 
-		//sort hand so countNumSets works
-		gameState.sortHand(copyHand);
+        numSets2 = gameState.countNumSets(handTwo);
+        numPairs2 = gameState.countNumPairs(handTwo);
 
-		//count number of sets WITH chow
-		numSetsAfter = gameState.countNumSets(copyHand);
+        numSets3 = gameState.countNumSets(handThree);
+        numPairs3 = gameState.countNumPairs(handThree);
 
-		if ((numSetsBefore + 1) == numSetsAfter) {
-			return true;
-		}
+        numSets4 = gameState.countNumSets(handFour);
+        numPairs4 = gameState.countNumPairs(handFour);
 
-		else {
-			return false;
-		}
-	}
+        if (numSets1 == 4 && numPairs1 == 1) {
+            return "Player 1 has won!!! Yippee!";
+        }
 
-	/**
-	 * Send the updated state to a given player
-	 *
-	 * @param p - given player
-	 */
-	@Override
-	protected void sendUpdatedStateTo(GamePlayer p) {
-		// this is a perfect-information game, so we'll make a
-		// complete copy of the state to send to the player
-		p.sendInfo(new MahjongGameState(this.gameState));
+        if (numSets2 == 4 && numPairs2 == 1) {
+            return "Player 2 has won!!! Yippee!";
+        }
 
-		
-	}//sendUpdatedSate
-	
-	/**
-	 * Check if the game is over. It is over, return a string that tells
-	 * who the winner(s), if any, are. If the game is not over, return null;
-	 *
-	 * Win requirement: a player has 4 sets and 1 pair
-	 * 
-	 * @return a message that tells who has won the game, or null if the
-	 * 		game is not over
-	 */
-	@Override
-	protected String checkIfGameOver() {
+        if (numSets3 == 4 && numPairs3 == 1) {
+            return "Player 3 has won!!! Yippee!";
+        }
 
-		int numSets1;
-		int numPairs1;
-		int numSets2;
-		int numPairs2;
-		int numSets3;
-		int numPairs3;
-		int numSets4;
-		int numPairs4;
-
-		MahjongTile[] handOne = gameState.getPlayerOneHand();
-		//gameState.permutationSort(handOne, 0);
-		MahjongTile[] handTwo = gameState.getPlayerTwoHand();
-		//gameState.permutationSort(handTwo, 0);
-		MahjongTile[] handThree = gameState.getPlayerThreeHand();
-		//gameState.permutationSort(handThree, 0);
-		MahjongTile[] handFour = gameState.getPlayerFourHand();
-		//gameState.permutationSort(handFour, 0);
-
-		numSets1 = gameState.countNumSets(handOne);
-		numPairs1 = gameState.countNumPairs(handOne);
-
-		numSets2 = gameState.countNumSets(handTwo);
-		numPairs2 = gameState.countNumPairs(handTwo);
-
-		numSets3 = gameState.countNumSets(handThree);
-		numPairs3 = gameState.countNumPairs(handThree);
-
-		numSets4 = gameState.countNumSets(handFour);
-		numPairs4 = gameState.countNumPairs(handFour);
-
-		if (numSets1 == 4 && numPairs1 == 1) {
-			return "Player 1 has won!!! Yippee!";
-		}
-
-		if (numSets2 == 4 && numPairs2 == 1) {
-			return "Player 2 has won!!! Yippee!";
-		}
-
-		if (numSets3 == 4 && numPairs3 == 1) {
-			return "Player 3 has won!!! Yippee!";
-		}
-
-		if (numSets4 == 4 && numPairs4 == 1) {
-			return "Player 4 has won!!! Yippee!";
-		}
-
-		else {
-			return null;
-		}
-	}
+        if (numSets4 == 4 && numPairs4 == 1) {
+            return "Player 4 has won!!! Yippee!";
+        } else {
+            return null;
+        }
+    }
 
 }// class CounterLocalGame

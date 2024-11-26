@@ -68,8 +68,6 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 		}
 
 		try {
-			Thread.sleep(1000);
-
 			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
 
@@ -77,7 +75,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			timerTicked();
 
 			//brief pause
-			Thread.sleep(200);
+			Thread.sleep(300);
 		} catch (InterruptedException e) {
 		}
 

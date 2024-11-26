@@ -23,7 +23,7 @@ public class MahjongChowAction extends GameAction implements Serializable {
      *
      * @param player the player who called the action
      */
-    public MahjongChowAction(GamePlayer player, int[] buttonArray){
+    public MahjongChowAction(GamePlayer player){
         super(player);
 
     }

@@ -44,6 +44,9 @@ public class MahjongGameState extends GameState implements Serializable {
 	private int bestNumSets;
 	private int pair;
 
+	private boolean chowMode;
+	private int origPlayer;
+
 	/**
 	 * default ctor
 	 */
@@ -75,6 +78,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		bestNumSets = 0;
 		bestPerm = new MahjongTile[14];
 		setEmptyHand(bestPerm);
+
+		chowMode = false;
+		origPlayer = -1;
 	}
 
 	/**
@@ -100,6 +106,8 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.bestNumSets = mgs.bestNumSets;
 		this.bestPerm = new MahjongTile[mgs.bestPerm.length];
 		copyArray(this.bestPerm, mgs.bestPerm);
+		this.chowMode = mgs.chowMode;
+		this.origPlayer = mgs.origPlayer;
 
 	}
 
@@ -141,6 +149,25 @@ public class MahjongGameState extends GameState implements Serializable {
 		}
 	}
 
+	/**
+	 * Helper method to set chowMode either true or false
+	 *
+	 * Chow mode resets player ID to player who can chow and changes back afterwards
+	 */
+	public void setChowMode(int chowPlayer) {
+		//turn on chow mode
+		if (!chowMode) {
+			chowMode = true;
+			origPlayer = playerID;
+			playerID = chowPlayer;
+		}
+
+		else {
+			chowMode = false;
+			playerID = origPlayer;
+			origPlayer = -1;
+		}
+	}
 
 	/**
 	 * method that initializes and adds all elements to the classes deck
@@ -924,6 +951,8 @@ public class MahjongGameState extends GameState implements Serializable {
 		}
 	}
 
+
+
 	/**
 	 * Restarts the game by re-dealing the tiles
 	 */
@@ -1037,6 +1066,10 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	public MahjongTile getLastDiscarded() {
 		return lastDiscarded;
+	}
+
+	public boolean isChowMode() {
+		return chowMode;
 	}
 
 	/**
