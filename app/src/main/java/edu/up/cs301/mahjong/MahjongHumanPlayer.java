@@ -160,6 +160,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else if (button.getId() == R.id.btRestart){
 			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
+			discardPile.setText("");
 			setHandGUI(null,null);
         }
 
@@ -198,6 +199,13 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 	/**
 	 * Callback method when we get a message (e.g., from the game)
+	 *
+	 * External Citation
+	 *  Date: 11/13/2024
+	 *  Problem: Could not get ImageViews to update after draw and discard
+	 *  Resource: Dr. Nuxoll's office hours
+	 *  Solution: Call setHandGUI() to update the display in receiveInfo every time the game state
+	 *  is updated
 	 * 
 	 * @param info - the message
 	 */
@@ -425,7 +433,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	/**
 	 * Helper method that initializes all of the object references to the XML
 	 * makes setAsGUI shorter
-	 *
 	 */
 	public void initializeObjects(){
 		//Initialize all View references
@@ -481,6 +488,12 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	/**
 	 * Callback method--our game has been chosen/rechosen to be the GUI,
 	 * called from the GUI thread
+	 *
+	 * External Citation
+	 * Date: 11/12/2024
+	 * Problem: Null button error was being thrown even after initialization
+	 * Resource: Dr. Nuxoll's office hours
+	 * Solution: Firstly, instantiate GUI objects after intitializing myActivity
 	 * 
 	 * @param activity - the activity under which we are running
 	 */

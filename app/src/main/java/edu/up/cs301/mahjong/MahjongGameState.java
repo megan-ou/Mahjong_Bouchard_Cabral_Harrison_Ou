@@ -1,5 +1,7 @@
 package edu.up.cs301.mahjong;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +51,14 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * default ctor
+	 *
+	 * Set all player stats (ID, numSets/Pairs) to 0.
+	 * Instantiate all player hand arrays and calls helper method to give them empty tiles
+	 * 	Empty tiles have a value of -1 and no suit, meant only as a placeholder
+	 * Any MahjongTile objects are set to null.
+	 * Instantiates the deck of tiles, deals tiles to all 4 players, and sorts all hands
+	 * Sets up permutation array and holder variable that denotes best permutation numSets
+	 * Sets up chowMode to be false with negative playerID value.
 	 */
 	public MahjongGameState(){
 		this.playerID = 0;
@@ -76,6 +86,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		sortHand(playerFourHand);
 
 		bestNumSets = 0;
+		pair = 0;
 		bestPerm = new MahjongTile[14];
 		setEmptyHand(bestPerm);
 
@@ -85,6 +96,9 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * Copy ctor
+	 *
+	 * Makes a deep copy of all instance variables using a helper method to make a deep copy of
+	 * arrays.
 	 */
 	public MahjongGameState(MahjongGameState mgs){
 		this.playerID = mgs.playerID;
@@ -104,8 +118,10 @@ public class MahjongGameState extends GameState implements Serializable {
 		copyArray(this.deck, mgs.deck);
 		this.lastDrawnTile = mgs.lastDrawnTile;
 		this.bestNumSets = mgs.bestNumSets;
-		this.bestPerm = new MahjongTile[mgs.bestPerm.length];
-		copyArray(this.bestPerm, mgs.bestPerm);
+		this.pair = mgs.pair;
+		//this.bestPerm = new MahjongTile[mgs.bestPerm.length];
+		//setEmptyHand(this.bestPerm);
+		//copyArray(this.bestPerm, mgs.bestPerm);
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
 
@@ -152,17 +168,26 @@ public class MahjongGameState extends GameState implements Serializable {
 	/**
 	 * Helper method to set chowMode either true or false
 	 *
+	 * External Citation
+	 *  Date: 11/22/2024
+	 *  Problem: How can we implement chow as an action taken out of turn?
+	 *  Resource: Dr. Nuxoll's office hours
+	 *  Solution: Create new instance variables for "chow mode" that temporarily exits
+	 *  the current turn into a chow turn state, but reverts back for normal game play
+	 *
 	 * Chow mode resets player ID to player who can chow and changes back afterwards
 	 */
 	public void setChowMode(int chowPlayer) {
 		//turn on chow mode
 		if (!chowMode) {
+			Log.e("Chow Called", "Chow mode was turned on.");
 			chowMode = true;
 			origPlayer = playerID;
 			playerID = chowPlayer;
 		}
 
 		else {
+			Log.e("Chow Called", "Chow mode was turned off.");
 			chowMode = false;
 			playerID = origPlayer;
 			origPlayer = -1;
@@ -605,6 +630,12 @@ public class MahjongGameState extends GameState implements Serializable {
 	 *
 	 * - This is only for tiles with values (suits: Hanzi, Dot, Stick) symbol tiles are ignored
 	 *
+	 * External Citation
+	 *  Date: 11/22/2024
+	 *  Problem: Did not how to implement a permutation to sort our hand
+	 *  Resource: Dr. Libby's Office Hours
+	 *  Solution: Libby walked us through how to write the code.
+	 *
 	 * @param hand - the tile array/hand to be sorted
 	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
@@ -644,34 +675,29 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * Sorts the symbols and numbered suits for permutationSort to figure out the highest number of
 	 * sets of each suit/symbol.
 	 *
-	 * @param hand - player's hand
+	 * @param origHand - player's hand
 	 * @return a number based on the count of sets and pairs in a player's hand
 	 */
-	public int prePerm(MahjongTile[] hand){
+	public int prePerm(MahjongTile[] origHand){
 
 		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols + Revealed tiles
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> dots = new ArrayList<>();
 		ArrayList<MahjongTile> sticks = new ArrayList<>();
 
-		int numFire = 0;
-		int numWat = 0;
-		int numEarth = 0;
-		int numWind = 0;
-		int numFlower = 0;
-		int numStar = 0;
-		int numCat = 0;
-		int numRevealed = 0;
-
 		pair = 0;
 		int totalSets = 0;
 		int totalScore = 0;
+		MahjongTile[] hand;
+		hand = Arrays.copyOf(origHand, 14);
+		if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null ) {
+			hand[13] = getCurrentDrawnTile();
+		}
 
 		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < hand.length; i++) {
 			if (hand[i].getTileStatus() == 3) {
 				misc.add(hand[i]);
-				numRevealed++;
 			} else {
 				hand[i].setTileStatus(0);
 
@@ -687,31 +713,24 @@ public class MahjongGameState extends GameState implements Serializable {
 						break;
 					case "Fire":
 						misc.add(hand[i]);
-						numFire++;
 						break;
 					case "Water":
 						misc.add(hand[i]);
-						numWat++;
 						break;
 					case "Earth":
 						misc.add(hand[i]);
-						numEarth++;
 						break;
 					case "Wind":
 						misc.add(hand[i]);
-						numWind++;
 						break;
 					case "Flower":
 						misc.add(hand[i]);
-						numFlower++;
 						break;
 					case "Star":
 						misc.add(hand[i]);
-						numStar++;
 						break;
 					case "Cat":
 						misc.add(hand[i]);
-						numCat++;
 						break;
 				}
 			}
@@ -775,28 +794,26 @@ public class MahjongGameState extends GameState implements Serializable {
 				sortHand(sticksHand); //use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(sticksHand);
 			}
+			if (pair < 1){
+				pair+= countNumPairs(miscHand);
+			}
 
 			//Reassign sorted suits into the player's original hand
 			int index = 0;
 			for (MahjongTile ht : hanziHand) {
-				hand[index] = ht;
-				index++;
+				origHand[index] = ht;
 			}
 			for (MahjongTile st : sticksHand) {
-				hand[index] = st;
-				index++;
+				origHand[index] = st;
 			}
 			for (MahjongTile dt : dotsHand) {
-				hand[index] = dt;
-				index++;
+				origHand[index] = dt;
 			}
 			for (MahjongTile miscTile : miscHand) {
-				hand[index] = miscTile;
-				index++;
+				origHand[index] = miscTile;
 			}
 
-		numRevealed += (numRevealed / 3);
-		totalSets += countNumSets(miscHand) - numRevealed;
+		totalSets += countNumSets(miscHand);
 		totalScore = (10 * totalSets) + pair;
 		return totalScore;
 	}
@@ -864,9 +881,6 @@ public class MahjongGameState extends GameState implements Serializable {
 	/**
 	 * Method that counts how many pairs are in a player's hand that are NOT already part of
 	 * a set (a pair is two identical tiles)
-	 *
-	 * TODO: discuss numPairs variable and if we just want a return value and move this
-	 * 	IV to human/computer player classes
 	 *
 	 * @param playerHand - array of tiles that represents a player's hand
 	 * @return number of pairs in a given hand

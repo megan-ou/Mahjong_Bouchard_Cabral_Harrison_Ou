@@ -183,7 +183,7 @@ public class MahjongGameStateTest extends TestCase {
 //        MahjongSwitchViewAction viewAction = new MahjongSwitchViewAction(player1);
 //        boolean test = state.makeSwitchViewAction(viewAction);
 //        assertTrue(test);
-        
+//
     }
 
     public void testSortDeck(){

@@ -1,11 +1,12 @@
 package edu.up.cs301.mahjong;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 import edu.up.cs301.GameFramework.players.GameComputerPlayer;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.GameFramework.utilities.Tickable;
-import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 /**
  * A dumb computer version of a Mahjong player. This player cannot use the "Chow"
@@ -24,6 +25,9 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
+
+	//have I drawn a tile this turn yet?
+	private boolean hasDrawnTile = false;
 
     /**
      * Constructor for objects of class CounterComputerPlayer1
@@ -62,31 +66,43 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			return;
 		}
 
+
+
 		//exit if it is human player
 		if (mgs.getPlayerID() == 0) {
 			return;
 		}
 
 		try {
-			//First draw tile
-			game.sendAction(new MahjongDrawTileAction(this));
-
-			//then discard
-			timerTicked();
-
 			//brief pause
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
+			/* don't care */
 		}
 
-		sendInfo(mgs);
+		if (! hasDrawnTile) {
 
+			//First draw tile
+			game.sendAction(new MahjongDrawTileAction(this));
+			Log.e("Computer Player", "Tile is drawn");
+
+			hasDrawnTile = true;
+
+		}
+		else {
+			//then discard
+			discardHelper();
+
+			hasDrawnTile = false;
+		}
 	}
 	
 	/**
-	 * Callback method: the timer ticked
+	 * code to send a discard
 	 */
-	protected void timerTicked() {
+	protected void discardHelper() {
+		Log.e("Computer Player", "Computer player discards a tile.");
+
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
 
