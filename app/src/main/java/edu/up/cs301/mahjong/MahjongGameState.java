@@ -644,34 +644,29 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * Sorts the symbols and numbered suits for permutationSort to figure out the highest number of
 	 * sets of each suit/symbol.
 	 *
-	 * @param hand - player's hand
+	 * @param origHand - player's hand
 	 * @return a number based on the count of sets and pairs in a player's hand
 	 */
-	public int prePerm(MahjongTile[] hand){
+	public int prePerm(MahjongTile[] origHand){
 
 		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols + Revealed tiles
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> dots = new ArrayList<>();
 		ArrayList<MahjongTile> sticks = new ArrayList<>();
 
-		int numFire = 0;
-		int numWat = 0;
-		int numEarth = 0;
-		int numWind = 0;
-		int numFlower = 0;
-		int numStar = 0;
-		int numCat = 0;
-		int numRevealed = 0;
-
 		pair = 0;
 		int totalSets = 0;
 		int totalScore = 0;
+		MahjongTile[] hand;
+		hand = Arrays.copyOf(origHand, 14);
+		if (hand[13].getSuit().equals("empty suit")) {
+			hand[13] = getCurrentDrawnTile();
+		}
 
 		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < hand.length; i++) {
 			if (hand[i].getTileStatus() == 3) {
 				misc.add(hand[i]);
-				numRevealed++;
 			} else {
 				hand[i].setTileStatus(0);
 
@@ -687,31 +682,24 @@ public class MahjongGameState extends GameState implements Serializable {
 						break;
 					case "Fire":
 						misc.add(hand[i]);
-						numFire++;
 						break;
 					case "Water":
 						misc.add(hand[i]);
-						numWat++;
 						break;
 					case "Earth":
 						misc.add(hand[i]);
-						numEarth++;
 						break;
 					case "Wind":
 						misc.add(hand[i]);
-						numWind++;
 						break;
 					case "Flower":
 						misc.add(hand[i]);
-						numFlower++;
 						break;
 					case "Star":
 						misc.add(hand[i]);
-						numStar++;
 						break;
 					case "Cat":
 						misc.add(hand[i]);
-						numCat++;
 						break;
 				}
 			}
@@ -775,28 +763,26 @@ public class MahjongGameState extends GameState implements Serializable {
 				sortHand(sticksHand); //use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(sticksHand);
 			}
+			if (pair < 1){
+				pair+= countNumPairs(miscHand);
+			}
 
 			//Reassign sorted suits into the player's original hand
 			int index = 0;
 			for (MahjongTile ht : hanziHand) {
-				hand[index] = ht;
-				index++;
+				origHand[index] = ht;
 			}
 			for (MahjongTile st : sticksHand) {
-				hand[index] = st;
-				index++;
+				origHand[index] = st;
 			}
 			for (MahjongTile dt : dotsHand) {
-				hand[index] = dt;
-				index++;
+				origHand[index] = dt;
 			}
 			for (MahjongTile miscTile : miscHand) {
-				hand[index] = miscTile;
-				index++;
+				origHand[index] = miscTile;
 			}
 
-		numRevealed += (numRevealed / 3);
-		totalSets += countNumSets(miscHand) - numRevealed;
+		totalSets += countNumSets(miscHand);
 		totalScore = (10 * totalSets) + pair;
 		return totalScore;
 	}
