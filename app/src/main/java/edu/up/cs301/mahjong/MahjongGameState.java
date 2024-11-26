@@ -2,6 +2,7 @@ package edu.up.cs301.mahjong;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.*;
@@ -41,6 +42,7 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	private MahjongTile[] bestPerm;
 	private int bestNumSets;
+	private int pair;
 
 	/**
 	 * default ctor
@@ -588,6 +590,9 @@ public class MahjongGameState extends GameState implements Serializable {
 			if(countNumSets(hand) >= bestNumSets){
 				copyArray(bestPerm, hand); //is deep copy necessary?
 				bestNumSets = countNumSets(hand);
+				if (pair == 0 && countNumPairs(hand) > 0) {
+					pair = 1; //we only need one pair to win
+				}
 			}
 		}
 		else {
@@ -608,12 +613,19 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	}
 
-	public void prePerm(MahjongTile[] hand){
+	/**
+	 * Sorts the symbols and numbered suits for permutationSort to figure out the highest number of
+	 * sets of each suit/symbol.
+	 *
+	 * @param hand - player's hand
+	 * @return a number based on the count of sets and pairs in a player's hand
+	 */
+	public int prePerm(MahjongTile[] hand){
 
-		ArrayList<MahjongTile> symbols = new ArrayList<>();
-		ArrayList<MahjongTile> Hanzi = new ArrayList<>();
-		ArrayList<MahjongTile> Dots = new ArrayList<>();
-		ArrayList<MahjongTile> Sticks = new ArrayList<>();
+		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols + Revealed tiles
+		ArrayList<MahjongTile> hanzi = new ArrayList<>();
+		ArrayList<MahjongTile> dots = new ArrayList<>();
+		ArrayList<MahjongTile> sticks = new ArrayList<>();
 
 		int numFire = 0;
 		int numWat = 0;
@@ -622,118 +634,144 @@ public class MahjongGameState extends GameState implements Serializable {
 		int numFlower = 0;
 		int numStar = 0;
 		int numCat = 0;
+		int numRevealed = 0;
+
+		pair = 0;
+		int totalSets = 0;
+		int totalScore = 0;
 
 		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < hand.length; i++) {
-			switch (hand[i].getSuit()) {
-				case "Hanzi":
-					Hanzi.add(hand[i]);
-					break;
-				case "Dots":
-					Dots.add(hand[i]);
-					break;
-				case "Sticks":
-					Sticks.add(hand[i]);
-					break;
-				case "Fire":
-					symbols.add(hand[i]);
-					numFire++;
-					break;
-				case "Water":
-					symbols.add(hand[i]);
-					numWat++;
-					break;
-				case "Earth":
-					symbols.add(hand[i]);
-					numEarth++;
-					break;
-				case "Wind":
-					symbols.add(hand[i]);
-					numWind++;
-					break;
-				case "Flower":
-					symbols.add(hand[i]);
-					numFlower++;
-					break;
-				case "Star":
-					symbols.add(hand[i]);
-					numStar++;
-					break;
-				case "Cat":
-					symbols.add(hand[i]);
-					numCat++;
-					break;
+			if (hand[i].getTileStatus() == 3) {
+				misc.add(hand[i]);
+				numRevealed++;
+			} else {
+				hand[i].setTileStatus(0);
+
+				switch (hand[i].getSuit()) {
+					case "Hanzi":
+						hanzi.add(hand[i]);
+						break;
+					case "Dots":
+						dots.add(hand[i]);
+						break;
+					case "Sticks":
+						sticks.add(hand[i]);
+						break;
+					case "Fire":
+						misc.add(hand[i]);
+						numFire++;
+						break;
+					case "Water":
+						misc.add(hand[i]);
+						numWat++;
+						break;
+					case "Earth":
+						misc.add(hand[i]);
+						numEarth++;
+						break;
+					case "Wind":
+						misc.add(hand[i]);
+						numWind++;
+						break;
+					case "Flower":
+						misc.add(hand[i]);
+						numFlower++;
+						break;
+					case "Star":
+						misc.add(hand[i]);
+						numStar++;
+						break;
+					case "Cat":
+						misc.add(hand[i]);
+						numCat++;
+						break;
+				}
+			}
+		}
+
+			//Reassign array lists to arrays for numbered suits
+			MahjongTile[] hanziHand = new MahjongTile[hanzi.size()];
+			for(int q = 0; q < hanzi.size(); q++){
+				hanziHand[q] = hanzi.get(q);
 			}
 
-			MahjongTile[] hanziHand = new MahjongTile[Hanzi.size()];
-			for(int q = 0; q < Hanzi.size(); q++){
-				hanziHand[q] = Hanzi.get(q);
+			MahjongTile[] dotsHand = new MahjongTile[dots.size()];
+			for(int q = 0; q < dots.size(); q++){
+				dotsHand[q] = dots.get(q);
 			}
 
-			MahjongTile[] dotsHand = new MahjongTile[Dots.size()];
-			for(int q = 0; q < Dots.size(); q++){
-				dotsHand[q] = Dots.get(q);
+			MahjongTile[] sticksHand = new MahjongTile[sticks.size()];
+			for(int q = 0; q < sticks.size(); q++){
+				sticksHand[q] = sticks.get(q);
 			}
 
-			MahjongTile[] sticksHand = new MahjongTile[Sticks.size()];
-			for(int q = 0; q < Sticks.size(); q++){
-				sticksHand[q] = Sticks.get(q);
+			MahjongTile[] miscHand = new MahjongTile[misc.size()];
+			for(int q = 0; q < misc.size(); q++){
+				miscHand[q] = misc.get(q);
 			}
 
+			//Run permutation sort on each numbered suit with 4 or more tiles
+			//If less than 4 tiles run traditional sort (by suit and value)
 			if(hanziHand.length >= 4){
-				copyArray(bestPerm, hanziHand);
 				permutationSort(hanziHand, 0);
-				copyArray(hanziHand, bestPerm);
+				hanziHand = Arrays.copyOf(bestPerm, bestPerm.length);
 				clearArray(bestPerm);
+				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
-
 			else {
 				sortHand(hanziHand); //use ascending sort on the hand if 3 tiles or less
+				totalSets += countNumSets(hanziHand);
 			}
 
 			if(dotsHand.length >= 4){
-				copyArray(bestPerm, dotsHand);
 				permutationSort(dotsHand, 0);
-				copyArray(dotsHand, bestPerm);
+				dotsHand = Arrays.copyOf(bestPerm, bestPerm.length);
 				clearArray(bestPerm);
+				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
-
 			else {
-				sortHand(dotsHand);
+				sortHand(dotsHand); //use ascending sort on the hand if 3 tiles or less
+				totalSets += countNumSets(dotsHand);
 			}
 
 			if(sticksHand.length >= 4){
-				copyArray(bestPerm, sticksHand);
 				permutationSort(sticksHand, 0);
-				copyArray(sticksHand, bestPerm);
+				sticksHand = Arrays.copyOf(bestPerm, bestPerm.length);
 				clearArray(bestPerm);
+				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
-
 			else {
-				sortHand(sticksHand);
+				sortHand(sticksHand); //use ascending sort on the hand if 3 tiles or less
+				totalSets += countNumSets(sticksHand);
 			}
 
+			//Reassign sorted suits into the player's original hand
 			int index = 0;
 			for (MahjongTile ht : hanziHand) {
-				hand[index] = new MahjongTile(ht);
+				hand[index] = ht;
 				index++;
 			}
 			for (MahjongTile st : sticksHand) {
-				hand[index] = new MahjongTile(st);
+				hand[index] = st;
 				index++;
 			}
 			for (MahjongTile dt : dotsHand) {
-				hand[index] = new MahjongTile(dt);
+				hand[index] = dt;
 				index++;
 			}
-			for (MahjongTile miscTile : symbols) {
-				hand[index] = new MahjongTile(miscTile);
+			for (MahjongTile miscTile : miscHand) {
+				hand[index] = miscTile;
 				index++;
 			}
-		}
+
+		numRevealed += (numRevealed / 3);
+		totalSets += countNumSets(miscHand) - numRevealed;
+		totalScore = (10 * totalSets) + pair;
+		return totalScore;
 	}
 
 	/**
