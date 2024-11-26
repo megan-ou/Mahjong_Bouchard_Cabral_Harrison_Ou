@@ -387,8 +387,8 @@ public class MahjongGameState extends GameState implements Serializable {
 
 		int handSize = mahjongTiles.length;
 
-		if ( (handSize >= 14) && (mahjongTiles[13].getValue() == -1) ) {
-			handSize--;
+		if (mahjongTiles[13].getValue() == -1) {
+			handSize += -1;
 		}
 
 		//First, sort the hand by suit
