@@ -247,6 +247,18 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
      * @param index     - the index of the drawnTile in the player's hand
      */
     public void discardTileHelper(MahjongTile drawnTile, int playerID, int index) {
+        //TODO REMOVE DEBUG
+        int count = 10;
+        while  (drawnTile == null) {
+            count--;
+            try { Thread.sleep(1); }
+            catch(InterruptedException ie) {}
+            if (count < 0) {
+                break;
+            }
+        }
+
+
         //set location of drawn tile to player hand
         drawnTile.setLocationNum(playerID + 1);
         if (playerID == 0) {
@@ -327,19 +339,12 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
     }
 
     public void setChow(int chowPlayer) {
-//        Log.e("Chow Called", "Chow mode was entered");
-//        //turn on chow mode in game state
-//        gameState.setChowMode(chowPlayer);
-//
-//        //sleep for a bit so player has time to chow
-//        try {
-//            Thread.sleep(300);
-//        } catch (InterruptedException e) {
-//        }
-//
-//        //turn off chow mode if it is turned on
-//
-//        gameState.setChowMode(-1);
+        Log.e("Chow Called", "Chow mode was entered");
+        //turn on chow mode in game state
+        gameState.setChowMode(chowPlayer);
+
+        //turn off chow mode if it is turned on
+        gameState.setChowMode(-1);
     }
 
     /**
