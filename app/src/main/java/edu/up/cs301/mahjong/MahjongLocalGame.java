@@ -391,11 +391,11 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         MahjongTile[] handFour = gameState.getPlayerFourHand();
         //gameState.permutationSort(handFour, 0);
 
-        if(gameState.prePerm(handOne) == 41) {
+        if(gameState.getPlayerID() == 1 && gameState.prePerm(handOne) == 41) {
             //return "Player 1 has won!!! Yippee!";
             return playerNames[0] + " has won!!! Yippee!";
         }
-        else if(gameState.prePerm(handTwo) == 41) {
+        /*else if(gameState.prePerm(handTwo) == 41) {
             return playerNames[1] + " has won!!! Yippee!";
         }
         else if(gameState.prePerm(handThree) == 41) {
@@ -403,7 +403,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         }
         else if(gameState.prePerm(handFour) == 41) {
             return playerNames[3] + " has won!!! Yippee!";
-        }
+        }*/
         else {
             return null;
         }
