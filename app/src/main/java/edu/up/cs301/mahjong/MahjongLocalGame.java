@@ -102,7 +102,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                     //discard the chow tile
                     chowTile.setTileStatus(0);
                     chowTile.setLocationNum(5);
-                    chowTile = null;
+                    gameState.setCurrentDrawnTile(null);
                     return true;
                 }
 
@@ -350,7 +350,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
         if (gameState.isChowMode()) {
             chowTile = gameState.getLastDiscarded();
-            gameState.setLastDiscarded(null);
         }
     }
 

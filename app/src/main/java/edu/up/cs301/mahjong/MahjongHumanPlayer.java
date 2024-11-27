@@ -249,10 +249,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 				lastDiscardCheck = state.getLastDiscarded();
 			}
 		}
-		//if last discarded is null from chow, set empty
-		else {
-			emptyImageView(IVlastDiscarded,R.drawable.blank_tile);
-		}
 
 		//Change text of draw tile button if Chow Mode entered
 		if (state.getPlayerID() == playerNum && state.isChowMode()) {
