@@ -602,7 +602,6 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * Helper method for sorting by ascending numerical value
-	 * TODO: edit code to sort tiles in ascending order AND skip duplicates (EX: H1,H2,H3,H4,H2,H2,D2)
 	 *
 	 * @param hand - the tile array/hand to be sorted
 	 * @param begIndex - the first index in the deck of the given hand
