@@ -459,3 +459,35 @@ public class OldCode {
     				dot.add(hand[i]);
     			}
     		}
+
+    Old checkIfGameIsOver()
+
+     /*numSets1 = gameState.countNumSets(handOne);
+            numPairs1 = gameState.countNumPairs(handOne);
+
+            numSets2 = gameState.countNumSets(handTwo);
+            numPairs2 = gameState.countNumPairs(handTwo);
+
+            numSets3 = gameState.countNumSets(handThree);
+            numPairs3 = gameState.countNumPairs(handThree);
+
+            numSets4 = gameState.countNumSets(handFour);
+            numPairs4 = gameState.countNumPairs(handFour);
+
+            if (numSets1 == 4 && numPairs1 == 1) {
+                return "Player 1 has won!!! Yippee!";
+            }
+
+            if (numSets2 == 4 && numPairs2 == 1) {
+                return "Player 2 has won!!! Yippee!";
+            }
+
+            if (numSets3 == 4 && numPairs3 == 1) {
+                return "Player 3 has won!!! Yippee!";
+            }
+
+            if (numSets4 == 4 && numPairs4 == 1) {
+                return "Player 4 has won!!! Yippee!";
+            } else {
+                return null;
+            }*/
