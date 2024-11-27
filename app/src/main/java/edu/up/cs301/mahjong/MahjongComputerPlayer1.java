@@ -89,10 +89,10 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			hasDrawnTile = true;
 		}
 		//Send a draw action to exit chow mode
-		else if (mgs.isChowMode()) {
-			game.sendAction(new MahjongDrawTileAction(this));
-			hasDrawnTile = false; //just to be safe
-		}
+//		else if (mgs.isChowMode()) {
+//			game.sendAction(new MahjongDrawTileAction(this));
+//			hasDrawnTile = false; //just to be safe
+//		}
 		//Discard a tile if a tile is drawn
 		else {
 			discardHelper();

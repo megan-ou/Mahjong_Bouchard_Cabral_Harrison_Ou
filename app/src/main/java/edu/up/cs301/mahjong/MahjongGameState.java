@@ -49,7 +49,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	private int bestNumSets;
 	private int pair;
 
-	private boolean chowMode;
+	//private boolean chowMode;
 	private int origPlayer;
 
 	/**
@@ -91,7 +91,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		bestNumSets = 0;
 		pair = 0;
 
-		chowMode = false;
+		//chowMode = false;
 		origPlayer = -1;
 	}
 
@@ -123,7 +123,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		//this.bestPerm = new MahjongTile[mgs.bestPerm.length];
 		//setEmptyHand(this.bestPerm);
 		//copyArray(this.bestPerm, mgs.bestPerm);
-		this.chowMode = mgs.chowMode;
+		//this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
 
 	}
@@ -177,22 +177,22 @@ public class MahjongGameState extends GameState implements Serializable {
 	 *
 	 * Chow mode resets player ID to player who can chow and changes back afterwards
 	 */
-	public void setChowMode(int chowPlayer) {
-		//turn on chow mode
-		if (!chowMode) {
-			Log.e("Chow Called", "Chow mode was turned on.");
-			chowMode = true;
-			origPlayer = playerID;
-			playerID = chowPlayer;
-		}
-
-		else {
-			Log.e("Chow Called", "Chow mode was turned off.");
-			chowMode = false;
-			playerID = origPlayer;
-			origPlayer = -1;
-		}
-	}
+//	public void setChowMode(int chowPlayer) {
+//		//turn on chow mode
+//		if (!chowMode) {
+//			Log.e("Chow Called", "Chow mode was turned on.");
+//			chowMode = true;
+//			origPlayer = playerID;
+//			playerID = chowPlayer;
+//		}
+//
+//		else {
+//			Log.e("Chow Called", "Chow mode was turned off.");
+//			chowMode = false;
+//			playerID = origPlayer;
+//			origPlayer = -1;
+//		}
+//	}
 
 	/**
 	 * method that initializes and adds all elements to the classes deck
@@ -805,27 +805,40 @@ public class MahjongGameState extends GameState implements Serializable {
 				pair+= countNumPairs(miscHand);
 			}
 
-			//Reassign sorted suits into the player's original hand
-			int index = 0;
-			for (MahjongTile ht : hanziHand) {
-				origHand[index] = ht;
-				index++;
-			}
-			for (MahjongTile st : sticksHand) {
-				origHand[index] = st;
-				index++;
-			}
-			for (MahjongTile dt : dotsHand) {
-				origHand[index] = dt;
-				index++;
-			}
-			for (MahjongTile miscTile : miscHand) {
-				origHand[index] = miscTile;
-				index++;
-			}
 
 		totalSets += countNumSets(miscHand);
 		totalScore = (10 * totalSets) + pair;
+		/**
+		 * if the totalscore is 41 (ie: a winning hand), then the sorted hands
+		 * containing the optimized sets and a pair will push to the GUI and player hand
+		 *
+		 * otherwise the hand will remain unchanged, leaving this method as a checker for
+		 * checkIfGame over
+		 *
+		 * game is over only when totalscore == 41, then hand will change in response
+		 *
+		 */
+			if(totalScore == 41) {
+				//Reassign sorted suits into the player's original hand
+				int index = 0;
+				for (MahjongTile ht : hanziHand) {
+					origHand[index] = ht;
+					index++;
+				}
+				for (MahjongTile st : sticksHand) {
+					origHand[index] = st;
+					index++;
+				}
+				for (MahjongTile dt : dotsHand) {
+					origHand[index] = dt;
+					index++;
+				}
+				for (MahjongTile miscTile : miscHand) {
+					origHand[index] = miscTile;
+					index++;
+				}
+			}
+
 		return totalScore;
 	}
 
@@ -1091,9 +1104,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		return lastDiscarded;
 	}
 
-	public boolean isChowMode() {
-		return chowMode;
-	}
+//	public boolean isChowMode() {
+//		return chowMode;
+//	}
 
 	/**
 	 * Setter Methods
