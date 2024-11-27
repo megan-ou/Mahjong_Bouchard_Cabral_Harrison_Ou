@@ -491,3 +491,19 @@ public class OldCode {
             } else {
                 return null;
             }*/
+
+            /*int numSets1;
+                    int numPairs1;
+                    int numSets2;
+                    int numPairs2;
+                    int numSets3;
+                    int numPairs3;
+                    int numSets4;
+                    int numPairs4;*/
+
+            //gameState.permutationSort(handOne, 0);
+            //gameState.permutationSort(handTwo, 0);
+            //gameState.permutationSort(handThree, 0);
+            //gameState.permutationSort(handFour, 0);
+
+

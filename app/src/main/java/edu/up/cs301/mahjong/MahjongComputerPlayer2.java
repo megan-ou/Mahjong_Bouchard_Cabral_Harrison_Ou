@@ -101,6 +101,8 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			return;
 		}
 
+		Log.e("Player Turn", "Smart AI player's turn." + playerNum);
+
 		try {
 			//brief pause
 			Thread.sleep(300);

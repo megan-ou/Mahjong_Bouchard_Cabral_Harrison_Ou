@@ -378,23 +378,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
     @Override
     protected String checkIfGameOver() {
 
-        /*int numSets1;
-        int numPairs1;
-        int numSets2;
-        int numPairs2;
-        int numSets3;
-        int numPairs3;
-        int numSets4;
-        int numPairs4;*/
-
         MahjongTile[] handOne = gameState.getPlayerOneHand();
-        //gameState.permutationSort(handOne, 0);
         MahjongTile[] handTwo = gameState.getPlayerTwoHand();
-        //gameState.permutationSort(handTwo, 0);
         MahjongTile[] handThree = gameState.getPlayerThreeHand();
-        //gameState.permutationSort(handThree, 0);
         MahjongTile[] handFour = gameState.getPlayerFourHand();
-        //gameState.permutationSort(handFour, 0);
 
         if(gameState.getPlayerID() == 1 && gameState.prePerm(handOne) == 41) {
             //return "Player 1 has won!!! Yippee!";
