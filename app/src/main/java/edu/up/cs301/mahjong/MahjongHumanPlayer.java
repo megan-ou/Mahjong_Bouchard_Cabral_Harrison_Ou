@@ -5,7 +5,6 @@ import edu.up.cs301.GameFramework.GameMainActivity;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -81,7 +80,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVnum13;
 
 	//references to non-hand imageviews
-	private ImageView IVDrawnCard;
+	private ImageView IVDrawnTile;
 	private ImageView IVlastDiscarded;
 
 	//reference to discard pile text view
@@ -154,13 +153,13 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		if (button.getId() == R.id.btDraw) {
 			game.sendAction(drawTileAction);
-			setHandGUI(IVDrawnCard,state.getCurrentDrawnTile());
+			setHandGUI(IVDrawnTile,state.getCurrentDrawnTile());
 		}
 
 		else if (isDiscardButton(button.getId())) {
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
-			emptyDrawnCard(R.drawable.blank_tile);
+			emptyImageView(IVDrawnTile,R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
 			//state.prePerm(state.getPlayerOneHand());
 			setHandGUI(null,null);
@@ -234,10 +233,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			Log.e("Player Turn", "Human player's turn." + playerNum);
 			MahjongTile drawnTile = state.getCurrentDrawnTile();
 			if (drawnTile != null) {
-				setHandGUI(IVDrawnCard, drawnTile);
+				setHandGUI(IVDrawnTile, drawnTile);
 			}
 			else {
-				emptyDrawnCard(R.drawable.blank_tile);
+				emptyImageView(IVDrawnTile,R.drawable.blank_tile);
 			}
 		}
 
@@ -250,12 +249,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 				lastDiscardCheck = state.getLastDiscarded();
 			}
 		}
+		//if last discarded is null from chow, set empty
+		else {
+			emptyImageView(IVlastDiscarded,R.drawable.blank_tile);
+		}
 
 		//Change text of draw tile button if Chow Mode entered
 		if (state.getPlayerID() == playerNum && state.isChowMode()) {
 			btDraw.setText("Continue");
 		}
-		//Change text of draw tile button back
+		//Change text of draw tile button from continue back to draw new tile
 		else {
 			btDraw.setText("Draw New Tile");
 		}
@@ -265,10 +268,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * Set drawn card IV
 	 * @param imageResource - the image we want to set the drawn card to
 	 */
-	public void emptyDrawnCard(int imageResource) {
-		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
+	public void emptyImageView (ImageView view, int imageResource) {
+		IVDrawnTile = myActivity.findViewById(R.id.iVDrawnCard);
 
-		IVDrawnCard.setImageResource(imageResource);
+		view.setImageResource(imageResource);
 	}
 
 	/**
@@ -460,7 +463,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	public void initializeObjects(){
 		//Initialize all View references
 		//   image views
-		IVDrawnCard = myActivity.findViewById(R.id.iVDrawnCard);
+		IVDrawnTile = myActivity.findViewById(R.id.iVDrawnCard);
 		IVlastDiscarded = myActivity.findViewById(R.id.iVLastDiscarded);
 
 		//   buttons

@@ -149,6 +149,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 if (gameState.isChowMode()) {
                     gameState.setChowMode(-1);
                 }
+                //If already not in chow mode, check to see if last discarded is chowable
                 else {
                     //set chow mode if last discarded tile is chowable
                     setChowMode();
@@ -347,6 +348,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
         if (gameState.isChowMode()) {
             chowTile = gameState.getLastDiscarded();
+            gameState.setLastDiscarded(null);
         }
     }
 
