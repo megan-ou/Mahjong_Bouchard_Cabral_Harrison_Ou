@@ -7,6 +7,7 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -148,7 +149,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
-		//MahjongChowAction chowAction = new MahjongChowAction(this);
+		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
 		if (button.getId() == R.id.btDraw) {
@@ -173,9 +174,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(null,null);
         }
 
-//		else if (button.getId() == R.id.btChow) {
-//			game.sendAction(chowAction);
-//		}
+		else if (button.getId() == R.id.btChow) {
+			game.sendAction(chowAction);
+		}
 		//TODO: Implement chow & switch view after alpha release
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
@@ -230,6 +231,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 		//Update the display to reflect this new state IF it is human player's turn
 		if (state.getPlayerID() == playerNum) {
+			Log.e("Player Turn", "Human player's turn." + playerNum);
 			MahjongTile drawnTile = state.getCurrentDrawnTile();
 			if (drawnTile != null) {
 				setHandGUI(IVDrawnCard, drawnTile);
@@ -250,13 +252,13 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		}
 
 		//Change text of draw tile button if Chow Mode entered
-//		if (state.getPlayerID() == playerNum && state.isChowMode()) {
-//			btDraw.setText("Continue");
-//		}
+		if (state.getPlayerID() == playerNum && state.isChowMode()) {
+			btDraw.setText("Continue");
+		}
 		//Change text of draw tile button back
-		//else {
+		else {
 			btDraw.setText("Draw New Tile");
-		//}
+		}
 	} //receiveInfo
 
 	/**

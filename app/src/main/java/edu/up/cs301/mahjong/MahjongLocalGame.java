@@ -59,7 +59,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
         hasDrawnTile = false;
         drawnTile = null;
-       chowTile = null;
+        chowTile = null;
     }
 
     /**
@@ -134,19 +134,20 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 //set last current drawn tile to null
                 gameState.setCurrentDrawnTile(null);
 
+                //change turns of players
+                gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+
                 //turn off chow mode if this is a Chow discard
                 if (gameState.isChowMode()) {
                     gameState.setChowMode(-1);
                 }
-
-                //change turns of players
-                gameState.makeDiscardAction((MahjongDiscardTileAction) action);
+                else {
+                    //set chow mode if last discarded tile is chowable
+                    setChowMode();
+                }
 
                 //reset the variable
                 hasDrawnTile = false;
-
-                //set chow mode if last discarded tile is chowable
-                setChowMode();
 
                 return true;
             }
@@ -335,6 +336,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 break;
 
         } //end switch case
+
+        if (gameState.isChowMode()) {
+            chowTile = gameState.getLastDiscarded();
+        }
     }
 
     /**

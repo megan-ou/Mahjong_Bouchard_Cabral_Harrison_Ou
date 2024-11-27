@@ -59,8 +59,8 @@ public class MahjongMainActivity extends GameMainActivity {
 
 		// Create a game configuration class for Counter:
 		// - player types as given above
-		// - from 1 to 2 players
-		// - name of game is "Counter Game"
+		// - must have 4 players
+		// - name of game is "Mahjong Game"
 		// - port number as defined above
 		GameConfig defaultConfig = new GameConfig(playerTypes, 4, 4, "Mahjong Game",
 				PORT_NUMBER);

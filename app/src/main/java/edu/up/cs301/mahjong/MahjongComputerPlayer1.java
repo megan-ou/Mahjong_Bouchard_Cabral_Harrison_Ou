@@ -73,6 +73,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			return;
 		}
 
+		Log.e("Player Turn", "Dumb AI player's turn." + playerNum);
+
 		try {
 			//brief pause
 			Thread.sleep(300);
@@ -89,10 +91,10 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			hasDrawnTile = true;
 		}
 		//Send a draw action to exit chow mode
-//		else if (mgs.isChowMode()) {
-//			game.sendAction(new MahjongDrawTileAction(this));
-//			hasDrawnTile = false; //just to be safe
-//		}
+		else if (mgs.isChowMode()) {
+			game.sendAction(new MahjongDrawTileAction(this));
+			hasDrawnTile = false; //just to be safe
+		}
 		//Discard a tile if a tile is drawn
 		else {
 			discardHelper();
