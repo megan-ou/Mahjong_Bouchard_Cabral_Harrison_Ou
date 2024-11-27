@@ -47,8 +47,23 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			discButtonIDArray[i] = i;
 		}
     }
-    
-    /**
+
+
+	/**
+	 * External Citation
+	 * Date: 11/26/2024
+	 * Problem: Our Computer Player was making more draw tiles actions than allowed.
+	 * Resource: Dr. Nuxoll
+	 * Solution: Add an 'if' statement to check if computer player has not drawn a tile yet, and let them draw a tile.
+	 *
+	 * External Citation
+	 * Date: 11/26/2024
+	 * Problem: Our Computer Player was making more draw tiles actions than allowed, and we did not know
+	 * how to exit if it is not the computer players turn.
+	 * Resource: Dr. Libby
+	 * Solution: Used the 'playerNum' variable from GamePlayer
+	 *
+	 *
      * Callback method--game's state has changed
      * 
      * @param info - the information (presumably containing the game's state)
@@ -101,8 +116,17 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			hasDrawnTile = false;
 		}
 	}
-	
+
 	/**
+	 *
+	 *
+	 * External Citation
+	 * Date: 11/26/2024
+	 * Problem: Our now 'discardHelper()' method was originally 'timedTick()' and was calling our computpers makeDrawTileAction. Which
+	 * was contributing to our computer player making multiple drawTiles actions.
+	 * Resource: Dr. Nuxoll
+	 * Solution: Moved that code to the above method and renamed this function to 'discardHelper' instead.
+	 *
 	 * code to send a discard
 	 */
 	protected void discardHelper() {
