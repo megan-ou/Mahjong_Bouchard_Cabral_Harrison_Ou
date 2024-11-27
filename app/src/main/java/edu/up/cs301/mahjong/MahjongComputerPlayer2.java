@@ -114,18 +114,9 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 				break;
 		}
 
-		//Draw a tile if a tile has not yet been drawn
-		if (!hasDrawnTile) {
-			//First draw tile
-			game.sendAction(new MahjongDrawTileAction(this));
-			Log.e("Computer Player", "Tile is drawn");
-
-			hasDrawnTile = true;
-		}
-
 		//Send chow action if in chow mode
 		//Just to build in a little bit of error into Smart AI, 10% chance Smart AI skips chow entirely
-		else if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
+		if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
 			double randNum = Math.random();
 			//chow 90% of time
 			if (randNum < 0.9) {
@@ -137,6 +128,15 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 				game.sendAction(new MahjongDrawTileAction(this));
 				hasDrawnTile = false;
 			}
+		}
+
+		//Draw a tile if a tile has not yet been drawn
+		else if (!hasDrawnTile) {
+			//First draw tile
+			game.sendAction(new MahjongDrawTileAction(this));
+			Log.e("Computer Player", "Tile is drawn");
+
+			hasDrawnTile = true;
 		}
 
 		//If chow action is taken, finish chow turn by making a discard OR
