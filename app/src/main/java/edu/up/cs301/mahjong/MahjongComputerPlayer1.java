@@ -68,8 +68,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 
 
 
-		//exit if it is human player
-		if (mgs.getPlayerID() == 0) {
+		//exit if it is not computer's turn
+		if (mgs.getPlayerID() != playerNum) {
 			return;
 		}
 
@@ -80,19 +80,22 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 			/* don't care */
 		}
 
-		if (! hasDrawnTile) {
-
+		//Draw a tile if a tile has not yet been drawn
+		if (!hasDrawnTile) {
 			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
 			Log.e("Computer Player", "Tile is drawn");
 
 			hasDrawnTile = true;
-
 		}
+		//Send a draw action to exit chow mode
+		else if (mgs.isChowMode()) {
+			game.sendAction(new MahjongDrawTileAction(this));
+			hasDrawnTile = false; //just to be safe
+		}
+		//Discard a tile if a tile is drawn
 		else {
-			//then discard
 			discardHelper();
-
 			hasDrawnTile = false;
 		}
 	}

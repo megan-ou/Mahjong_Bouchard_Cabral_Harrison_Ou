@@ -4,13 +4,9 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
-import edu.up.cs301.mahjong.tiles.DotsTile;
-import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
-import edu.up.cs301.mahjong.tiles.SymbolsTile;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.Serializable;
 
@@ -36,9 +32,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
     private MahjongTile drawnTile;
 
     private MahjongTile chowTile;
-
-    private int chowPlayer;
-
 
     /**
      * Can this player move
@@ -67,7 +60,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         hasDrawnTile = false;
         drawnTile = null;
         chowTile = null;
-        chowPlayer = -1;
     }
 
     /**
@@ -80,10 +72,8 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
 
-        if (gameState.isChowMode()) {
-            drawnTile = chowTile;
-        }
-
+        //if drawable tiles run out, reshuffle the discard pile and make all discarded tiles
+        //drawable
         if (!tileDrawable()) {
             gameState.reshuffleDiscard();
         }
@@ -91,16 +81,31 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         Log.i("action", action.getClass().toString());
         if (canMove(playerID)) {
             if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
-                //keep randomly selecting a tile until an unused tile is drawn
-                while (!hasDrawnTile) {
-                    drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
-                    if (drawnTile.getLocationNum() == 0) {
-                        gameState.setCurrentDrawnTile(drawnTile);
-                        drawnTile.setLocationNum(gameState.getPlayerID() + 1);
-                        hasDrawnTile = true;
-                    }
+                //if it is chow mode and draw tile (renamed to continue) is clicked,
+                //exit chow mode
+                if (gameState.isChowMode()) {
+                    gameState.setChowMode(-1);
+
+                    //discard the chow tile
+                    chowTile.setTileStatus(0);
+                    chowTile.setLocationNum(5);
+                    gameState.setCurrentDrawnTile(null);
+                    return true;
                 }
-                return true;
+
+                //draw tiles normally
+                else {
+                    //keep randomly selecting a tile until an unused tile is drawn
+                    while (!hasDrawnTile) {
+                        drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+                        if (drawnTile.getLocationNum() == 0) {
+                            gameState.setCurrentDrawnTile(drawnTile);
+                            drawnTile.setLocationNum(gameState.getPlayerID() + 1);
+                            hasDrawnTile = true;
+                        }
+                    }
+                    return true;
+                }
 
             } else if (action instanceof MahjongDiscardTileAction && hasDrawnTile) {
                 int buttonID = ((MahjongDiscardTileAction) action).getDiscardButtonID();
@@ -126,71 +131,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 //set last current drawn tile to null
                 gameState.setCurrentDrawnTile(null);
 
-                MahjongTile lastDiscarded = gameState.getLastDiscarded();
-                MahjongTile[] handOne = gameState.getPlayerOneHand();
-                MahjongTile[] handTwo = gameState.getPlayerTwoHand();
-                MahjongTile[] handThree = gameState.getPlayerThreeHand();
-                MahjongTile[] handFour = gameState.getPlayerFourHand();
-
-                //Added as a check just in case
-                if (lastDiscarded == null) {
-                    Log.e("ChowLogic", "No tile to chow");
-                    return false; // No tile to chow
+                //turn off chow mode if this is a Chow discard
+                if (gameState.isChowMode()) {
+                    gameState.setChowMode(-1);
                 }
-
-                //check to see if any other player can chow the last discarded tile
-                //and enter chow mode
-                switch (playerID) {
-                    case 0:
-                        if (canChow(handTwo, lastDiscarded)) {
-                            chowPlayer = 1; //player ID of player 2
-                            setChow(chowPlayer);
-                        } else if (canChow(handThree, lastDiscarded)) {
-                            chowPlayer = 2;
-                            setChow(chowPlayer);
-                        } else if (canChow(handFour, lastDiscarded)) {
-                            chowPlayer = 3;
-                            setChow(chowPlayer);
-                        }
-                        break;
-                    case 1:
-                        if (canChow(handOne, lastDiscarded)) {
-                            chowPlayer = 0;
-                            setChow(chowPlayer);
-                        } else if (canChow(handThree, lastDiscarded)) {
-                            chowPlayer = 2;
-                            setChow(chowPlayer);
-                        } else if (canChow(handFour, lastDiscarded)) {
-                            chowPlayer = 3;
-                            setChow(chowPlayer);
-                        }
-                        break;
-                    case 2:
-                        if (canChow(handOne, lastDiscarded)) {
-                            chowPlayer = 0;
-                            setChow(chowPlayer);
-                        } else if (canChow(handTwo, lastDiscarded)) {
-                            chowPlayer = 1;
-                            setChow(chowPlayer);
-                        } else if (canChow(handFour, lastDiscarded)) {
-                            chowPlayer = 3;
-                            setChow(chowPlayer);
-                        }
-                        break;
-                    case 3:
-                        if (canChow(handOne, lastDiscarded)) {
-                            chowPlayer = 0;
-                            setChow(chowPlayer);
-                        } else if (canChow(handTwo, lastDiscarded)) {
-                            chowPlayer = 1;
-                            setChow(chowPlayer);
-                        } else if (canChow(handThree, lastDiscarded)) {
-                            chowPlayer = 2;
-                            setChow(chowPlayer);
-                        }
-                        break;
-
-                } //end switch case
 
                 //change turns of players
                 gameState.makeDiscardAction((MahjongDiscardTileAction) action);
@@ -198,20 +142,24 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 //reset the variable
                 hasDrawnTile = false;
 
-                return true;
-            } else if (action instanceof MahjongSwitchViewAction) {
+                //set chow mode if last discarded tile is chowable
+                setChowMode();
+
                 return true;
             }
-        } else if (chowPlayer == playerID) {
-            if (action instanceof MahjongChowAction) {
 
+            else if (action instanceof MahjongChowAction) {
+                //set chow tile as a last discarded and change its status
                 chowTile = gameState.getLastDiscarded();
+                chowTile.setTileStatus(3);
 
-                chowTile.setLocationNum(playerID + 1);
-
+                //set drawn tile to chow tile
+                gameState.setCurrentDrawnTile(chowTile);
                 hasDrawnTile = true;
+                return true;
+            }
 
-                chowPlayer = -1;
+            else if (action instanceof MahjongSwitchViewAction) {
                 return true;
             }
         }
@@ -247,18 +195,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
      * @param index     - the index of the drawnTile in the player's hand
      */
     public void discardTileHelper(MahjongTile drawnTile, int playerID, int index) {
-        //TODO REMOVE DEBUG
-        int count = 10;
-        while  (drawnTile == null) {
-            count--;
-            try { Thread.sleep(1); }
-            catch(InterruptedException ie) {}
-            if (count < 0) {
-                break;
-            }
-        }
-
-
         //set location of drawn tile to player hand
         drawnTile.setLocationNum(playerID + 1);
         if (playerID == 0) {
@@ -338,13 +274,63 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         }
     }
 
-    public void setChow(int chowPlayer) {
-        Log.e("Chow Called", "Chow mode was entered");
-        //turn on chow mode in game state
-        gameState.setChowMode(chowPlayer);
+    /**
+     * Helper method that checks if a player can chow
+     */
+    public void setChowMode() {
+        int playerID = gameState.getPlayerID();
+        MahjongTile lastDiscarded = gameState.getLastDiscarded();
+        MahjongTile[] handOne = gameState.getPlayerOneHand();
+        MahjongTile[] handTwo = gameState.getPlayerTwoHand();
+        MahjongTile[] handThree = gameState.getPlayerThreeHand();
+        MahjongTile[] handFour = gameState.getPlayerFourHand();
 
-        //turn off chow mode if it is turned on
-        gameState.setChowMode(-1);
+        //Added as a check just in case
+        if (lastDiscarded == null) {
+            Log.e("ChowLogic", "No tile to chow");
+        }
+
+        //check to see if any other player can chow the last discarded tile
+        //and enter chow mode
+        switch (playerID) {
+            case 0:
+                if (canChow(handTwo, lastDiscarded)) {
+                    gameState.setChowMode(1);
+                } else if (canChow(handThree, lastDiscarded)) {
+                    gameState.setChowMode(2);
+                } else if (canChow(handFour, lastDiscarded)) {
+                    gameState.setChowMode(3);
+                }
+                break;
+            case 1:
+                if (canChow(handOne, lastDiscarded)) {
+                    gameState.setChowMode(0);
+                } else if (canChow(handThree, lastDiscarded)) {
+                    gameState.setChowMode(2);
+                } else if (canChow(handFour, lastDiscarded)) {
+                    gameState.setChowMode(3);
+                }
+                break;
+            case 2:
+                if (canChow(handOne, lastDiscarded)) {
+                    gameState.setChowMode(0);
+                } else if (canChow(handTwo, lastDiscarded)) {
+                    gameState.setChowMode(1);
+                } else if (canChow(handFour, lastDiscarded)) {
+                    gameState.setChowMode(3);
+                }
+                break;
+            case 3:
+                if (canChow(handOne, lastDiscarded)) {
+                    gameState.setChowMode(0);
+                } else if (canChow(handTwo, lastDiscarded)) {
+                    gameState.setChowMode(1);
+                } else if (canChow(handThree, lastDiscarded)) {
+                    gameState.setChowMode(2);
+                }
+                break;
+
+        } //end switch case
     }
 
     /**
