@@ -203,7 +203,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void updateDiscardPile (String addedText) {
 		String existingText = discardPile.getText().toString();
-		discardPile.setText(existingText + "\n" + addedText);
+		discardPile.setText(addedText + "\n" + existingText);
 	}
 
 	/**
