@@ -49,7 +49,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	private int bestNumSets;
 	private int pair;
 
-	//private boolean chowMode;
+	private boolean chowMode;
 	private int origPlayer;
 
 	/**
@@ -123,7 +123,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		//this.bestPerm = new MahjongTile[mgs.bestPerm.length];
 		//setEmptyHand(this.bestPerm);
 		//copyArray(this.bestPerm, mgs.bestPerm);
-		//this.chowMode = mgs.chowMode;
+		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
 
 	}
@@ -177,22 +177,22 @@ public class MahjongGameState extends GameState implements Serializable {
 	 *
 	 * Chow mode resets player ID to player who can chow and changes back afterwards
 	 */
-//	public void setChowMode(int chowPlayer) {
-//		//turn on chow mode
-//		if (!chowMode) {
-//			Log.e("Chow Called", "Chow mode was turned on.");
-//			chowMode = true;
-//			origPlayer = playerID;
-//			playerID = chowPlayer;
-//		}
-//
-//		else {
-//			Log.e("Chow Called", "Chow mode was turned off.");
-//			chowMode = false;
-//			playerID = origPlayer;
-//			origPlayer = -1;
-//		}
-//	}
+	public void setChowMode(int chowPlayer) {
+		//turn on chow mode
+		if (!chowMode) {
+			Log.e("Chow Called", "Chow mode was turned on.");
+			chowMode = true;
+			origPlayer = playerID;
+			playerID = chowPlayer;
+		}
+
+		else {
+			Log.e("Chow Called", "Chow mode was turned off.");
+			chowMode = false;
+			playerID = origPlayer;
+			origPlayer = -1;
+		}
+	}
 
 	/**
 	 * method that initializes and adds all elements to the classes deck
@@ -1104,9 +1104,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		return lastDiscarded;
 	}
 
-//	public boolean isChowMode() {
-//		return chowMode;
-//	}
+	public boolean isChowMode() {
+		return chowMode;
+	}
 
 	/**
 	 * Setter Methods
