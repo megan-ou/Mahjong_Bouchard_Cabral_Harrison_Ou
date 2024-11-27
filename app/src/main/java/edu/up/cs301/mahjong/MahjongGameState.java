@@ -798,6 +798,9 @@ public class MahjongGameState extends GameState implements Serializable {
 				sortHand(sticksHand); //use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(sticksHand);
 			}
+
+			sortHand(miscHand);
+
 			if (pair < 1){
 				pair+= countNumPairs(miscHand);
 			}
@@ -810,12 +813,15 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 			for (MahjongTile st : sticksHand) {
 				origHand[index] = st;
+				index++;
 			}
 			for (MahjongTile dt : dotsHand) {
 				origHand[index] = dt;
+				index++;
 			}
 			for (MahjongTile miscTile : miscHand) {
 				origHand[index] = miscTile;
+				index++;
 			}
 
 		totalSets += countNumSets(miscHand);
