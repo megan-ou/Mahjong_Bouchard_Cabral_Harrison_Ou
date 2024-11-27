@@ -42,7 +42,10 @@ public class MahjongGameState extends GameState implements Serializable {
 	private MahjongTile[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
-	private MahjongTile[] bestPerm;
+	private MahjongTile[] bestHanzi;
+	private MahjongTile[] bestDots;
+	private MahjongTile[] bestSticks;
+
 	private int bestNumSets;
 	private int pair;
 
@@ -87,8 +90,6 @@ public class MahjongGameState extends GameState implements Serializable {
 
 		bestNumSets = 0;
 		pair = 0;
-		bestPerm = new MahjongTile[14];
-		setEmptyHand(bestPerm);
 
 		chowMode = false;
 		origPlayer = -1;
@@ -638,7 +639,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * @param hand - the tile array/hand to be sorted
 	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
-	public void permutationSort(MahjongTile[] hand, int idx) {
+	public void permutationSort(MahjongTile[] hand, int idx, MahjongTile[] bestPerm) {
 
 		//base case that handles the assignment to bestPerm
 		//and checks for numsets and pairs when index is length
@@ -656,7 +657,7 @@ public class MahjongGameState extends GameState implements Serializable {
 
 			for (int i = idx; i < hand.length; i++) {
 				swap(hand, i, idx);
-				permutationSort(hand, idx + 1);
+				permutationSort(hand, idx + 1, bestPerm);
 				swap(hand, i, idx);
 			}
 		}
@@ -735,6 +736,10 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
+		this.bestHanzi = new MahjongTile[hanzi.size()];
+		this.bestDots = new MahjongTile[dots.size()];
+		this.bestSticks = new MahjongTile[sticks.size()];
+
 			//Reassign array lists to arrays for numbered suits
 			MahjongTile[] hanziHand = new MahjongTile[hanzi.size()];
 			for(int q = 0; q < hanzi.size(); q++){
@@ -759,9 +764,9 @@ public class MahjongGameState extends GameState implements Serializable {
 			//Run permutation sort on each numbered suit with 4 or more tiles
 			//If less than 4 tiles run traditional sort (by suit and value)
 			if(hanziHand.length >= 4){
-				permutationSort(hanziHand, 0);
-				hanziHand = Arrays.copyOf(bestPerm, bestPerm.length);
-				clearArray(bestPerm);
+				permutationSort(hanziHand, 0, bestHanzi);
+				hanziHand = Arrays.copyOf(bestHanzi, bestHanzi.length);
+				clearArray(bestHanzi);
 				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
@@ -771,9 +776,9 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 
 			if(dotsHand.length >= 4){
-				permutationSort(dotsHand, 0);
-				dotsHand = Arrays.copyOf(bestPerm, bestPerm.length);
-				clearArray(bestPerm);
+				permutationSort(dotsHand, 0, bestDots);
+				dotsHand = Arrays.copyOf(bestDots, bestDots.length);
+				clearArray(bestDots);
 				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
@@ -783,9 +788,9 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 
 			if(sticksHand.length >= 4){
-				permutationSort(sticksHand, 0);
-				sticksHand = Arrays.copyOf(bestPerm, bestPerm.length);
-				clearArray(bestPerm);
+				permutationSort(sticksHand, 0, bestSticks);
+				sticksHand = Arrays.copyOf(bestSticks, bestSticks.length);
+				clearArray(bestSticks);
 				totalSets += bestNumSets;
 				bestNumSets = 0;
 			}
@@ -801,6 +806,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			int index = 0;
 			for (MahjongTile ht : hanziHand) {
 				origHand[index] = ht;
+				index++;
 			}
 			for (MahjongTile st : sticksHand) {
 				origHand[index] = st;
