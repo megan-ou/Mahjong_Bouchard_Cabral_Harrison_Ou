@@ -271,9 +271,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
         if ((numSetsBefore + 1) == numSetsAfter) {
             return true;
-        } else {
-            return false;
         }
+
+        else {
+            return false;
         }
     }
 
@@ -346,8 +347,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         // this is a perfect-information game, so we'll make a
         // complete copy of the state to send to the player
         p.sendInfo(new MahjongGameState(this.gameState));
-
-
     }//sendUpdatedSate
 
     /**
