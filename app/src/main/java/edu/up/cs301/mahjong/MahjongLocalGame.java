@@ -70,8 +70,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
      * Date: 11/27/2024
      * 	 Problem: Could not find source of a crash, how to use debugger.
      * 	 Resource: Dr. Nuxoll's office hours
-     * 	 Solution: Run debugger, then place breakpoints. Also re-ordered some of the code
-     * 	    in makeMove() method to help with when to turn on and off chow mode in discardAction
+     * 	 Solution: Run debugger, then place breakpoints. Re-ordered some of the code
+     * 	    in makeMove() method to help with when to turn on and off chow mode in discardAction.
+     * 	    Set chowTile variable in setChowMode() method IF chowMode was turned on.
+     *
      *
      * @param action - the action received
      */
@@ -94,12 +96,13 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 //if it is chow mode and draw tile (renamed to continue) is clicked,
                 //exit chow mode
                 if (gameState.isChowMode()) {
+                    //Turn off chow mode
                     gameState.setChowMode(-1);
 
                     //discard the chow tile
                     chowTile.setTileStatus(0);
                     chowTile.setLocationNum(5);
-                    gameState.setCurrentDrawnTile(null);
+                    chowTile = null;
                     return true;
                 }
 
@@ -163,7 +166,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
             else if (action instanceof MahjongChowAction) {
                 //set chow tile as a last discarded and change its status
-                chowTile = gameState.getLastDiscarded();
                 chowTile.setTileStatus(3);
 
                 //set drawn tile to chow tile
