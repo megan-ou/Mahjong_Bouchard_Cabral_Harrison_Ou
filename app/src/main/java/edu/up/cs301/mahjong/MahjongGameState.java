@@ -690,7 +690,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		int totalScore = 0;
 		MahjongTile[] hand;
 		hand = Arrays.copyOf(origHand, 14);
-		if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null ) {
+		if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null) {
 			hand[13] = getCurrentDrawnTile();
 		}
 
