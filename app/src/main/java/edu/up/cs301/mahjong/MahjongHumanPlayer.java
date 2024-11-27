@@ -177,7 +177,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else if (button.getId() == R.id.btChow) {
 			game.sendAction(chowAction);
 		}
-		//TODO: Implement chow & switch view after alpha release
+		//TODO: Implement switch view after alpha release
 //		else if (button instanceof MSwitchViewButton) {
 //			game.sendAction(switchViewAction);
 //		}

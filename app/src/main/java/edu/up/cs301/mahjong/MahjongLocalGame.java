@@ -63,7 +63,15 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
     }
 
     /**
-     * There are four different actions a user can take
+     * There are four different actions a user can take: draw tile, discard tile, chow a discarded
+     * tile, and switch view (between table view and gameplay)
+     *
+     * External Citation:
+     * Date: 11/27/2024
+     * 	 Problem: Could not find source of a crash, how to use debugger.
+     * 	 Resource: Dr. Nuxoll's office hours
+     * 	 Solution: Run debugger, then place breakpoints. Also re-ordered some of the code
+     * 	    in makeMove() method to help with when to turn on and off chow mode in discardAction
      *
      * @param action - the action received
      */
