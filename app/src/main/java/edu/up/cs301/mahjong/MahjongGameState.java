@@ -42,24 +42,25 @@ public class MahjongGameState extends GameState implements Serializable {
 	private MahjongTile[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
 
+	//For permutation
 	private MahjongTile[] bestHanzi;
 	private MahjongTile[] bestDots;
 	private MahjongTile[] bestSticks;
-
 	private int bestNumSets;
 	private int pair;
 
+	//For 'Chow'
 	private boolean chowMode;
 	private int origPlayer;
 
 	private boolean gameplayView;
 
 	/**
-	 * default ctor
+	 * Default ctor
 	 *
 	 * Set all player stats (ID, numSets/Pairs) to 0.
 	 * Instantiate all player hand arrays and calls helper method to give them empty tiles
-	 * 	Empty tiles have a value of -1 and no suit, meant only as a placeholder
+	 * Empty tiles have a value of -1 and no suit, meant only as a placeholder
 	 * Any MahjongTile objects are set to null.
 	 * Instantiates the deck of tiles, deals tiles to all 4 players, and sorts all hands
 	 * Sets up permutation array and holder variable that denotes best permutation numSets
@@ -140,7 +141,6 @@ public class MahjongGameState extends GameState implements Serializable {
 		for(int q = 0; q < mta.length; q++){
 			mta[q] = new MahjongTile("empty suit", -1);
 		}
-
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * Chow mode resets player ID to player who can chow and changes back afterwards
 	 */
 	public void setChowMode(int chowPlayer) {
-		//turn on chow mode
+		//Turn on chow mode
 		if (!chowMode) {
 			Log.e("Chow Called", "Chow mode was turned on.");
 			chowMode = true;
@@ -198,8 +198,8 @@ public class MahjongGameState extends GameState implements Serializable {
 	}
 
 	/**
-	 * method that initializes and adds all elements to the classes deck
-	 * takes an array, adds all tiles with for loops
+	 * Initializes and adds all elements to the classes deck
+	 * 	- takes an array, adds all tiles with for loops
 	 *
 	 * @param deck - the deck we want to initialize
 	 * @return the deck we've initialized
@@ -207,12 +207,12 @@ public class MahjongGameState extends GameState implements Serializable {
 	public MahjongTile[] mahjongDeck(MahjongTile[] deck){
 		clearArray(deck);
 
-		//index of entire deck array, should cap at 135
+		//Index of entire deck array, should cap at 135
 		int deckIndex = 0;
 
-		//creates 4 copies of each tile
+		//Creates 4 copies of each tile
 		for (int i = 0; i < 4; i++) {
-			//create tiles in each of three suits: hanzi, dots, sticks
+			//Create tiles in each of three suits: hanzi, dots, sticks
 			for (int j = 0; j < 9; j++) {
 				deck[deckIndex] = new HanziTile(j+1);
 				deckIndex++;
@@ -222,8 +222,8 @@ public class MahjongGameState extends GameState implements Serializable {
 				deckIndex++;
 			}
 
-			//create all 7 unique symbol tiles
-			//all symbol tiles have a value of 0
+			//Create all 7 unique symbol tiles
+			//All symbol tiles have a value of 0
 			deck[deckIndex] = new SymbolsTile("Earth");
 			deckIndex++;
 			deck[deckIndex] = new SymbolsTile("Fire");
@@ -240,7 +240,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			deckIndex++;
 		}
 		return deck;
-	}
+	}//mahjongDeck()
 
 	/**
 	 * Method that will deal the 13 initial tiles to all 4 players
@@ -248,13 +248,13 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * - This will randomly draw a tile, if it is not in the draw pile (Location 0), it will  draw again
 	 */
 	public void dealTiles() {
-		//set all hands to null
+		//Set all hands to null
 		setEmptyHand(playerOneHand);
 		setEmptyHand(playerTwoHand);
 		setEmptyHand(playerThreeHand);
 		setEmptyHand(playerFourHand);
 
-		//deal tiles to player 1
+		//Deal tiles to player 1
 		int numDrawn = 0;
 		int randIndex;
 
@@ -267,7 +267,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//deal tiles to player 2
+		//Deal tiles to player 2
 		numDrawn = 0;
 
 		while (numDrawn < 13) {
@@ -279,7 +279,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//deal tiles to player 3
+		//Deal tiles to player 3
 		numDrawn = 0;
 
 		while (numDrawn < 13) {
@@ -291,7 +291,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//deal tiles to player 4
+		//Deal tiles to player 4
 		numDrawn = 0;
 
 		while (numDrawn < 13) {
@@ -320,8 +320,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		MahjongTile[] sortedDeck = new MahjongTile[deck.length];
 		clearArray(sortedDeck);
 
-		//counter variables to see how many tiles are in each location
-
+		//Counter variables to see how many tiles are in each location
 		int num0 = 0;
 		int num1 = 0;
 		int num2 = 0;
@@ -329,7 +328,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		int num4 = 0;
 		int num5 = 0;
 
-		//first loop goes into the deck and counts how many tiles are in each location
+		//First loop goes into the deck and counts how many tiles are in each location
 		for (int i = 0; i < deck.length; i++) {
 			switch (deck[i].getLocationNum()) {
 				case 0:
@@ -353,8 +352,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//find starting index for each location based on how many tiles are in each location
-
+		//Find starting index for each location based on how many tiles are in each location
 		int index0 = 0;
 		int index1 = num0;
 		int index2 = index1 + num1;
@@ -362,9 +360,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		int index4 = index3 + num3;
 		int index5 = index4 + num4;
 
-
-		//second loop goes in and reassigns tiles to sortedDeck
-
+		//Second loop goes in and reassigns tiles to sortedDeck
 		for (int i = 0; i < deck.length; i++) {
 			switch (deck[i].getLocationNum()) {
 				case 0:
@@ -395,7 +391,6 @@ public class MahjongGameState extends GameState implements Serializable {
 		}
 
 		//set sorted deck to deck
-
 		for (int i = 0; i < deck.length; i++) {
 			this.deck[i] = sortedDeck[i];
 		}
@@ -404,7 +399,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	}
 
 	/**
-	 * Method that sorts a given hand by suit and then ascending numerical value
+	 * Sorts a given hand by suit and then ascending numerical value
 	 * prioritizes the values
 	 *
 	 * @param mahjongTiles - the tile array/hand to be sorted
@@ -421,8 +416,7 @@ public class MahjongGameState extends GameState implements Serializable {
 
 		//First, sort the hand by suit
 
-		//counter variables to see how many tiles are in each suit
-
+		//Counter variables to see how many tiles are in each suit
 		int numHanzi = 0;
 		int numDots = 0;
 		int numSticks = 0;
@@ -434,7 +428,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		int numStar = 0;
 		int numCat = 0;
 
-		//first loop goes into the deck and counts how many tiles are in each suit
+		//First loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < handSize; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
@@ -470,8 +464,8 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//find starting index for each suit based on how many tiles are in each suit, first must
-		//check if any cards of each suit are in the hand
+		//Find starting index for each suit based on how many tiles are in each suit, first must
+		//Check if any cards of each suit are in the hand
 
 		int lastEndingIndex = 0;
 
@@ -525,8 +519,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			indexCat = lastEndingIndex;
         }
 
-		//second loop goes in and reassigns tiles to sortedHand
-
+		//Second loop goes in and reassigns tiles to sortedHand
 		for (int i = 0; i < handSize; i++) {
 			switch (mahjongTiles[i].getSuit()) {
 				case "Hanzi":
@@ -572,8 +565,7 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 
-		//set sortedHand by suit to mahjongTiles[]
-
+		//Set sortedHand by suit to mahjongTiles[]
 		for (int i = 0; i < handSize; i++) {
 			mahjongTiles[i] = sortedHand[i];
 		}
@@ -583,7 +575,6 @@ public class MahjongGameState extends GameState implements Serializable {
 		/*Sort the hanzi, dots, and sticks suits by ascending numerical values
 			Reset all starting indexes to utilize range
 		 */
-
 		lastEndingIndex = 0;
 
 		if(numHanzi != 0) {
@@ -639,24 +630,22 @@ public class MahjongGameState extends GameState implements Serializable {
 	 *  Solution: Libby walked us through how to write the code.
 	 *
 	 * @param hand - the tile array/hand to be sorted
-	 * TODO: Work-in-progress on permutation -- Not included in Alpha Release
 	 */
 	public void permutationSort(MahjongTile[] hand, int idx, MahjongTile[] bestPerm) {
 
-		//base case that handles the assignment to bestPerm
-		//and checks for numsets and pairs when index is length
+		//Base case that handles the assignment to bestPerm and
+		//checks for numSets and pairs when index is length
 		if(idx == hand.length){
 
 			if(countNumSets(hand) >= bestNumSets){
-				copyArray(bestPerm, hand); //is deep copy necessary?
+				copyArray(bestPerm, hand);
 				bestNumSets = countNumSets(hand);
 				if (pair == 0 && countNumPairs(hand) > 0) {
-					pair = 1; //we only need one pair to win
+					pair = 1; //We only need one pair to win
 				}
 			}
 		}
 		else {
-
 			for (int i = idx; i < hand.length; i++) {
 				swap(hand, i, idx);
 				permutationSort(hand, idx + 1, bestPerm);
@@ -684,7 +673,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		if(chowMode){
 			return 0;
 		}
-		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols + Revealed tiles
+		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> dots = new ArrayList<>();
 		ArrayList<MahjongTile> sticks = new ArrayList<>();
@@ -747,9 +736,6 @@ public class MahjongGameState extends GameState implements Serializable {
 					case "Cat":
 						misc.add(hand[i]);
 						break;
-					case "empty suit":
-						//misc.add(hand[i]);
-						break;
 				}
 			}
 		}
@@ -758,7 +744,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.bestDots = new MahjongTile[dots.size()];
 		this.bestSticks = new MahjongTile[sticks.size()];
 
-			//Reassign array lists to arrays for numbered suits
+			//Reassign array lists to arrays for permutationSort
 			MahjongTile[] hanziHand = new MahjongTile[hanzi.size()];
 			for(int q = 0; q < hanzi.size(); q++){
 				hanziHand[q] = hanzi.get(q);
@@ -789,7 +775,7 @@ public class MahjongGameState extends GameState implements Serializable {
 				bestNumSets = 0;
 			}
 			else {
-				sortHand(hanziHand); //use ascending sort on the hand if 3 tiles or less
+				sortHand(hanziHand); //Use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(hanziHand);
 			}
 
@@ -801,7 +787,7 @@ public class MahjongGameState extends GameState implements Serializable {
 				bestNumSets = 0;
 			}
 			else {
-				sortHand(dotsHand); //use ascending sort on the hand if 3 tiles or less
+				sortHand(dotsHand); //Use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(dotsHand);
 			}
 
@@ -813,7 +799,7 @@ public class MahjongGameState extends GameState implements Serializable {
 				bestNumSets = 0;
 			}
 			else {
-				sortHand(sticksHand); //use ascending sort on the hand if 3 tiles or less
+				sortHand(sticksHand); //Use ascending sort on the hand if 3 tiles or less
 				totalSets += countNumSets(sticksHand);
 			}
 
@@ -828,13 +814,13 @@ public class MahjongGameState extends GameState implements Serializable {
 
 		totalScore = (10 * totalSets) + pair;
 		/**
-		 * if the totalscore is 41 (ie: a winning hand), then the sorted hands
+		 * If the totalScore is 41 (ie: a winning hand), then the sorted hands
 		 * containing the optimized sets and a pair will push to the GUI and player hand
 		 *
-		 * otherwise the hand will remain unchanged, leaving this method as a checker for
+		 * Otherwise the hand will remain unchanged, leaving this method as a checker for
 		 * checkIfGame over
 		 *
-		 * game is over only when totalscore == 41, then hand will change in response
+		 * Game is over only when totalScore == 41, then hand will change in response
 		 *
 		 */
 			if(totalScore == 41) {
@@ -862,7 +848,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	}
 
 	/**
-	 * Method that counts how many sets are in a player's hand
+	 * Counts how many sets are in a player's hand
 	 * A set is three tiles of the same suit in numerical order (Ex: Hanzi 1, Hanzi 2, Hanzi 3)
 	 * OR three identical tiles (Ex: Hanzi 1, Hanzi 1, Hanzi 1 OR Flower, Flower Flower)
 	 *
@@ -870,7 +856,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * @return number of sets in a given hand
 	 */
 	public int countNumSets(MahjongTile[] playerHand) {
-		//reset numSets
+		//Reset numSets
 		this.numSets = 0;
 
 		String firstTileSuit;
@@ -885,14 +871,14 @@ public class MahjongGameState extends GameState implements Serializable {
 			secondTileSuit = playerHand[i+1].getSuit();
 			thirdTileSuit = playerHand[i+2].getSuit();
 
-			//check if 3 tiles in a row are of the same suit
+			//Check if 3 tiles in a row are of the same suit
 			if (firstTileSuit.equals(secondTileSuit) && firstTileSuit.equals(thirdTileSuit)) {
 				firstVal = playerHand[i].getValue();
 				secondVal = playerHand[i+1].getValue();
 				thirdVal = playerHand[i+2].getValue();
 
-				//check to see if values are in numerical order
-				//deck SHOULD be sorted into tiles of ascending order, so this should check if
+				//Check to see if values are in numerical order
+				//Deck SHOULD be sorted into tiles of ascending order, so this should check if
 				//the three values are sequential
 				if (secondVal == (firstVal + 1) && thirdVal == (firstVal+2) ) {
 					this.numSets++;
@@ -901,12 +887,12 @@ public class MahjongGameState extends GameState implements Serializable {
 					playerHand[i+1].setTileStatus(2);
 					playerHand[i+2].setTileStatus(2);
 
-					//set i to the index of the third tile so when loop increments, it skips the
+					//Set i to the index of the third tile so when loop increments, it skips the
 					//counted set
 					i += 2;
 				}
 
-				//check if there is a three of a kind
+				//Check if there is a three of a kind
 				else if (firstVal == secondVal && firstVal == thirdVal) {
 					this.numSets++;
 
@@ -919,17 +905,17 @@ public class MahjongGameState extends GameState implements Serializable {
 			}
 		}
 		return numSets;
-	}
+	}//countNumSets()
 
 	/**
-	 * Method that counts how many pairs are in a player's hand that are NOT already part of
+	 * Counts how many pairs are in a player's hand that are NOT already part of
 	 * a set (a pair is two identical tiles)
 	 *
 	 * @param playerHand - array of tiles that represents a player's hand
 	 * @return number of pairs in a given hand
 	 */
 	public int countNumPairs(MahjongTile[] playerHand) {
-		//reset numSets
+		//Reset numPairs
 		this.numPairs = 0;
 
 		String firstTileSuit;
@@ -941,30 +927,30 @@ public class MahjongGameState extends GameState implements Serializable {
 			firstTileSuit = playerHand[i].getSuit();
 			secondTileSuit = playerHand[i+1].getSuit();
 
-			//check if 2 tiles in a row are of the same suit and if the two tiles are NOT part of a
-			// set
+			//Check if 2 tiles in a row are of the same suit and if the two tiles are NOT part of a
+			//set
 			if (firstTileSuit.equals(secondTileSuit) && playerHand[i].getTileStatus() <= 1
 					&& playerHand[i+1].getTileStatus() <= 1) {
 				firstVal = playerHand[i].getValue();
 				secondVal = playerHand[i+1].getValue();
 
-				//check to see if values are equal
+				//Check to see if values are equal
 				if (secondVal == firstVal) {
 					playerHand[i].setTileStatus(1);
 					playerHand[i+1].setTileStatus(1);
 					this.numPairs++;
 
-					//set i to the index of the second tile so when loop increments, it skips the
+					//Set i to the index of the second tile so when loop increments, it skips the
 					//counted pair
 					i += 1;
 				}
 			}
 		}
 		return numPairs;
-	}
+	}//countNumPairs()
 
 	/**
-	 *  Sets the all discarded tiles (tiles with location num 5) to drawable tiles (location
+	 *  Sets all discarded tiles (tiles with location num 5) to drawable tiles (location
 	 *  num 0)
 	 */
 	public void reshuffleDiscard() {
@@ -977,7 +963,6 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	/**
 	 * Change player turn after discard
-	 * Caveats: right now, only works for a drawn tile, not chow yet
 	 *
 	 * @param action - the action occurring
 	 */
@@ -1027,16 +1012,13 @@ public class MahjongGameState extends GameState implements Serializable {
 	public String toString() {
 
 		return "\nPlayer ID: " + playerID + "\nNumber of Sets: "
-				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent hand: "
-				+ handToString(playerOneHand, MAX_TILES) + "\nCurrent Drawn Tile: "
+				+ numSets + "\nNumber of Pairs: " + numPairs + "\nCurrent Drawn Tile: "
 				+ lastDrawnTile + "\nLast Tile Discarded: " + lastDiscarded.toString()
 				+ "\nThe deck: " + deckToString(deck);
 	}
 
 	/**
-	 * This recursive method will return a string of the deck with all mahjong tiles that haven't
-	 * been used yet. This method must be passed the size of the array list in order to print
-	 * front to back.
+	 * Returns a string of the deck with all mahjong tiles that haven't been used yet.
 	 *
 	 * @param deck - the array list to be returned as a string
 	 * @return the deck element as a string
@@ -1047,32 +1029,6 @@ public class MahjongGameState extends GameState implements Serializable {
 		for (int i = 0; i < deck.length; i++) {
 			listTiles = listTiles + deck[i].toString();
 		}
-		return listTiles;
-	}
-
-	/**
-	* This is a  method that will return a string of all of the tiles
-	* in a specified hand.
-	 * TODO: Fix Me -- Not included in Alpha Release
-	* @param hand - the hand of tiles to be printed
-	 * @return all of the tiles of the hand as a string
-	*/
-	public String handToString(MahjongTile[] hand, int index) {
-		//There was an issue with the recursion, we will come back to this
-		/*if (index > 0) {
-			return handToString(hand, index - 1);
-		}
-		else {
-			return hand[index].toString();
-		}*/
-		String listTiles = "";
-
-//		for (int i = 0; i < hand.length; i++) {
-//			listTiles = listTiles + hand[i].toString();
-//		} TEMPORARY COMMENT OUT BECAUSE HAND IS NULL
-
-		listTiles = "null hand";
-
 		return listTiles;
 	}
 

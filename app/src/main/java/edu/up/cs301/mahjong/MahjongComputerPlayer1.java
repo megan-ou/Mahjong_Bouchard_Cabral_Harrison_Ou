@@ -36,10 +36,6 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
     public MahjongComputerPlayer1(String name) {
         //invoke superclass constructor
         super(name);
-        
-        //Start the timer, ticking 20 times per second
-        getTimer().setInterval(50);
-        getTimer().start();
 
 		//Initialize discButtonIDArray
 		for (int i = 0; i < discButtonIDArray.length; i++) {
@@ -49,6 +45,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 
 
 	/**
+	 * Callback method--game's state has changed
+	 *
 	 * External Citation
 	 * Date: 11/26/2024
 	 * Problem: Our Computer Player was making more draw tiles actions than allowed.
@@ -62,9 +60,6 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	 * how to exit if it is not the computer players turn.
 	 * Resource: Dr. Libby
 	 * Solution: Used the 'playerNum' variable from GamePlayer
-	 *
-	 *
-     * Callback method--game's state has changed
      * 
      * @param info - the information (presumably containing the game's state)
      */

@@ -35,20 +35,13 @@ import java.util.Arrays;
  * @version November 2024
  */
 public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Serializable {
-	
 	/*
 	 * instance variables
 	 */
 	private MahjongGameState mgs = null;
-
 	private boolean hasDrawnTile = false;
-
-	//array of discard button ids
-	private int[] discButtonIDArray = new int[15];
-
-	//The computer player's current hand of tiles
-	MahjongTile[]  hand;
-
+	private int[] discButtonIDArray = new int[15]; //Array of discard button ids
+	MahjongTile[]  hand; //The computer player's current hand of tiles
 
 	/**
 	 * Constructor
@@ -58,15 +51,12 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	 */
 	public MahjongComputerPlayer2(String name) {
 		super(name);
+		hand = new MahjongTile[14];
 
-		//initialize discButtonIDArray & player's hand
+		//Initialize discButtonIDArray & player's hand
 		for (int i = 0; i < discButtonIDArray.length; i++) {
 			discButtonIDArray[i] = i;
 		}
-
-		hand = new MahjongTile[14];
-
-
 	}
 
     /**
@@ -109,10 +99,10 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			hasDrawnTile = true;
 		}
 		//Send a draw action to exit chow mode
-//		else if (mgs.isChowMode()) {
-//			game.sendAction(new MahjongDrawTileAction(this));
-//			hasDrawnTile = false; //just to be safe
-//		}
+		else if (mgs.isChowMode()) {
+			game.sendAction(new MahjongDrawTileAction(this));
+			hasDrawnTile = false; //just to be safe
+		}
 
 		//Discard a tile if a tile is drawn
 		else {
@@ -130,6 +120,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 					hand = Arrays.copyOf(mgs.getPlayerFourHand(), mgs.getPlayerFourHand().length);
 					break;
 			}
+
             //Send chow action if in chow mode
             //Just to build in a little bit of error into Smart AI, 10% chance Smart AI skips chow entirely
             if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
@@ -144,24 +135,21 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
             {
 			discardHelper();
 			hasDrawnTile = false;}
-
 		}
-
-
-
-	}
+	}//receiveInfo
 
 	/**
-	 * code to send a discard
+	 * Helper method for discarding a tile.
+	 * 	- The Smart AI will look for the tile that would be best to discard by using permutation to
+	 * 	  determine which version of the current hand would give the best result.
 	 */
 	protected void discardHelper() {
 		Log.e("S Computer Player", "S Computer player discards a tile.");
 
-
-		// algorithm to decide best tile to discard
-		//this will look for increase in number of sets
+		//Algorithm to decide best tile to discard
+		//This will look for increase in number of sets
 		int result = 0;
-		int bestDiscard = 0;
+		int bestDiscard = 0; //Index of the tile that would be best to discard
 		String holdSuit = "";
 
 		hand[13] = mgs.getCurrentDrawnTile();
@@ -175,16 +163,14 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			hand[i].setSuit(holdSuit);
 		}
 
-		//sets the thirteenth hand element back to null
+		//Sets the thirteenth hand element back to null
 		hand[13] = null;
 
-		//computer player discards
+		//Computer player discards the tile at the bestDiscard index
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
-
-		discardTileAction.setDiscardButtonID(bestDiscard );
+		discardTileAction.setDiscardButtonID(bestDiscard);
 		game.sendAction(discardTileAction);
-
 	}
 }
 

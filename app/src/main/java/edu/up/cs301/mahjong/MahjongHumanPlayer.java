@@ -17,10 +17,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * A GUI of a Mahjong-player. The GUI displays the current state of game,
+ * The Mahjong human player class holds all of the information the human player needs about the
+ * current state of the game. The GUI displays the current state of game,
  * and allows the human player to send moves to the game.
- *
- *
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
@@ -34,16 +33,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 	/* instance variables */
 
-	// the most recent game state, as given to us by the CounterLocalGame
+	//The most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState state;
 	
-	// the android activity that we are running
+	//The android activity that we are running
 	private GameMainActivity myActivity = null;
 
-	//array of discard button ids
+	//Array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
-	//references to buttons
+	//References to buttons
 	private Button btDiscDrawn;
 	private Button btDisc1;
 	private Button btDisc2;
@@ -63,9 +62,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btRestart;
 	private Button btChow;
 	private Button btTableView;
-	//private Button btReturn;
 
-	//references to imageViews
+	//References to imageViews
 	private ImageView IVnum0;
 	private ImageView IVnum1;
 	private ImageView IVnum2;
@@ -81,24 +79,22 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private ImageView IVnum12;
 	private ImageView IVnum13;
 
-	//references to non-hand imageviews
+	//References to non-hand imageviews
 	private ImageView IVDrawnTile;
 	private ImageView IVlastDiscarded;
 
-	//reference to discard pile text view
+	//Reference to discard pile text view
 	private TextView discardPile;
 	private TextView playerTurn;
 
-	//checker for mahjong tile to prevent double printing
+	//Checker for mahjong tile to prevent double printing
 	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
 
-	//color for buttons
+	//Color for buttons
 	private Color btGreen;
 
 	/**
-	 * constructor
-	 *
-	 * Populates discButtonIDArray with each unique discard button ID
+	 * Constructor: Populates discButtonIDArray with each unique discard button ID
 	 *
 	 * @param name
 	 * 		the player's name
@@ -123,7 +119,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
 
-		//TODO: fix this?
+		//TODO: Figure out how to add different GUI colors
 		//btGreen = new Color(95, 199, 64);
 
     } //ctor
@@ -147,17 +143,19 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * 		the button that was clicked
 	 */
 	public void onClick(View button) {
-		//create instances of actions
+		//Create instances of actions
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
+		//Draw button
 		if (button.getId() == R.id.btDraw && state.getPlayerID() == playerNum) {
 			game.sendAction(drawTileAction);
 			setHandGUI(IVDrawnTile,state.getCurrentDrawnTile());
 		}
 
+		//Discard button
 		else if (isDiscardButton(button.getId()) && state.getPlayerID() == playerNum) {
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
@@ -167,6 +165,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
         }
 
+		//Restart button
 		else if (button.getId() == R.id.btRestart && state.getPlayerID() == playerNum){
 			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
@@ -174,17 +173,20 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			setHandGUI(null,null);
         }
 
+		//Chow button
 		else if (button.getId() == R.id.btChow ) {
 			game.sendAction(chowAction);
 		}
+		//TableView button
 		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
 			game.sendAction(switchViewAction);
 		}
-	}// onClick
+	}//onClick()
 
 	/**
 	 * Helper method that takes the id of a clicked button from onClick() and checks if it is
 	 * a discard button
+	 *
 	 * @param id - the id of the button pressed
 	 * @return true if the given id is a discard button
 	 */
@@ -199,6 +201,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 	/**
 	 * Updates the text in our GUI discard pile
+	 *
 	 * @param addedText - the text we want to add to the discard pile multiline text view
 	 */
 	public void updateDiscardPile (String addedText) {
@@ -220,10 +223,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	@Override
 	public void receiveInfo(GameInfo info) {
-		// ignore the message if it's not a CounterState message
+		//Ignore the message if it's not a CounterState message
 		if (!(info instanceof MahjongGameState)) return;
 		
-		// update our state; then update the display
+		//Update our state; then update the display
 		this.state = (MahjongGameState)info;
 
 		setHandGUI(null, null);
@@ -259,15 +262,16 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			btDraw.setText("Draw New Tile");
 		}
 
-	} //receiveInfo
+	} //receiveInfo()
 
 	/**
 	 * Set drawn card IV
+	 *
+	 * @param view - the imageView we want to set an image for
 	 * @param imageResource - the image we want to set the drawn card to
 	 */
 	public void emptyImageView (ImageView view, int imageResource) {
 		IVDrawnTile = myActivity.findViewById(R.id.iVDrawnCard);
-
 		view.setImageResource(imageResource);
 	}
 
@@ -283,10 +287,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setHandGUI(ImageView iVsingle, MahjongTile tile){
 
-		//load GUI
+		//Load GUI
 		MahjongTile mt ;
 
-		//references to imageview objects stored in XML
+		//References to imageview objects stored in XML
 		IVnum0 = myActivity.findViewById(R.id.iVCSlot1);
 		IVnum1 = myActivity.findViewById(R.id.iVCSlot2);
 		IVnum2 = myActivity.findViewById(R.id.iVCSlot3);
@@ -314,11 +318,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			IVCurr.add(iVsingle);
 		}
 		int q = 0;
-		//iterates through hand
+		//Iterates through hand
 		for(ImageView iv: IVCurr){
 
 			if(tile == null) {
-				//reassigns the holder mahjong tile and current image view
+				//Reassigns the holder mahjong tile and current image view
 				if (state.getPlayerOneHand()[q] == null) {
 					break;
 				}
@@ -327,7 +331,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			}else{ mt = tile; }
 
 			switch(mt.getSuit()) {
-				//switch statement to set Hanzi
+				//Switch statement to set Hanzi
 				case "Hanzi":
 					switch (mt.getValue()) {
 						case 1:
@@ -359,7 +363,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 							break;
 					}
 					break;
-					//switch statement to set Dots
+					//Switch statement to set Dots
 				case "Dots":
 					switch (mt.getValue()) {
 						case 1:
@@ -391,7 +395,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 							break;
 					}
 					break;
-					//switch statement to set Sticks
+					//Switch statement to set Sticks
 				case "Sticks":
 					switch (mt.getValue()) {
 						case 1:
@@ -424,7 +428,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 					}
 					break;
 
-					//switch case to set imageviews for symbols
+					//Switch case to set imageviews for symbols
 				case "Cat":
 					iv.setImageResource(R.drawable.cat);
 					break;
@@ -453,7 +457,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 					iv.setImageResource(R.drawable.blank_tile);
 			}
 		}
-	}
+	}//setHandGUI()
 
 	/**
 	 * Helper method that initializes all of the object references to the XML
@@ -485,10 +489,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart = myActivity.findViewById(R.id.btRestart);
 		btChow = myActivity.findViewById(R.id.btChow);
 		btTableView = myActivity.findViewById(R.id.btTableView);
-		//btReturn = myActivity.findViewById(R.id.btReturn);
 
-
-		//set listeners
+		//Set listeners
 		btDiscDrawn.setOnClickListener(this);
 		btDisc1.setOnClickListener(this);
 		btDisc2.setOnClickListener(this);
@@ -508,12 +510,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);
 		btTableView.setOnClickListener(this);
-		//btReturn.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);
 		playerTurn = myActivity.findViewById(R.id.playerName);
-	}
+	}//initializeObjects()
 
 	/**
 	 * Callback method--our game has been chosen/rechosen to be the GUI,
@@ -529,19 +530,15 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setAsGui(GameMainActivity activity) {
 
-		// remember the activity
+		//Remember the activity
 		this.myActivity = activity;
 		
-	    // Load the layout resource for our GUI
+	    //Load the layout resource for our GUI
 		activity.setContentView(R.layout.gameplay_view);
 
 		initializeObjects();
 		setHandGUI(null,null);
 
 	}
-}
-
-
-
-// class CounterHumanPlayer
+}// class CounterHumanPlayer
 
