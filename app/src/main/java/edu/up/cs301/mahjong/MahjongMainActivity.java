@@ -17,11 +17,19 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 		of complications with Chow and time constraints. GUI for Table View is designed and in the
  * 		project file, but when trying to implement, it fell apart. We honestly ran out of time on
  * 		this function, opting to prioritize permutation and chow.
+ * 	- Tutorial button was not implemented for similar reasons as the SwitchViewAction. We do not
+ * 	  	know how to use different GUI layouts without crashes occurring.
+ * 	- Home button was also not implemented due to time and knowledge constraints as explained above
+ * 		for SwitchViewAction.
  *
  * Beta Release Bugs (Mostly due to running out of time to prioritize chow and permutation):
  *	- Win game message pops up when you draw a winning tile, before you can click "Win!" button.
  *		This is due to the prePerm() code that sends out a winning hand message after the draw tile
- *		action is sent in. TODO: Jacqui can you write a lil bit on how to fix this bug
+ *		action is sent in. To fix this, we will look at adding a boolean in the game state
+ *		for winClicked that is true when the win button has been clicked (the only way we want the
+ *		human player to be able to say they've won). Then in checkIfGameOver, before we call prePerm
+ *		for the human player, we will check if winClicked is true. If not, then their hand won't be
+ *		checked.
  *  - "Win" Button can be clicked at any time during the game and functions as a working tile slot
  *		when it should only be clickable to end the game. We ran out of time to code in the
  *		restriction. We plan on implementing this by making sure the specific button ID can only
@@ -47,7 +55,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  */
 public class MahjongMainActivity extends GameMainActivity {
 	
-	// the port number that this game will use when playing over the network
+	//The port number that this game will use when playing over the network
 	private static final int PORT_NUMBER = 2234;
 
 	/**
