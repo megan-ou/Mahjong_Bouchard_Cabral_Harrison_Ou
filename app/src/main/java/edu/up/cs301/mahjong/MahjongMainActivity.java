@@ -17,6 +17,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 		of complications with Chow and time constraints. GUI for Table View is designed and in the
  * 		project file, but when trying to implement, it fell apart. We honestly ran out of time on
  * 		this function, opting to prioritize permutation and chow.
+ *
  * Beta Release Bugs (Mostly due to running out of time to prioritize chow and permutation):
  *	- Win game message pops up when you draw a winning tile, before you can click "Win!" button.
  *		This is due to the prePerm() code that sends out a winning hand message after the draw tile
