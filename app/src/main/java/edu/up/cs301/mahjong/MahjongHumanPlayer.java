@@ -64,6 +64,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btTableView;
 	private Button btHome;
 	private Button btTutorial;
+	private Button btPause;
     //private Button btReturn;
 
 	//References to imageViews
@@ -513,6 +514,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btHome.setVisibility(View.GONE);
 		btTutorial = myActivity.findViewById(R.id.btTutorial);
 		btTutorial.setVisibility(View.GONE);
+		btPause = myActivity.findViewById(R.id.btPause);
+		btPause.setVisibility(View.GONE);
 		//btReturn = myActivity.findViewById(R.id.btReturn);
 
 		//Set listeners
