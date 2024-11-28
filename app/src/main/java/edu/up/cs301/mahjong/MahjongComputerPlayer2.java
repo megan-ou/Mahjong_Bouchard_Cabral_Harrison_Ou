@@ -99,6 +99,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			/* don't care */
 		}
 
+		//get updated player hand
 		switch (playerNum){
 			case 0:
 				hand = this.mgs.getPlayerOneHand();

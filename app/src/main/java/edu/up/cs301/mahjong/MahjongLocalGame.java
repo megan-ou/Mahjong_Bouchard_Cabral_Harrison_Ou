@@ -164,7 +164,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 return true;
             }
 
-            else if (action instanceof MahjongChowAction) {
+            else if (action instanceof MahjongChowAction && gameState.isChowMode()) {
                 //set chow tile as a last discarded and change its status
                 chowTile.setTileStatus(3);
 
@@ -175,6 +175,16 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
             }
 
             else if (action instanceof MahjongSwitchViewAction) {
+                //tell human player which GUI to view
+                //If it is currently in gameplay, switch to table view
+                if (gameState.isGameplayView()) {
+                    gameState.setGameplayView(false);
+                }
+                //If in table view, switch to gameplay
+                else {
+                    gameState.setGameplayView(true);
+                }
+
                 return true;
             }
         }

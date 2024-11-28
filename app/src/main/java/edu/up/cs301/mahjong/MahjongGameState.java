@@ -52,6 +52,8 @@ public class MahjongGameState extends GameState implements Serializable {
 	private boolean chowMode;
 	private int origPlayer;
 
+	private boolean gameplayView;
+
 	/**
 	 * default ctor
 	 *
@@ -62,6 +64,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * Instantiates the deck of tiles, deals tiles to all 4 players, and sorts all hands
 	 * Sets up permutation array and holder variable that denotes best permutation numSets
 	 * Sets up chowMode to be false with negative playerID value.
+	 * Sets gameplayView to true because user STARTS in gameplay
 	 */
 	public MahjongGameState(){
 		this.playerID = 0;
@@ -91,8 +94,10 @@ public class MahjongGameState extends GameState implements Serializable {
 		bestNumSets = 0;
 		pair = 0;
 
-		//chowMode = false;
+		chowMode = false;
 		origPlayer = -1;
+
+		gameplayView = true;
 	}
 
 	/**
@@ -125,6 +130,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		//copyArray(this.bestPerm, mgs.bestPerm);
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
+		this.gameplayView = true;
 
 	}
 
@@ -1107,6 +1113,10 @@ public class MahjongGameState extends GameState implements Serializable {
 		return chowMode;
 	}
 
+	public boolean isGameplayView() {
+		return gameplayView;
+	}
+
 	/**
 	 * Setter Methods
 	 */
@@ -1148,5 +1158,9 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	public void setPlayerFourHand(int index, MahjongTile tile) {
 		this.playerFourHand[index] = tile;
+	}
+
+	public void setGameplayView(boolean gameplayView) {
+		this.gameplayView = gameplayView;
 	}
 }
