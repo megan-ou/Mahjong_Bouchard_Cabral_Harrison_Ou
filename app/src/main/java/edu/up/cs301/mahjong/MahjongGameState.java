@@ -120,9 +120,6 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.lastDrawnTile = mgs.lastDrawnTile;
 		this.bestNumSets = mgs.bestNumSets;
 		this.pair = mgs.pair;
-		//this.bestPerm = new MahjongTile[mgs.bestPerm.length];
-		//setEmptyHand(this.bestPerm);
-		//copyArray(this.bestPerm, mgs.bestPerm);
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
 
@@ -678,7 +675,9 @@ public class MahjongGameState extends GameState implements Serializable {
 	 * @return a number based on the count of sets and pairs in a player's hand
 	 */
 	public int prePerm(MahjongTile[] origHand){
-
+		if(chowMode){
+			return 0;
+		}
 		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols + Revealed tiles
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> dots = new ArrayList<>();
@@ -689,12 +688,17 @@ public class MahjongGameState extends GameState implements Serializable {
 		int totalScore = 0;
 		MahjongTile[] hand;
 		hand = Arrays.copyOf(origHand, 14);
-		if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null) {
+		if (hand[13] == null || (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null)) {
 			hand[13] = getCurrentDrawnTile();
+		} else if(getCurrentDrawnTile() == null){
+			hand[13] = new MahjongTile("empty suit", -1);
 		}
 
 		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < hand.length; i++) {
+			if(hand[i] == null){
+				System.out.println("mad");
+			}
 			if (hand[i].getTileStatus() == 3) {
 				misc.add(hand[i]);
 			} else {
@@ -731,6 +735,8 @@ public class MahjongGameState extends GameState implements Serializable {
 					case "Cat":
 						misc.add(hand[i]);
 						break;
+					case "empty suit":
+						misc.add(hand[i]);
 				}
 			}
 		}

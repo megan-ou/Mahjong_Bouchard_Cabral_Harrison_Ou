@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 
 /**
@@ -58,7 +60,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
-	MahjongTile[]  hand;
+	MahjongTile[]  hand = new MahjongTile[14];
 
 
 	/**
@@ -75,6 +77,8 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		for (int i = 0; i < discButtonIDArray.length; i++) {
 			discButtonIDArray[i] = i;
 		}
+
+
 	}
 
     /**
@@ -94,7 +98,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			return;
 		}
 
-
+		mgs.setEmptyHand(hand);
 
 		//exit if it is not computer's turn
 		if (mgs.getPlayerID() != playerNum) {
@@ -127,17 +131,17 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		//Discard a tile if a tile is drawn
 		else {
 			switch (this.mgs.getPlayerID()){
+				case 0:
+					hand = Arrays.copyOf(mgs.getPlayerOneHand(), mgs.getPlayerOneHand().length);
+					break;
 				case 1:
-					hand = this.mgs.getPlayerOneHand();
+					hand = Arrays.copyOf(mgs.getPlayerTwoHand(), mgs.getPlayerTwoHand().length);
 					break;
 				case 2:
-					hand = this.mgs.getPlayerTwoHand();
+					hand = Arrays.copyOf(mgs.getPlayerThreeHand(), mgs.getPlayerThreeHand().length);
 					break;
 				case 3:
-					hand = this.mgs.getPlayerThreeHand();
-					break;
-				case 4:
-					hand = this.mgs.getPlayerFourHand();
+					hand = Arrays.copyOf(mgs.getPlayerFourHand(), mgs.getPlayerFourHand().length);
 					break;
 			}
 			discardHelper();
@@ -186,12 +190,14 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		Log.e("Computer Player", "Computer player discards a tile.");
 
 
+		// algorithm to decide best tile to discard
+		//this will look for increase in number of sets
 		int result = 0;
 		int bestDiscard = 0;
 		String holdSuit = "";
 
 		hand[13] = mgs.getCurrentDrawnTile();
-		for(int i = 0; i < 14; i++){
+		for(int i = 0; i < hand.length; i++){
 			holdSuit = hand[i].getSuit();
 			hand[i].setSuit("empty");
 			if (mgs.prePerm(hand) > result){
@@ -201,8 +207,10 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			hand[i].setSuit(holdSuit);
 		}
 
+		//sets the thirteenth hand element back to null
 		hand[13] = null;
 
+		//computer player discards
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
 
