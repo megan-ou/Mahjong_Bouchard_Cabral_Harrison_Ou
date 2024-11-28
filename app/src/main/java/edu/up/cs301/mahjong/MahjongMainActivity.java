@@ -35,6 +35,8 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  *		restriction. We plan on implementing this by making sure the specific button ID can only
  *		be clicked in human player when adding the most recently drawn tile can produce a winning
  *		hand.(Using our permutation sort method)
+ *	- If "Win" button is clicked and the human player has a winning hand, the checkIfGameOver win
+ *		message doesn't always pop up.
  *	- Similarly, computer players currently cannot win because they do not have access to the last
  *		tile slot in their code at the moment. We plan on adding in conditions that tell the computer
  *		players if the most recently drawn tile can produce a winning hand, populate the last slot.
