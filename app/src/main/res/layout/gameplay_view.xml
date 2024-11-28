@@ -122,10 +122,10 @@
             android:gravity="bottom"
             android:orientation="vertical">
                 <Button
-                    android:id="@+id/btSeePile"
+                    android:id="@+id/btTableView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="See Pile"
+                    android:text="See Revealed Tiles"
                    />
         </LinearLayout>
 
