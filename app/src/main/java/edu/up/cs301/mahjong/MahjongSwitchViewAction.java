@@ -6,7 +6,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 
 /**
- * Action that allows the user to switch views between default view and table view
+ * Action that allows the user to switch views between default view and table view.
  */
 
 public class MahjongSwitchViewAction extends GameAction implements Serializable {

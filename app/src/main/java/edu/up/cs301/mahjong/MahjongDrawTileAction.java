@@ -7,7 +7,7 @@ import edu.up.cs301.GameFramework.actionMessage.GameAction;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
 /**
- * A MahjongDrawTileAction is an action that for Each players turn must draw a tile.
+ * A MahjongDrawTileAction occurs on each players' turn where they must draw a tile.
  * 
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll

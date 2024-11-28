@@ -10,8 +10,7 @@ import edu.up.cs301.GameFramework.utilities.Tickable;
 
 /**
  * A dumb computer version of a Mahjong player. This player cannot use the "Chow"
- * action/button. It simply draws a tile, determines if it fits in their hand,
- * or else it's discarded.
+ * action/button. It simply draws a tile and randomly discards another one.
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
@@ -35,14 +34,14 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
      * @param name - the player's name
      */
     public MahjongComputerPlayer1(String name) {
-        // invoke superclass constructor
+        //invoke superclass constructor
         super(name);
         
-        // start the timer, ticking 20 times per second
+        //Start the timer, ticking 20 times per second
         getTimer().setInterval(50);
         getTimer().start();
 
-		//initialize discButtonIDArray
+		//Initialize discButtonIDArray
 		for (int i = 0; i < discButtonIDArray.length; i++) {
 			discButtonIDArray[i] = i;
 		}
@@ -54,7 +53,8 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	 * Date: 11/26/2024
 	 * Problem: Our Computer Player was making more draw tiles actions than allowed.
 	 * Resource: Dr. Nuxoll
-	 * Solution: Add an 'if' statement to check if computer player has not drawn a tile yet, and let them draw a tile.
+	 * Solution: Add an 'if' statement to check if computer player has not drawn a tile yet, and let
+	 * them draw a tile.
 	 *
 	 * External Citation
 	 * Date: 11/26/2024
@@ -76,12 +76,9 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 		if (info instanceof MahjongGameState) {
 			mgs = new MahjongGameState((MahjongGameState) info);
 		}
-
 		else {
 			return;
 		}
-
-
 
 		//exit if it is not computer's turn
 		if (mgs.getPlayerID() != playerNum) {
@@ -99,7 +96,6 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 
 		//Draw a tile if a tile has not yet been drawn
 		if (!hasDrawnTile) {
-			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
 			Log.e("Computer Player", "Tile is drawn");
 
@@ -118,16 +114,15 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 	}
 
 	/**
-	 *
-	 *
 	 * External Citation
 	 * Date: 11/26/2024
-	 * Problem: Our now 'discardHelper()' method was originally 'timedTick()' and was calling our computpers makeDrawTileAction. Which
-	 * was contributing to our computer player making multiple drawTiles actions.
+	 * Problem: Our now 'discardHelper()' method was originally 'timerTicked()' and was calling our
+	 * computer's makeDrawTileAction. Which was contributing to our computer player making multiple
+	 * drawTiles actions.
 	 * Resource: Dr. Nuxoll
 	 * Solution: Moved that code to the above method and renamed this function to 'discardHelper' instead.
 	 *
-	 * code to send a discard
+	 * Helper method which sends a random discard action to the game.
 	 */
 	protected void discardHelper() {
 		Log.e("Computer Player", "Computer player discards a tile.");
@@ -135,12 +130,12 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
 
-		if (Math.random() >= 0.15) { // 85% of the time discard from hand
+		if (Math.random() >= 0.15) { //85% of the time discard from hand
 			discardTileAction.setDiscardButtonID((int) (Math.random() * 12.0) + 1);
 			game.sendAction(discardTileAction);
 		}
 		else {
-			// discard drawn tile
+			//Discard drawn tile
 			discardTileAction.setDiscardButtonID(0);
 			game.sendAction(discardTileAction);
 

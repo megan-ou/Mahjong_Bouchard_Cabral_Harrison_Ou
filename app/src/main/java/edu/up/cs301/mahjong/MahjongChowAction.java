@@ -10,9 +10,6 @@ import edu.up.cs301.GameFramework.players.GamePlayer;
  * the chow button) on a tile that the last player just discarded. This tile will be added
  * to the current player's hand.
  *
- * TODO: add a method that turns the other two cards in set to revealed as well, but do we want to
- *  this in the Game State class?
- *
  * @author Jacqui Bouchard
  * @version October 2024
  */

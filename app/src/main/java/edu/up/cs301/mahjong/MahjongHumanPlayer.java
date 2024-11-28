@@ -163,7 +163,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			game.sendAction(discardTileAction);
 			emptyImageView(IVDrawnTile,R.drawable.blank_tile);
 			setHandGUI(IVlastDiscarded,state.getLastDiscarded());
-			//state.prePerm(state.getPlayerOneHand());
 			setHandGUI(null,null);
 
         }
