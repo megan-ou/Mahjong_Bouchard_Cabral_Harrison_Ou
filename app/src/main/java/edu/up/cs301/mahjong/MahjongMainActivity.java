@@ -15,9 +15,27 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 	- SwitchViewAction was not implemented because we could not figure out how to switch
  * 		GUI layouts without crashing or breaking the game. Might get rid of this feature because
  * 		of complications with Chow and time constraints. GUI for Table View is designed and in the
- * 		project file, but when trying to implement, it fell apart.
- * Beta Release Bugs:
- *	-
+ * 		project file, but when trying to implement, it fell apart. We honestly ran out of time on
+ * 		this function, opting to prioritize permutation and chow.
+ *
+ * Beta Release Bugs (Mostly due to running out of time to prioritize chow and permutation):
+ *	- Win game message pops up when you draw a winning tile, before you can click "Win!" button.
+ *		This is due to the prePerm() code that sends out a winning hand message after the draw tile
+ *		action is sent in. TODO: Jacqui can you write a lil bit on how to fix this bug
+ *  - "Win" Button can be clicked at any time during the game and functions as a working tile slot
+ *		when it should only be clickable to end the game. We ran out of time to code in the
+ *		restriction. We plan on implementing this by making sure the specific button ID can only
+ *		be clicked in human player when adding the most recently drawn tile can produce a winning
+ *		hand.(Using our permutation sort method)
+ *	- Similarly, computer players currently cannot win because they do not have access to the last
+ *		tile slot in their code at the moment. We plan on adding in conditions that tell the computer
+ *		players if the most recently drawn tile can produce a winning hand, populate the last slot.
+ *	- Sometimes user can run out of tiles to draw. We are unsure on why this works as the reshuffle
+ *		method has been tested multiple times to work; in our tests we have been able to send 1000
+ *		draw/discard actions. Will debug more later.
+ *	- TextView that says "Human Player's turn" in top left does not change yet to indicate turn. We
+ *		ran out of time to update it according to player turn. This is easily fixed by updating textView
+ *		in receiveInfo() of the HumanPlayer class according what the current player ID is.
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl

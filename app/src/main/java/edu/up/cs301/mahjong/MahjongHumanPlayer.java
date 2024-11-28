@@ -62,6 +62,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btRestart;
 	private Button btChow;
 	private Button btTableView;
+    //private Button btReturn;
 
 	//References to imageViews
 	private ImageView IVnum0;
@@ -287,6 +288,23 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setHandGUI(ImageView iVsingle, MahjongTile tile){
 
+		MahjongTile[] hand = new MahjongTile[14];
+
+		switch (playerNum){
+			case 0:
+				hand = state.getPlayerOneHand();
+				break;
+			case 1:
+				hand = state.getPlayerTwoHand();
+				break;
+			case 2:
+				hand = state.getPlayerThreeHand();
+				break;
+			case 3:
+				hand = state.getPlayerFourHand();
+				break;
+		}
+
 		//Load GUI
 		MahjongTile mt ;
 
@@ -322,11 +340,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		for(ImageView iv: IVCurr){
 
 			if(tile == null) {
-				//Reassigns the holder mahjong tile and current image view
-				if (state.getPlayerOneHand()[q] == null) {
+				//reassigns the holder mahjong tile and current image view
+				if (hand == null) {
 					break;
 				}
-				mt = state.getPlayerOneHand()[q];
+				mt = hand[q];
 				q++;
 			}else{ mt = tile; }
 
@@ -489,6 +507,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart = myActivity.findViewById(R.id.btRestart);
 		btChow = myActivity.findViewById(R.id.btChow);
 		btTableView = myActivity.findViewById(R.id.btTableView);
+		//btReturn = myActivity.findViewById(R.id.btReturn);
 
 		//Set listeners
 		btDiscDrawn.setOnClickListener(this);
@@ -510,6 +529,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);
 		btTableView.setOnClickListener(this);
+		//btReturn.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);

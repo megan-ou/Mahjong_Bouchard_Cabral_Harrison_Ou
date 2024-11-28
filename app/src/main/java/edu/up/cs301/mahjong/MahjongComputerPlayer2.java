@@ -92,16 +92,17 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			/* don't care */
 		}
 
+		//Send a draw action to exit chow mode
+		if (mgs.isChowMode()) {
+			game.sendAction(new MahjongDrawTileAction(this));
+			hasDrawnTile = false; //just to be safe
+		}
+
 		//Draw a tile if a tile has not yet been drawn
-		if (!hasDrawnTile) {
+		else if (!hasDrawnTile) {
 			game.sendAction(new MahjongDrawTileAction(this));
 			Log.e("Computer Player", "Tile is drawn");
 			hasDrawnTile = true;
-		}
-		//Send a draw action to exit chow mode
-		else if (mgs.isChowMode()) {
-			game.sendAction(new MahjongDrawTileAction(this));
-			hasDrawnTile = false; //just to be safe
 		}
 
 		//Discard a tile if a tile is drawn
@@ -121,20 +122,8 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 					break;
 			}
 
-            //Send chow action if in chow mode
-            //Just to build in a little bit of error into Smart AI, 10% chance Smart AI skips chow entirely
-            if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
-                double randNum = Math.random();
-                //chow 90% of time
-                if (randNum < 0.9) {
-                    game.sendAction(new MahjongChowAction(this));
-                    hasDrawnTile = true;
-                }
-            }
-            else
-            {
 			discardHelper();
-			hasDrawnTile = false;}
+			hasDrawnTile = false;
 		}
 	}//receiveInfo
 
