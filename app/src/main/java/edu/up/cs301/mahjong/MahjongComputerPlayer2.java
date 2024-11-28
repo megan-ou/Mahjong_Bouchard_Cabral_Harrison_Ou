@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 
 /**
@@ -46,7 +48,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
-	MahjongTile[]  hand;
+	MahjongTile[]  hand = new MahjongTile[14];
 
 
 	/**
@@ -64,6 +66,8 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		}
 
 		hand = new MahjongTile[14];
+
+
 	}
 
     /**
@@ -83,7 +87,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			return;
 		}
 
-
+		mgs.setEmptyHand(hand);
 
 		//exit if it is not computer's turn
 		if (mgs.getPlayerID() != playerNum) {
@@ -99,52 +103,50 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			/* don't care */
 		}
 
-		//get updated player hand
-		switch (playerNum){
-			case 0:
-				hand = this.mgs.getPlayerOneHand();
-				break;
-			case 1:
-				hand = this.mgs.getPlayerTwoHand();
-				break;
-			case 2:
-				hand = this.mgs.getPlayerThreeHand();
-				break;
-			case 3:
-				hand = this.mgs.getPlayerFourHand();
-				break;
-		}
-
-		//Send chow action if in chow mode
-		//Just to build in a little bit of error into Smart AI, 10% chance Smart AI skips chow entirely
-		if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
-			double randNum = Math.random();
-			//chow 90% of time
-			if (randNum < 0.9) {
-				game.sendAction(new MahjongChowAction(this));
-				hasDrawnTile = true;
-			}
-			//continue 10% of the time
-			else {
-				game.sendAction(new MahjongDrawTileAction(this));
-				hasDrawnTile = false;
-			}
-		}
-
 		//Draw a tile if a tile has not yet been drawn
-		else if (!hasDrawnTile) {
+		if (!hasDrawnTile) {
 			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
 			Log.e("Computer Player", "Tile is drawn");
 
 			hasDrawnTile = true;
 		}
+		//Send a draw action to exit chow mode
+//		else if (mgs.isChowMode()) {
+//			game.sendAction(new MahjongDrawTileAction(this));
+//			hasDrawnTile = false; //just to be safe
+//		}
 
-		//If chow action is taken, finish chow turn by making a discard OR
 		//Discard a tile if a tile is drawn
 		else {
+			switch (this.mgs.getPlayerID()){
+				case 0:
+					hand = Arrays.copyOf(mgs.getPlayerOneHand(), mgs.getPlayerOneHand().length);
+					break;
+				case 1:
+					hand = Arrays.copyOf(mgs.getPlayerTwoHand(), mgs.getPlayerTwoHand().length);
+					break;
+				case 2:
+					hand = Arrays.copyOf(mgs.getPlayerThreeHand(), mgs.getPlayerThreeHand().length);
+					break;
+				case 3:
+					hand = Arrays.copyOf(mgs.getPlayerFourHand(), mgs.getPlayerFourHand().length);
+					break;
+			}
+            //Send chow action if in chow mode
+            //Just to build in a little bit of error into Smart AI, 10% chance Smart AI skips chow entirely
+            if (mgs.isChowMode() && mgs.getPlayerID() == playerNum && !hasDrawnTile) {
+                double randNum = Math.random();
+                //chow 90% of time
+                if (randNum < 0.9) {
+                    game.sendAction(new MahjongChowAction(this));
+                    hasDrawnTile = true;}
+                }
+            else
+            {
 			discardHelper();
-			hasDrawnTile = false;
+			hasDrawnTile = false;}
+
 		}
 
 
@@ -158,12 +160,14 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		Log.e("Computer Player", "Computer player discards a tile.");
 
 
+		// algorithm to decide best tile to discard
+		//this will look for increase in number of sets
 		int result = 0;
 		int bestDiscard = 0;
 		String holdSuit = "";
 
 		hand[13] = mgs.getCurrentDrawnTile();
-		for(int i = 0; i < 14; i++){
+		for(int i = 0; i < hand.length; i++){
 			holdSuit = hand[i].getSuit();
 			hand[i].setSuit("empty");
 			if (mgs.prePerm(hand) > result){
@@ -173,8 +177,10 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 			hand[i].setSuit(holdSuit);
 		}
 
+		//sets the thirteenth hand element back to null
 		hand[13] = null;
 
+		//computer player discards
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,
 				discButtonIDArray);
 

@@ -393,17 +393,26 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         MahjongTile[] handThree = gameState.getPlayerThreeHand();
         MahjongTile[] handFour = gameState.getPlayerFourHand();
 
-        if(gameState.getPlayerID() == 1 && gameState.prePerm(handOne) == 41) {
+
+
+        if(gameState.getPlayerID() == 0 && gameState.prePerm(handOne) == 41) {
             //return "Player 1 has won!!! Yippee!";
             return playerNames[0] + " has won!!! Yippee!";
         }
-        else if(gameState.getPlayerID() == 2 && gameState.prePerm(handTwo) == 41) {
+        else if(gameState.getPlayerID() == 0 && gameState.prePerm(handOne) != 41){
+            System.out.println("not 41");
+            return null;
+        }
+        else if(gameState.getPlayerID() == 1 && gameState.prePerm(handTwo) == 41
+                && handTwo[13].getSuit() != "empty suit") {
             return playerNames[1] + " has won!!! Yippee!";
         }
-        else if(gameState.getPlayerID() == 3 && gameState.prePerm(handThree) == 41) {
+        else if(gameState.getPlayerID() == 2 && gameState.prePerm(handThree) == 41
+                && handThree[13].getSuit() != "empty suit") {
             return playerNames[2] + " has won!!! Yippee!";
         }
-        else if(gameState.getPlayerID() == 4 && gameState.prePerm(handFour) == 41) {
+        else if(gameState.getPlayerID() == 3 && gameState.prePerm(handFour) == 41
+                && handFour[13].getSuit() != "empty suit") {
             return playerNames[3] + " has won!!! Yippee!";
         }
         else {

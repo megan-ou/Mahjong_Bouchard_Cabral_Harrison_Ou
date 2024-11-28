@@ -153,12 +153,12 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongChowAction chowAction = new MahjongChowAction(this);
 		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
-		if (button.getId() == R.id.btDraw) {
+		if (button.getId() == R.id.btDraw && state.getPlayerID() == playerNum) {
 			game.sendAction(drawTileAction);
 			setHandGUI(IVDrawnTile,state.getCurrentDrawnTile());
 		}
 
-		else if (isDiscardButton(button.getId())) {
+		else if (isDiscardButton(button.getId()) && state.getPlayerID() == playerNum) {
 			discardTileAction.setDiscardButtonID(button.getId());
 			game.sendAction(discardTileAction);
 			emptyImageView(IVDrawnTile,R.drawable.blank_tile);
@@ -168,14 +168,14 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
         }
 
-		else if (button.getId() == R.id.btRestart){
+		else if (button.getId() == R.id.btRestart && state.getPlayerID() == playerNum){
 			myActivity.findViewById(R.id.btRestart).setVisibility(View.GONE);
 			state.restartGame();
 			discardPile.setText("");
 			setHandGUI(null,null);
         }
 
-		else if (button.getId() == R.id.btChow) {
+		else if (button.getId() == R.id.btChow ) {
 			game.sendAction(chowAction);
 		}
 		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
