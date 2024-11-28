@@ -62,6 +62,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btDraw;
 	private Button btRestart;
 	private Button btChow;
+	private Button btTableView;
+	//private Button btReturn;
 
 	//references to imageViews
 	private ImageView IVnum0;
@@ -176,10 +178,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else if (button.getId() == R.id.btChow) {
 			game.sendAction(chowAction);
 		}
-		//TODO: Implement switch view after alpha release
-//		else if (button instanceof MSwitchViewButton) {
-//			game.sendAction(switchViewAction);
-//		}
+		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
+			game.sendAction(switchViewAction);
+		}
 	}// onClick
 
 	/**
@@ -258,6 +259,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else {
 			btDraw.setText("Draw New Tile");
 		}
+
+
 	} //receiveInfo
 
 	/**
@@ -481,6 +484,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDraw = myActivity.findViewById(R.id.btDraw);
 		btRestart = myActivity.findViewById(R.id.btRestart);
 		btChow = myActivity.findViewById(R.id.btChow);
+		btTableView = myActivity.findViewById(R.id.btTableView);
+		//btReturn = myActivity.findViewById(R.id.btReturn);
 
 
 		//set listeners
@@ -502,10 +507,11 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDraw.setOnClickListener(this);
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);
+		btTableView.setOnClickListener(this);
+		//btReturn.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);
-
 		playerTurn = myActivity.findViewById(R.id.playerName);
 	}
 
@@ -527,7 +533,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		this.myActivity = activity;
 		
 	    // Load the layout resource for our GUI
-		activity.setContentView((R.layout.gameplay_view));
+		activity.setContentView(R.layout.gameplay_view);
 
 		initializeObjects();
 		setHandGUI(null,null);
