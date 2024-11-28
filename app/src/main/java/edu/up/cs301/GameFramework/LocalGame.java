@@ -322,10 +322,10 @@ public abstract class LocalGame implements Game, Tickable {
         sendAllUpdatedState();
 
         // determine whether there is a winner; if so, finish up the game
-//        String overMsg = checkIfGameOver();
-//        if (overMsg != null) {
-//            finishUpGame(overMsg);
-//        }
+        String overMsg = checkIfGameOver();
+        if (overMsg != null) {
+            finishUpGame(overMsg);
+        }
     }
 
     /**

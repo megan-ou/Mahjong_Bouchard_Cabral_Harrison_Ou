@@ -697,7 +697,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		if (hand[13] == null && getCurrentDrawnTile() != null) {
 			hand[13] = getCurrentDrawnTile();
 		} else {
-            assert hand[13] != null;
+            //assert hand[13] != null;
             if (hand[13].getSuit().equals("empty suit") && getCurrentDrawnTile() != null) {
                 hand[13] = getCurrentDrawnTile();
             }
@@ -748,7 +748,8 @@ public class MahjongGameState extends GameState implements Serializable {
 						misc.add(hand[i]);
 						break;
 					case "empty suit":
-						misc.add(hand[i]);
+						//misc.add(hand[i]);
+						break;
 				}
 			}
 		}
@@ -816,14 +817,15 @@ public class MahjongGameState extends GameState implements Serializable {
 				totalSets += countNumSets(sticksHand);
 			}
 
+		if (miscHand.length > 2) {
 			sortHand(miscHand);
+			totalSets += countNumSets(miscHand);
+		}
 
-			if (pair < 1){
-				pair+= countNumPairs(miscHand);
-			}
+		if (pair < 1 && miscHand.length > 1) {
+			pair += countNumPairs(miscHand);
+		}
 
-
-		totalSets += countNumSets(miscHand);
 		totalScore = (10 * totalSets) + pair;
 		/**
 		 * if the totalscore is 41 (ie: a winning hand), then the sorted hands

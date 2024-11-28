@@ -107,7 +107,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		if (!hasDrawnTile) {
 			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
-			Log.e("Computer Player", "Tile is drawn");
+			Log.e("S Computer Player", "Tile is drawn");
 
 			hasDrawnTile = true;
 		}
@@ -158,7 +158,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	 * code to send a discard
 	 */
 	protected void discardHelper() {
-		Log.e("Computer Player", "Computer player discards a tile.");
+		Log.e("S Computer Player", "S Computer player discards a tile.");
 
 
 		// algorithm to decide best tile to discard
