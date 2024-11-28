@@ -137,8 +137,9 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
                 //chow 90% of time
                 if (randNum < 0.9) {
                     game.sendAction(new MahjongChowAction(this));
-                    hasDrawnTile = true;}
+                    hasDrawnTile = true;
                 }
+            }
             else
             {
 			discardHelper();
@@ -154,7 +155,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	 * code to send a discard
 	 */
 	protected void discardHelper() {
-		Log.e("Computer Player", "Computer player discards a tile.");
+		Log.e("S Computer Player", "S Computer player discards a tile.");
 
 
 		// algorithm to decide best tile to discard

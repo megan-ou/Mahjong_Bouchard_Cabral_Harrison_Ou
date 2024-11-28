@@ -259,7 +259,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			btDraw.setText("Draw New Tile");
 		}
 
-
 	} //receiveInfo
 
 	/**
@@ -450,6 +449,8 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 				case "String":
 					iv.setImageResource(R.drawable.blank_tile);
 					break;
+				case "empty":
+					iv.setImageResource(R.drawable.blank_tile);
 			}
 		}
 	}
