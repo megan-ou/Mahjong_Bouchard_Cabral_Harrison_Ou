@@ -284,6 +284,23 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 */
 	public void setHandGUI(ImageView iVsingle, MahjongTile tile){
 
+		MahjongTile[] hand = new MahjongTile[14];
+
+		switch (playerNum){
+			case 0:
+				hand = state.getPlayerOneHand();
+				break;
+			case 1:
+				hand = state.getPlayerTwoHand();
+				break;
+			case 2:
+				hand = state.getPlayerThreeHand();
+				break;
+			case 3:
+				hand = state.getPlayerFourHand();
+				break;
+		}
+
 		//load GUI
 		MahjongTile mt ;
 
@@ -320,10 +337,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 
 			if(tile == null) {
 				//reassigns the holder mahjong tile and current image view
-				if (state.getPlayerOneHand()[q] == null) {
+				if (hand == null) {
 					break;
 				}
-				mt = state.getPlayerOneHand()[q];
+				mt = hand[q];
 				q++;
 			}else{ mt = tile; }
 
