@@ -19,9 +19,9 @@ import java.util.Arrays;
  * will prioritize runs over three of a kind. It will also account for many options/
  * strategies to take when discarding a tile in its hand:
  * 		- Priority will be given to potential sets already in its hand.
- * 		- When a tile is drawn, it will see if it first completes a run, then a three
- * 		  of a kind, then a pair, and it will discard a tile not currently part of a pair/set.
- * 		- If the tile could complete two different sets of 3, it will randomly choose which
+ * 		- When a tile is drawn, it will use permutation to determine what tile would be best to
+ * 		  discard.
+ * 		- If the drawn tile could complete two different sets of 3, it will randomly choose which
  * 		  set of three to complete and discard the other tile.
  * 		- A set of three can be broken up if a tile in the set is required to complete a pair
  * 		  AND the drawn tile can repair the broken set.
@@ -39,8 +39,6 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	/*
 	 * instance variables
 	 */
-	
-	// the most recent game state, as given to us by the CounterLocalGame
 	private MahjongGameState mgs = null;
 
 	private boolean hasDrawnTile = false;
@@ -48,11 +46,12 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	//array of discard button ids
 	private int[] discButtonIDArray = new int[15];
 
-	MahjongTile[]  hand = new MahjongTile[14];
+	//The computer player's current hand of tiles
+	MahjongTile[]  hand;
 
 
 	/**
-	 * constructor
+	 * Constructor
 	 *
 	 * @param name
 	 * 		the player's name
@@ -60,7 +59,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	public MahjongComputerPlayer2(String name) {
 		super(name);
 
-		//initialize discButtonIDArray
+		//initialize discButtonIDArray & player's hand
 		for (int i = 0; i < discButtonIDArray.length; i++) {
 			discButtonIDArray[i] = i;
 		}
@@ -71,7 +70,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 	}
 
     /**
-     * callback method--game's state has changed
+     * Callback method--game's state has changed
      *
      * @param info
      * 		the information (presumably containing the game's state)
@@ -82,14 +81,14 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		if (info instanceof MahjongGameState) {
 			mgs = new MahjongGameState((MahjongGameState) info);
 		}
-
 		else {
 			return;
 		}
 
+		//Make sure hand does not have null tiles
 		mgs.setEmptyHand(hand);
 
-		//exit if it is not computer's turn
+		//Exit if it is not computer's turn
 		if (mgs.getPlayerID() != playerNum) {
 			return;
 		}
@@ -97,7 +96,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		Log.e("Player Turn", "Smart AI player's turn." + playerNum);
 
 		try {
-			//brief pause
+			//Brief pause
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
 			/* don't care */
@@ -105,10 +104,8 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 
 		//Draw a tile if a tile has not yet been drawn
 		if (!hasDrawnTile) {
-			//First draw tile
 			game.sendAction(new MahjongDrawTileAction(this));
-			Log.e("S Computer Player", "Tile is drawn");
-
+			Log.e("Computer Player", "Tile is drawn");
 			hasDrawnTile = true;
 		}
 		//Send a draw action to exit chow mode
