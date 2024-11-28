@@ -140,8 +140,9 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
                 //chow 90% of time
                 if (randNum < 0.9) {
                     game.sendAction(new MahjongChowAction(this));
-                    hasDrawnTile = true;}
+                    hasDrawnTile = true;
                 }
+            }
             else
             {
 			discardHelper();
