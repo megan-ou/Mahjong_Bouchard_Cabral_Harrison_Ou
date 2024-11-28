@@ -260,14 +260,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 			btDraw.setText("Draw New Tile");
 		}
 
-		if (state.isGameplayView()) {
-			myActivity.setContentView(R.layout.gameplay_view);
-		}
-
-		else {
-			myActivity.setContentView(R.layout.revealed_tile_view);
-		}
-
 	} //receiveInfo
 
 	/**
