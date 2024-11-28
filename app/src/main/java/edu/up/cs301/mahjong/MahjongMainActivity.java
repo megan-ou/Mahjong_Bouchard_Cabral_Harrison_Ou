@@ -9,7 +9,12 @@ import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.gameConfiguration.*;
 
 /**
- * this is the primary activity for Counter game
+ * this is the primary activity for mahjong game
+ *
+ * Beta Release Missing Features:
+ * 	- SwitchViewAction was not implemented because we could not figure out
+ * Beta Release Bugs:
+ *
  * 
  * @author Andrew M. Nuxoll
  * @author Steven R. Vegdahl
