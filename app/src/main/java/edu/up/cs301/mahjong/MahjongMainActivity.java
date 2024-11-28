@@ -19,8 +19,8 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * 		this function, opting to prioritize permutation and chow.
  * 	- Tutorial button was not implemented for similar reasons as the SwitchViewAction. We do not
  * 	  	know how to use different GUI layouts without crashes occurring.
- * 	- Home button was also not implemented due to time and knowledge constraints as explained above
- * 		for SwitchViewAction.
+ * 	- Home and Pause buttons were also not implemented due to time and knowledge constraints as
+ * 		explained above for SwitchViewAction.
  *
  * Beta Release Bugs (Mostly due to running out of time to prioritize chow and permutation):
  *	- Win game message pops up when you draw a winning tile, before you can click "Win!" button.
