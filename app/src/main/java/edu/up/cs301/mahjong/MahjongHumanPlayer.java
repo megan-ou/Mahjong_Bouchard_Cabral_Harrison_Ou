@@ -94,9 +94,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//Checker for mahjong tile to prevent double printing
 	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
 
-	//Color for buttons
-	private Color btGreen;
-
 	/**
 	 * Constructor: Populates discButtonIDArray with each unique discard button ID
 	 *
@@ -122,10 +119,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[12] = R.id.btDiscSlot12;
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
-
-		//TODO: Figure out how to add different GUI colors
-		//btGreen = new Color(95, 199, 64);
-
     } //ctor
 
 	/**
@@ -265,6 +258,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else {
 			btDraw.setText("Draw New Tile");
 		}
+
+		//Change TextView to display whose turn it is
+		String currName = allPlayerNames[state.getPlayerID()];
+		playerTurn.setText(currName + "'s Turn");
 
 	} //receiveInfo()
 

@@ -136,9 +136,15 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                             drawnTile.setLocationNum(5);
                             gameState.setLastDiscarded(drawnTile);
                         }
+
                         //Discard action on other tiles
                         else {
                             discardTileHelper(drawnTile, playerID, i - 1);
+                            //Check if the 14th tile is being discarded and sets winClicked to true
+                            //So checkIfGameOver can send a win message
+                            if (i == allButtonIDs.length - 1) {
+                                gameState.setWinClicked(true);
+                            }
                         }
                     }
                 }
@@ -282,18 +288,16 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         }
 
         //Count number of sets in hand before chow
-        numSetsBefore = gameState.countNumSets(copyHand);
+        numSetsBefore = gameState.prePerm(copyHand);
+
         //Set the null 14th tile slot to last discarded
         copyHand[13] = lastDiscarded;
 
-        //Sort hand so countNumSets works
-        //TODO: possibly use permutation sort for this?
-        gameState.sortHand(copyHand);
+        //Sort hand and count number of sets after chow
+        numSetsAfter = gameState.prePerm(copyHand);
 
-        //Count number of sets WITH chow
-        numSetsAfter = gameState.countNumSets(copyHand);
-
-        if ((numSetsBefore + 1) == numSetsAfter) {
+        //See if the number of sets increases if you were to chow that tile
+        if (numSetsBefore < numSetsAfter) {
             return true;
         }
 
@@ -394,28 +398,26 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         MahjongTile[] handThree = gameState.getPlayerThreeHand();
         MahjongTile[] handFour = gameState.getPlayerFourHand();
 
-        if(gameState.getPlayerID() == 0 && gameState.prePerm(handOne) == 41) {
-            return playerNames[0] + " has won!!! Yippee!";
+        if (gameState.isWinClicked()) {
+            if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) == 41) {
+                return playerNames[0] + " has won!!! Yippee!";
+            } else if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) != 41) {
+                System.out.println("not 41");
+                return null;
+            } else if (gameState.getPlayerID() == 1 && gameState.prePerm(handTwo) == 41
+                    && handTwo[13].getSuit() != "empty suit") {
+                return playerNames[1] + " has won!!! Yippee!";
+            } else if (gameState.getPlayerID() == 2 && gameState.prePerm(handThree) == 41
+                    && handThree[13].getSuit() != "empty suit") {
+                return playerNames[2] + " has won!!! Yippee!";
+            } else if (gameState.getPlayerID() == 3 && gameState.prePerm(handFour) == 41
+                    && handFour[13].getSuit() != "empty suit") {
+                return playerNames[3] + " has won!!! Yippee!";
+            } else {
+                return null;
+            }
         }
-        else if(gameState.getPlayerID() == 0 && gameState.prePerm(handOne) != 41){
-            System.out.println("not 41");
-            return null;
-        }
-        else if(gameState.getPlayerID() == 1 && gameState.prePerm(handTwo) == 41
-                && handTwo[13].getSuit() != "empty suit") {
-            return playerNames[1] + " has won!!! Yippee!";
-        }
-        else if(gameState.getPlayerID() == 2 && gameState.prePerm(handThree) == 41
-                && handThree[13].getSuit() != "empty suit") {
-            return playerNames[2] + " has won!!! Yippee!";
-        }
-        else if(gameState.getPlayerID() == 3 && gameState.prePerm(handFour) == 41
-                && handFour[13].getSuit() != "empty suit") {
-            return playerNames[3] + " has won!!! Yippee!";
-        }
-        else {
-            return null;
-        }
+        return null;
     }//checkIfGameOver()
 
 }//class CounterLocalGame

@@ -41,6 +41,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	private MahjongTile lastDiscarded;
 	private MahjongTile[] deck; // 136 tiles in a deck
 	private String lastDrawnTile;
+	private boolean winClicked;
 
 	//For permutation
 	private MahjongTile[] bestHanzi;
@@ -53,6 +54,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	private boolean chowMode;
 	private int origPlayer;
 
+	//For SwitchView
 	private boolean gameplayView;
 
 	/**
@@ -84,6 +86,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.deck = mahjongDeck(this.deck);
 		this.lastDiscarded = null;
 		this.lastDrawnTile = "none";
+		winClicked = false;
 
 		dealTiles();
 		sortDeck();
@@ -128,7 +131,8 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.pair = mgs.pair;
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
-		this.gameplayView = true;
+		this.gameplayView = mgs.gameplayView;
+		this.winClicked = mgs.winClicked;
 
 	}
 
@@ -1080,6 +1084,10 @@ public class MahjongGameState extends GameState implements Serializable {
 		return gameplayView;
 	}
 
+	public boolean isWinClicked() {
+		return winClicked;
+	}
+
 	/**
 	 * Setter Methods
 	 */
@@ -1125,5 +1133,9 @@ public class MahjongGameState extends GameState implements Serializable {
 
 	public void setGameplayView(boolean gameplayView) {
 		this.gameplayView = gameplayView;
+	}
+
+	public void setWinClicked(boolean winClicked) {
+		this.winClicked = winClicked;
 	}
 }
