@@ -34,7 +34,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  *		when it should only be clickable to end the game. We ran out of time to code in the
  *		restriction. We plan on implementing this by making sure the specific button ID can only
  *		be clicked in human player when adding the most recently drawn tile can produce a winning
- *		hand.(Using our permutation sort method)
+ *		hand.(Using our permutation sort method) 31 or 40
  *	- If "Win" button is clicked and the human player has a winning hand, the checkIfGameOver win
  *		message doesn't always pop up.
  *	- Similarly, computer players currently cannot win because they do not have access to the last

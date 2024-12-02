@@ -308,6 +308,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 				break;
 		}
 
+		if (state.prePerm(hand) == 40 || state.prePerm(hand) == 31) {
+
+		}
+
 		//Load GUI
 		MahjongTile mt ;
 
