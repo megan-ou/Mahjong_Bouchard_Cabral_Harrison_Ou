@@ -65,7 +65,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btHome;
 	private Button btTutorial;
 	private Button btPause;
-    //private Button btReturn;
+    //private Button btReturn; TODO: Old SwitchView Code
 
 	//References to imageViews
 	private ImageView IVnum0;
@@ -174,10 +174,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		else if (button.getId() == R.id.btChow ) {
 			game.sendAction(chowAction);
 		}
-		//TableView button
-		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
-			game.sendAction(switchViewAction);
-		}
+//		//TableView button
+//		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
+//			game.sendAction(switchViewAction);
+//		} TODO: Old SwitchView code
 	}//onClick()
 
 	/**
@@ -513,7 +513,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btTutorial.setVisibility(View.GONE);
 		btPause = myActivity.findViewById(R.id.btPause);
 		btPause.setVisibility(View.GONE);
-		//btReturn = myActivity.findViewById(R.id.btReturn);
+		//btReturn = myActivity.findViewById(R.id.btReturn); TODO: old SwitchView code
 
 		//Set listeners
 		btDiscDrawn.setOnClickListener(this);
@@ -535,7 +535,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);
 		btTableView.setOnClickListener(this);
-		//btReturn.setOnClickListener(this);
+		//btReturn.setOnClickListener(this); TODO: old SwitchView code
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);

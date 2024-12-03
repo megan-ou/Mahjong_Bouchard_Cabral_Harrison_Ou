@@ -181,19 +181,19 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 return true;
             }
 
-            else if (action instanceof MahjongSwitchViewAction) {
-                //Tell human player which GUI to view
-                //If it is currently in gameplay, switch to table view
-                if (gameState.isGameplayView()) {
-                    gameState.setGameplayView(false);
-                }
-                //If in table view, switch to gameplay
-                else {
-                    gameState.setGameplayView(true);
-                }
-
-                return true;
-            }
+//            else if (action instanceof MahjongSwitchViewAction) {
+//                //Tell human player which GUI to view
+//                //If it is currently in gameplay, switch to table view
+//                if (gameState.isGameplayView()) {
+//                    gameState.setGameplayView(false);
+//                }
+//                //If in table view, switch to gameplay
+//                else {
+//                    gameState.setGameplayView(true);
+//                }
+//
+//                return true;
+//            } TODO: Old SwitchView Code
         }
         return false;
     }//makeMove()

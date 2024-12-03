@@ -55,7 +55,7 @@ public class MahjongGameState extends GameState implements Serializable {
 	private int origPlayer;
 
 	//For SwitchView
-	private boolean gameplayView;
+	//private boolean gameplayView; TODO: Old SwitchView code
 
 	/**
 	 * Default ctor
@@ -101,7 +101,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		chowMode = false;
 		origPlayer = -1;
 
-		gameplayView = true;
+		//gameplayView = true; TODO: Old SwitchView code
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.pair = mgs.pair;
 		this.chowMode = mgs.chowMode;
 		this.origPlayer = mgs.origPlayer;
-		this.gameplayView = mgs.gameplayView;
+		//this.gameplayView = mgs.gameplayView; TODO: Old SwitchView Code
 		this.winClicked = mgs.winClicked;
 
 	}
@@ -1087,9 +1087,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		return chowMode;
 	}
 
-	public boolean isGameplayView() {
-		return gameplayView;
-	}
+//	public boolean isGameplayView() {
+//		return gameplayView;
+//	} TODO: Old SwitchView Code
 
 	public boolean isWinClicked() {
 		return winClicked;
@@ -1138,9 +1138,9 @@ public class MahjongGameState extends GameState implements Serializable {
 		this.playerFourHand[index] = tile;
 	}
 
-	public void setGameplayView(boolean gameplayView) {
-		this.gameplayView = gameplayView;
-	}
+//	public void setGameplayView(boolean gameplayView) {
+//		this.gameplayView = gameplayView;
+//	} TODO: Old SwitchView Code
 
 	public void setWinClicked(boolean winClicked) {
 		this.winClicked = winClicked;
