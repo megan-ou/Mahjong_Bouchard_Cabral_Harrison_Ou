@@ -57,7 +57,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btDisc11;
 	private Button btDisc12;
 	private Button btDisc13;
-	private Button btDisc14;
+	private Button btWin;
 	private Button btDraw;
 	private Button btRestart;
 	private Button btChow;
@@ -93,6 +93,9 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	//Checker for mahjong tile to prevent double printing
 	MahjongTile lastDiscardCheck = new MahjongTile("null", 0);
 
+	//Human Player's hand
+	MahjongTile[] hand = new MahjongTile[14];
+
 	/**
 	 * Constructor: Populates discButtonIDArray with each unique discard button ID
 	 *
@@ -118,6 +121,21 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[12] = R.id.btDiscSlot12;
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
+
+		switch (playerNum){
+			case 0:
+				hand = state.getPlayerOneHand();
+				break;
+			case 1:
+				hand = state.getPlayerTwoHand();
+				break;
+			case 2:
+				hand = state.getPlayerThreeHand();
+				break;
+			case 3:
+				hand = state.getPlayerFourHand();
+				break;
+		}
     } //ctor
 
 	/**
@@ -148,6 +166,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		if (button.getId() == R.id.btDraw && state.getPlayerID() == playerNum) {
 			game.sendAction(drawTileAction);
 			setHandGUI(IVDrawnTile,state.getCurrentDrawnTile());
+			if (state.prePerm(hand) == 41) {
+				btWin.isClickable();
+				btWin.setBackgroundColor(Color.GREEN);
+			}
 		}
 
 		//Discard button
@@ -281,27 +303,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	 * @param tile - the tile you want to send to the image view (leave null if setting whole hand)
 	 */
 	public void setHandGUI(ImageView iVsingle, MahjongTile tile){
-
-		MahjongTile[] hand = new MahjongTile[14];
-
-		switch (playerNum){
-			case 0:
-				hand = state.getPlayerOneHand();
-				break;
-			case 1:
-				hand = state.getPlayerTwoHand();
-				break;
-			case 2:
-				hand = state.getPlayerThreeHand();
-				break;
-			case 3:
-				hand = state.getPlayerFourHand();
-				break;
-		}
-
-		if (state.prePerm(hand) == 40 || state.prePerm(hand) == 31) {
-
-		}
 
 		//Load GUI
 		MahjongTile mt ;
@@ -500,7 +501,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc11 = myActivity.findViewById(R.id.btDiscSlot11);
 		btDisc12 = myActivity.findViewById(R.id.btDiscSlot12);
 		btDisc13 = myActivity.findViewById(R.id.btDiscSlot13);
-		btDisc14 = myActivity.findViewById(R.id.btDiscSlot14);
+		btWin = myActivity.findViewById(R.id.btDiscSlot14);
 		btDraw = myActivity.findViewById(R.id.btDraw);
 		btRestart = myActivity.findViewById(R.id.btRestart);
 		btChow = myActivity.findViewById(R.id.btChow);
@@ -527,7 +528,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btDisc11.setOnClickListener(this);
 		btDisc12.setOnClickListener(this);
 		btDisc13.setOnClickListener(this);
-		btDisc14.setOnClickListener(this);
+		btWin.setOnClickListener(this);
 		btDraw.setOnClickListener(this);
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);

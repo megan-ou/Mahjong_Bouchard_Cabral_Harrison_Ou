@@ -141,7 +141,7 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		int bestDiscard = 0; //Index of the tile that would be best to discard
 		String holdSuit = "";
 
-		hand[13] = mgs.getCurrentDrawnTile();
+		//hand[13] = mgs.getCurrentDrawnTile();
 		for(int i = 0; i < hand.length; i++){
 			holdSuit = hand[i].getSuit();
 			hand[i].setSuit("empty");
