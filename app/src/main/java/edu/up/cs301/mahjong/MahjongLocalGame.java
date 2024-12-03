@@ -82,6 +82,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
     protected boolean makeMove(GameAction action) {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
+        MahjongTile[] currHand = new MahjongTile[14]; //copy of current player's hand
 
         //If drawable tiles run out, reshuffle the discard pile and make all discarded tiles
         //drawable
@@ -93,6 +94,22 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
 
 
         if (canMove(playerID)) {
+            //set current hand
+            switch (playerID){
+                case 0:
+                    currHand = gameState.getPlayerOneHand();
+                    break;
+                case 1:
+                    currHand = gameState.getPlayerTwoHand();
+                    break;
+                case 2:
+                    currHand = gameState.getPlayerThreeHand();
+                    break;
+                case 3:
+                    currHand = gameState.getPlayerFourHand();
+                    break;
+            }
+
             if (action instanceof MahjongDrawTileAction && !hasDrawnTile) {
                 //If it is chow mode and draw tile (renamed to continue) is clicked,
                 //exit chow mode
@@ -127,6 +144,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 int[] allButtonIDs = ((MahjongDiscardTileAction) action).getAllButtonIDs();
 
                 drawnTile = gameState.getCurrentDrawnTile();
+
+                if (buttonID == allButtonIDs[14] && gameState.prePerm(currHand) != 41) {
+                    return false;
+                }
 
                 //Iterate through all possible discard buttons
                 for (int i = 0; i < allButtonIDs.length; i++) {
@@ -275,16 +296,19 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         }
 
         //Count number of sets in hand before chow
-        numSetsBefore = gameState.prePerm(copyHand);
+        numSetsBefore = gameState.countNumSets(copyHand);
 
         //Set the null 14th tile slot to last discarded
         copyHand[13] = lastDiscarded;
 
+        //Sort the hand
+        gameState.sortHand(copyHand);
+
         //Sort hand and count number of sets after chow
-        numSetsAfter = gameState.prePerm(copyHand);
+        numSetsAfter = gameState.countNumSets(copyHand);
 
         //See if the number of sets increases if you were to chow that tile
-        if (numSetsBefore < numSetsAfter) {
+        if ((numSetsBefore + 1) == numSetsAfter) {
             return true;
         }
 

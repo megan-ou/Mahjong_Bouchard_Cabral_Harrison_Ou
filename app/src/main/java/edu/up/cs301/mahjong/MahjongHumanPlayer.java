@@ -122,20 +122,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		discButtonIDArray[13] = R.id.btDiscSlot13;
 		discButtonIDArray[14] = R.id.btDiscSlot14;
 
-		switch (playerNum){
-			case 0:
-				hand = state.getPlayerOneHand();
-				break;
-			case 1:
-				hand = state.getPlayerTwoHand();
-				break;
-			case 2:
-				hand = state.getPlayerThreeHand();
-				break;
-			case 3:
-				hand = state.getPlayerFourHand();
-				break;
-		}
+
     } //ctor
 
 	/**
@@ -242,6 +229,7 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Update our state; then update the display
 		this.state = (MahjongGameState)info;
 
+		//Update hand
 		setHandGUI(null, null);
 
 		//Update the display to reflect this new state IF it is human player's turn
@@ -307,21 +295,22 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Load GUI
 		MahjongTile mt ;
 
-		//References to imageview objects stored in XML
-		IVnum0 = myActivity.findViewById(R.id.iVCSlot1);
-		IVnum1 = myActivity.findViewById(R.id.iVCSlot2);
-		IVnum2 = myActivity.findViewById(R.id.iVCSlot3);
-		IVnum3 = myActivity.findViewById(R.id.iVCSlot4);
-		IVnum4 = myActivity.findViewById(R.id.iVCSlot5);
-		IVnum5 = myActivity.findViewById(R.id.iVCSlot6);
-		IVnum6 = myActivity.findViewById(R.id.iVCSlot7);
-		IVnum7 = myActivity.findViewById(R.id.iVCSlot8);
-		IVnum8 = myActivity.findViewById(R.id.iVCSlot9);
-		IVnum9 = myActivity.findViewById(R.id.iVCSlot10);
-		IVnum10 = myActivity.findViewById(R.id.iVCSlot11);
-		IVnum11 = myActivity.findViewById(R.id.iVCSlot12);
-		IVnum12 = myActivity.findViewById(R.id.iVCSlot13);
-		IVnum13 = myActivity.findViewById(R.id.iVCSlotB14);
+		//get updated hand
+		switch (playerNum){
+			case 0:
+				hand = state.getPlayerOneHand();
+				break;
+			case 1:
+				hand = state.getPlayerTwoHand();
+				break;
+			case 2:
+				hand = state.getPlayerThreeHand();
+				break;
+			case 3:
+				hand = state.getPlayerFourHand();
+				break;
+		}
+
 		ArrayList<ImageView> IVCurr = new ArrayList<>();
 
 		if(tile == null) {
@@ -537,6 +526,22 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);
 		playerTurn = myActivity.findViewById(R.id.playerName);
+
+		//	ImageViews
+		IVnum0 = myActivity.findViewById(R.id.iVCSlot1);
+		IVnum1 = myActivity.findViewById(R.id.iVCSlot2);
+		IVnum2 = myActivity.findViewById(R.id.iVCSlot3);
+		IVnum3 = myActivity.findViewById(R.id.iVCSlot4);
+		IVnum4 = myActivity.findViewById(R.id.iVCSlot5);
+		IVnum5 = myActivity.findViewById(R.id.iVCSlot6);
+		IVnum6 = myActivity.findViewById(R.id.iVCSlot7);
+		IVnum7 = myActivity.findViewById(R.id.iVCSlot8);
+		IVnum8 = myActivity.findViewById(R.id.iVCSlot9);
+		IVnum9 = myActivity.findViewById(R.id.iVCSlot10);
+		IVnum10 = myActivity.findViewById(R.id.iVCSlot11);
+		IVnum11 = myActivity.findViewById(R.id.iVCSlot12);
+		IVnum12 = myActivity.findViewById(R.id.iVCSlot13);
+		IVnum13 = myActivity.findViewById(R.id.iVCSlotB14);
 	}//initializeObjects()
 
 	/**

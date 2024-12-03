@@ -126,7 +126,7 @@ public class MahjongComputerPlayer1 extends GameComputerPlayer implements Tickab
 				discButtonIDArray);
 
 		if (Math.random() >= 0.15) { //85% of the time discard from hand
-			discardTileAction.setDiscardButtonID((int) (Math.random() * 12.0) + 1);
+			discardTileAction.setDiscardButtonID((int) (Math.random() * 13.0) + 1);
 			game.sendAction(discardTileAction);
 		}
 		else {

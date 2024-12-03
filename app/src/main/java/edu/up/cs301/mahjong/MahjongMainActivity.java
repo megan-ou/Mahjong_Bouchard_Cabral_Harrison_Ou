@@ -11,6 +11,11 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
 /**
  * This is the primary activity for mahjong game
  *
+ * Final Release Removed Features:
+ * SwitchView and Chow
+ *
+ * Final Release
+ *
  * Beta Release Missing Features:
  * 	- SwitchViewAction was not implemented because we could not figure out how to switch
  * 		GUI layouts without crashing or breaking the game. Might get rid of this feature because
