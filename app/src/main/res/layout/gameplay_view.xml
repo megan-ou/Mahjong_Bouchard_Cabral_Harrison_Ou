@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Restart"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/btPause"
@@ -126,6 +126,7 @@
                     android:id="@+id/btTableView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:text="See Revealed Tiles"
                    />
         </LinearLayout>

@@ -1,6 +1,9 @@
 package edu.up.cs301.mahjong;
 
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import edu.up.cs301.mahjong.tiles.DotsTile;
 import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
@@ -343,7 +346,6 @@ public class MahjongGameStateTest extends TestCase {
         assertEquals(0, mgs.getDeck()[59].getLocationNum());
         assertEquals(0, mgs.getDeck()[27].getLocationNum());
         assertEquals(0, mgs.getDeck()[125].getLocationNum());
-
-
     }
+
 }
