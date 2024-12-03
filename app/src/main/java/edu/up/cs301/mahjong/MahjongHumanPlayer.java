@@ -166,10 +166,10 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		if (button.getId() == R.id.btDraw && state.getPlayerID() == playerNum) {
 			game.sendAction(drawTileAction);
 			setHandGUI(IVDrawnTile,state.getCurrentDrawnTile());
-			if (state.prePerm(hand) == 41) {
-				btWin.isClickable();
-				btWin.setBackgroundColor(Color.GREEN);
-			}
+//			if (state.prePerm(hand) == 41) {
+//				btWin.isClickable();
+//				btWin.setBackgroundColor(Color.GREEN);
+//			}
 		}
 
 		//Discard button
