@@ -410,8 +410,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         MahjongTile[] handFour = gameState.getPlayerFourHand();
 
         if (gameState.isWinClicked()) {
-            if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) == 41) {
-                return playerNames[0] + " has won!!! Yippee!";
+            if (gameState.getPlayerID() == 0){
+                handOne[13] = gameState.getCurrentDrawnTile();
+                if( gameState.prePerm(handOne) == 41) {
+                return playerNames[0] + " has won!!! Yippee!";}
             } else if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) != 41) {
                 System.out.println("not 41");
                 return null;
