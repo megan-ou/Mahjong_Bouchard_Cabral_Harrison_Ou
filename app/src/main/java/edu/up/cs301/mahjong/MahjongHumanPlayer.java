@@ -65,7 +65,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 	private Button btHome;
 	private Button btTutorial;
 	private Button btPause;
-    //private Button btReturn;
 
 	//References to imageViews
 	private ImageView IVnum0;
@@ -144,7 +143,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		MahjongDrawTileAction drawTileAction = new MahjongDrawTileAction(this);
 		MahjongDiscardTileAction discardTileAction = new MahjongDiscardTileAction(this,discButtonIDArray);
 		MahjongChowAction chowAction = new MahjongChowAction(this);
-		MahjongSwitchViewAction switchViewAction = new MahjongSwitchViewAction(this);
 
 		//Draw button
 		if (button.getId() == R.id.btDraw && state.getPlayerID() == playerNum) {
@@ -173,10 +171,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		//Chow button
 		else if (button.getId() == R.id.btChow ) {
 			game.sendAction(chowAction);
-		}
-		//TableView button
-		else if (button.getId() == R.id.btTableView || button.getId() == R.id.btReturn) {
-			game.sendAction(switchViewAction);
 		}
 	}//onClick()
 
@@ -513,7 +507,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btTutorial.setVisibility(View.GONE);
 		btPause = myActivity.findViewById(R.id.btPause);
 		btPause.setVisibility(View.GONE);
-		//btReturn = myActivity.findViewById(R.id.btReturn);
 
 		//Set listeners
 		btDiscDrawn.setOnClickListener(this);
@@ -535,7 +528,6 @@ public class MahjongHumanPlayer extends GameHumanPlayer implements OnClickListen
 		btRestart.setOnClickListener(this);
 		btChow.setOnClickListener(this);
 		btTableView.setOnClickListener(this);
-		//btReturn.setOnClickListener(this);
 
 		//    textviews
 		discardPile = myActivity.findViewById(R.id.mlDiscardPile);
