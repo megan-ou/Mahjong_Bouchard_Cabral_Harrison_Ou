@@ -15,7 +15,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 /**
  * This contains the state for the Mahjong game which includes methods and information about
  * specific variables relevant to the game.
- * 
+ *
  * @author Steven R. Vegdahl
  * @author Jacqui Bouchard
  * @author Jazmine Cabral
@@ -24,7 +24,7 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
  * @version October 2024
  */
 public class MahjongGameState extends GameState implements Serializable {
-	
+
 	// to satisfy Serializable interface
 	private static final long serialVersionUID = 7737393762469851826L;
 
@@ -671,7 +671,7 @@ public class MahjongGameState extends GameState implements Serializable {
 		if(chowMode){
 			return 0;
 		}
-		ArrayList<MahjongTile> misc = new ArrayList<>(); //Symbols
+		ArrayList<MahjongTile> symbols = new ArrayList<>(); //Symbols
 		ArrayList<MahjongTile> hanzi = new ArrayList<>();
 		ArrayList<MahjongTile> dots = new ArrayList<>();
 		ArrayList<MahjongTile> sticks = new ArrayList<>();
@@ -679,8 +679,10 @@ public class MahjongGameState extends GameState implements Serializable {
 		pair = 0;
 		int totalSets = 0;
 		int totalScore = 0;
-		MahjongTile[] hand;
-		hand = Arrays.copyOf(origHand, 14);
+		MahjongTile[] hand = new MahjongTile[origHand.length];
+
+		copyArray(hand, origHand); //deep copy
+
 		if (hand[13] == null && getCurrentDrawnTile() != null) {
 			hand[13] = getCurrentDrawnTile();
 		} else {
@@ -695,46 +697,37 @@ public class MahjongGameState extends GameState implements Serializable {
 
 		//first loop goes into the deck and counts how many tiles are in each suit
 		for (int i = 0; i < hand.length; i++) {
-			if(hand[i] == null){
-				System.out.println("mad");
-			}
-			if (hand[i].getTileStatus() == 3) {
-				misc.add(hand[i]);
-			} else {
-				hand[i].setTileStatus(0);
-
-				switch (hand[i].getSuit()) {
-					case "Hanzi":
-						hanzi.add(hand[i]);
-						break;
-					case "Dots":
-						dots.add(hand[i]);
-						break;
-					case "Sticks":
-						sticks.add(hand[i]);
-						break;
-					case "Fire":
-						misc.add(hand[i]);
-						break;
-					case "Water":
-						misc.add(hand[i]);
-						break;
-					case "Earth":
-						misc.add(hand[i]);
-						break;
-					case "Wind":
-						misc.add(hand[i]);
-						break;
-					case "Flower":
-						misc.add(hand[i]);
-						break;
-					case "Star":
-						misc.add(hand[i]);
-						break;
-					case "Cat":
-						misc.add(hand[i]);
-						break;
-				}
+			switch (hand[i].getSuit()) {
+				case "Hanzi":
+					hanzi.add(hand[i]);
+					break;
+				case "Dots":
+					dots.add(hand[i]);
+					break;
+				case "Sticks":
+					sticks.add(hand[i]);
+					break;
+				case "Fire":
+					symbols.add(hand[i]);
+					break;
+				case "Water":
+					symbols.add(hand[i]);
+					break;
+				case "Earth":
+					symbols.add(hand[i]);
+					break;
+				case "Wind":
+					symbols.add(hand[i]);
+					break;
+				case "Flower":
+					symbols.add(hand[i]);
+					break;
+				case "Star":
+					symbols.add(hand[i]);
+					break;
+				case "Cat":
+					symbols.add(hand[i]);
+					break;
 			}
 		}
 
@@ -758,9 +751,9 @@ public class MahjongGameState extends GameState implements Serializable {
 				sticksHand[q] = sticks.get(q);
 			}
 
-			MahjongTile[] miscHand = new MahjongTile[misc.size()];
-			for(int q = 0; q < misc.size(); q++){
-				miscHand[q] = misc.get(q);
+			MahjongTile[] symbolsHand = new MahjongTile[symbols.size()];
+			for(int q = 0; q < symbols.size(); q++){
+				symbolsHand[q] = symbols.get(q);
 			}
 
 			//Run permutation sort on each numbered suit with 4 or more tiles
@@ -801,13 +794,13 @@ public class MahjongGameState extends GameState implements Serializable {
 				totalSets += countNumSets(sticksHand);
 			}
 
-		if (miscHand.length > 2) {
-			sortHand(miscHand);
-			totalSets += countNumSets(miscHand);
+		if (symbolsHand.length > 2) {
+			sortHand(symbolsHand);
+			totalSets += countNumSets(symbolsHand);
 		}
 
-		if (pair < 1 && miscHand.length > 1) {
-			pair += countNumPairs(miscHand);
+		if (pair < 1 && symbolsHand.length > 1) {
+			pair += countNumPairs(symbolsHand);
 		}
 
 		totalScore = (10 * totalSets) + pair;
@@ -836,8 +829,8 @@ public class MahjongGameState extends GameState implements Serializable {
 					origHand[index] = dt;
 					index++;
 				}
-				for (MahjongTile miscTile : miscHand) {
-					origHand[index] = miscTile;
+				for (MahjongTile smt : symbolsHand) {
+					origHand[index] = smt;
 					index++;
 				}
 			}
