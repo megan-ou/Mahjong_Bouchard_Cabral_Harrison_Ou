@@ -296,16 +296,19 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         }
 
         //Count number of sets in hand before chow
-        numSetsBefore = gameState.prePerm(copyHand);
+        numSetsBefore = gameState.countNumSets(copyHand);
 
         //Set the null 14th tile slot to last discarded
         copyHand[13] = lastDiscarded;
 
+        //Sort the hand
+        gameState.sortHand(copyHand);
+
         //Sort hand and count number of sets after chow
-        numSetsAfter = gameState.prePerm(copyHand);
+        numSetsAfter = gameState.countNumSets(copyHand);
 
         //See if the number of sets increases if you were to chow that tile
-        if (numSetsBefore < numSetsAfter) {
+        if ((numSetsBefore + 1) == numSetsAfter) {
             return true;
         }
 
