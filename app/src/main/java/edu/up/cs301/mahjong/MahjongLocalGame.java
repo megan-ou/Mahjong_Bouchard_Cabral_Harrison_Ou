@@ -245,6 +245,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
             gameState.getPlayerOneHand()[index] = null;
             //Set drawn tile to player hand
             gameState.getPlayerOneHand()[index] = drawnTile;
+            gameState.sortHand(gameState.getPlayerOneHand());
         }
 
         if (playerID == 1) {
