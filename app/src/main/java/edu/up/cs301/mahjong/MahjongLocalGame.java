@@ -88,7 +88,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         //drawable
         if (!tileDrawable()) {
             gameState.reshuffleDiscard();
-            Log.e("Deck Updated", "Discard pile was reshuffled.")
+            Log.e("Deck Updated", "Discard pile was reshuffled.");
         }
 
         Log.i("action", action.getClass().toString());
