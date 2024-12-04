@@ -814,26 +814,26 @@ public class MahjongGameState extends GameState implements Serializable {
 		 * Game is over only when totalScore == 41, then hand will change in response
 		 *
 		 */
-			if(totalScore == 41) {
-				//Reassign sorted suits into the player's original hand
-				int index = 0;
-				for (MahjongTile ht : hanziHand) {
-					origHand[index] = ht;
-					index++;
-				}
-				for (MahjongTile st : sticksHand) {
-					origHand[index] = st;
-					index++;
-				}
-				for (MahjongTile dt : dotsHand) {
-					origHand[index] = dt;
-					index++;
-				}
-				for (MahjongTile smt : symbolsHand) {
-					origHand[index] = smt;
-					index++;
-				}
-			}
+//			if(totalScore == 41) {
+//				//Reassign sorted suits into the player's original hand
+//				int index = 0;
+//				for (MahjongTile ht : hanziHand) {
+//					origHand[index] = ht;
+//					index++;
+//				}
+//				for (MahjongTile st : sticksHand) {
+//					origHand[index] = st;
+//					index++;
+//				}
+//				for (MahjongTile dt : dotsHand) {
+//					origHand[index] = dt;
+//					index++;
+//				}
+//				for (MahjongTile smt : symbolsHand) {
+//					origHand[index] = smt;
+//					index++;
+//				}
+//			}
 
 		return totalScore;
 	}
