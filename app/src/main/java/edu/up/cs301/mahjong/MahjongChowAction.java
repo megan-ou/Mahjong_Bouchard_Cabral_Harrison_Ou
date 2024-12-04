@@ -22,7 +22,6 @@ public class MahjongChowAction extends GameAction implements Serializable {
      */
     public MahjongChowAction(GamePlayer player){
         super(player);
-
     }
 
 }
