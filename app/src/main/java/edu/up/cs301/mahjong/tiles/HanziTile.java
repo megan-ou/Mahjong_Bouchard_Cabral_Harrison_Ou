@@ -17,8 +17,4 @@ public class HanziTile extends MahjongTile implements Serializable {
         super("Hanzi", value);
     }
 
-    //@Override
-    //public void displayTile() {
-
-    //}
 }

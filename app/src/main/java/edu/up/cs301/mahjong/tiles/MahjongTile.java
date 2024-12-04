@@ -91,10 +91,10 @@ public class MahjongTile implements Serializable {
     /** Converts tile data to a string **/
     public String toString() {
         if (getValue() == 0) {
-            return getSuit();
+            return this.suit;
         }
         else {
-            return getValue() + " of " + getSuit();
+            return (this.value + " of " + this.suit);
         }
     }
 
