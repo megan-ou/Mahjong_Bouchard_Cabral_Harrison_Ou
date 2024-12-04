@@ -93,13 +93,13 @@ public class MahjongComputerPlayer2 extends MahjongComputerPlayer1 implements Se
 		}
 
 		//Send a draw action to exit chow mode
-		if (mgs.isChowMode()) {
-			game.sendAction(new MahjongDrawTileAction(this));
-			hasDrawnTile = false; //just to be safe
+		if (mgs.isChowMode() && !hasDrawnTile) {
+			game.sendAction(new MahjongChowAction(this));
+			hasDrawnTile = true; //just to be safe
 		}
 
-		//Draw a tile if a tile has not yet been drawn
-		else if (!hasDrawnTile) {
+		//Draw a tile if a tile has not yet been drawn and is not chow mode
+		else if (!mgs.isChowMode() && !hasDrawnTile) {
 			game.sendAction(new MahjongDrawTileAction(this));
 			Log.e("Computer Player", "Tile is drawn");
 			hasDrawnTile = true;

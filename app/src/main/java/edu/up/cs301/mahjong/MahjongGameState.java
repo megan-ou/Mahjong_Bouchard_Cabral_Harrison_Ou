@@ -758,6 +758,8 @@ public class MahjongGameState extends GameState implements Serializable {
 
 			//Run permutation sort on each numbered suit with 4 or more tiles
 			//If less than 4 tiles run traditional sort (by suit and value)
+			//use permutation to sort if there are more than 4 tiles in a suit
+			//there is no reason to sort if there are less than 4 tiles
 			if(hanziHand.length >= 4){
 				permutationSort(hanziHand, 0, bestHanzi);
 				hanziHand = Arrays.copyOf(bestHanzi, bestHanzi.length);

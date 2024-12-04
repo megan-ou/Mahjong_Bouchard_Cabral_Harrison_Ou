@@ -296,6 +296,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
             copyHand[i] = playerHand[i];
         }
 
+        //sort the hand
+
+        gameState.sortHand(copyHand);
+
         //Count number of sets in hand before chow
         numSetsBefore = gameState.countNumSets(copyHand);
 
@@ -411,18 +415,18 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         MahjongTile[] handFour = gameState.getPlayerFourHand();
 
         if (gameState.isWinClicked()) {
-            if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) == 41) {
+            //if win is clicked, discard occurs which increments a player's turn, so look at
+            //previous player's hand to determine a win.
+            int playerID = gameState.getPlayerID() - 1;
+            if (playerID == 0 && gameState.prePerm(handOne) == 41) {
                 return playerNames[0] + " has won!!! Yippee!";
-            } else if (gameState.getPlayerID() == 0 && gameState.prePerm(handOne) != 41) {
-                System.out.println("not 41");
-                return null;
-            } else if (gameState.getPlayerID() == 1 && gameState.prePerm(handTwo) == 41
+            } else if (playerID == 1 && gameState.prePerm(handTwo) == 41
                     && handTwo[13].getSuit() != "empty suit") {
                 return playerNames[1] + " has won!!! Yippee!";
-            } else if (gameState.getPlayerID() == 2 && gameState.prePerm(handThree) == 41
+            } else if (playerID == 2 && gameState.prePerm(handThree) == 41
                     && handThree[13].getSuit() != "empty suit") {
                 return playerNames[2] + " has won!!! Yippee!";
-            } else if (gameState.getPlayerID() == 3 && gameState.prePerm(handFour) == 41
+            } else if (playerID == 3 && gameState.prePerm(handFour) == 41
                     && handFour[13].getSuit() != "empty suit") {
                 return playerNames[3] + " has won!!! Yippee!";
             } else {
