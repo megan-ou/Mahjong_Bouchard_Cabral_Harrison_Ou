@@ -95,7 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Discard Pile: " />
+                android:text="Discard Pile: "
+                android:textSize="20sp" />
 
             <ScrollView
                 android:layout_width="match_parent"
