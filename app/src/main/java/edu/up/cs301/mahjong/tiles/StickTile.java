@@ -19,8 +19,4 @@ public class StickTile extends MahjongTile implements Serializable {
         super("Sticks", value);
     }
 
-    //@Override
-    //public void displayTile() {
-
-   //}
 }

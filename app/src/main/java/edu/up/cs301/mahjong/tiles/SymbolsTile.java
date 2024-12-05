@@ -20,9 +20,4 @@ public class SymbolsTile extends MahjongTile implements Serializable {
     public SymbolsTile(String suit) {
         super(suit, 0);
     }
-
-    //@Override
-    //public void displayTile() {
-
-    //}
 }

@@ -11,11 +11,28 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
 /**
  * This is the primary activity for mahjong game
  *
- * Final Release Removed Features:
- * SwitchView and Chow
+ * Final Release Notes:
+ *  - Sometimes it seems like the computer is not giving you the option to make a chow action. It is
+ *  	because you cannot chow a tile discarded by another player finishing up a chow move. For
+ *  	example player 1 chows a 2 of dots and discard a 3 of sticks. The 3 of sticks will complete
+ *  	your set but since it was discarded off of a chow, you are not able to chow that tile.
+ *  - We fixed the bugs with the win game message from the Beta Release and the win message should
+ *  	pop up immediately after clicking the "win" button.
+ *  - We are unsure if Smart Computer Player can win a game due to the way permutation only considers
+ *  	completed sets. It has no foresight and does not prioritize potential sets. We caught this
+ *  	last minute and have not been able to fix this.
  *
- * Final Release
- * 	- can't win with chowed tile
+ * Final Release Removed Features:
+ *  - SwitchView and Reveal Chow Tiles feature have been removed due to lack of time to learn how to
+ *  	switch between GUIs. The skeleton for this code exists in a branch in gitHub.
+ *  - Tutorial/home/pause/restart buttons have 	been removed for the same reason.
+ *
+ * Final Release Bugs:
+ *  - You cannot win on a chow. With our fix for the Win button, the game does not allow you to
+ *		click the win button on a chow move. This is likely because prePerm() will not run on chow
+ *		mode. This was written into our code previously in order to prevent crashes in prePerm().
+ *  - Only the host was able to win in network play? We found this bug last minute and are unsure
+ *  	why this works.
  *
  * Beta Release Missing Features:
  * 	- SwitchViewAction was not implemented because we could not figure out how to switch

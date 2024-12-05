@@ -4,7 +4,10 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
+import edu.up.cs301.mahjong.tiles.DotsTile;
+import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
+import edu.up.cs301.mahjong.tiles.SymbolsTile;
 
 import android.util.Log;
 
@@ -90,10 +93,10 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         //drawable
         if (!tileDrawable()) {
             gameState.reshuffleDiscard();
+            Log.e("Deck Updated", "Discard pile was reshuffled.");
         }
 
         Log.i("action", action.getClass().toString());
-
 
         if (canMove(playerID)) {
             //set current hand
