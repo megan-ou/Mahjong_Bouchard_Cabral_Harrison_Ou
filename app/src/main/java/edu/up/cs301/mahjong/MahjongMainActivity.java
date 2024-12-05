@@ -15,6 +15,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * SwitchView and Chow
  *
  * Final Release
+ * 	- can't win with chowed tile
  *
  * Beta Release Missing Features:
  * 	- SwitchViewAction was not implemented because we could not figure out how to switch

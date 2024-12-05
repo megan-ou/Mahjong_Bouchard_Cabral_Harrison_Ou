@@ -9,6 +9,7 @@ import edu.up.cs301.mahjong.tiles.MahjongTile;
 import android.util.Log;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
@@ -83,6 +84,7 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
         MahjongTile[] currHand = new MahjongTile[14]; //copy of current player's hand
+        ArrayList<MahjongTile> idxDrawn = new ArrayList<>();
 
         //If drawable tiles run out, reshuffle the discard pile and make all discarded tiles
         //drawable
@@ -127,13 +129,40 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                 //Draw tiles normally
                 else {
                     //Keep randomly selecting a tile until an unused tile is drawn
+                    int checker = 0;
                     while (!hasDrawnTile) {
-                        drawnTile = gameState.getDeck()[(int) (Math.random() * 135.0)];
+                        //Checking for AI continually drawing
+                        //If they are continually drawing, reshuffle the discard deck
+                        if(checker > 300){
+                            Log.e("noTileToDraw", "No tile to draw");
+                            gameState.reshuffleDiscard();}
+
+                        //Get the randomly drawn tile
+                        int rand = ((int) (Math.random() * 136.0));
+                        if (rand < gameState.getDeck().length) {
+                            drawnTile = gameState.getDeck()[rand];
+                        }
+                        checker++;
+
+
                         if (drawnTile.getLocationNum() == 0) {
                             gameState.setCurrentDrawnTile(drawnTile);
                             drawnTile.setLocationNum(gameState.getPlayerID() + 1);
                             hasDrawnTile = true;
                         }
+//                        else {
+//                            idxDrawn.add(drawnTile);
+//                            while(drawnTile.getLocationNum() != 0){
+//                                if(rand+1 > 135){
+//                                    rand = 0;
+//                                }
+//                                drawnTile = gameState.getDeck()[rand++];
+//                                checker++;
+//                                if (checker > 1000) {
+//                                    Log.e("noTileToDraw", "No tile to draw");
+//                                }
+//                            }
+//                        }
                     }
                     return true;
                 }
@@ -419,16 +448,16 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
             //previous player's hand to determine a win.
             int playerID = gameState.getPlayerID() - 1;
             if (playerID == 0 && gameState.prePerm(handOne) == 41) {
-                return playerNames[0] + " has won!!! Yippee!";
+                return playerNames[0] + " has won!!! Yippee!\n";
             } else if (playerID == 1 && gameState.prePerm(handTwo) == 41
                     && handTwo[13].getSuit() != "empty suit") {
-                return playerNames[1] + " has won!!! Yippee!";
+                return playerNames[1] + " has won!!! Yippee!\n";
             } else if (playerID == 2 && gameState.prePerm(handThree) == 41
                     && handThree[13].getSuit() != "empty suit") {
-                return playerNames[2] + " has won!!! Yippee!";
+                return playerNames[2] + " has won!!! Yippee!\n";
             } else if (playerID == 3 && gameState.prePerm(handFour) == 41
                     && handFour[13].getSuit() != "empty suit") {
-                return playerNames[3] + " has won!!! Yippee!";
+                return playerNames[3] + " has won!!! Yippee!\n";
             } else {
                 return null;
             }
