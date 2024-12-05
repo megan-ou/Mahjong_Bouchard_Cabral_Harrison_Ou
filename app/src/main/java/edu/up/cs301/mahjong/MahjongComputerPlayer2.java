@@ -3,13 +3,9 @@ package edu.up.cs301.mahjong;
 import edu.up.cs301.GameFramework.infoMessage.GameInfo;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
 
-import android.app.Activity;
-import android.os.Handler;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 

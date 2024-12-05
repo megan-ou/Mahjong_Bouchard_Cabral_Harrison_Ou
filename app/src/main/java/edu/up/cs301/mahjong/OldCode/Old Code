@@ -533,3 +533,18 @@ Removed From onClick in human player:
 //				btWin.isClickable();
 //				btWin.setBackgroundColor(Color.GREEN);
 //			}
+
+Removed from makeMove(action) in MahjongLocalGame:
+//                        else {
+//                            idxDrawn.add(drawnTile);
+//                            while(drawnTile.getLocationNum() != 0){
+//                                if(rand+1 > 135){
+//                                    rand = 0;
+//                                }
+//                                drawnTile = gameState.getDeck()[rand++];
+//                                checker++;
+//                                if (checker > 1000) {
+//                                    Log.e("noTileToDraw", "No tile to draw");
+//                                }
+//                            }
+//

@@ -14,13 +14,16 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  * Final Release Notes:
  *  - Sometimes it seems like the computer is not giving you the option to make a chow action. It is
  *  	because you cannot chow a tile discarded by another player finishing up a chow move. For
- *  	example player 1 chows a 2 of dots and discard a 3 of sticks. The 3 of sticks will complete
+ *  	example player 1 chows a 2 of dots and discards a 3 of sticks. The 3 of sticks will complete
  *  	your set but since it was discarded off of a chow, you are not able to chow that tile.
  *  - We fixed the bugs with the win game message from the Beta Release and the win message should
  *  	pop up immediately after clicking the "win" button.
  *  - We are unsure if Smart Computer Player can win a game due to the way permutation only considers
  *  	completed sets. It has no foresight and does not prioritize potential sets. We caught this
- *  	last minute and have not been able to fix this.
+ *  	last minute and didn't have the necessary time to fix it.
+ *  - Over time, as the game is played, the actions as displayed in the GUI begin to lag (happens
+ *  	after the game has been played over ten minutes or so). This could be because our
+ *  	permutations are attributing a load to run time as they are accomplished after every action.
  *
  * Final Release Removed Features:
  *  - SwitchView and Reveal Chow Tiles feature have been removed due to lack of time to learn how to
@@ -32,7 +35,7 @@ import edu.up.cs301.GameFramework.gameConfiguration.*;
  *		click the win button on a chow move. This is likely because prePerm() will not run on chow
  *		mode. This was written into our code previously in order to prevent crashes in prePerm().
  *  - Only the host was able to win in network play? We found this bug last minute and are unsure
- *  	why this works.
+ *  	why this happens.
  *
  * Beta Release Missing Features:
  * 	- SwitchViewAction was not implemented because we could not figure out how to switch

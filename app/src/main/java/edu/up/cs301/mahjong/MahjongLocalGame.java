@@ -4,15 +4,11 @@ import edu.up.cs301.GameFramework.infoMessage.GameState;
 import edu.up.cs301.GameFramework.players.GamePlayer;
 import edu.up.cs301.GameFramework.LocalGame;
 import edu.up.cs301.GameFramework.actionMessage.GameAction;
-import edu.up.cs301.mahjong.tiles.DotsTile;
-import edu.up.cs301.mahjong.tiles.HanziTile;
 import edu.up.cs301.mahjong.tiles.MahjongTile;
-import edu.up.cs301.mahjong.tiles.SymbolsTile;
 
 import android.util.Log;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * A class that represents the state of a game. In our mahjong game, the relevant information is
@@ -87,7 +83,6 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
         int playerID = gameState.getPlayerID();
         drawnTile = gameState.getCurrentDrawnTile();
         MahjongTile[] currHand = new MahjongTile[14]; //copy of current player's hand
-        ArrayList<MahjongTile> idxDrawn = new ArrayList<>();
 
         //If drawable tiles run out, reshuffle the discard pile and make all discarded tiles
         //drawable
@@ -129,43 +124,29 @@ public class MahjongLocalGame extends LocalGame implements Serializable {
                     return true;
                 }
 
-                //Draw tiles normally
                 else {
-                    //Keep randomly selecting a tile until an unused tile is drawn
-                    int checker = 0;
-                    while (!hasDrawnTile) {
-                        //Checking for AI continually drawing
-                        //If they are continually drawing, reshuffle the discard deck
-                        if(checker > 300){
-                            Log.e("noTileToDraw", "No tile to draw");
-                            gameState.reshuffleDiscard();}
+                    int checker = 0; //Keep track of how many tiles have been checked to be drawn
 
-                        //Get the randomly drawn tile
-                        int rand = ((int) (Math.random() * 136.0));
-                        if (rand < gameState.getDeck().length) {
-                            drawnTile = gameState.getDeck()[rand];
+                    //Keep randomly selecting a tile until an unused tile is drawn
+                    while (!hasDrawnTile) {
+                        //If player is continually drawing without finding a usable tile,
+                        // then reshuffle the discard deck
+                        if(checker > 300) {
+                            Log.e("noTileToDraw", "No tile to draw");
+                            gameState.reshuffleDiscard();
                         }
+
+                        //Get a randomly drawn tile
+                        int rand = ((int) (Math.random() * 136.0));
+                            drawnTile = gameState.getDeck()[rand];
                         checker++;
 
-
+                        //If drawable, then set the currentDrawnTile to it
                         if (drawnTile.getLocationNum() == 0) {
                             gameState.setCurrentDrawnTile(drawnTile);
                             drawnTile.setLocationNum(gameState.getPlayerID() + 1);
                             hasDrawnTile = true;
                         }
-//                        else {
-//                            idxDrawn.add(drawnTile);
-//                            while(drawnTile.getLocationNum() != 0){
-//                                if(rand+1 > 135){
-//                                    rand = 0;
-//                                }
-//                                drawnTile = gameState.getDeck()[rand++];
-//                                checker++;
-//                                if (checker > 1000) {
-//                                    Log.e("noTileToDraw", "No tile to draw");
-//                                }
-//                            }
-//                        }
                     }
                     return true;
                 }
