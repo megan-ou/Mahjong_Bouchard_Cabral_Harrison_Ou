@@ -1,3 +1,5 @@
+This app uses a pre-written Game Framework by Steven R. Vegdahl and Andrew M. Nuxoll. Additional guidance was provided by Andrew M. Nuxoll and Steven Libby.
+
 (Notes can also be found in header comment of Main Activity)
 
 Final Release Notes:
